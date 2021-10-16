@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+
+*{
+     font-family: Montserrat, sans-serif;
+
+}
+
+ .swiper-pagination-bullet{
+      width: 12px !important;
+      height: 12px !important;
+      background-color: aquamarine !important;
+
+ }
