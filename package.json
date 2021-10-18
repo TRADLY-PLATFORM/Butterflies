@@ -6,25 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
-     },
+    "lint": "next lint",
+    "start:dev": "env-cmd -f .env.development next dev",
+    "build:dev": "env-cmd -f .env.development next build"
+  },
   "dependencies": {
-       "next": "11.1.0",
-    "next-redux-wrapper": "^7.0.2",
+    "@reduxjs/toolkit": "^1.6.2",
+    "axios": "^0.23.0",
+    "env-cmd": "^10.1.0",
+    "js-cookie": "^3.0.1",
+    "next": "11.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-redux": "^7.2.4",
     "redux": "^4.1.1",
-    "redux-thunk": "^2.3.0",
     "sass": "^1.38.1",
     "swiper": "^6.8.3"
-
-    
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@next/eslint-plugin-next": "^11.1.0",
-     "@types/react": "17.0.19",
+    "@types/react": "17.0.19",
     "autoprefixer": "^9",
     "babel-loader": "^8.2.2",
     "babel-preset-react-app": "^10.0.0",
