@@ -27,15 +27,15 @@
     "@babel/core": "^7.15.0",
     "@next/eslint-plugin-next": "^11.1.0",
     "@types/react": "17.0.19",
-    "autoprefixer": "^9",
+    "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.2",
     "babel-preset-react-app": "^10.0.0",
     "css-loader": "^6.2.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
-    "postcss": "^7",
+    "postcss": "^8.3.9",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "tailwindcss": "^2.2.17"
   }
 }

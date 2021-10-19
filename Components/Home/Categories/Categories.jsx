@@ -48,7 +48,7 @@ const Categories = () => {
                     category.map((item) => {
                         return (
 					<div
-						className=" mr-4 bg-white  rounded-xl flex flex-col justify-around items-center border border-transparent  hover:border-primary hover:bg-primary_light    "
+						className=" mr-4   bg-[#ffffff] rounded-xl flex flex-col justify-around items-center border border-transparent  shadow-c-sm hover:border-primary hover:bg-primary_light    "
 						style={{
 							width: "100px",
 							height: "100px",
@@ -59,7 +59,7 @@ const Categories = () => {
 							src={item.image}
 							alt="category"
 						/>
-						<p className=" w-11/12 mx-auto h-5 text-primary  text-xs text-center font-medium">
+						<p className=" w-11/12 mx-auto h-5 text-primary  text-xs   font-medium flex justify-center items-center">
 							{item.name}
 						</p>
 					</div>

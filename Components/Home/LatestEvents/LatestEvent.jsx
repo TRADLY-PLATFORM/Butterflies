@@ -1,0 +1,155 @@
+import React from "react";
+import image1 from "../../../assets/Images/Home/pexels-photo-789812 1-1.png";
+import image2 from "../../../assets/Images/Home/pexels-photo-789812 1-2.png";
+import image3 from "../../../assets/Images/Home/pexels-photo-789812 1.png";
+import locationMarker from "../../../assets/Images/Home/locationMarker.svg";
+import favorite from "../../../assets/Images/Home/favourite@3x.png";
+import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
+import Image from "next/Image";
+import { svgHeartIcon } from "../../../Constant/Icons/Icons";
+
+const LatestEvent = () => {
+	const events = [
+		{
+			image: image1,
+			time: "Sunday 10 July, 2021 | 8-10 AM",
+			name: "Yoga Class For beginner",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: true,
+		},
+		{
+			image: image2,
+			time: "Sunday 10 July, 2021 | 8-10 AM",
+			name: "Explore Jakarta",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: false,
+		},
+		{
+			image: image3,
+			time: "Sunday 10 July, 2021 | 8-10 AM",
+			name: "Webinar Startup \n Industries",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: true,
+		},
+	];
+	return (
+		<div className="mt-10" >
+			<div>
+				<h2 className=" text-2xl text-black font-semibold">
+					Event Today
+				</h2>
+			</div>
+			<div className=" mt-4 flex ">
+				{events.map((item) => {
+					return (
+						<div
+							className=" w-[190px] h-[268px] bg-[#FEFEFE] shadow-c-sm rounded mr-4 overflow-hidden"
+							key={Math.random() * 3000000}
+						>
+							<div className="w-full  h-[155px] relative">
+								<Image
+									src={item.image}
+									alt={item.name}
+									width={190}
+									heigh={155}
+								/>
+								<div className=" absolute w-full top-0   flex   justify-between pr-1">
+									<div className=" mt-[9px]  flex   pl-[10px]  ">
+										<svg
+											className=""
+											width="12"
+											height="14"
+											viewBox="0 0 12 14"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M11.6399 5.42004C11.5463 4.44599 11.2021 3.51276 10.6407 2.71126C10.0793 1.90975 9.31999 1.26726 8.43658 0.846372C7.55318 0.42548 6.57584 0.240523 5.59973 0.309512C4.62362 0.378501 3.68201 0.699083 2.86659 1.24004C2.16605 1.70847 1.57796 2.32624 1.14455 3.04897C0.711143 3.7717 0.443184 4.58145 0.359921 5.42004C0.278242 6.25315 0.383037 7.09399 0.666701 7.88156C0.950365 8.66913 1.40579 9.38368 1.99992 9.97338L5.53325 13.5134C5.59523 13.5759 5.66896 13.6255 5.7502 13.6593C5.83144 13.6932 5.91858 13.7106 6.00659 13.7106C6.09459 13.7106 6.18173 13.6932 6.26297 13.6593C6.34421 13.6255 6.41794 13.5759 6.47992 13.5134L9.99992 9.97338C10.5941 9.38368 11.0495 8.66913 11.3331 7.88156C11.6168 7.09399 11.7216 6.25315 11.6399 5.42004ZM9.06659 9.03338L5.99992 12.1L2.93325 9.03338C2.48131 8.58141 2.13512 8.03493 1.91957 7.43322C1.70401 6.8315 1.62444 6.18951 1.68659 5.55338C1.74913 4.90745 1.95443 4.28348 2.28763 3.7266C2.62084 3.16973 3.07362 2.69385 3.61325 2.33338C4.32055 1.86353 5.15079 1.61291 5.99992 1.61291C6.84905 1.61291 7.67929 1.86353 8.38659 2.33338C8.92458 2.69245 9.37637 3.16623 9.70949 3.72067C10.0426 4.27511 10.2488 4.89644 10.3133 5.54004C10.3774 6.17833 10.2989 6.82289 10.0832 7.42708C9.86763 8.03126 9.52036 8.57993 9.06659 9.03338ZM5.99992 3.00004C5.40658 3.00004 4.82656 3.17599 4.33321 3.50563C3.83986 3.83528 3.45534 4.30381 3.22828 4.85199C3.00122 5.40017 2.94181 6.00337 3.05756 6.58531C3.17332 7.16726 3.45904 7.70181 3.8786 8.12136C4.29816 8.54092 4.83271 8.82664 5.41465 8.9424C5.99659 9.05816 6.59979 8.99874 7.14797 8.77168C7.69615 8.54462 8.16468 8.1601 8.49433 7.66675C8.82397 7.17341 8.99992 6.59339 8.99992 6.00004C8.99816 5.20494 8.68152 4.4429 8.1193 3.88067C7.55707 3.31844 6.79503 3.0018 5.99992 3.00004ZM5.99992 7.66671C5.67028 7.66671 5.34805 7.56896 5.07397 7.38583C4.79989 7.20269 4.58627 6.94239 4.46012 6.63785C4.33398 6.33331 4.30097 5.99819 4.36528 5.67489C4.42959 5.35159 4.58832 5.05462 4.82141 4.82153C5.0545 4.58844 5.35147 4.42971 5.67477 4.3654C5.99807 4.30109 6.33318 4.3341 6.63773 4.46024C6.94227 4.58639 7.20257 4.80001 7.3857 5.07409C7.56884 5.34818 7.66659 5.67041 7.66659 6.00004C7.66659 6.44207 7.49099 6.86599 7.17843 7.17855C6.86587 7.49112 6.44195 7.66671 5.99992 7.66671Z"
+												fill="#FEFEFE"
+											/>
+										</svg>
+										<p className=" text-white text-[10px] leading-3 font-medium ml-1 mt-[1px]">
+											{
+												item.city
+											}
+										</p>
+									</div>
+									<div>
+										{item.in_like ? (
+											<Image
+												src={
+													favorite
+												}
+												alt="follow button"
+												width={
+													40
+												}
+												height={
+													40
+												}
+											/>
+										) : (
+											svgHeartIcon
+										)}
+									</div>
+								</div>
+							</div>
+							<p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
+								{item.time}
+							</p>
+							<div className="mt-2 pl-2">
+								<p className=" text-xs leading-[15px] font-semibold text-primary">
+									{item.name}
+								</p>
+								<p className=" text-[10px] leading-4 font-medium text-gray-500 mt-1">
+									{item.price}
+								</p>
+							</div>
+							<div className=" pl-2 mt-4 mb-[14px] flex items-center">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="h-5 w-5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+									/>
+								</svg>
+								<div className="ml-1">
+									<p className=" text-[10px]  leading-3 text-gray-900 font-medium">
+										{
+											item.store_name
+										}
+									</p>
+									<p className="text-[10px] leading-3 text-gray-500 font-medium ">
+										{
+											item.follower
+										}
+									</p>
+								</div>
+							</div>
+						</div>
+					);
+				})}
+			</div>
+		</div>
+	);
+};
+
+export default LatestEvent;
+
+

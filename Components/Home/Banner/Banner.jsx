@@ -23,7 +23,7 @@ const Banner = () => {
        { name:"Pitching Event Online",image:bannerImage},
      ]
     return (
-		<div className=" max-w-6xl  h-44">
+		<div className=" max-w-6xl   h-auto mb-9 mx-auto">
 			<Swiper
 				spaceBetween={30}
 				centeredSlides={true}

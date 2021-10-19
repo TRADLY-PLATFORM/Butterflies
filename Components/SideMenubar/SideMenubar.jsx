@@ -7,11 +7,9 @@ import { useRouter } from "next/dist/client/router";
 
 const SideMenubar = () => {
 	const router = useRouter();
-	console.log("====================================");
-	console.log(router.pathname);
-	console.log("====================================");
+ 
 	return (
-		<div className=" h-screen w-60 bg-white  shadow-c-sm ">
+		<div className="  w-full ">
 			<div className=" flex justify-center items-center py-9">
 				{/* This is svg image, when you set this image from API connect in next config and set the height width */}
 				<svg
