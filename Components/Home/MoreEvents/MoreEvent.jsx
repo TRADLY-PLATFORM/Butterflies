@@ -1,14 +1,16 @@
-import React from "react";
+import React, {useState, useEffect } from "react";
 import image1 from "../../../assets/Images/Home/pexels-photo-789812 1-1.png";
 import image2 from "../../../assets/Images/Home/pexels-photo-789812 1-2.png";
 import image3 from "../../../assets/Images/Home/pexels-photo-789812 1.png";
 import locationMarker from "../../../assets/Images/Home/locationMarker.svg";
-import favorite from "../../../assets/Images/Home/favourite@3x.png";
-import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
+import favorite from "../../../assets/Images/Home/favourite.png";
+import heartIcon from "../../../assets/Images/Home/heartIcon.png";
 import Image from "next/Image";
 import { svgHeartIcon } from "../../../Constant/Icons/Icons";
 
 const MoreEvent = () => {
+	const [filterEvent, setFilterEvent] = useState();
+	const [extraWidth, setExtraWidth] = useState(0);
 	const events = [
 		{
 			image: image1,
@@ -40,7 +42,53 @@ const MoreEvent = () => {
 			city: "Indonesia",
 			in_like: true,
 		},
+		{
+			image: image1,
+			time: "15 hours ago",
+			name: "Yoga Class For beginner",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: true,
+		},
+		{
+			image: image2,
+			time: "15 hours ago",
+			name: "Explore Jakarta",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: false,
+		},
+		{
+			image: image3,
+			time: "15 hours ago",
+			name: "Webinar Startup Industries",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: true,
+		},
 	];
+
+
+		useEffect(() => {
+			const width = window.innerWidth;
+			let calc;
+			if (width < 768) {
+				calc = Math.floor(width / 206);
+			} else {
+				calc = Math.floor((width - 245) / 206);
+			}
+			let extra = width - 245 - 206 * calc;
+			const sliceEvent = events.slice(0, calc);
+			setFilterEvent(sliceEvent);
+			setExtraWidth(extra);
+		}, []);
+
 	return (
 		<div className="mt-10">
 			<div>
@@ -49,49 +97,46 @@ const MoreEvent = () => {
 				</h2>
 			</div>
 			<div className=" mt-4 flex ">
-				{events.map((item) => {
+				{filterEvent?.map((item) => {
 					return (
 						<div
-							className=" w-[190px] h-[249px] shadow-c-sm rounded mr-4 overflow-hidden"
+							className=" w-[190px] h-[284px] shadow-c-sm rounded mr-4 overflow-hidden"
 							key={Math.random() * 3000000}
 						>
-							<div className="w-full  h-[155px] relative">
+							<div className="w-[190px]  h-[190px] relative">
 								<Image
 									src={item.image}
 									alt={item.name}
-									width={190}
-									heigh={155}
+									layout="fill"
+									objectFit="cover"
 								/>
 								<div className=" absolute w-full top-0   flex   justify-between pr-1">
 									<div className=" mt-[9px]  flex   pl-[10px]  ">
-										 
-										<p className=" text-white text-[10px] leading-3 font-medium ml-1 mt-[1px]">
+										<p className=" text-white text-[10px] leading-3  font-semibold ml-1 mt-[1px]">
 											{
 												item.time
 											}
 										</p>
 									</div>
-									<div>
+									<div className="w-[40px] h-[40px] ">
 										{item.in_like ? (
-											<Image
-												src={
-													favorite
-												}
-												alt="follow button"
-												width={
-													40
-												}
-												height={
-													40
-												}
-											/>
+											<div className="w-[40px] h-[40px]  relative">
+												<Image
+													src={
+														favorite
+													}
+													 layout="fill"
+													alt="follow button"
+													objectFit='cover'  
+												/>
+											</div>
 										) : (
 											svgHeartIcon
 										)}
 									</div>
 								</div>
 							</div>
-							 
+
 							<div className="mt-2 pl-2">
 								<p className=" text-xs leading-[15px] font-semibold text-primary">
 									{item.name}
@@ -121,7 +166,6 @@ const MoreEvent = () => {
 											item.store_name
 										}
 									</p>
-									 
 								</div>
 							</div>
 						</div>

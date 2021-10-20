@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import image1 from "../../../assets/Images/Home/pexels-photo-789812 1-1.png";
 import image2 from "../../../assets/Images/Home/pexels-photo-789812 1-2.png";
 import image3 from "../../../assets/Images/Home/pexels-photo-789812 1.png";
@@ -7,9 +7,13 @@ import favorite from "../../../assets/Images/Home/favourite@3x.png";
 import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
 import Image from "next/Image";
 import { svgHeartIcon } from "../../../Constant/Icons/Icons";
+import Link from "next/Link";
+import useWindowSize from "../../../Hooks/WindowSize/WindowSize";
 
 const LatestEvent = () => {
-	const events = [
+	const [filterEvent, setFilterEvent] = useState()
+	const [extraWidth,setExtraWidth]=useState(0)
+ 	const events = [
 		{
 			image: image1,
 			time: "Sunday 10 July, 2021 | 8-10 AM",
@@ -40,27 +44,91 @@ const LatestEvent = () => {
 			city: "Indonesia",
 			in_like: true,
 		},
+		{
+			image: image1,
+			time: "Sunday 10 July, 2021 | 8-10 AM",
+			name: "Yoga Class For beginner",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: true,
+		},
+		{
+			image: image2,
+			time: "Sunday 10 July, 2021 | 8-10 AM",
+			name: "Explore Jakarta",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: false,
+		},
+		{
+			image: image3,
+			time: "Sunday 10 July, 2021 | 8-10 AM",
+			name: "Webinar Startup \n Industries",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: true,
+		},
+		{
+			image: image3,
+			time: "Sunday 10 July, 2021 | 8-10 AM",
+			name: "Webinar Startup \n Industries",
+			price: "Starting at ‘500",
+			store_name: "Name Here",
+			follower: "4.5k Followers ",
+			city: "Indonesia",
+			in_like: true,
+		},
+		 
 	];
-	return (
-		<div className="mt-10" >
-			<div>
+ 
+ 
+	useEffect(() => {
+		const width = window.innerWidth;
+		let calc ;
+		if (width < 768) {
+			calc=Math.floor(width / 206);
+		}else{
+			calc=Math.floor((width - 245) / 206);
+		}
+		let extra = width - 245 - 206 * calc;
+		const sliceEvent = events.slice(0, calc);
+		setFilterEvent(sliceEvent);
+		setExtraWidth(extra)
+ 
+	}, []);
+
+	
+ 	return (
+		<div className="mt-10">
+			<div className="flex justify-between items-center  md:pr-[100px]">
 				<h2 className=" text-2xl text-black font-semibold">
 					Event Today
 				</h2>
+				<Link href="#">
+					<p className="text-base text-primary font-semibold">
+						View All
+					</p>
+				</Link>
 			</div>
-			<div className=" mt-4 flex ">
-				{events.map((item) => {
+			<div className=" mt-4 flex  ">
+				{filterEvent?.map((item) => {
 					return (
 						<div
-							className=" w-[190px] h-[268px] bg-[#FEFEFE] shadow-c-sm rounded mr-4 overflow-hidden"
+							className=" w-[190px] h-[303px] bg-[#FEFEFE] shadow-c-sm rounded mr-4 overflow-hidden"
 							key={Math.random() * 3000000}
 						>
-							<div className="w-full  h-[155px] relative">
+							<div className="w-[190px]  h-[190px] relative">
 								<Image
 									src={item.image}
 									alt={item.name}
-									width={190}
-									heigh={155}
+									layout="fill"
+									objectFit="cover"
 								/>
 								<div className=" absolute w-full top-0   flex   justify-between pr-1">
 									<div className=" mt-[9px]  flex   pl-[10px]  ">
@@ -77,25 +145,21 @@ const LatestEvent = () => {
 												fill="#FEFEFE"
 											/>
 										</svg>
-										<p className=" text-white text-[10px] leading-3 font-medium ml-1 mt-[1px]">
+										<p className=" text-[#FEFEFE] text-[10px] leading-3  font-semibold ml-1 mt-[1px]">
 											{
 												item.city
 											}
 										</p>
 									</div>
-									<div>
+									<div className=" h-[40px] w-[40px] relative">
 										{item.in_like ? (
 											<Image
 												src={
 													favorite
 												}
 												alt="follow button"
-												width={
-													40
-												}
-												height={
-													40
-												}
+												layout="fill"
+												objectFit="cover"
 											/>
 										) : (
 											svgHeartIcon
@@ -151,5 +215,3 @@ const LatestEvent = () => {
 };
 
 export default LatestEvent;
-
-

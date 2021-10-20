@@ -2,7 +2,7 @@ import React from 'react';
 
 const HeaderButton = () => {
     return (
-		<div className="h-12  md:w-40 xl:w-52 flex justify-center items-center  border border-primary  rounded-lg">
+		<div className=" h-[31px] w-12 c-lg:h-12  c-lg:w-40 xl:w-52 bg-primary_light c-lg:bg-transparent flex justify-center items-center  border border-primary    rounded-[13px] md:rounded-lg">
 			<svg
 				width="16"
 				height="16"
@@ -15,7 +15,7 @@ const HeaderButton = () => {
 					fill="#15B790"
 				/>
 			</svg>
-			<p className=" md:text-[15px]  xl:text-lg font-medium text-primary ml-3">
+			<p className=" hidden  c-lg:block c-lg:text-[15px]  xl:text-lg font-medium text-primary ml-3">
 				Add New Event
 			</p>
 		</div>

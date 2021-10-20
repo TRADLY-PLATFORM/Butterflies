@@ -1,4 +1,5 @@
 const colors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
 	mode: "jit",
@@ -42,7 +43,12 @@ module.exports = {
 			xl: "16px",
 			full: "9999px",
 		},
-		 
+		screens: {
+			xs: "540px",
+			xxs: "350px",
+			'c-lg': '1100px',
+			...defaultTheme.screens,
+		},
 	},
 	variants: {
 		extend: {},

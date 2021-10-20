@@ -1,13 +1,18 @@
-import React from 'react';
-import moreImage from "../../../assets/Images/Categories/Menu.png"
-import book from "../../../assets/Images/Categories/books-stack-of-three (1).png"
-import Image from 'next/Image';
+import React from "react";
+import moreImage from "../../../assets/Images/Categories/Menu.png";
+import book from "../../../assets/Images/Categories/books-stack-of-three (1).png";
+import Image from "next/Image";
 
 const Categories = () => {
-    const category = [
-    {name:"All Categories",image:moreImage},{name:"Book",image:book}
-]
-    return (
+	const category = [
+		{ name: "All Categories", image: moreImage },
+		{ name: "Book", image: book },
+		{ name: "All Categories", image: moreImage },
+		{ name: "Book", image: book },
+		{ name: "All Categories", image: moreImage },
+		{ name: "Book", image: book },
+	];
+	return (
 		<div>
 			<div className=" flex items-center mb-6">
 				<p className="text-2xl text-black font-semibold mr-3">
@@ -42,33 +47,31 @@ const Categories = () => {
 						/>
 					</svg>
 				</p>
-            </div>
-            <div className="flex items-center">
-                {
-                    category.map((item) => {
-                        return (
-					<div
-						className=" mr-4   bg-[#ffffff] rounded-xl flex flex-col justify-around items-center border border-transparent  shadow-c-sm hover:border-primary hover:bg-primary_light    "
-						style={{
-							width: "100px",
-							height: "100px",
-						}}
-						key={Math.random()}
-					>
-						<Image
-							src={item.image}
-							alt="category"
-						/>
-						<p className=" w-11/12 mx-auto h-5 text-primary  text-xs   font-medium flex justify-center items-center">
-							{item.name}
-						</p>
-					</div>
-				);
-                    })
-                }
-            </div>
+			</div>
+			<div className=" grid grid-cols-[144px,144px]  xs:grid-cols-3 gap-[23px]  sm:flex sm:flex-wrap justify-center md:justify-start  items-center">
+				{category.map((item) => {
+					return (
+						<div
+							className=" sm:mr-4  sm:mb-6  bg-[#ffffff] rounded-xl flex flex-col justify-around items-center border border-transparent  shadow-c-sm hover:border-primary hover:bg-primary_light  w-[144px] h-[144px] md:w-[100px]  md:h-[100px] "
+							key={Math.random()}
+						>
+							<div className=" w-[46px] h-[46px] md:w-[32px] md:h-[32px] relative">
+								<Image
+									src={item.image}
+									alt="category"
+									layout="fill"
+									objectFit="cover"
+								/>
+							</div>
+							<p className=" w-11/12 mx-auto h-5 text-primary  text-xs   font-medium flex justify-center items-center">
+								{item.name}
+							</p>
+						</div>
+					);
+				})}
+			</div>
 		</div>
-    );
+	);
 };
 
 export default Categories;

@@ -1,6 +1,7 @@
-import React from 'react';
-import bannerImage from "../../../assets/Images/Banner/Rectangle.png"
+import React from "react";
+import bannerImage from "../../../assets/Images/Banner/Rectangle.png";
 import Image from "next/Image";
+import styles from "./Banner.module.scss"
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -14,15 +15,14 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-
 const Banner = () => {
-    const banner = [
-       { name:"Pitching Event Online",image:bannerImage},
-       { name:"Pitching Event Online",image:bannerImage},
-       { name:"Pitching Event Online",image:bannerImage},
-       { name:"Pitching Event Online",image:bannerImage},
-     ]
-    return (
+	const banner = [
+		{ name: "Pitching Event Online", image: bannerImage },
+		{ name: "Pitching Event Online", image: bannerImage },
+		{ name: "Pitching Event Online", image: bannerImage },
+		{ name: "Pitching Event Online", image: bannerImage },
+	];
+	return (
 		<div className=" max-w-6xl   h-auto mb-9 mx-auto">
 			<Swiper
 				spaceBetween={30}
@@ -39,29 +39,34 @@ const Banner = () => {
 					return (
 						<SwiperSlide
 							key={i}
-							className=" w-full flex flex-col justify-center items-center"
+							className=" w-full flex flex-col justify-center items-center mb-14"
 						>
-							<div className=" w-full h-full mb-14">
-								<Image
-									src={list.image}
-									alt="onboardingImage"
-									layout="responsive"
-									width={1152}
-									height={176}
-								/>
+							<div className=" w-full h-[174px]">
+								<div className="">
+									<Image
+										src={
+											list.image
+										}
+										alt="Banner Image"
+										layout="fill"
+										objectFit="cover"
+									/>
+								</div>
 							</div>
-							<div className=" absolute top-0  left-0 mt-12  ml-6">
+							<div className=" absolute top-0  left-0  mt-[50px]   ml-6">
 								<p className=" text-2xl text-white font-semibold">
 									{list.name}
-                                </p>
-                                <button className=" mt-5  w-28 h-6 flex justify-center items-center bg-primary text-white font-semibold  text-xs  rounded-xl">Register Here</button>
+								</p>
+								<button className=" mt-5  w-28 h-6 flex justify-center items-center bg-primary text-white font-semibold  text-xs  rounded-xl">
+									Register Here
+								</button>
 							</div>
 						</SwiperSlide>
 					);
 				})}
 			</Swiper>
 		</div>
-    );
+	);
 };
 
 export default Banner;
