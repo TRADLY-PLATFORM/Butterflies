@@ -1,12 +1,10 @@
 import React from 'react';
-import SignInPageLayout from '../Layouts/PageLayouts/SignInpageLayout';
-
+import SignInPageLayout from '../Components/Layouts/PageLayouts/SignInPageLayout';
+ 
 const SignIn = () => {
     return (
 		<div>
-			<SignInPageLayout />
-			{/* <SignInPageLayout2/> */}
-			{/* <SignInPageLayout3 /> */}
+ 		 <SignInPageLayout/>
 		</div>
     );
 };

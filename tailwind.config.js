@@ -47,6 +47,8 @@ module.exports = {
 			xs: "540px",
 			xxs: "350px",
 			'c-lg': '1100px',
+			'c-md': '824px',
+
 			...defaultTheme.screens,
 		},
 	},
