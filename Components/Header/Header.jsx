@@ -71,6 +71,12 @@ const Header = () => {
 				) : (
 					""
 				)}
+				{showUserMenus ? (
+					<div className=" w-[100vw] h-[100vh]   top-0 z-[60] fixed   bg-transparent    opacity-100" />
+				) : (
+					""
+				)}
+
 				<div className="w-screen px-[35px]  ">
 					<div className="flex justify-between items-center py-[26px] ">
 						<div className="  flex items-center">
@@ -105,7 +111,17 @@ const Header = () => {
 								<HeaderButton />
 							</div>
 							<div>
-								<HeaderProfile />
+								<HeaderProfile
+									showUserMenus={
+										showUserMenus
+									}
+									setShowUserMenus={
+										setShowUserMenus
+									}
+									dropdownRef={
+										dropdownRef
+									}
+								/>
 							</div>
 						</div>
 					</div>
