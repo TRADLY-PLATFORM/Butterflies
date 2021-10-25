@@ -30,11 +30,9 @@ const MagazineLayout = ({children}) => {
 					</div>
 				</div>
 			</div>
-            <div className="bg-[#E5E5E5] min-h-screen w-screen">
-                <div>
-                    {children}
-                </div>
-            </div>
+			<div className="bg-[#f6f9ff] min-h-screen w-screen">
+				<div>{children}</div>
+			</div>
 		</div>
     );
 };

@@ -6,7 +6,7 @@ import locationMarker from "../../../assets/Images/Home/locationMarker.svg";
 import favorite from "../../../assets/Images/Home/favourite.png";
 import heartIcon from "../../../assets/Images/Home/heartIcon.png";
 import Image from "next/Image";
-import { svgHeartIcon } from "../../../Constant/Icons/Icons";
+import { svgHeartIcon } from "../../Shared/Constant/Icons/Icons";
 
 const MoreEvent = () => {
 	const [filterEvent, setFilterEvent] = useState();

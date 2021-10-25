@@ -1,19 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api";
- 
+import tradly from "tradly";
+
 export const homeCollections = createAsyncThunk(
 	"home/homeCollections",
-	// @ts-ignore
-	async () => {
+
+	async (thunkAPI) => {
 		try {
-			const response = await api.get("products/v1/home/");
-			const data = await response.json();
-			if (response.status === 200) {
-				return { ...data };
+			const response = await tradly.app.home();
+			const { data } = await response;
+			if (!response.error) {
+				return data;
+			} else {
+				const { error } = await response;
+				return error;
 			}
-			return thunkAPI.rejectWithValue(data);
-		} catch (e) {
-			return thunkAPI.rejectWithValue(e.response.data);
+		} catch (err) {
+			return thunkAPI.rejectWithValue(err.response.data);
 		}
 	}
 );
@@ -25,7 +28,9 @@ export const homeSlice = createSlice({
 		isSuccess: false,
 		isError: false,
 		errorMessage: "",
-		collections:[],
+		collections: [],
+		categories: [],
+		promo_banners:[],
 	},
 	// reducers: {
 	// 	clearState: (state) => {
@@ -38,17 +43,28 @@ export const homeSlice = createSlice({
 	// },
 	extraReducers: {
 		// @ts-ignore
-		[homeCollections.fulfilled]: (state, { payload }) => {
-			state.isFetching = false;
-			state.isSuccess = true;
-			// state.collections = payload.user.email;
- 		},
+		[homeCollections.fulfilled]: (state, { meta, payload }) => {
+			if (payload.code) {
+				state.isFetching = false;
+				state.isError = true;
+				state.errorMessage = payload?.message;
+			} else {
+				console.log('====================================');
+				console.log(payload);
+				console.log('====================================');
+				state.isFetching = false;
+				state.isSuccess = true;
+				state.collections = payload?.collections;
+				state.categories = payload?.categories;
+				state.promo_banners = payload?.promo_banners;
+			}
+		},
 		// @ts-ignore
 		[homeCollections.pending]: (state) => {
 			state.isFetching = true;
 		},
 		// @ts-ignore
-		[homeCollections.rejected]: (state, { payload }) => {
+		[homeCollections.rejected]: (state, { meta, payload, error }) => {
 			state.isFetching = false;
 			state.isError = true;
 			state.errorMessage = payload?.message;
@@ -56,5 +72,4 @@ export const homeSlice = createSlice({
 	},
 });
 
- 
-export const userSelector = (state) => state.home;
+export const homeSelector = (state) => state.home;

@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
 	reactStrictMode: true,
+	images: {
+		domains: [
+			"storage.googleapis.com",
+			"tradly-paas-sandbox.s3.amazonaws.com",
+		],
+	},
 	env: {
 		NEXT_APP_ENVIRONMENT: "development",
 		NEXT_APP_BACKEND_API_URL: process.env.NEXT_APP_BACKEND_API_URL,

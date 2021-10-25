@@ -6,7 +6,7 @@ import locationMarker from "../../../assets/Images/EventDetails/locationMarker.s
 import favorite from "../../../assets/Images/EventDetails/favourite.png";
 import heartIcon from "../../../assets/Images/EventDetails/heartIcon.png";
 import Image from "next/Image";
-import { svgHeartIcon } from "../../../Constant/Icons/Icons";
+import { svgHeartIcon } from "../../Shared/Constant/Icons/Icons";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 

@@ -1,26 +1,49 @@
-import '../styles/globals.css'
- import axios from "axios";
-import { Provider } from 'react-redux';
-import store from '../store/store';
-//  import tradly from "tradly" 
+import "../styles/globals.css";
+import axios from "axios";
+import { Provider } from "react-redux";
+import store from "../store/store";
+import tradly from "tradly";
+ import { useState } from "react";
 
-
-// axios.defaults.baseURL = process.env.REACT_APP_BACKEND_API_URL;
-
+ 
 function MyApp({ Component, pageProps }) {
-	// tradly.init
-	// 	.configApi("tradlysocial")
-	// 	.then((response) => {
-	// 		console.log("====================================");
-	// 		console.log(response);
-	// 		console.log("====================================");
-	// 	})
-	// 	.catch((error) => {
-	// 		console.log("====================================");
-	// 		console.log(error);
-	// 		console.log("====================================");
-	// 	});
-    
+	const [config_response,setConfigsStatus] = useState(false)
+ 	tradly.init.config("tradlysocial")
+		.then((response) => {
+			if (response.status) {
+				setConfigsStatus(true);
+			}
+				
+		})
+		.catch((error) => {
+			console.log("====================================");
+			console.log(error);
+			console.log("====================================");
+		});
+	 
+
+
+	return (
+		<Provider store={store}>
+			{config_response && <Component {...pageProps} />}
+		</Provider>
+	);
+}
+export default MyApp;
+
+
+	//  const home = async () => {
+	// 		try {
+	// 			const response = await tradly.app.home();
+	// 			const data = await response.json();
+       
+				
+	// 		} catch (e) {
+	// 			return console.log(e.response.data);
+	// 		}
+	// 	};
+
+	// home()
 	// const req = {
 	// 	uuid: "31231h23j123g123",
 	// 	type: "customer",
@@ -42,11 +65,3 @@ function MyApp({ Component, pageProps }) {
 	// 		console.log(error);
 	// 		console.log("====================================");
 	// 	});
-	
-  return (
-		<Provider store={store}>
-			<Component {...pageProps} />
-		</Provider>
-  );
-}
-export default MyApp

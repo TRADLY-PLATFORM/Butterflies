@@ -1,21 +1,21 @@
  import React, { useEffect } from "react";
   import { useDispatch } from "react-redux";
-import { homeCollections } from "../../store/feature/homeSlice";
+ import OnBoardingImage from "../../OnBoardingImage/OnBoardingImage"
+import SignInForm from "../../SigninForm/SignInForm";
  
  
 const SignInPageLayout = () => {
 	const dispatch = useDispatch();
-	dispatch(homeCollections());
-     return (
-		<div className=" grid grid-cols-2 justify-center items-center ">
-			<div className="w-full min-h-screen">
-				{/* <OnBoardingImage /> */}
+      return (
+		<div className=" grid  c-md:grid-cols-2 c-md:justify-center c-md:items-center ">
+			<div className=" hidden w-full min-h-screen  c-md:flex items-center">
+				<OnBoardingImage />
 			</div>
-			<div className="w-full min-h-screen bg-green-500">
-				{/* <SignInForm /> */}
+			<div className="w-full min-h-screen bg-primary">
+				<SignInForm />
 			</div>
 		</div>
-    );
+      );
 };
 
 export default SignInPageLayout;

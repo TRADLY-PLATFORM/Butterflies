@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import HeaderButton from "../HeaderButton/HeaderButton";
 import HeaderProfile from "../HeaderProfileBox/HeaderProfile";
 import SearchBox from "../SearchBox/SearchBox";
@@ -10,22 +10,37 @@ import { useRouter } from "next/dist/client/router";
 
 const Header = () => {
 	const router = useRouter();
-	const [isDrawerOpen,setIsDrawerOpen]= useState(false)
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const [showUserMenus, setShowUserMenus] = useState(false);
+	const dropdownRef = useRef();
+
+	useEffect(() => {
+		document.addEventListener("mousedown", (event) => {
+			if (dropdownRef.current) {
+				if (!dropdownRef.current.contains(event.target)) {
+					setShowUserMenus(false);
+				}
+			}
+		});
+	});
 
 	const drawerOpen = () => {
 		const drawer = document.getElementById("sideDrawer");
 		drawer.classList.remove("-translate-x-full");
-		setIsDrawerOpen(true)
-		 
+		setIsDrawerOpen(true);
 	};
 	const closeDrawer = () => {
 		const drawer = document.getElementById("sideDrawer");
- 		setIsDrawerOpen(false);
-		 
+		setIsDrawerOpen(false);
 	};
 	return (
 		<>
 			<div className="hidden md:block">
+				{showUserMenus ? (
+					<div className=" w-[100vw] h-[100vh]   top-0 z-[60] fixed   bg-transparent    opacity-100" />
+				) : (
+					""
+				)}
 				<div className="  w-full bg-[#FEFEFE] h-24 px-8 flex items-center justify-between  shadow-c-sm mb-6">
 					<div>
 						<SearchBox />
@@ -35,7 +50,17 @@ const Header = () => {
 							<HeaderButton />
 						</div>
 						<div>
-							<HeaderProfile />
+							<HeaderProfile
+								showUserMenus={
+									showUserMenus
+								}
+								setShowUserMenus={
+									setShowUserMenus
+								}
+								dropdownRef={
+									dropdownRef
+								}
+							/>
 						</div>
 					</div>
 				</div>
@@ -116,7 +141,7 @@ const Header = () => {
 						</svg>
 					</button>
 					<div className="">
-						<SideMenubar/>
+						<SideMenubar />
 					</div>
 				</div>
 			</div>
