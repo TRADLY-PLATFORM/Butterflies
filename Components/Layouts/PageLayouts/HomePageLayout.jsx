@@ -15,7 +15,7 @@ const HomePageLayout = () => {
 
 	useEffect(() => {
 		dispatch(homeCollections());
-	}, [0]);
+	}, [dispatch]);
 
 	const {
 		collections,
@@ -25,16 +25,7 @@ const HomePageLayout = () => {
 		categories,
 		promo_banners,
 	} = useSelector(homeSelector);
-	console.log("====================================");
-	console.log(
-		collections,
-		isFetching,
-		isSuccess,
-		errorMessage,
-		categories,
-		promo_banners
-	);
-	console.log("====================================");
+ 
 
 	return (
 		<div className="">

@@ -12,17 +12,17 @@ const Header = () => {
 	const router = useRouter();
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [showUserMenus, setShowUserMenus] = useState(false);
-	const dropdownRef = useRef();
+	// const dropdownRef = useRef();
 
-	useEffect(() => {
-		document.addEventListener("mousedown", (event) => {
-			if (dropdownRef.current) {
-				if (!dropdownRef.current.contains(event.target)) {
-					setShowUserMenus(false);
-				}
-			}
-		});
-	});
+	// useEffect(() => {
+	// 	document.addEventListener("mousedown", (event) => {
+	// 		if (dropdownRef.current) {
+	// 			if (!dropdownRef.current.contains(event.target)) {
+	// 				setShowUserMenus(false);
+	// 			}
+	// 		}
+	// 	});
+	// });
 
 	const drawerOpen = () => {
 		const drawer = document.getElementById("sideDrawer");
@@ -37,7 +37,7 @@ const Header = () => {
 		<>
 			<div className="hidden md:block">
 				{showUserMenus ? (
-					<div className=" w-[100vw] h-[100vh]   top-0 z-[60] fixed   bg-transparent    opacity-100" />
+					<div className=" w-[100vw] h-[100vh]   top-0 z-[60] fixed    bg-transparent    opacity-100" />
 				) : (
 					""
 				)}
@@ -57,9 +57,7 @@ const Header = () => {
 								setShowUserMenus={
 									setShowUserMenus
 								}
-								dropdownRef={
-									dropdownRef
-								}
+							 
 							/>
 						</div>
 					</div>
@@ -118,9 +116,9 @@ const Header = () => {
 									setShowUserMenus={
 										setShowUserMenus
 									}
-									dropdownRef={
-										dropdownRef
-									}
+									// dropdownRef={
+									// 	dropdownRef
+									// }
 								/>
 							</div>
 						</div>

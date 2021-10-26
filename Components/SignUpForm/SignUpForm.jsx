@@ -1,41 +1,57 @@
- import React, { useEffect, useState } from "react";
- import Link from "next/link";
-import EmailForm from "./EmailForm";
-import PhoneForm from "./PhoneForm";
-import { uuid } from "uuidv4";
- import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	authSelector,
 	clearState,
-	signIn,
+	signUp,
 } from "../../store/feature/authSlice";
+import EmailForm from "./EmailForm";
+import OutsideClickHandler from "react-outside-click-handler";
 import PopUp from "../Shared/PopUp/PopUp";
 import * as EmailValidator from "email-validator";
-import { useSelector } from "react-redux";
-import OutsideClickHandler from "react-outside-click-handler";
+import { uuid } from "uuidv4";
 import { useRouter } from "next/dist/client/router";
 
-const SignInForm = () => {
+const SignUpForm = () => {
+	const [firstName, setFirstName] = useState(null);
+	const [lastName, setLastName] = useState(null);
 	const [email, setEmail] = useState(null);
 	const [password, setPassword] = useState(null);
+	const [reTypePassword, setReTypePassword] = useState(null);
 	const [showError, setShowError] = useState(false);
 	const [error_message, setError_message] = useState("");
-	const dispatch = useDispatch();
-	const router = useRouter();
 
-	const { isFetching, isSuccess, errorMessage, isError } =
+	const dispatch = useDispatch();
+    const router = useRouter();
+
+	const { isFetching, isError, isSuccess, errorMessage } =
 		useSelector(authSelector);
-	console.log("ahsanullahsunsbd@gmail.com");
-	console.log(isFetching, isSuccess, errorMessage, isError);
-	console.log("====================================");
 
 	const closePopUP = () => {
 		dispatch(clearState());
 		setShowError(false);
 		setError_message("");
-	};
+    };
+    
+    useEffect(() => {
+        if (isSuccess) {
+          router.push("/verification")
+      }
 
-	const clickSignIn = () => {
+    }, [isSuccess, router]);
+
+	const createAccount = () => {
+		if (firstName === null) {
+			setShowError(true);
+			setError_message("First Name is required");
+			return false;
+		}
+		if (lastName === null) {
+			setShowError(true);
+			setError_message("Last Name is required");
+			return false;
+		}
 		if (email === null) {
 			setShowError(true);
 			setError_message("Email is required");
@@ -52,24 +68,31 @@ const SignInForm = () => {
 			setError_message("Password is required");
 			return false;
 		}
+
+		if (reTypePassword === null) {
+			setShowError(true);
+			setError_message("Please re type your password");
+			return false;
+		}
+		if (reTypePassword !== password) {
+			setShowError(true);
+			setError_message("Password not matching");
+			return false;
+		}
+
 		const uUid = uuid();
 		const users = {
 			user: {
 				uuid: uUid,
+				first_name: firstName,
+				last_name: lastName,
 				email: email,
 				password: password,
 				type: "customer",
 			},
 		};
-
-		dispatch(signIn({ prams: users, key: "abncg" }));
+		dispatch(signUp({ prams: users, key: "abncg" }));
 	};
-
-	useEffect(() => {
-		if (isSuccess) {
-			router.push("/");
-		}
-	}, [isSuccess, router]);
 
 	return (
 		<div className="w-full   min-h-screen  py-36">
@@ -100,21 +123,21 @@ const SignInForm = () => {
 				Welcome to Tradly Event
 			</h2>
 			<p className=" px-[34px]  md:px-24  text-center text-white text-xl  font-semibold ">
-				Login to your account
+				Create your account
 			</p>
 			<div className=" mt-24 px-[34px]  ">
 				<div>
 					<EmailForm
+						setFirstName={setFirstName}
+						setLastName={setLastName}
 						setEmail={setEmail}
 						setPassword={setPassword}
+						setReTypePassword={setReTypePassword}
 					/>
 				</div>
 				<div className=" mt-12 flex flex-col justify-center items-center">
 					{isFetching ? (
-						<button
-							className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base"
-							disabled
-						>
+						<button className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base">
 							<svg
 								className="animate-spin -ml-1 mr-3 h-5 w-5 text-primary"
 								xmlns="http://www.w3.org/2000/svg"
@@ -135,26 +158,23 @@ const SignInForm = () => {
 									d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
 								></path>
 							</svg>
-							Log in
+							Create an Account
 						</button>
 					) : (
 						<button
 							className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base"
-							onClick={clickSignIn}
+							onClick={createAccount}
 						>
-							Log in
+							Create an Account
 						</button>
 					)}
-					<button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium  text-xl">
-						Forgot your password?
-					</button>
 				</div>
 				<div className=" mt-32 flex justify-center items-center">
-					<Link href={"/sign-up"} passHref>
+					<Link href={"/sign-in"} passHref>
 						<button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl">
-							Don’t have an account,
+							Have an account ?
 							<span className="font-semibold">
-								Sign up{" "}
+								Sign in
 							</span>
 						</button>
 					</Link>
@@ -164,4 +184,4 @@ const SignInForm = () => {
 	);
 };
 
-export default SignInForm;
+export default SignUpForm;

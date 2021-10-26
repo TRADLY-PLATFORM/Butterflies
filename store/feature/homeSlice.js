@@ -49,11 +49,10 @@ export const homeSlice = createSlice({
 				state.isError = true;
 				state.errorMessage = payload?.message;
 			} else {
-				console.log('====================================');
-				console.log(payload);
-				console.log('====================================');
+				 
 				state.isFetching = false;
 				state.isSuccess = true;
+				state.isError = false;
 				state.collections = payload?.collections;
 				state.categories = payload?.categories;
 				state.promo_banners = payload?.promo_banners;
@@ -62,6 +61,8 @@ export const homeSlice = createSlice({
 		// @ts-ignore
 		[homeCollections.pending]: (state) => {
 			state.isFetching = true;
+			state.isError = false;
+			state.errorMessage = '';
 		},
 		// @ts-ignore
 		[homeCollections.rejected]: (state, { meta, payload, error }) => {

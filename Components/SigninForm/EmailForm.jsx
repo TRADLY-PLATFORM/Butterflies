@@ -11,7 +11,7 @@ const EmailForm = ({ setEmail, setPassword }) => {
 				onChange={(e) => setEmail(e.target.value)}
 			/>
 			<input
-				type="text"
+				type="password"
 				className=" w-full md:w-96  h-12  bg-transparent  border border-white rounded-[48px] p-3 text-white outline-none placeholder-white"
 				placeholder="Password"
 				required

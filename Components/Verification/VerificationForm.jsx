@@ -1,33 +1,25 @@
- import React, { useEffect, useState } from "react";
- import Link from "next/link";
-import EmailForm from "./EmailForm";
-import PhoneForm from "./PhoneForm";
-import { uuid } from "uuidv4";
- import { useDispatch } from "react-redux";
+import React, { useState ,useEffect} from "react";
+import Link from "next/link";
+import OutsideClickHandler from "react-outside-click-handler";
+import PopUp from "../Shared/PopUp/PopUp";
+import PasswordForm from "./PasswordForm";
+import { useSelector } from "react-redux";
 import {
 	authSelector,
 	clearState,
-	signIn,
+	verifyUser,
 } from "../../store/feature/authSlice";
-import PopUp from "../Shared/PopUp/PopUp";
-import * as EmailValidator from "email-validator";
-import { useSelector } from "react-redux";
-import OutsideClickHandler from "react-outside-click-handler";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/dist/client/router";
 
-const SignInForm = () => {
-	const [email, setEmail] = useState(null);
-	const [password, setPassword] = useState(null);
+const VerificationForm = () => {
 	const [showError, setShowError] = useState(false);
 	const [error_message, setError_message] = useState("");
-	const dispatch = useDispatch();
-	const router = useRouter();
-
-	const { isFetching, isSuccess, errorMessage, isError } =
+	const [code, setCode] = useState(null);
+	const { isFetching, isError, verifyId, errorMessage, isSuccess,login } =
 		useSelector(authSelector);
-	console.log("ahsanullahsunsbd@gmail.com");
-	console.log(isFetching, isSuccess, errorMessage, isError);
-	console.log("====================================");
+    const dispatch = useDispatch();
+    const router = useRouter();
 
 	const closePopUP = () => {
 		dispatch(clearState());
@@ -35,41 +27,34 @@ const SignInForm = () => {
 		setError_message("");
 	};
 
-	const clickSignIn = () => {
-		if (email === null) {
+	const verifyClick = () => {
+		if (code === null) {
 			setShowError(true);
-			setError_message("Email is required");
+			setError_message("Enter your 6 digit verify code");
 			return false;
 		}
-		if (!EmailValidator.validate(email)) {
+		if (code.length !== 6) {
 			setShowError(true);
-			setError_message("Enter your valid email");
+			setError_message("Enter your 6 digit verify code");
 			return false;
 		}
-
-		if (password === null) {
+		if (verifyId === "") {
 			setShowError(true);
-			setError_message("Password is required");
+			setError_message("You don't have verify code");
 			return false;
 		}
-		const uUid = uuid();
-		const users = {
-			user: {
-				uuid: uUid,
-				email: email,
-				password: password,
-				type: "customer",
-			},
+		const verification = {
+			verify_id: verifyId,
+			code: code,
 		};
-
-		dispatch(signIn({ prams: users, key: "abncg" }));
+		dispatch(verifyUser({ prams: verification, key: "abncg" }));
 	};
 
 	useEffect(() => {
-		if (isSuccess) {
+		if (isSuccess && login) {
 			router.push("/");
 		}
-	}, [isSuccess, router]);
+	}, [isSuccess, login, router]);
 
 	return (
 		<div className="w-full   min-h-screen  py-36">
@@ -97,24 +82,29 @@ const SignInForm = () => {
 			)}
 
 			<h2 className=" px-[34px]  md:px-24  text-center text-white text-[30px] md:text-[40px] font-semibold mb-4">
-				Welcome to Tradly Event
+				Phone Verification
 			</h2>
 			<p className=" px-[34px]  md:px-24  text-center text-white text-xl  font-semibold ">
-				Login to your account
+				Enter verification code here
 			</p>
 			<div className=" mt-24 px-[34px]  ">
 				<div>
-					<EmailForm
-						setEmail={setEmail}
-						setPassword={setPassword}
+					<PasswordForm
+						code={code}
+						setCode={setCode}
 					/>
+				</div>
+				<div className=" mt-[44px] flex justify-center items-center">
+					<button className=" w-full   min-h-[24px] flex flex-wrap  justify-center items-center bg-transparent   text-white  font-medium text-base   ">
+						Didn’t you received any code ?
+						<span className="font-semibold ml-[5px]">
+							Resend New Code
+						</span>
+					</button>
 				</div>
 				<div className=" mt-12 flex flex-col justify-center items-center">
 					{isFetching ? (
-						<button
-							className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base"
-							disabled
-						>
+						<button className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base">
 							<svg
 								className="animate-spin -ml-1 mr-3 h-5 w-5 text-primary"
 								xmlns="http://www.w3.org/2000/svg"
@@ -135,33 +125,20 @@ const SignInForm = () => {
 									d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
 								></path>
 							</svg>
-							Log in
+							Verify
 						</button>
 					) : (
 						<button
 							className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base"
-							onClick={clickSignIn}
+							onClick={verifyClick}
 						>
-							Log in
+							Verify
 						</button>
 					)}
-					<button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium  text-xl">
-						Forgot your password?
-					</button>
-				</div>
-				<div className=" mt-32 flex justify-center items-center">
-					<Link href={"/sign-up"} passHref>
-						<button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl">
-							Don’t have an account,
-							<span className="font-semibold">
-								Sign up{" "}
-							</span>
-						</button>
-					</Link>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default SignInForm;
+export default VerificationForm;
