@@ -64,7 +64,7 @@ const VerificationForm = () => {
 						(showError || isError) &&
 							(setShowError(false),
 							setError_message(""),
-							dispatch(clearState));
+							dispatch(clearState()));
 					}}
 				>
 					<div className="fixed z-50 top-0 left-0  w-screen mt-5 ">

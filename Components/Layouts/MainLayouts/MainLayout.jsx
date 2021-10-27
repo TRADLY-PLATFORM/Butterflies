@@ -23,7 +23,9 @@ const MainLayout = ({ children }) => {
 
 			<div className=" md:hidden">
 				<div className="  sticky top-0 z-50  bg-white w-screen ">
-					<Header />
+					<Header
+						
+					/>
 				</div>
 				<div className="w-screen bg-[#f6f9ff] pt-[24px] px-[32px] pb-14">
 					{children}

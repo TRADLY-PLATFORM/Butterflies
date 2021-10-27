@@ -1,24 +1,37 @@
 import React from 'react';
 import EventButtons from '../EventsButtons/EventButtons';
+import favorite from "../../../assets/Images/Home/favourite@3x.png";
+import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png"; 
+import Image from 'next/Image';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelector, refreshPage } from '../../../store/feature/authSlice';
+import { listingLike, listingSelector } from '../../../store/feature/listingSlice';
+import { useRouter } from 'next/dist/client/router';
 
-const MainBox = () => {
-    return (
-		<div className=" w-full  min-h-[300px] bg-white rounded  p-[25px]">
+const MainBox = ({ listing_details, rating_data, like }) => {
+	const { login, auth_key } = useSelector(authSelector);
+	const { isSuccess } = useSelector(listingSelector);
+	const dispatch = useDispatch();
+	const router = useRouter();
+
+	return (
+		<div className=" w-full  min-h-[300px] bg-white rounded  p-[25px] relative">
 			<div className=" w-5/6 ">
 				<p className=" text-sm text-primary font-medium">
-					Only 5 tickets left
+					Only {listing_details.stock} tickets left
 				</p>
 				<h2 className=" mt-[9px] text-[30px] text-primary font-medium ">
-					Yoga Class For Beginner
+					{listing_details.title}
 				</h2>
 				<p className=" mt-1 text-secondary text-xl font-medium">
 					{" "}
-					Start from 200 taka
+					Start from{" "}
+					{listing_details.list_price.formatted}
 				</p>
 				<p className="flex justify-start items-center ">
 					<svg
 						width="14"
-						height="13"
+						height="14"
 						viewBox="0 0 14 13"
 						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
@@ -30,16 +43,47 @@ const MainBox = () => {
 							fill="#FFBA49"
 						/>
 					</svg>
-					<span className=" text-[#4F4F4F] font-medium text-base ml-[6px] ">4.3</span>
-					<span className=" text-secondary  text-xs font-medium ml-[6px]">216 Ratings</span>
+					<span className=" text-[#4F4F4F] font-medium text-base ml-[6px] ">
+						{rating_data.rating_average}
+					</span>
+					<span className=" text-secondary  text-xs font-medium ml-[6px]">
+						{rating_data.rating_count} Ratings
+					</span>
 				</p>
 			</div>
 
 			<div className=" mt-[91px] mb-[44px] ">
 				<EventButtons />
 			</div>
+			<div className=" absolute top-0 right-0 mt-6 mr-6">
+				<button
+					className=" h-[48px] w-[48px] relative cursor-pointer "
+					onClick={() =>
+						like(
+							listing_details.id,
+							listing_details.liked
+						)
+					}
+				>
+					{listing_details.liked ? (
+						<Image
+							src={favorite}
+							alt="follow button"
+							layout="fill"
+							objectFit="cover"
+						/>
+					) : (
+						<Image
+							src={heartIcon}
+							alt="follow button"
+							layout="fill"
+							objectFit="cover"
+						/>
+					)}
+				</button>
+			</div>
 		</div>
-    );
+	);
 };
 
 export default MainBox;

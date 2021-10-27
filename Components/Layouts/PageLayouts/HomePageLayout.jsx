@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { authSelector } from "../../../store/feature/authSlice";
 import {
 	homeCollections,
 	homeSelector,
@@ -12,10 +13,13 @@ import MoreEvent from "../../Home/MoreEvents/MoreEvent";
 
 const HomePageLayout = () => {
 	const dispatch = useDispatch();
+	const{auth_key}=useSelector(authSelector)
 
 	useEffect(() => {
-		dispatch(homeCollections());
-	}, [dispatch]);
+	dispatch(
+		homeCollections({ authKey: localStorage.getItem("refresh_key") })
+	);
+	}, [auth_key, dispatch]);
 
 	const {
 		collections,

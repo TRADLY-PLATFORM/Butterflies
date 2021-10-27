@@ -1,7 +1,7 @@
 import React from 'react';
 
-const AddressBox = () => {
-    return (
+const AddressBox = ({ location      }) => {
+	return (
 		<div className=" bg-white rounded  w-full  min-h-[81px] flex   justify-between  p-[16px]">
 			<div className="flex">
 				<div className="flex justify-start items-start">
@@ -20,11 +20,12 @@ const AddressBox = () => {
 				</div>
 				<div className="ml-[10px] ">
 					<p className="text-base leading-4 text-[#121212] font-semibold">
-						Le park avenue
+						{location.city +
+							" " +
+							location.country}
 					</p>
 					<p className=" text-xs leading-4 font-medium text-secondary  w-[225px]   mt-[2px]">
-						25, Inglewood Blvds,Lamanda Street,
-						Chennai,605007,India
+						{location.formatted_address}
 					</p>
 				</div>
 			</div>
@@ -43,7 +44,7 @@ const AddressBox = () => {
 				</svg>
 			</div>
 		</div>
-    );
+	);
 };
 
 export default AddressBox;

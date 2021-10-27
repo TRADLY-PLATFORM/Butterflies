@@ -15,12 +15,9 @@ import Image from 'next/Image';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-const ImagePart = () => {
-    const images = [
-        image,image1,image2
-    ]
-    return (
-		<div className=" w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px]">
+const ImagePart = ({ images }) => {
+ 	return (
+		<div className=" w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] bg-white">
 			<Swiper
 				spaceBetween={30}
 				centeredSlides={true}
@@ -51,7 +48,7 @@ const ImagePart = () => {
 				})}
 			</Swiper>
 		</div>
-    );
+	);
 };
 
 export default ImagePart;

@@ -54,7 +54,6 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
 						fill="#959393"
 					/>
 				</svg>
-			</div>
 			<OutsideClickHandler onOutsideClick={outsideClick}>
 				<div
 					id="profileMenus"
@@ -137,6 +136,7 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
 					)}
 				</div>
 			</OutsideClickHandler>
+			</div>
 		</>
 	);
 };

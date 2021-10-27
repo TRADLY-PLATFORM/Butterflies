@@ -91,7 +91,7 @@ const SignUpForm = () => {
 				type: "customer",
 			},
 		};
-		dispatch(signUp({ prams: users, key: "abncg" }));
+		dispatch(signUp({ prams: users }));
 	};
 
 	return (
@@ -102,11 +102,11 @@ const SignUpForm = () => {
 						(showError || isError) &&
 							(setShowError(false),
 							setError_message(""),
-							dispatch(clearState));
+							dispatch(clearState()));
 					}}
 				>
 					<div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-						<div className="w-ful  xs:w-[500px] mx-auto">
+						<div className="w-full  xs:w-[500px] mx-auto">
 							<PopUp
 								message={
 									error_message ||

@@ -4675,9 +4675,9 @@ react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-markdown@^7.1.0:
+react-markdown@^7.0.1:
   version "7.1.0"
-  resolved "https://registry.npmjs.org/react-markdown/-/react-markdown-7.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-7.1.0.tgz#0ba62a4459daab6600ede83495a9228dae9d8f8e"
   integrity sha512-hL8cLLkTydyoKlZWZOjlU6TvMYIw9qKLh1CCzVfnhKt/R/SnKVAqiyugetXY61CkjhBqJl2C5FdU3OwHYo7SrQ==
   dependencies:
     "@types/hast" "^2.0.0"
@@ -5492,10 +5492,10 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
-tradly@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/tradly/-/tradly-1.0.4.tgz"
-  integrity sha512-YdMH97E6l+YL9WdL1jSoIJmdESA+eiBJ3GqP/oxWS9+6nJSCbJvsB0mW2J8NHpx4IEHz1ooDLbglmmBu05yARg==
+tradly@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/tradly/-/tradly-1.0.6.tgz#b42bbfa673716297b0188468650a577585d18884"
+  integrity sha512-wrzV2THQ2dCOaWr6bahKkVyNQfBO/0VN67a07a4gR2DXs+Qsjy/hw1FRvUlfzZcUzNPA0BDOy9kj7pd6m9HdQg==
   dependencies:
     "@types/node" "^16.11.1"
     await-to-js "^3.0.0"

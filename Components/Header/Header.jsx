@@ -57,7 +57,6 @@ const Header = () => {
 								setShowUserMenus={
 									setShowUserMenus
 								}
-							 
 							/>
 						</div>
 					</div>
@@ -97,12 +96,14 @@ const Header = () => {
 									/>
 								</svg>
 							</button>
-							<Image
-								src={logo}
-								alt="logo"
-								height={40}
-								objectFit="cover"
-							/>
+							<Link  href="/">
+								<Image
+									src={logo}
+									alt="logo"
+									height={40}
+									objectFit="cover"
+								/>
+							</Link>
 						</div>
 						<div className=" flex items-center justify-between">
 							<div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">

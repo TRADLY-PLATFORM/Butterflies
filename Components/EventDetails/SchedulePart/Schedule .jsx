@@ -2,7 +2,7 @@ import React from 'react';
 
 const Schedule = () => {
     return (
-		<div className=" bg-white rounded  w-full h-[66px] flex   justify-between  p-[10px]  ">
+		<div className=" bg-white rounded  w-full h-[66px] flex   justify-between  p-[16px]  ">
 			<div className="flex">
 				<div className="flex justify-start items-start">
 					<svg

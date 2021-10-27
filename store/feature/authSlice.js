@@ -5,10 +5,27 @@ import tradly from "tradly";
 export const signIn = createAsyncThunk(
 	"auth/signIn",
 
-	async ({ prams, key }, thunkAPI) => {
+	async ({ prams }, thunkAPI) => {
 		try {
+			const response = await tradly.user.login({ data: prams });
+			const { data } = await response;
+			if (!response.error) {
+				return data;
+			} else {
+				const { error } = await response;
+				return error;
+			}
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
+export const refreshPage = createAsyncThunk(
+	"auth/refreshPage",
 
-			const response = await tradly.user.login(prams, key);
+	async ({ key }, thunkAPI) => {
+		try {
+			const response = await tradly.init.refreshAPI(key);
 			const { data } = await response;
 			if (!response.error) {
 				return data;
@@ -22,13 +39,14 @@ export const signIn = createAsyncThunk(
 	}
 );
 
-
 export const signUp = createAsyncThunk(
 	"auth/signUp",
 
-	async ({ prams, key }, thunkAPI) => {
+	async ({ prams }, thunkAPI) => {
 		try {
-			const response = await tradly.user.register(prams, key);
+			const response = await tradly.user.register({
+				data: prams,
+			});
 			const { data } = await response;
 			if (!response.error) {
 				return data;
@@ -45,9 +63,9 @@ export const signUp = createAsyncThunk(
 export const verifyUser = createAsyncThunk(
 	"auth/verifyUser",
 
-	async ({ prams, key }, thunkAPI) => {
+	async ({ prams }, thunkAPI) => {
 		try {
-			const response = await tradly.user.verify(prams, key);
+			const response = await tradly.user.verify({ data: prams });
 			const { data } = await response;
 			if (!response.error) {
 				return data;
@@ -101,6 +119,9 @@ export const authSlice = createSlice({
 				state.isSuccess = false;
 				state.errorMessage = payload?.message;
 			} else {
+				const expirationDate = new Date(
+					new Date().getTime() + 899 * 1000
+				);
 				state.isError = false;
 				state.isFetching = false;
 				state.isSuccess = true;
@@ -120,6 +141,15 @@ export const authSlice = createSlice({
 					"refresh_key",
 					payload?.user?.key.refresh_key
 				);
+				localStorage.setItem(
+					"user_details",
+					JSON.stringify(payload?.user)
+				);
+				localStorage.setItem(
+					"expiration_time",
+					expirationDate
+				);
+				localStorage.setItem("login", true);
 			}
 		},
 		[signIn.pending]: (state) => {
@@ -135,6 +165,38 @@ export const authSlice = createSlice({
 			state.isError = true;
 			state.errorMessage = payload?.message;
 		},
+		[refreshPage.fulfilled]: (state, { payload }) => {
+			if (payload.code) {
+				// state.isFetching = false;
+				// state.isError = true;
+				// state.isSuccess = false;
+				// state.errorMessage = payload?.message;
+			} else {
+				const expirationDate = new Date(
+					new Date().getTime() + 899 * 1000
+				);
+				const userDetails = JSON.parse(
+					localStorage.getItem("user_details")
+				);
+				state.login = true;
+				state.user_email = userDetails.email;
+				state.first_name = userDetails.first_name;
+				state.last_name = userDetails.last_name;
+				state.auth_key = payload?.user?.key.auth_key;
+				state.refresh_key = payload?.user?.key.refresh_key;
+				state.user_details = userDetails;
+				localStorage.setItem(
+					"auth_key",
+					payload?.user?.key.auth_key
+				);
+				localStorage.setItem(
+					"refresh_key",
+					payload?.user?.key.refresh_key
+				);
+				localStorage.setItem("login", true);
+			}
+		},
+
 		[signUp.fulfilled]: (state, { payload }) => {
 			if (payload.code) {
 				state.isFetching = false;
@@ -169,6 +231,9 @@ export const authSlice = createSlice({
 				state.isSuccess = false;
 				state.errorMessage = payload?.message;
 			} else {
+				const expirationDate = new Date(
+					new Date().getTime() + 899 * 1000
+				);
 				state.isError = false;
 				state.isFetching = false;
 				state.isSuccess = true;
@@ -188,6 +253,15 @@ export const authSlice = createSlice({
 					"refresh_key",
 					payload?.user?.key.refresh_key
 				);
+				localStorage.setItem(
+					"user_details",
+					JSON.stringify(payload?.user)
+				);
+				localStorage.setItem(
+					"expiration_time",
+					expirationDate
+				);
+				localStorage.setItem("login", true);
 			}
 		},
 		[verifyUser.pending]: (state) => {
@@ -206,5 +280,5 @@ export const authSlice = createSlice({
 	},
 });
 
-export const { clearState,logout } = authSlice.actions;
+export const { clearState, logout } = authSlice.actions;
 export const authSelector = (state) => state.auth;

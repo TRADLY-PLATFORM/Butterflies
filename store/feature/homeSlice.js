@@ -5,9 +5,12 @@ import tradly from "tradly";
 export const homeCollections = createAsyncThunk(
 	"home/homeCollections",
 
-	async (thunkAPI) => {
+	async ({ authKey }, thunkAPI) => {
 		try {
-			const response = await tradly.app.home();
+ 
+			const response = await tradly.app.home({
+				authKey: authKey,
+			});
 			const { data } = await response;
 			if (!response.error) {
 				return data;
