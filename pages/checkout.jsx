@@ -1,9 +1,19 @@
-import React from 'react'; 
+import React, { useEffect } from 'react'; 
+import { useDispatch } from 'react-redux';
 import MagazineLayout from '../Components/Layouts/MainLayouts/MagazineLayout';
 import MainLayout from '../Components/Layouts/MainLayouts/MainLayout';
 import CheckoutPageLayout from '../Components/Layouts/PageLayouts/CheckoutPageLayout';
+import { refreshPage } from '../store/feature/authSlice';
 
-const checkout = () => {
+const Checkout = () => {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(
+			refreshPage({
+				key: localStorage.getItem("refresh_key"),
+			})
+		);
+	}, [dispatch]);
     return (
 		<>
 			<div className=" hidden md:block">
@@ -20,4 +30,4 @@ const checkout = () => {
     );
 };
 
-export default checkout;
+export default Checkout;

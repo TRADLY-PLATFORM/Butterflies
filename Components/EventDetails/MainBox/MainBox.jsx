@@ -3,19 +3,11 @@ import EventButtons from "../EventsButtons/EventButtons";
 import favorite from "../../../assets/Images/Home/favourite@3x.png";
 import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
 import Image from "next/Image";
-import { useDispatch, useSelector } from "react-redux";
-import { authSelector, refreshPage } from "../../../store/feature/authSlice";
-import {
-	listingLike,
-	listingSelector,
-} from "../../../store/feature/listingSlice";
-import { useRouter } from "next/dist/client/router";
-
+ 
+ 
+  
 const MainBox = ({ listing_details, rating_data, like }) => {
-	const { login, auth_key } = useSelector(authSelector);
-	const { isSuccess } = useSelector(listingSelector);
-	const dispatch = useDispatch();
-	const router = useRouter();
+	
 
 	return listing_details !== null ? (
 		<div className=" w-full  min-h-[300px] bg-white rounded  p-[25px] relative">
@@ -56,7 +48,7 @@ const MainBox = ({ listing_details, rating_data, like }) => {
 			</div>
 
 			<div className=" mt-[91px] mb-[44px] ">
-				<EventButtons />
+				<EventButtons listing_details={listing_details} />
 			</div>
 			<div className=" absolute top-0 right-0 mt-6 mr-6">
 				<button
