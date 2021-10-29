@@ -1,6 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { authSelector } from '../../../store/feature/authSlice';
 
-const PopUp = ({ message,closePopUP }) => {
+const PopUp = ({ message, closePopUP }) => {
+	const{first_name}=useSelector(authSelector)
     const type = [
 		{ error: " bg-red-100  border-red-400 text-red-500" },
 		{ success: "bg-green-100  border-green-400 text-green-500" },
@@ -27,7 +30,7 @@ const PopUp = ({ message,closePopUP }) => {
 				</svg>
 			</div>
 			<div>
-				<strong className="font-bold">Hi Guess !</strong>
+				<strong className="font-bold">{first_name?"Hi" + "  "+ first_name:"Hi Guess !"}</strong>
 				<span className="  ml-2">
 					{message}
 				</span>

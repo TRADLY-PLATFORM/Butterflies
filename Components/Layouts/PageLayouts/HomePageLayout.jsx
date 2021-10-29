@@ -16,9 +16,13 @@ const HomePageLayout = () => {
 	const{auth_key}=useSelector(authSelector)
 
 	useEffect(() => {
-	dispatch(
-		homeCollections({ authKey: localStorage.getItem("refresh_key") })
-	);
+		 
+		dispatch(
+			homeCollections({
+				authKey: localStorage.getItem("auth_key"),
+			})
+		);
+	 
 	}, [auth_key, dispatch]);
 
 	const {

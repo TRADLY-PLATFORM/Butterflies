@@ -32,6 +32,7 @@ module.exports = {
 			rose: colors.rose,
 			orange: colors.orange,
 			green: colors.green,
+			blue: colors.blue,
 		},
 		borderRadius: {
 			"c-48": "48px",
@@ -46,8 +47,8 @@ module.exports = {
 		screens: {
 			xs: "540px",
 			xxs: "350px",
-			'c-lg': '1100px',
-			'c-md': '824px',
+			"c-lg": "1100px",
+			"c-md": "824px",
 
 			...defaultTheme.screens,
 		},
@@ -55,5 +56,5 @@ module.exports = {
 	variants: {
 		extend: {},
 	},
-	plugins: [],
+	plugins: [require("@tailwindcss/forms")],
 };

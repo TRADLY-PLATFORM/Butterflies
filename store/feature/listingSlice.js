@@ -63,6 +63,15 @@ export const listingSlice = createSlice({
 			state.errorMessage = "";
 			return state;
 		},
+		clearListingDetails: (state) => {
+			state.isError = false;
+			state.isSuccess = false;
+			state.isFetching = false;
+			state.errorMessage = "";
+			state.listing_details = null;
+			state.rating_data = {};
+			return state;
+		},
 	},
 	extraReducers: {
 		[listingDetails.fulfilled]: (state, { payload }) => {
@@ -84,8 +93,7 @@ export const listingSlice = createSlice({
 			state.isFetching = true;
 			state.isError = false;
 			state.errorMessage = "";
-			state.listingDetails = null;
-			state.rating_data = {};
+			
 		},
 		[listingDetails.rejected]: (state, { payload }) => {
 			state.isFetching = false;
@@ -102,8 +110,7 @@ export const listingSlice = createSlice({
 				state.isError = false;
 				state.isFetching = false;
 				state.isSuccess = true;
-				listingDetails();
-			}
+ 			}
 		},
 		[listingLike.pending]: (state) => {
 			state.isSuccess = false;
@@ -119,5 +126,5 @@ export const listingSlice = createSlice({
 	},
 });
 
-export const { clearListingState } = listingSlice.actions;
+export const { clearListingState, clearListingDetails } = listingSlice.actions;
 export const listingSelector = (state) => state.listing;

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
+    "@tailwindcss/forms": "^0.3.4",
     "axios": "^0.23.0",
     "email-validator": "^2.0.4",
     "env-cmd": "^10.1.0",
@@ -31,8 +32,9 @@
     "react-tooltip": "^4.2.21",
     "redux": "^4.1.1",
     "sass": "^1.38.1",
+    "sharp": "^0.29.2",
     "swiper": "^6.8.3",
-    "tradly": "^1.0.6",
+    "tradly": "^1.0.7",
     "uuidv4": "^6.2.12"
   },
   "devDependencies": {

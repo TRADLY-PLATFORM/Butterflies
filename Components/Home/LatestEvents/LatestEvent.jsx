@@ -152,6 +152,9 @@ const LatestEvent = ({ products }) => {
 																alt="follow button"
 																layout="fill"
 																objectFit="cover"
+																require={
+																	true
+																}
 															/>
 														) : (
 															<Image
@@ -161,6 +164,9 @@ const LatestEvent = ({ products }) => {
 																alt="follow button"
 																layout="fill"
 																objectFit="cover"
+																require={
+																	true
+																}
 															/>
 														)}
 													</div>

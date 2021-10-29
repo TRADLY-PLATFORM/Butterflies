@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";
 import {
+	clearListingDetails,
 	clearListingState,
 	listingDetails,
 	listingLike,
@@ -19,6 +20,7 @@ import {
 } from "../../../store/feature/listingSlice";
 import OutsideClickHandler from "react-outside-click-handler";
 import PopUp from "../../Shared/PopUp/PopUp";
+import AttributeDetails from "../../EventDetails/AttributeDetails/AttributeDetails";
 
 const EventDetailsPageLayout = () => {
 	const [showError, setShowError] = useState(false);
@@ -34,10 +36,6 @@ const EventDetailsPageLayout = () => {
 		);
 	}, [auth_key, dispatch, router?.query.id]);
 
-	console.log('====================================');
-	console.log(router);
-	console.log('====================================');
-
 	const {
 		isSuccess,
 		listing_details,
@@ -45,7 +43,24 @@ const EventDetailsPageLayout = () => {
 		errorMessage,
 		isError,
 	} = useSelector(listingSelector);
- 
+	useEffect(() => {
+		const handleRouteChange = (url, { shallow }) => {
+			console.log(
+				`App is changing to ${url} ${
+					shallow ? "with" : "without"
+				} shallow routing`
+			);
+			dispatch(clearListingDetails());
+		};
+
+		router.events.on("routeChangeStart", handleRouteChange);
+
+		// If the component is unmounted, unsubscribe
+		// from the event with the `off` method:
+		return () => {
+			router.events.off("routeChangeStart", handleRouteChange);
+		};
+	}, []);
 
 	// Button Handle
 	const like = (id, isLiked) => {
@@ -56,22 +71,20 @@ const EventDetailsPageLayout = () => {
 					isLiked: isLiked,
 					authKey: auth_key,
 				})
-			)
-				.then(res => {
-					if (!res.payload.code) {
-					 dispatch(
-							listingDetails({
-								id: router?.query.id,
-								authKey: auth_key,
-							})
-						);
-				 }
-			})
+			).then((res) => {
+				if (!res.payload.code) {
+					dispatch(
+						listingDetails({
+							id: router?.query.id,
+							authKey: auth_key,
+						})
+					);
+				}
+			});
 		} else {
 			router.push("/sign-in");
- 		}
+		}
 	};
-	 
 
 	const closePopUP = () => {
 		dispatch(clearListingState());
@@ -103,7 +116,7 @@ const EventDetailsPageLayout = () => {
 					</div>
 				</OutsideClickHandler>
 			)}
-			{listing_details !== null && (
+			{
 				<div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  pt-16 pb-20   c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
 					<div className=" w-[400px] lg:w-[500px] xl:w-[600px]">
 						<div>
@@ -120,9 +133,9 @@ const EventDetailsPageLayout = () => {
 								}
 							/>
 						</div>
-						<div className=" mt-6">
+						{/* <div className=" mt-6">
 							<RelatedEvents />
-						</div>
+						</div> */}
 					</div>
 					<div className=" w-[400px] lg:w-[500px] xl:w-[600px] mt-6 c-md:mt-0">
 						<div>
@@ -139,26 +152,35 @@ const EventDetailsPageLayout = () => {
 						<div className="mt-6">
 							<Schedule />
 						</div>
-						<div>
+						{listing_details?.attributes && (
+							<div className="mt-6">
+								<AttributeDetails
+									attributes={
+										listing_details?.attributes
+									}
+								/>
+							</div>
+						)}
+						{/* <div>
 							<AddressBox
 								location={
 									listing_details?.location
 								}
 							/>
-						</div>
-						<div className="mt-6">
+						</div> */}
+						{/* <div className="mt-6">
 							<StoreNameBox
 								account={
 									listing_details?.account
 								}
 							/>
-						</div>
+						</div> */}
 						<div className="mt-6">
 							<ShareButtons />
 						</div>
 					</div>
 				</div>
-			)}
+			}
 		</>
 	);
 };

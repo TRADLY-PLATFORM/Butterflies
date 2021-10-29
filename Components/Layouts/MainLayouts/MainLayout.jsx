@@ -27,7 +27,7 @@ const MainLayout = ({ children }) => {
 						
 					/>
 				</div>
-				<div className="w-screen bg-[#f6f9ff] pt-[24px] px-[32px] pb-14">
+				<div className="w-screen bg-[#f6f9ff] pt-[24px] px-[16px] pb-14">
 					{children}
 				</div>
 			</div>

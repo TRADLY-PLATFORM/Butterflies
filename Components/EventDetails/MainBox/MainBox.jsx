@@ -1,12 +1,15 @@
-import React from 'react';
-import EventButtons from '../EventsButtons/EventButtons';
+import React from "react";
+import EventButtons from "../EventsButtons/EventButtons";
 import favorite from "../../../assets/Images/Home/favourite@3x.png";
-import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png"; 
-import Image from 'next/Image';
-import { useDispatch, useSelector } from 'react-redux';
-import { authSelector, refreshPage } from '../../../store/feature/authSlice';
-import { listingLike, listingSelector } from '../../../store/feature/listingSlice';
-import { useRouter } from 'next/dist/client/router';
+import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
+import Image from "next/Image";
+import { useDispatch, useSelector } from "react-redux";
+import { authSelector, refreshPage } from "../../../store/feature/authSlice";
+import {
+	listingLike,
+	listingSelector,
+} from "../../../store/feature/listingSlice";
+import { useRouter } from "next/dist/client/router";
 
 const MainBox = ({ listing_details, rating_data, like }) => {
 	const { login, auth_key } = useSelector(authSelector);
@@ -14,7 +17,7 @@ const MainBox = ({ listing_details, rating_data, like }) => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 
-	return (
+	return listing_details !== null ? (
 		<div className=" w-full  min-h-[300px] bg-white rounded  p-[25px] relative">
 			<div className=" w-5/6 ">
 				<p className=" text-sm text-primary font-medium">
@@ -81,6 +84,36 @@ const MainBox = ({ listing_details, rating_data, like }) => {
 						/>
 					)}
 				</button>
+			</div>
+		</div>
+	) : (
+		<div className=" min-h-[300px] border bg-[#3B3269] bg-opacity-[10%] shadow rounded-md p-4   w-full mx-auto">
+			<div className="animate-pulse flex space-x-4">
+				<div className="flex-1 space-y-4 py-1">
+					<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-3/4"></div>
+					<div className="space-y-2">
+						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded"></div>
+						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-5/6"></div>
+					</div>
+				</div>
+			</div>
+			<div className="animate-pulse flex space-x-4 mt-5">
+				<div className="flex-1 space-y-4 py-1">
+					<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-3/4"></div>
+					<div className="space-y-2">
+						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded"></div>
+						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-5/6"></div>
+					</div>
+				</div>
+			</div>
+			<div className="animate-pulse flex space-x-4 mt-5">
+				<div className="flex-1 space-y-4 py-1">
+					<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-3/4"></div>
+					<div className="space-y-2">
+						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded"></div>
+						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-5/6"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

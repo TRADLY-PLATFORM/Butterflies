@@ -7,7 +7,9 @@ export const homeCollections = createAsyncThunk(
 
 	async ({ authKey }, thunkAPI) => {
 		try {
- 
+ console.log('====================================');
+ console.log(authKey);
+ console.log('====================================');
 			const response = await tradly.app.home({
 				authKey: authKey,
 			});
