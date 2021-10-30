@@ -101,7 +101,7 @@ const LatestEvent = ({ products }) => {
 								<Link
 									href={`/l/${item.id}`}
 								>
-									<div className=" w-[190px] min-h-[303px] bg-[#FEFEFE] shadow-c-sm rounded mr-4 overflow-hidden cursor-pointer">
+									<div className=" w-[190px] min-h-[303px] bg-[#FEFEFE]   rounded mr-4 overflow-hidden cursor-pointer">
 										<div className="w-[190px]  h-[190px] relative">
 											<Image
 												src={getThumbnailImage(
