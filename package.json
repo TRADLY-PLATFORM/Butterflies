@@ -6,34 +6,56 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
-     },
+    "lint": "next lint",
+    "start:dev": "env-cmd -f .env.development next dev",
+    "build:dev": "env-cmd -f .env.development next build"
+  },
   "dependencies": {
-       "next": "11.1.0",
-    "next-redux-wrapper": "^7.0.2",
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@reduxjs/toolkit": "^1.6.2",
+    "@stripe/react-stripe-js": "^1.6.0",
+    "@stripe/stripe-js": "^1.20.3",
+    "@tailwindcss/forms": "^0.3.4",
+    "axios": "^0.23.0",
+    "email-validator": "^2.0.4",
+    "env-cmd": "^10.1.0",
+    "js-cookie": "^3.0.1",
+    "moment": "^2.29.1",
+    "next": "11.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-hook-form": "^7.17.5",
+    "react-markdown": "^7.0.1",
+    "react-onclickoutside": "^6.12.0",
+    "react-otp-input": "^2.4.0",
+    "react-outside-click-handler": "^1.3.0",
+    "react-phone-input-2": "^2.12.1",
     "react-redux": "^7.2.4",
+    "react-select": "^5.1.0",
+    "react-tooltip": "^4.2.21",
+    "react-use": "^17.3.1",
     "redux": "^4.1.1",
-    "redux-thunk": "^2.3.0",
     "sass": "^1.38.1",
-    "swiper": "^6.8.3"
-
-    
+    "sharp": "^0.29.2",
+    "stripe": "^8.184.0",
+    "swiper": "^6.8.3",
+    "tradly": "^1.0.7",
+    "uuidv4": "^6.2.12"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@next/eslint-plugin-next": "^11.1.0",
-     "@types/react": "17.0.19",
-    "autoprefixer": "^9",
+    "@types/react": "17.0.19",
+    "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.2",
     "babel-preset-react-app": "^10.0.0",
     "css-loader": "^6.2.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
-    "postcss": "^7",
+    "postcss": "^8.3.9",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "tailwindcss": "^2.2.17"
   }
 }

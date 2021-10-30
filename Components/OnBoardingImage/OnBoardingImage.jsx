@@ -30,7 +30,7 @@ const OnBoardingImage = () => {
 		},
 	];
 	return (
-		<div className="  w-full">
+		<div className="  w-full h-full">
 			<Swiper
 				spaceBetween={30}
 				centeredSlides={true}
@@ -54,7 +54,7 @@ const OnBoardingImage = () => {
 								/>
 							</div>
 							<div className=" w-80">
-								<p className=" mb-14 text-2xl text-green-500 font-medium text-center">
+								<p className=" mb-14 text-2xl text-primary font-medium text-center">
 									{list.text}
 								</p>
 							</div>

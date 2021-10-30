@@ -1,18 +1,24 @@
-import React from "react";
-import OnBoardingImage from "../Components/OnBoardingImage/OnBoardingImage";
-import SignInForm from "../Components/SigninForm/SignInForm";
-import SignInPageLayout from "../Layouts/PageLayouts/SignInpageLayout";
-import SignInPageLayout2 from "../Layouts/PageLayouts/SignInPageLayout2";
-import SignInPageLayout3 from "../Layouts/PageLayouts/SignInPageLayout3";
- 
-const index = () => {
+import React, { useEffect }  from "react";
+import { useDispatch } from "react-redux";
+  import MainLayout from "../Components/Layouts/MainLayouts/MainLayout";
+import HomePageLayout from "../Components/Layouts/PageLayouts/HomePageLayout";
+import { refreshPage } from "../store/feature/authSlice";
+   
+const Index = () => {
+	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch(
+			refreshPage({ key: localStorage.getItem("refresh_key") })
+		);
+	},[dispatch])
+	
 	return (
-		<div >
-			<SignInPageLayout/>
-			{/* <SignInPageLayout2/> */}
-			{/* <SignInPageLayout3 /> */}
- 		</div>
+		<div>
+			<MainLayout>
+				<HomePageLayout/>
+			</MainLayout>
+		</div>
 	);
 };
 
-export default index;
+export default Index;
