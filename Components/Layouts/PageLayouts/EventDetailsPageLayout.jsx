@@ -45,11 +45,7 @@ const EventDetailsPageLayout = () => {
 	} = useSelector(listingSelector);
 	useEffect(() => {
 		const handleRouteChange = (url, { shallow }) => {
-			console.log(
-				`App is changing to ${url} ${
-					shallow ? "with" : "without"
-				} shallow routing`
-			);
+			 
 			dispatch(clearListingDetails());
 		};
 
@@ -60,7 +56,7 @@ const EventDetailsPageLayout = () => {
 		return () => {
 			router.events.off("routeChangeStart", handleRouteChange);
 		};
-	}, []);
+	}, [dispatch, router.events]);
 
 	// Button Handle
 	const like = (id, isLiked) => {
