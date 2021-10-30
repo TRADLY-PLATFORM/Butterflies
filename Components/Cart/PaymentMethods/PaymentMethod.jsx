@@ -22,8 +22,8 @@ const PaymentMethod = ({
 							className={
 								paymentMethod?.id !==
 								method.id
-									? " min-w-[100px] h-5 px-6 py-4 border border-secondary flex items-center justify-between rounded-lg mr-3 mb-3   hover:border-primary hover:text-primary"
-									: " min-w-[100px] h-5 px-6 py-4 border   flex items-center justify-between rounded-lg mr-3 mb-3    border-primary  text-primary"
+									? " min-w-[100px] h-5 px-6 py-4 border border-secondary flex items-center justify-between rounded-lg mr-3 mb-3  transition duration-700    hover:border-primary hover:text-primary"
+									: " min-w-[100px] h-5 px-6 py-4 border   flex items-center justify-between rounded-lg mr-3 mb-3    border-primary  text-primary ring-1 ring-primary ring-opacity-50"
 							}
 							key={method.id}
 							onClick={() =>

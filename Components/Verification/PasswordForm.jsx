@@ -12,7 +12,7 @@ const PasswordForm = ({code,setCode}) => {
 			<OtpInput
 				value={code}
 				onChange={(otp) => setCode(otp)}
-				className=" otp-input w-[64px]  h-[64px] mb-6 bg-transparent border  border-white  rounded-[48px]   text-white outline-none placeholder-white  text-center text-xl font-semibold mr-4"
+				className=" otp-input w-[64px]  h-[64px] mb-6 bg-transparent border  border-white  rounded-[48px]   text-white outline-none placeholder-white  text-center text-xl font-semibold mr-4 focus:border-white focus:ring-0  "
 				numInputs={6}
 				separator={<span></span>}
 			/>

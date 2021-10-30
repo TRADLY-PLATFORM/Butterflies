@@ -105,9 +105,6 @@ export const checkout = createAsyncThunk(
 	"cart/checkout",
 	async ({ authKey, checkoutData }, thunkAPI) => {
 		try {
-			console.log("====================================");
-			console.log(checkoutData);
-			console.log("====================================");
 			const response = await tradly.app.checkout({
 				authKey: authKey,
 				data: checkoutData,
@@ -124,12 +121,61 @@ export const checkout = createAsyncThunk(
 		}
 	}
 );
+export const EphemeralKey = createAsyncThunk(
+	"cart/EphemeralKey",
+	async (   thunkAPI) => {
+		 const url = "app/v1/payments/stripe/ephemeralKey";
+			var config = {
+				method: "post",
+				url: url,
+				data: { api_version: "2019-09-09" },
+			};
+		try {
+			const response = api(config);
+			const { data } = await response;
+			if (!response.error) {
+				return data;
+			} else {
+				const { error } = await response;
+				return error;
+			}
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
+export const paymentIntent = createAsyncThunk(
+	"cart/paymentIntent",
+	async ({ order_reference }, thunkAPI) => {
+		const url = "app/v1/payments/stripe/paymentIntent";
+		var config = {
+			method: "post",
+			url: url,
+			data: { order_reference: order_reference },
+		};
+		try {
+			const response = api(config);
+			const { data } = await response;
+			if (!response.error) {
+				console.log('====================================');
+				console.log(data);
+				console.log('====================================');
+				return data;
+			} else {
+				const { error } = await response;
+				return error;
+			}
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
 
 export const cartSlice = createSlice({
 	name: "cart",
 	initialState: {
 		isFetching: false,
-		isCheckoutFetching:false,
+		isCheckoutFetching: false,
 		isSuccess: false,
 		isError: false,
 		errorMessage: "",
@@ -137,6 +183,8 @@ export const cartSlice = createSlice({
 		cart_details: null,
 		shipping_methods: null,
 		payment_methods: null,
+		order_reference: null,
+		client_secret:'',
 	},
 	reducers: {
 		clearCartState: (state) => {
@@ -255,14 +303,16 @@ export const cartSlice = createSlice({
 		},
 		[checkout.fulfilled]: (state, { payload }) => {
 			if (payload.code) {
-				state.isFetching = false;
+				state.isCheckoutFetching = false;
 				state.isError = true;
 				state.isSuccess = false;
 				state.errorMessage = payload?.message;
 			} else {
+ 
 				state.isError = false;
-				state.isFetching = false;
+				state.isCheckoutFetching = false;
 				state.isSuccess = true;
+				state.order_reference = payload.order_reference;
 			}
 		},
 		[checkout.pending]: (state) => {
@@ -272,6 +322,33 @@ export const cartSlice = createSlice({
 			state.errorMessage = "";
 		},
 		[checkout.rejected]: (state, { payload }) => {
+			state.isFetching = false;
+			state.isError = true;
+			state.errorMessage = payload?.message;
+		},
+		[paymentIntent.fulfilled]: (state, { payload }) => {
+			if (payload.code) {
+				state.isCheckoutFetching = false;
+				state.isError = true;
+				state.isSuccess = false;
+				state.errorMessage = payload?.message;
+			} else {
+				console.log('====================================');
+				console.log(payload);
+				console.log('====================================');
+				state.isError = false;
+				state.isCheckoutFetching = false;
+				state.isSuccess = true;
+				state.client_secret = payload?.data.client_secret;
+			}
+		},
+		[paymentIntent.pending]: (state) => {
+			state.isSuccess = false;
+			state.isCheckoutFetching = true;
+			state.isError = false;
+			state.errorMessage = "";
+		},
+		[paymentIntent.rejected]: (state, { payload }) => {
 			state.isFetching = false;
 			state.isError = true;
 			state.errorMessage = payload?.message;

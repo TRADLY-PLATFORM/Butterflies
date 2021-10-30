@@ -17,15 +17,15 @@ const OrderSummary = ({ cart, cart_details }) => {
 			<div className="mt-8">
 				<p className="text-base leading-6 font-semibold text-secondary flex justify-between items-center mb-2">
 					<span>Total</span>{" "}
-					<span>{cart.list_total.formatted}</span>
+					<span>{cart.list_total?.formatted}</span>
 				</p>
 				<p className="text-base leading-6 font-semibold text-secondary flex justify-between items-center mb-2">
 					<span>Shipping</span>{" "}
-					<span>{cart.shipping_total.formatted}</span>
+					<span>{cart.shipping_total?.formatted}</span>
 				</p>
 				<p className="text-xl leading-6 font-semibold text-black flex justify-between items-center">
 					<span>Subtotal</span>{" "}
-					<span>{cart.grand_total.formatted}</span>
+					<span>{cart.grand_total?.formatted}</span>
 				</p>
 			</div>
 		</div>

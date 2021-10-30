@@ -2,6 +2,7 @@ import Image from 'next/Image';
 import Link from 'next/Link';
 import React, { useState } from 'react';
 import logo from "../../../assets/Images/MobileSize/Tradly Logo.png"
+import Header2 from '../../Header/Header2';
 import HeaderButton from '../../HeaderButton/HeaderButton';
 import HeaderProfile from '../../HeaderProfileBox/HeaderProfile';
 import SearchBox from '../../SearchBox/SearchBox';
@@ -15,8 +16,8 @@ const MagazineLayout = ({ children }) => {
 			) : (
 				""
 			)}
-			<div className="h-[105px] px-8 flex justify-between items-center shadow-c-sm sticky bg-white top-0  z-[50] overflow-x-hidden">
-				<div className="flex items-center">
+			<div className="  sticky  top-0 z-50 ">
+				{/* <div className="flex items-center">
 					<Link href="/"  >
 						<div className=" flex items-center   relative cursor-pointer ">
 							<Image
@@ -43,7 +44,8 @@ const MagazineLayout = ({ children }) => {
 							}
 						/>
 					</div>
-				</div>
+				</div> */}
+				<Header2 />
 			</div>
 			<div className="bg-[#f6f9ff] min-h-screen  overflow-x-hidden">
 				<div>{children}</div>

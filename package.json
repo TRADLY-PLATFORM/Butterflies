@@ -11,6 +11,8 @@
     "build:dev": "env-cmd -f .env.development next build"
   },
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
     "@reduxjs/toolkit": "^1.6.2",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.20.3",
@@ -32,6 +34,7 @@
     "react-redux": "^7.2.4",
     "react-select": "^5.1.0",
     "react-tooltip": "^4.2.21",
+    "react-use": "^17.3.1",
     "redux": "^4.1.1",
     "sass": "^1.38.1",
     "sharp": "^0.29.2",

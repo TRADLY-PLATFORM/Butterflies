@@ -15,7 +15,7 @@ const OrderSuccess = () => {
 					objectFit="contain"
 				/>
 				<p className="text-primary text-base font-semibold text-center">
-					Thaank you. Your Order is succesful
+					Thank you. Your Order is successful
 				</p>
 			</div>
 			<div className="flex flex-col xs:flex-row  justify-between items-center">

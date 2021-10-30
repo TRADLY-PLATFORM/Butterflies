@@ -137,7 +137,7 @@ const SignUpForm = () => {
 				</div>
 				<div className=" mt-12 flex flex-col justify-center items-center">
 					{isFetching ? (
-						<button className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base">
+						<button className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base ">
 							<svg
 								className="animate-spin -ml-1 mr-3 h-5 w-5 text-primary"
 								xmlns="http://www.w3.org/2000/svg"

@@ -15,8 +15,8 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
 	const token = process.env.NEXT_APP_API_KEY;
-	config.headers["Authorization"] = "Bearer " + token;
-	const authKey = LocalStorageService.getAccessToken();
+	config.headers["Authorization"] = "Bearer " + localStorage.getItem('token');
+	const authKey = localStorage.getItem("auth_key");
 	if (authKey) {
 		config.headers["X-Auth-Key"] = authKey;
 	}

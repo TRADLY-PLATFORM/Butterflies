@@ -13,7 +13,7 @@ const LocalStorageService = (function () {
 	}
 	async function _getAccessToken() {
 		try {
-			const token = await localStorage.getItem("access_token");
+			const token =   localStorage.getItem("auth_key");
 			return token;
 		} catch (err) {
 			return false;

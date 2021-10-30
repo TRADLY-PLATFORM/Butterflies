@@ -12,6 +12,7 @@ function MyApp({ Component, pageProps }) {
 		.then((response) => {
 			if (response.status) {
 				setConfigsStatus(true);
+				localStorage.setItem('token',response.data.key.app_key)
 			}
 		})
 		.catch((error) => {
