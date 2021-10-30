@@ -1,11 +1,6 @@
-import Image from 'next/Image';
-import Link from 'next/Link';
 import React, { useState } from 'react';
-import logo from "../../../assets/Images/MobileSize/Tradly Logo.png"
 import Header2 from '../../Header/Header2';
-import HeaderButton from '../../HeaderButton/HeaderButton';
-import HeaderProfile from '../../HeaderProfileBox/HeaderProfile';
-import SearchBox from '../../SearchBox/SearchBox';
+ 
 
 const MagazineLayout = ({ children }) => {
  		const [showUserMenus, setShowUserMenus] = useState(false);
