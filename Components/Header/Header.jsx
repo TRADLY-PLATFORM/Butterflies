@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/Image";
+import Link from "next/Link";
+
 import HeaderButton from "../HeaderButton/HeaderButton";
 import HeaderProfile from "../HeaderProfileBox/HeaderProfile";
 import SearchBox from "../SearchBox/SearchBox";
 import logo from "../../assets/Images/MobileSize/Tradly Logo.png";
-import Image from "next/Image";
 import SideMenubar from "../SideMenubar/SideMenubar";
-import Link from "next/Link";
 import { useRouter } from "next/dist/client/router";
 
 const Header = () => {
