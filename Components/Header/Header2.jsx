@@ -3,10 +3,10 @@ import HeaderButton from "../HeaderButton/HeaderButton";
 import HeaderProfile from "../HeaderProfileBox/HeaderProfile";
 import SearchBox from "../SearchBox/SearchBox";
 import logo from "../../assets/Images/MobileSize/Tradly Logo.png";
-import Image from "next/Image";
-import SideMenubar from "../SideMenubar/SideMenubar";
+ import SideMenubar from "../SideMenubar/SideMenubar";
 import Link from "next/Link";
 import { useRouter } from "next/dist/client/router";
+import Image from "next/Image";
 
 const Header2 = () => {
 	const router = useRouter();
