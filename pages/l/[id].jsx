@@ -7,8 +7,7 @@ import { useDispatch } from "react-redux";
 import { refreshPage } from "../../store/feature/authSlice";
 
 function Details() {
-	const pageTitle = "Event Details ";
-		const dispatch = useDispatch();
+ 		const dispatch = useDispatch();
 		useEffect(() => {
 			dispatch(
 				refreshPage({
@@ -24,7 +23,7 @@ function Details() {
 					<EventDetailsPageLayout />
 				</MagazineLayout>
 			</div>
-			<div className="   md:hidden">
+ 			<div className="   md:hidden">
 				<MainLayout>
 					<EventDetailsPageLayout />
 				</MainLayout>

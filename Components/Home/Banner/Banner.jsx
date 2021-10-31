@@ -1,7 +1,7 @@
 import React from "react";
 import bannerImage from "../../../assets/Images/Banner/Rectangle.png";
-import Image from "next/Image";
-import styles from "./Banner.module.scss"
+import Image from "next/image";
+import styles from "./Banner.module.scss";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -42,16 +42,14 @@ const Banner = ({ banners }) => {
 							className=" w-full flex flex-col justify-center items-center mb-14"
 						>
 							<div className=" w-full h-[200px] relative rounded-lg overflow-hidden">
-								 
-									<Image
-										src={
-											banner.image_path
-										}
-										alt="Banner Image"
-										layout="fill"
-										objectFit="cover"
-									/>
-								 
+								<Image
+									src={
+										banner.image_path
+									}
+									alt="Banner Image"
+									layout="fill"
+									objectFit="cover"
+								/>
 							</div>
 							{/* <div className=" absolute top-0  left-0  mt-[50px]   ml-6">
 								<p className=" text-2xl text-white font-semibold">

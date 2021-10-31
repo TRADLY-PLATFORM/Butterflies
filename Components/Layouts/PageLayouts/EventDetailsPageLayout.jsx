@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import AddressBox from "../../EventDetails/AddressBox/AddressBox";
-import DescriptionPart from "../../EventDetails/DescriptionPart/DescriptionPart";
+ import DescriptionPart from "../../EventDetails/DescriptionPart/DescriptionPart";
 import ImagePart from "../../EventDetails/ImagePart/ImagePart";
 import MainBox from "../../EventDetails/MainBox/MainBox";
-import RelatedEvents from "../../EventDetails/RelatedEventsPart/RelatedEvents";
-import Schedule from "../../EventDetails/SchedulePart/Schedule ";
+ import Schedule from "../../EventDetails/SchedulePart/Schedule ";
 import ShareButtons from "../../EventDetails/ShareButtons/ShareButtons";
-import StoreNameBox from "../../EventDetails/StoreNameBox/StoreNameBox";
-import { useRouter } from "next/dist/client/router";
+ import { useRouter } from "next/dist/client/router";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";

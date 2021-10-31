@@ -5,9 +5,9 @@ import image3 from "../../../assets/Images/Home/pexels-photo-789812 1.png";
 import locationMarker from "../../../assets/Images/Home/locationMarker.svg";
 import favorite from "../../../assets/Images/Home/favourite@3x.png";
 import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
-import Image from "next/Image";
+import Image from "next/image";
 import { svgHeartIcon } from "../../Shared/Constant/Icons/Icons";
-import Link from "next/Link";
+import Link from "next/link";
 import useWindowSize from "../../../Hooks/WindowSize/WindowSize";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -70,7 +70,7 @@ const LatestEvent = ({ products }) => {
 				<h2 className=" text-2xl text-black font-semibold">
 					{products.title}
 				</h2>
-				<Link href="#">
+				<Link href="#" passHref={true}>
 					<p className="text-base text-primary font-semibold">
 						View All
 					</p>
@@ -100,6 +100,7 @@ const LatestEvent = ({ products }) => {
 							>
 								<Link
 									href={`/l/${item.id}`}
+									passHref={true}
 								>
 									<div className=" w-[190px] min-h-[303px] bg-[#FEFEFE]   rounded mr-4 overflow-hidden cursor-pointer">
 										<div className="w-[190px]  h-[190px] relative">
@@ -134,7 +135,12 @@ const LatestEvent = ({ products }) => {
 														}
 													</p>
 												</div>
-												<Link href="/">
+												<Link
+													href="/"
+													passHref={
+														true
+													}
+												>
 													<div
 														className=" h-[40px] w-[40px] relative cursor-pointer  [z-100]"
 														onClick={() =>

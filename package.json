@@ -46,6 +46,12 @@
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@next/eslint-plugin-next": "^11.1.0",
+     "eslint-config-airbnb": "^18.2.1",
+     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "@types/react": "17.0.19",
     "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.2",

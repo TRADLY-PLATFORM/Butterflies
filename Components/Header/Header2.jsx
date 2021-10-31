@@ -3,11 +3,10 @@ import HeaderButton from "../HeaderButton/HeaderButton";
 import HeaderProfile from "../HeaderProfileBox/HeaderProfile";
 import SearchBox from "../SearchBox/SearchBox";
 import logo from "../../assets/Images/MobileSize/Tradly Logo.png";
- import SideMenubar from "../SideMenubar/SideMenubar";
-import Link from "next/Link";
+import SideMenubar from "../SideMenubar/SideMenubar";
+import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
-import Image from "next/Image";
-
+import Image from "next/image";
 const Header2 = () => {
 	const router = useRouter();
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -43,7 +42,7 @@ const Header2 = () => {
 				)}
 				<div className="  h-[105px] px-8 flex justify-between items-center shadow-c-sm   bg-white top-0    overflow-x-hidden">
 					<div className="flex items-center">
-						<Link href="/">
+						<Link href="/" passHref={true}>
 							<div className=" flex items-center   relative cursor-pointer ">
 								<Image
 									src={logo}
@@ -107,7 +106,7 @@ const Header2 = () => {
 									/>
 								</svg>
 							</button>
-							<Link href="/">
+							<Link href="/" passHref={true}>
 								<Image
 									src={logo}
 									alt="logo"

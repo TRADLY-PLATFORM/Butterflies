@@ -1,5 +1,5 @@
-import { useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/dist/client/router";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";
@@ -18,8 +18,7 @@ import CartItemBox from "../../Cart/CartItemBox/CartItemBox";
 import OrderSummary from "../../Cart/OrderSummary/OrderSummary";
 import PaymentMethod from "../../Cart/PaymentMethods/PaymentMethod";
 import ShippingMethod from "../../Cart/ShippingMethods/ShippingMethod";
-import AddressForm from "../../Cart/AddressForm/AddressForm";
-import OutsideClickHandler from "react-outside-click-handler";
+ import OutsideClickHandler from "react-outside-click-handler";
 import PopUp from "../../Shared/PopUp/PopUp";
 import Modal from "../../Shared/Modal.jsx/Modal";
 import OrderSuccess from "../../Cart/OrderSuccess/OrderSuccess";

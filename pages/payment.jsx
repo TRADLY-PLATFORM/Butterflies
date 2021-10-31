@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
-import PaymentCard from "../Components/PaymentCard/PaymentCard";
-import { Elements } from "@stripe/react-stripe-js";
+ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import MagazineLayout from "../Components/Layouts/MainLayouts/MagazineLayout";
-import MainLayout from "../Components/Layouts/MainLayouts/MainLayout";
 import PaymentPageLayout from "../Components/Layouts/PageLayouts/PaymentPageLayout";
 import { useDispatch } from "react-redux";
 import { refreshPage } from "../store/feature/authSlice";
 import { useRouter } from "next/dist/client/router";
-import { useBeforeUnload } from "react-use";
-import { useToggle } from "react-use";
-
+ 
 const Payment = () => {
 	const router=useRouter()
 useEffect(() => {

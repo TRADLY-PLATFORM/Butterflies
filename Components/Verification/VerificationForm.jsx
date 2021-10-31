@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import OutsideClickHandler from "react-outside-click-handler";
 import PopUp from "../Shared/PopUp/PopUp";
@@ -16,10 +16,10 @@ const VerificationForm = () => {
 	const [showError, setShowError] = useState(false);
 	const [error_message, setError_message] = useState("");
 	const [code, setCode] = useState(null);
-	const { isFetching, isError, verifyId, errorMessage, isSuccess,login } =
+	const { isFetching, isError, verifyId, errorMessage, isSuccess, login } =
 		useSelector(authSelector);
-    const dispatch = useDispatch();
-    const router = useRouter();
+	const dispatch = useDispatch();
+	const router = useRouter();
 
 	const closePopUP = () => {
 		dispatch(clearState());

@@ -1,9 +1,9 @@
- import React, { useEffect, useState } from "react";
- import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import EmailForm from "./EmailForm";
 import PhoneForm from "./PhoneForm";
 import { uuid } from "uuidv4";
- import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
 	authSelector,
 	clearState,
@@ -25,7 +25,6 @@ const SignInForm = () => {
 
 	const { isFetching, isSuccess, errorMessage, isError } =
 		useSelector(authSelector);
- 
 
 	const closePopUP = () => {
 		dispatch(clearState());
@@ -60,7 +59,7 @@ const SignInForm = () => {
 			},
 		};
 
-		dispatch(signIn({ prams: users}));
+		dispatch(signIn({ prams: users }));
 	};
 
 	useEffect(() => {

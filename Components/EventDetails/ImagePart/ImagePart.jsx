@@ -9,12 +9,10 @@ import "swiper/components/navigation/navigation.min.css";
 
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
-import Image from "next/Image";
-// install Swiper modules
+import Image from "next/image"; // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const ImagePart = ({ images }) => {
- 
 	return (
 		<div className=" w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] ">
 			{images ? (

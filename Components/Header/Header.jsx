@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
- import Link from "next/Link";
+import Link from "next/link";
 
 import HeaderButton from "../HeaderButton/HeaderButton";
 import HeaderProfile from "../HeaderProfileBox/HeaderProfile";
@@ -7,8 +7,7 @@ import SearchBox from "../SearchBox/SearchBox";
 import logo from "../../assets/Images/MobileSize/Tradly Logo.png";
 import SideMenubar from "../SideMenubar/SideMenubar";
 import { useRouter } from "next/dist/client/router";
-import Image from "next/Image";
-
+import Image from "next/image";
 const Header = () => {
 	const router = useRouter();
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -97,7 +96,7 @@ const Header = () => {
 									/>
 								</svg>
 							</button>
-							<Link  href="/">
+							<Link href="/" passHref={true}>
 								<Image
 									src={logo}
 									alt="logo"

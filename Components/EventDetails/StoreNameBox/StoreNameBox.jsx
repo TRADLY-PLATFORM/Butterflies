@@ -1,5 +1,5 @@
-import Image from 'next/Image';
 import React from 'react';
+import Image from 'next/image';
 import imageIcon from "../../../assets/Images/EventDetails/pexels-photo-789812 1-2.png"
 const StoreNameBox = ({ account }) => {
 	return (
