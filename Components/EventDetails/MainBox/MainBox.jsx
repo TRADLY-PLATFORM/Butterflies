@@ -2,13 +2,9 @@ import React from "react";
 import EventButtons from "../EventsButtons/EventButtons";
 import favorite from "../../../assets/Images/Home/favourite@3x.png";
 import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
-import Image from "next/Image";
- 
- 
-  
-const MainBox = ({ listing_details, rating_data, like }) => {
-	
+import Image from "next/image";
 
+const MainBox = ({ listing_details, rating_data, like }) => {
 	return listing_details !== null ? (
 		<div className=" w-full  min-h-[300px] bg-white rounded  p-[25px] relative">
 			<div className=" w-5/6 ">

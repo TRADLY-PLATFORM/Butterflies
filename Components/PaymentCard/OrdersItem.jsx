@@ -1,12 +1,11 @@
 import { useRouter } from "next/dist/client/router";
-import Image from "next/Image";
+import Image from "next/image";
 import React from "react";
 import { useSelector } from "react-redux";
 import { cartSelector } from "../../store/feature/cartSlice";
 
-const OrdersItem = ({ cart,cart_details }) => {
- 
- 	const router = useRouter();
+const OrdersItem = ({ cart, cart_details }) => {
+	const router = useRouter();
 	const backButton = () => {};
 	const { client_secret } = useSelector(cartSelector);
 
@@ -56,7 +55,7 @@ const OrdersItem = ({ cart,cart_details }) => {
 					<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-3/4"></div>
 					<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-3/4"></div>
 					<div className="space-y-2">
-						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-[90%]" ></div>
+						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-[90%]"></div>
 						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-5/6"></div>
 						<div className="h-4 bg-[#3B3269] bg-opacity-[20%] rounded w-5/6"></div>
 						<div className="h-[350px] width-[350px] bg-[#3B3269] bg-opacity-[20%] rounded w-5/6"></div>

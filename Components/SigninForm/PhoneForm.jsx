@@ -1,10 +1,9 @@
 import React from "react";
-import Image from "next/Image";
+import Image from "next/image";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import flagIcon from "../../assets/Images/signin/India.png";
 import Select from "react-select";
-
 
 const PhoneForm = () => {
 	const countries = [
@@ -46,9 +45,9 @@ const PhoneForm = () => {
 			code2: "MY",
 			code3: "MYY",
 		},
-    ];
-    const options = countries.map((country) => {
-        return {
+	];
+	const options = countries.map((country) => {
+		return {
 			value: country.code2,
 			label: (
 				<div>
@@ -62,7 +61,7 @@ const PhoneForm = () => {
 				</div>
 			),
 		};
-    })
+	});
 	return (
 		<div className=" flex flex-col  justify-center items-center">
 			<div className=" w-full md:w-96  h-12 mb-5 bg-transparent border  border-white  rounded-[48px] p-3 text-white outline-none placeholder-white">

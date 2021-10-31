@@ -23,7 +23,7 @@ const SignUpForm = () => {
 	const [error_message, setError_message] = useState("");
 
 	const dispatch = useDispatch();
-    const router = useRouter();
+	const router = useRouter();
 
 	const { isFetching, isError, isSuccess, errorMessage } =
 		useSelector(authSelector);
@@ -32,14 +32,13 @@ const SignUpForm = () => {
 		dispatch(clearState());
 		setShowError(false);
 		setError_message("");
-    };
-    
-    useEffect(() => {
-        if (isSuccess) {
-          router.push("/verification")
-      }
+	};
 
-    }, [isSuccess, router]);
+	useEffect(() => {
+		if (isSuccess) {
+			router.push("/verification");
+		}
+	}, [isSuccess, router]);
 
 	const createAccount = () => {
 		if (firstName === null) {

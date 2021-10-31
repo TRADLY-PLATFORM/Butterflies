@@ -1,8 +1,7 @@
 import React from "react";
 import onboardingImage from "../../assets/Images/signin/Group 379.svg";
-import Image from "next/Image";
-import { Swiper, SwiperSlide } from 'swiper/react';
-
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/swiper.min.css";
@@ -41,10 +40,13 @@ const OnBoardingImage = () => {
 				pagination={{
 					clickable: true,
 				}}
- 			>
+			>
 				{sliderImage?.map((list, i) => {
 					return (
-						<SwiperSlide key={i}  className=' w-full flex flex-col justify-center items-center'>
+						<SwiperSlide
+							key={i}
+							className=" w-full flex flex-col justify-center items-center"
+						>
 							<div className="mb-8">
 								<Image
 									src={list.image}

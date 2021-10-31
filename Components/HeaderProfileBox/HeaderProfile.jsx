@@ -1,4 +1,4 @@
-import Link from "next/Link";
+import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { useDispatch } from "react-redux";
@@ -8,8 +8,8 @@ import { authSelector, logout } from "../../store/feature/authSlice";
 const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
 	const dispatch = useDispatch();
 
-	const { first_name, last_name, profile_pic ,login} = useSelector(authSelector);
- 
+	const { first_name, last_name, profile_pic, login } =
+		useSelector(authSelector);
 
 	const openUserMenu = () => {
 		showUserMenus ? setShowUserMenus(false) : setShowUserMenus(true);
@@ -54,88 +54,91 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
 						fill="#959393"
 					/>
 				</svg>
-			<OutsideClickHandler onOutsideClick={outsideClick}>
-				<div
-					id="profileMenus"
-					className={
-						showUserMenus
-							? " bg-white rounded-xl w-[300px] min-h-[100px] fixed top-0 right-0 z-[60]  mt-[100px] mr-[30px] py-[25px] shadow-sm flex flex-col justify-center"
-							: "hidden"
-					}
-				>
-					{login ? (
-						<>
-							<div
-								className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4]"
-								onClick={() => {
-									dispatch(
-										logout()
-									);
-								}}
+				<OutsideClickHandler onOutsideClick={outsideClick}>
+					<div
+						id="profileMenus"
+						className={
+							showUserMenus
+								? " bg-white rounded-xl w-[300px] min-h-[100px] fixed top-0 right-0 z-[60]  mt-[100px] mr-[30px] py-[25px] shadow-sm flex flex-col justify-center"
+								: "hidden"
+						}
+					>
+						{login ? (
+							<>
+								<div
+									className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4]"
+									onClick={() => {
+										dispatch(
+											logout()
+										);
+									}}
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-6 w-6 mr-5"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth="2"
+											d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+										/>
+									</svg>
+									<span className=" text-sm  text-secondary  font-semibold">
+										Log Out
+									</span>
+								</div>
+								<div className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4]">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-6 w-6 mr-5"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth="2"
+											d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+										/>
+									</svg>
+									<span className=" text-sm  text-secondary  font-semibold">
+										Profile
+									</span>
+								</div>
+							</>
+						) : (
+							<Link
+								href="/sign-in"
+								passHref={true}
 							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-6 w-6 mr-5"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-									/>
-								</svg>
-								<span className=" text-sm  text-secondary  font-semibold">
-									Log Out
-								</span>
-							</div>
-							<div className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4]">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-6 w-6 mr-5"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-									/>
-								</svg>
-								<span className=" text-sm  text-secondary  font-semibold">
-									Profile
-								</span>
-							</div>
-						</>
-					) : (
-						<Link href="/sign-in">
-							<div className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4]">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-6 w-6 mr-5"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-									/>
-								</svg>
-								<span className=" text-sm  text-secondary  font-semibold">
-									Log In
-								</span>
-							</div>
-						</Link>
-					)}
-				</div>
-			</OutsideClickHandler>
+								<div className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4]">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-6 w-6 mr-5"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth="2"
+											d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+										/>
+									</svg>
+									<span className=" text-sm  text-secondary  font-semibold">
+										Log In
+									</span>
+								</div>
+							</Link>
+						)}
+					</div>
+				</OutsideClickHandler>
 			</div>
 		</>
 	);

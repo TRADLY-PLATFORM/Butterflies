@@ -1,18 +1,18 @@
 import React from "react";
-import Image from "next/Image";
-import Link from "next/Link";
+import Image from "next/image";
+import Link from "next/link";
 
 import logo from "../../assets/Images/SideMenubarImages/Tradly Logo.png";
 import { useRouter } from "next/dist/client/router";
 
 const SideMenubar = () => {
 	const router = useRouter();
- 
+
 	return (
 		<div className="  w-full ">
 			<div className=" flex justify-center items-center py-9">
 				{/* This is svg image, when you set this image from API connect in next config and set the height width */}
-				<Link href="/">
+				<Link href="/" passHref={true}>
 					<Image
 						src={logo}
 						height={40}
@@ -21,7 +21,7 @@ const SideMenubar = () => {
 					/>
 				</Link>
 			</div>
-			<Link href="/">
+			<Link href="/" passHref={true}>
 				<div
 					className={[
 						"w-full h-12 flex    items-center  pl-7",
@@ -55,7 +55,7 @@ const SideMenubar = () => {
 					</p>
 				</div>
 			</Link>
-			<Link href="#">
+			<Link href="#" passHref={true}>
 				<div
 					className={[
 						"w-full h-12 flex    items-center  pl-7",
@@ -89,7 +89,7 @@ const SideMenubar = () => {
 					</p>
 				</div>
 			</Link>
-			<Link href="#">
+			<Link href="#" passHref={true}>
 				<div
 					className={[
 						"w-full h-12 flex   items-center  pl-7",
@@ -123,7 +123,7 @@ const SideMenubar = () => {
 					</p>
 				</div>
 			</Link>
-			<Link href="#">
+			<Link href="#" passHref={true}>
 				<div
 					className={[
 						"w-full h-12 flex    items-center  pl-7",
@@ -157,7 +157,7 @@ const SideMenubar = () => {
 					</p>
 				</div>
 			</Link>
-			<Link href="#">
+			<Link href="#" passHref={true}>
 				<div
 					className={[
 						"w-full h-12 flex    items-center  pl-7",

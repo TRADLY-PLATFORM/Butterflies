@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moreImage from "../../../assets/Images/Categories/Menu.png";
 import book from "../../../assets/Images/Categories/books-stack-of-three (1).png";
-import Image from "next/Image";
-import Link from "next/Link";
+import Image from "next/image";
+import Link from "next/link";
 import { getThumbnailImage } from "../../Shared/Constant/Constant";
 
 const Categories = ({ categories }) => {
@@ -70,7 +70,11 @@ const Categories = ({ categories }) => {
 			<div className=" grid grid-cols-[144px,144px]  xs:grid-cols-3 gap-[23px] sm:gap-0  sm:flex sm:flex-wrap justify-center md:justify-start  items-center">
 				{filterCategories?.map((item) => {
 					return (
-						<Link key={Math.random()} href="#">
+						<Link
+							key={Math.random()}
+							href="#"
+							passHref={true}
+						>
 							<div className=" sm:mr-4  sm:mb-6  bg-[#ffffff] rounded-xl  py-4 flex flex-col  justify-between items-center border border-transparent  shadow-c-sm hover:border-primary hover:bg-primary_light  w-[144px] h-[144px] md:w-[100px]  md:h-[100px]  cursor-pointer">
 								<div className=" w-[46px] h-[46px] md:w-[32px] md:h-[32px] relative">
 									<Image

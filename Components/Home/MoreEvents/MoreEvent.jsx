@@ -5,74 +5,75 @@ import image3 from "../../../assets/Images/Home/pexels-photo-789812 1.png";
 import locationMarker from "../../../assets/Images/Home/locationMarker.svg";
 import favorite from "../../../assets/Images/Home/favourite.png";
 import heartIcon from "../../../assets/Images/Home/heartIcon.png";
-import Image from "next/Image";
-import { svgHeartIcon } from "../../Shared/Constant/Icons/Icons";
+import Image from "next/image";import { svgHeartIcon } from "../../Shared/Constant/Icons/Icons";
 
+
+const events = [
+	{
+		image: image1,
+		time: "15 hours ago",
+		name: "Yoga Class For beginner",
+		price: "Starting at ‘500",
+		store_name: "Name Here",
+		follower: "4.5k Followers ",
+		city: "Indonesia",
+		in_like: true,
+	},
+	{
+		image: image2,
+		time: "15 hours ago",
+		name: "Explore Jakarta",
+		price: "Starting at ‘500",
+		store_name: "Name Here",
+		follower: "4.5k Followers ",
+		city: "Indonesia",
+		in_like: false,
+	},
+	{
+		image: image3,
+		time: "15 hours ago",
+		name: "Webinar Startup Industries",
+		price: "Starting at ‘500",
+		store_name: "Name Here",
+		follower: "4.5k Followers ",
+		city: "Indonesia",
+		in_like: true,
+	},
+	{
+		image: image1,
+		time: "15 hours ago",
+		name: "Yoga Class For beginner",
+		price: "Starting at ‘500",
+		store_name: "Name Here",
+		follower: "4.5k Followers ",
+		city: "Indonesia",
+		in_like: true,
+	},
+	{
+		image: image2,
+		time: "15 hours ago",
+		name: "Explore Jakarta",
+		price: "Starting at ‘500",
+		store_name: "Name Here",
+		follower: "4.5k Followers ",
+		city: "Indonesia",
+		in_like: false,
+	},
+	{
+		image: image3,
+		time: "15 hours ago",
+		name: "Webinar Startup Industries",
+		price: "Starting at ‘500",
+		store_name: "Name Here",
+		follower: "4.5k Followers ",
+		city: "Indonesia",
+		in_like: true,
+	},
+];
 const MoreEvent = () => {
 	const [filterEvent, setFilterEvent] = useState();
 	const [extraWidth, setExtraWidth] = useState(0);
-	const events = [
-		{
-			image: image1,
-			time: "15 hours ago",
-			name: "Yoga Class For beginner",
-			price: "Starting at ‘500",
-			store_name: "Name Here",
-			follower: "4.5k Followers ",
-			city: "Indonesia",
-			in_like: true,
-		},
-		{
-			image: image2,
-			time: "15 hours ago",
-			name: "Explore Jakarta",
-			price: "Starting at ‘500",
-			store_name: "Name Here",
-			follower: "4.5k Followers ",
-			city: "Indonesia",
-			in_like: false,
-		},
-		{
-			image: image3,
-			time: "15 hours ago",
-			name: "Webinar Startup Industries",
-			price: "Starting at ‘500",
-			store_name: "Name Here",
-			follower: "4.5k Followers ",
-			city: "Indonesia",
-			in_like: true,
-		},
-		{
-			image: image1,
-			time: "15 hours ago",
-			name: "Yoga Class For beginner",
-			price: "Starting at ‘500",
-			store_name: "Name Here",
-			follower: "4.5k Followers ",
-			city: "Indonesia",
-			in_like: true,
-		},
-		{
-			image: image2,
-			time: "15 hours ago",
-			name: "Explore Jakarta",
-			price: "Starting at ‘500",
-			store_name: "Name Here",
-			follower: "4.5k Followers ",
-			city: "Indonesia",
-			in_like: false,
-		},
-		{
-			image: image3,
-			time: "15 hours ago",
-			name: "Webinar Startup Industries",
-			price: "Starting at ‘500",
-			store_name: "Name Here",
-			follower: "4.5k Followers ",
-			city: "Indonesia",
-			in_like: true,
-		},
-	];
+	
 
 
 		useEffect(() => {
