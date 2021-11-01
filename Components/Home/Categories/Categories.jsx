@@ -18,14 +18,14 @@ const Categories = ({ categories }) => {
 			calc = Math.floor((width - 245) / 116);
 		}
 		let sliceCategories;
-		if (categories.length > calc) {
-			sliceCategories = categories.slice(0, calc - 2);
+		if (categories?.length > calc) {
+			sliceCategories = categories?.slice(0, calc - 2);
 			sliceCategories.push({
 				name: "All Categories",
 				image_path: moreImage,
 			});
 		} else {
-			sliceCategories = categories.slice(0, calc);
+			sliceCategories = categories?.slice(0, calc);
 		}
 		setFilterCategories(sliceCategories);
 	}, [categories]);

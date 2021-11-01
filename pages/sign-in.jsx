@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import SignInPageLayout from '../Components/Layouts/PageLayouts/SignInPageLayout';
+import SignInPageLayout from '../components/layouts/PageLayouts/SignInPageLayout';
 import { authSelector } from '../store/feature/authSlice';
  
 const SignIn = () => {

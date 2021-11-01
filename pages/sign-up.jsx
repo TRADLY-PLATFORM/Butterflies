@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpPageLayout from '../Components/Layouts/PageLayouts/SignUpPageLayout';
+import SignUpPageLayout from '../components/layouts/PageLayouts/SignUpPageLayout';
 
 const SignUp = () => {
     return (

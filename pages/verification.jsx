@@ -1,5 +1,5 @@
 import React from 'react';
-import VerificationPageLayout from '../Components/Layouts/PageLayouts/VerificationPageLayout';
+import VerificationPageLayout from '../components/layouts/PageLayouts/VerificationPageLayout';
 
 const Verification = () => {
     return (

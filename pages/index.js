@@ -1,24 +1,22 @@
-import React, { useEffect }  from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-  import MainLayout from "../components/layouts/MainLayouts/MainLayout";
+import MainLayout from "../components/layouts/MainLayouts/MainLayout";
 import HomePageLayout from "../components/layouts/PageLayouts/HomePageLayout";
 import { refreshPage } from "../store/feature/authSlice";
-   
+
 const Index = () => {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(
 			refreshPage({ key: localStorage.getItem("refresh_key") })
 		);
-	},[dispatch])
-	
+	}, [dispatch]);
+
 	return (
-		<div>
-			<MainLayout>
-				<HomePageLayout/>
+ 			<MainLayout>
+				<HomePageLayout />
 			</MainLayout>
-		</div>
-	);
+ 	);
 };
 
 export default Index;

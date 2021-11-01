@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect } from "react";
- import MainLayout from "../../Components/Layouts/MainLayouts/MainLayout";
-import MagazineLayout from "../../Components/Layouts/MainLayouts/MagazineLayout";
-import EventDetailsPageLayout from "../../Components/Layouts/PageLayouts/EventDetailsPageLayout";
+ import MainLayout from "../../components/layouts/MainLayouts/MainLayout";
+import MagazineLayout from "../../components/layouts/MainLayouts/MagazineLayout";
+import EventDetailsPageLayout from "../../components/layouts/PageLayouts/EventDetailsPageLayout";
 import { useDispatch } from "react-redux";
 import { refreshPage } from "../../store/feature/authSlice";
 

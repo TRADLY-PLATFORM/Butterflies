@@ -1,10 +1,10 @@
 import axios from "axios";
 import LocalStorageService from "./LocalStorageService";
 
-const URL = process.env.NEXT_APP_BACKEND_API_URL;
+const URL = "https://api.dev.tradly.app";
 
 const api = axios.create({
-	baseURL: process.env.NEXT_APP_BACKEND_API_URL,
+	baseURL: "https://api.dev.tradly.app",
 	headers: {
 		"Content-Type": "application/json",
 		"Cache-Control": "no-cache",
@@ -14,8 +14,9 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-	const token = process.env.NEXT_APP_API_KEY;
-	config.headers["Authorization"] = "Bearer " + localStorage.getItem('token');
+	const token = "asl8msg11f1agc6c12361bs4516c5e1dl";
+	config.headers["Authorization"] =
+		"Bearer " + "asl8msg11f1agc6c12361bs4516c5e1dl";
 	const authKey = localStorage.getItem("auth_key");
 	if (authKey) {
 		config.headers["X-Auth-Key"] = authKey;
@@ -42,7 +43,7 @@ api.interceptors.response.use(
 			};
 			LocalStorageService.setToken(tokenObject);
 			api.defaults.headers.common["Authorization"] =
-				"Bearer " + process.env.NEXT_APP_API_KEY;
+				"Bearer " + "asl8msg11f1agc6c12361bs4516c5e1dl";
 			api.defaults.headers.common["X-Auth-Key"] =
 				LocalStorageService.getAccessToken();
 			return response;
@@ -79,7 +80,7 @@ api.interceptors.response.use(
 					headers: {
 						Authorization:
 							"Bearer " +
-							process.env.NEXT_APP_API_KEY,
+							"asl8msg11f1agc6c12361bs4516c5e1dl",
 						"X-Refresh-Key":
 							LocalStorageService.getRefreshToken(),
 					},
@@ -96,7 +97,7 @@ api.interceptors.response.use(
                         tokenObject
                     );
                     originalRequest.headers["Authorization"] =
-				"Bearer " + process.env.NEXT_APP_API_KEY;
+				"Bearer " + "asl8msg11f1agc6c12361bs4516c5e1dl";
                     originalRequest.headers["X-Auth-Key"] =
                         LocalStorageService.getAccessToken();
                     return axios(originalRequest);

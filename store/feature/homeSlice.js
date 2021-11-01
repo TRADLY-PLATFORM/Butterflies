@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../api";
-import tradly from "tradly";
+ import tradly from "tradly";
 
 export const homeCollections = createAsyncThunk(
 	"home/homeCollections",
@@ -33,9 +32,9 @@ export const homeSlice = createSlice({
 		isSuccess: false,
 		isError: false,
 		errorMessage: "",
-		collections: [],
-		categories: [],
-		promo_banners:[],
+		collections: null,
+		categories: null,
+		promo_banners:null,
 	},
 	// reducers: {
 	// 	clearState: (state) => {

@@ -6,10 +6,8 @@ import locationMarker from "../../../assets/Images/Home/locationMarker.svg";
 import favorite from "../../../assets/Images/Home/favourite@3x.png";
 import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
 import Image from "next/image";
-import { svgHeartIcon } from "../../Shared/Constant/Icons/Icons";
-import Link from "next/link";
-import useWindowSize from "../../../Hooks/WindowSize/WindowSize";
-
+ import Link from "next/link";
+ 
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -85,7 +83,7 @@ const LatestEvent = ({ products }) => {
 					navigation={false}
 					style={{ paddingBottom: "20px" }}
 				>
-					{products.listings?.map((item) => {
+					{products?.listings?.map((item) => {
 						return (
 							<SwiperSlide
 								className=" w-[190px] h-[302px]  shadow-[0px 1px 2px rgba(0, 0, 0, 0.24)]  rounded mr-4 overflow-hidden"

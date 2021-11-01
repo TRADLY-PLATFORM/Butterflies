@@ -1,8 +1,7 @@
 import React from "react";
 import bannerImage from "../../../assets/Images/Banner/Rectangle.png";
 import Image from "next/image";
-import styles from "./Banner.module.scss";
-
+ 
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
