@@ -9,8 +9,7 @@ import {
 import Banner from "../../home/Banner/Banner";
 import Categories from "../../home/Categories/Categories";
 import LatestEvent from "../../home/LatestEvents/LatestEvent";
-import MoreEvent from "../../home/MoreEvents/MoreEvent";
-
+ 
 const HomePageLayout = () => {
 	const dispatch = useDispatch();
 	const { auth_key } = useSelector(authSelector);
