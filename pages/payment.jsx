@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
  import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import PaymentPageLayout from "../Components/Layouts/PageLayouts/PaymentPageLayout";
+import PaymentPageLayout from "../components/layouts/PageLayouts/PaymentPageLayout";
 import { useDispatch } from "react-redux";
 import { refreshPage } from "../store/feature/authSlice";
 import { useRouter } from "next/dist/client/router";

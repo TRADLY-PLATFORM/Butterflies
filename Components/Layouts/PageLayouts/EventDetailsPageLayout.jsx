@@ -28,9 +28,14 @@ const EventDetailsPageLayout = () => {
 	const dispatch = useDispatch();
 	const { auth_key, login } = useSelector(authSelector);
 	useEffect(() => {
-		dispatch(
-			listingDetails({ id: router?.query.id, authKey: auth_key })
-		);
+		if (router?.query.id) {
+			dispatch(
+				listingDetails({
+					id: router?.query.id,
+					authKey: auth_key,
+				})
+			);
+		}
 	}, [auth_key, dispatch, router?.query.id]);
 
 	const {

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../api";
-import tradly from "tradly";
+ import tradly from "tradly";
 
 export const signIn = createAsyncThunk(
 	"auth/signIn",

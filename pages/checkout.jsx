@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'; 
 import { useDispatch } from 'react-redux';
-import MagazineLayout from '../Components/Layouts/MainLayouts/MagazineLayout';
-import MainLayout from '../Components/Layouts/MainLayouts/MainLayout';
-import CheckoutPageLayout from '../Components/Layouts/PageLayouts/CheckoutPageLayout';
+import MagazineLayout from '../components/layouts/MainLayouts/MagazineLayout';
+import MainLayout from '../components/layouts/MainLayouts/MainLayout';
+import CheckoutPageLayout from '../components/layouts/PageLayouts/CheckoutPageLayout';
 import { refreshPage } from '../store/feature/authSlice';
 
 const Checkout = () => {

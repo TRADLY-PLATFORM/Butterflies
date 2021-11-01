@@ -6,23 +6,21 @@ import {
 	homeCollections,
 	homeSelector,
 } from "../../../store/feature/homeSlice";
-import Banner from "../../Home/Banner/Banner";
-import Categories from "../../Home/Categories/Categories";
-import LatestEvent from "../../Home/LatestEvents/LatestEvent";
-import MoreEvent from "../../Home/MoreEvents/MoreEvent";
+import Banner from "../../home/Banner/Banner";
+import Categories from "../../home/Categories/Categories";
+import LatestEvent from "../../home/LatestEvents/LatestEvent";
+import MoreEvent from "../../home/MoreEvents/MoreEvent";
 
 const HomePageLayout = () => {
 	const dispatch = useDispatch();
-	const{auth_key}=useSelector(authSelector)
+	const { auth_key } = useSelector(authSelector);
 
 	useEffect(() => {
-		 
 		dispatch(
 			homeCollections({
 				authKey: localStorage.getItem("auth_key"),
 			})
 		);
-	 
 	}, [auth_key, dispatch]);
 
 	const {
@@ -33,7 +31,6 @@ const HomePageLayout = () => {
 		categories,
 		promo_banners,
 	} = useSelector(homeSelector);
- 
 
 	return (
 		<div className="">
@@ -48,7 +45,9 @@ const HomePageLayout = () => {
 				if (scope_type === 4) {
 					return (
 						<div key={Math.random()}>
-							<LatestEvent products={collection} />
+							<LatestEvent
+								products={collection}
+							/>
 						</div>
 					);
 				}
