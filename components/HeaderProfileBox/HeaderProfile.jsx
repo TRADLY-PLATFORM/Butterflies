@@ -91,25 +91,27 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
 										Log Out
 									</span>
 								</div>
-								<div className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4]">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										className="h-6 w-6 mr-5"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth="2"
-											d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-										/>
-									</svg>
-									<span className=" text-sm  text-secondary  font-semibold">
-										Profile
-									</span>
-								</div>
+								<Link href="/profile" passHref={true}>
+									<div className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4]">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											className="h-6 w-6 mr-5"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth="2"
+												d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+											/>
+										</svg>
+										<span className=" text-sm  text-secondary  font-semibold">
+											Profile
+										</span>
+									</div>
+								</Link>
 							</>
 						) : (
 							<Link
