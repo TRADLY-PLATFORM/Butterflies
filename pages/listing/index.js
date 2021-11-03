@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import MainLayout from '../../components/layouts/MainLayouts/MainLayout';
-import OrdersPageLayout from '../../components/layouts/PageLayouts/OrdersPageLayout';
+import MainLayout from "../../components/layouts/MainLayouts/MainLayout";
+import ListingsPageLayout from '../../components/layouts/PageLayouts/ListingsPageLayout';
 import { refreshPage } from '../../store/feature/authSlice';
 
-const Orders = () => {
+
+const AllListings = () => {
     const dispatch = useDispatch();
     useEffect(() => {
 		dispatch(
@@ -15,10 +16,9 @@ const Orders = () => {
     }, [dispatch]);
     return (
         <MainLayout>
-            <OrdersPageLayout/>
-         </MainLayout>
-
-    );
+            <ListingsPageLayout/>
+             </MainLayout>
+     );
 };
 
-export default Orders;
+export default AllListings;

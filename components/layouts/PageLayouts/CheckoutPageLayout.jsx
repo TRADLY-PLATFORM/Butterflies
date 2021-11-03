@@ -18,7 +18,7 @@ import CartItemBox from "../../Cart/CartItemBox/CartItemBox";
 import OrderSummary from "../../Cart/OrderSummary/OrderSummary";
 import PaymentMethod from "../../Cart/PaymentMethods/PaymentMethod";
 import ShippingMethod from "../../Cart/ShippingMethods/ShippingMethod";
- import OutsideClickHandler from "react-outside-click-handler";
+import OutsideClickHandler from "react-outside-click-handler";
 import PopUp from "../../Shared/PopUp/PopUp";
 import Modal from "../../Shared/Modal.jsx/Modal";
 import OrderSuccess from "../../Cart/OrderSuccess/OrderSuccess";
@@ -43,7 +43,7 @@ const CheckoutPageLayout = () => {
 			dispatch(cartList({ authKey: auth_key }));
 			dispatch(shippingMethods({ authKey: auth_key }));
 			dispatch(paymentMethods({ authKey: auth_key }));
-			dispatch(EphemeralKey());
+			dispatch(EphemeralKey({ authKey: auth_key }));
 			dispatch(
 				getAddress({
 					bodyParam: "type=delivery",
@@ -115,9 +115,12 @@ const CheckoutPageLayout = () => {
 				if (!res.payload.code) {
 					dispatch(
 						paymentIntent({
-							order_reference:
-								res.payload
-									.order_reference,
+							authKey: auth_key,
+							sendData: {
+								order_reference:
+									res.payload
+										.order_reference,
+							},
 						})
 					).then((res) => {
 						if (!res.payload.code) {

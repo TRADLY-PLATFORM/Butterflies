@@ -4,13 +4,13 @@ const OrdersFilter = () => {
     return (
 		<div>
 			<label class="flex justify-center items-center ">
-				<span class="text-[#77869E] text-lg mr-4">
+				<span class="text-[#77869E]   text-sm sm:text-lg mr-4">
 					Filter by :
 				</span>
 				<select
 					class="
                     block
-                    w-[200px]
+                      w-[150px] sm:w-[200px]
                     mt-1
                     rounded-lg
                     bg-white

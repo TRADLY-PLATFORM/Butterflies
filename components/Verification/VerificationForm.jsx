@@ -87,7 +87,7 @@ const VerificationForm = () => {
 			<p className=" px-[34px]  md:px-24  text-center text-white text-xl  font-semibold ">
 				Enter verification code here
 			</p>
-			<div className=" mt-24 px-[34px]  ">
+			<div className=" mt-24   ">
 				<div>
 					<PasswordForm
 						code={code}
@@ -104,7 +104,7 @@ const VerificationForm = () => {
 				</div>
 				<div className=" mt-12 flex flex-col justify-center items-center">
 					{isFetching ? (
-						<button className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base">
+						<button className=" mb-8  w-5/6  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base">
 							<svg
 								className="animate-spin -ml-1 mr-3 h-5 w-5 text-primary"
 								xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +129,7 @@ const VerificationForm = () => {
 						</button>
 					) : (
 						<button
-							className=" mb-8  w-full  xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base"
+							className=" mb-8 w-5/6   xs:w-72 h-12 flex justify-center items-center bg-white rounded-[48px] text-primary font-semibold  text-base"
 							onClick={verifyClick}
 						>
 							Verify

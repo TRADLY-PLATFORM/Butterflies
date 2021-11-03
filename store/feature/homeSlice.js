@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
  import tradly from "tradly";
 
@@ -6,19 +7,17 @@ export const homeCollections = createAsyncThunk(
 
 	async ({ authKey }, thunkAPI) => {
 		try {
- console.log('====================================');
- console.log(authKey);
- console.log('====================================');
+ 
 			const response = await tradly.app.home({
-				authKey: authKey,
+				authKey,
 			});
 			const { data } = await response;
 			if (!response.error) {
 				return data;
-			} else {
+			} 
 				const { error } = await response;
 				return error;
-			}
+			
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err.response.data);
 		}
@@ -47,7 +46,7 @@ export const homeSlice = createSlice({
 	// },
 	extraReducers: {
 		// @ts-ignore
-		[homeCollections.fulfilled]: (state, { meta, payload }) => {
+		[homeCollections.fulfilled]: (state, { payload }) => {
 			if (payload.code) {
 				state.isFetching = false;
 				state.isError = true;
@@ -69,7 +68,7 @@ export const homeSlice = createSlice({
 			state.errorMessage = '';
 		},
 		// @ts-ignore
-		[homeCollections.rejected]: (state, { meta, payload, error }) => {
+		[homeCollections.rejected]: (state, {   payload  }) => {
 			state.isFetching = false;
 			state.isError = true;
 			state.errorMessage = payload?.message;
