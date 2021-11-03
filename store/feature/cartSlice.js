@@ -1,6 +1,11 @@
+/* eslint-disable no-shadow */
+/* eslint-disable camelcase */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-else-return */
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../pages/api/api";
 import tradly from "tradly";
+import api from "../../pages/api/api";
 
 export const addToCart = createAsyncThunk(
 	"cart/addToCart",
@@ -8,7 +13,7 @@ export const addToCart = createAsyncThunk(
 		const sendData = { ...data };
 		try {
 			const response = await tradly.app.addToCart({
-				authKey: authKey,
+				authKey,
 				data: sendData,
 			});
 			const { data } = await response;
@@ -29,7 +34,7 @@ export const cartList = createAsyncThunk(
 	async ({ authKey }, thunkAPI) => {
 		try {
 			const response = await tradly.app.getCarts({
-				authKey: authKey,
+				authKey,
 			});
 			const { data } = await response;
 			if (!response.error) {
@@ -48,7 +53,7 @@ export const shippingMethods = createAsyncThunk(
 	async ({ authKey }, thunkAPI) => {
 		try {
 			const response = await tradly.app.getShippingMethods({
-				authKey: authKey,
+				authKey,
 			});
 			const { data } = await response;
 			if (!response.error) {
@@ -67,7 +72,7 @@ export const paymentMethods = createAsyncThunk(
 	async ({ authKey }, thunkAPI) => {
 		try {
 			const response = await tradly.app.getPaymentMethods({
-				authKey: authKey,
+				authKey,
 			});
 			const { data } = await response;
 			if (!response.error) {
@@ -86,8 +91,8 @@ export const getAddress = createAsyncThunk(
 	async ({ bodyParam, authKey }, thunkAPI) => {
 		try {
 			const response = await tradly.app.getAddress({
-				bodyParam: bodyParam,
-				authKey: authKey,
+				bodyParam,
+				authKey,
 			});
 			const { data } = await response;
 			if (!response.error) {
@@ -106,7 +111,7 @@ export const checkout = createAsyncThunk(
 	async ({ authKey, checkoutData }, thunkAPI) => {
 		try {
 			const response = await tradly.app.checkout({
-				authKey: authKey,
+				authKey,
 				data: checkoutData,
 			});
 			const { data } = await response;
@@ -123,15 +128,18 @@ export const checkout = createAsyncThunk(
 );
 export const EphemeralKey = createAsyncThunk(
 	"cart/EphemeralKey",
-	async (   thunkAPI) => {
-		 const url = "app/v1/payments/stripe/ephemeralKey";
-			var config = {
-				method: "post",
-				url: url,
-				data: { api_version: "2019-09-09" },
-			};
+	async ({ authKey }, thunkAPI) => {
+		const url = "app/v1/payments/stripe/ephemeralKey";
+		const config = {
+			method: "post",
+			url,
+		};
 		try {
-			const response = api(config);
+			const send_data = { api_version: "2019-09-09" };
+			const response = await tradly.app.getEphemeralKey({
+				authKey,
+				data: send_data,
+			});
 			const { data } = await response;
 			if (!response.error) {
 				return data;
@@ -146,20 +154,14 @@ export const EphemeralKey = createAsyncThunk(
 );
 export const paymentIntent = createAsyncThunk(
 	"cart/paymentIntent",
-	async ({ order_reference }, thunkAPI) => {
-		const url = "app/v1/payments/stripe/paymentIntent";
-		var config = {
-			method: "post",
-			url: url,
-			data: { order_reference: order_reference },
-		};
+	async ({ authKey, sendData }, thunkAPI) => {
 		try {
-			const response = api(config);
+			const response = await tradly.app.getPaymentIntentKey({
+				authKey,
+				data: sendData,
+			});
 			const { data } = await response;
 			if (!response.error) {
-				console.log('====================================');
-				console.log(data);
-				console.log('====================================');
 				return data;
 			} else {
 				const { error } = await response;
@@ -184,7 +186,7 @@ export const cartSlice = createSlice({
 		shipping_methods: null,
 		payment_methods: null,
 		order_reference: null,
-		client_secret:'',
+		client_secret: "",
 	},
 	reducers: {
 		clearCartState: (state) => {
@@ -308,7 +310,6 @@ export const cartSlice = createSlice({
 				state.isSuccess = false;
 				state.errorMessage = payload?.message;
 			} else {
- 
 				state.isError = false;
 				state.isCheckoutFetching = false;
 				state.isSuccess = true;
@@ -333,13 +334,11 @@ export const cartSlice = createSlice({
 				state.isSuccess = false;
 				state.errorMessage = payload?.message;
 			} else {
-				console.log('====================================');
-				console.log(payload);
-				console.log('====================================');
+				 
 				state.isError = false;
 				state.isCheckoutFetching = false;
 				state.isSuccess = true;
-				state.client_secret = payload?.data.client_secret;
+				state.client_secret = payload?.client_secret;
 			}
 		},
 		[paymentIntent.pending]: (state) => {

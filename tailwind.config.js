@@ -15,6 +15,7 @@ module.exports = {
 			},
 			boxShadow: {
 				"c-sm": "0px 8px 28px rgba(0, 0, 0, 0.07)",
+				"c-xsm": "0px 1px 2px rgba(0, 0, 0, 0.24)",
 			},
 		},
 		colors: {
@@ -46,6 +47,7 @@ module.exports = {
 		},
 		screens: {
 			xs: "540px",
+			ms: "450px",
 			xxs: "350px",
 			"c-lg": "1100px",
 			"c-md": "824px",

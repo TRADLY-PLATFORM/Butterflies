@@ -1,37 +1,15 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable camelcase */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
- import tradly from "tradly";
+import tradly from "tradly";
 
-export const get_orders = createAsyncThunk(
-	"order/get_orders",
-    async ({ authKey, bodyParam }, thunkAPI) => {
-       
- 		try {
-			const response = await tradly.app.getOrders({
-				authKey,
-				bodyParam,
-			});
-			const { data } = await response;
-			if (!response.error) {
-				return data;
-			} 
-				const { error } = await response;
-				return error;
-			
-		} catch (error) {
-			return thunkAPI.rejectWithValue(error.response.data);
-		}
-	}
-);
+export const categories = createAsyncThunk(
+	"category/categories",
 
-export const get_order_details = createAsyncThunk(
-	"order/get_order_details",
-	async ({ authKey, id }, thunkAPI) => {
+	async ({ prams, authKey }, thunkAPI) => {
 		try {
-			const response = await tradly.app.getOrderDetail({
+			const response = await tradly.app.getCategory({
+				bodyParam: prams,
 				authKey,
-				id,
 			});
 			const { data } = await response;
 			if (!response.error) {
@@ -43,39 +21,54 @@ export const get_order_details = createAsyncThunk(
 			return thunkAPI.rejectWithValue(error.response.data);
 		}
 	}
-); 
- 
- 
+);
+export const categoryListings = createAsyncThunk(
+	"category/categoryListings",
 
-export const orderSlice = createSlice({
-	name: "cart",
+	async ({ prams, authKey }, thunkAPI) => {
+		try {
+			const response = await tradly.app.getListings({
+				bodyParam: prams,
+				authKey,
+			});
+			const { data } = await response;
+			if (!response.error) {
+				return data;
+			}
+			const { error } = await response;
+			return error;
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const categorySlice = createSlice({
+	name: "category",
 	initialState: {
 		isFetching: false,
 		isSuccess: false,
 		isError: false,
 		errorMessage: "",
-		orders: null,
-		order_details:null,
+		all_categories: null,
+		category_listings: null,
+		page: "",
+		total_records: "",
 	},
 	reducers: {
-		clearOrderState: (state) => {
+		clearCategoryListings: (state) => {
 			state.isError = false;
 			state.isSuccess = false;
 			state.isFetching = false;
 			state.errorMessage = "";
+			state.category_listings = null;
+			state.page = "";
+			state.total_records = "";
 			return state;
-		},
-		clearOrderDetails: (state) => {
-			state.isError = false;
-			state.isSuccess = false;
-			state.isFetching = false;
-			state.errorMessage = "";
-			state.order_details = null;
- 			return state;
 		},
 	},
 	extraReducers: {
-		[get_orders.fulfilled]: (state, { payload }) => {
+		[categories.fulfilled]: (state, { payload }) => {
 			if (payload.code) {
 				state.isFetching = false;
 				state.isError = true;
@@ -85,41 +78,45 @@ export const orderSlice = createSlice({
 				state.isError = false;
 				state.isFetching = false;
 				state.isSuccess = true;
-				state.orders = payload?.orders;
+				state.errorMessage = "";
+				state.all_categories = payload?.categories;
 			}
 		},
-		[get_orders.pending]: (state) => {
-			state.isSuccess = false;
+
+		[categories.pending]: (state) => {
 			state.isFetching = true;
 			state.isError = false;
 			state.errorMessage = "";
 		},
-		[get_orders.rejected]: (state, { payload }) => {
+		[categories.rejected]: (state, { payload }) => {
 			state.isFetching = false;
 			state.isError = true;
 			state.errorMessage = payload?.message;
 		},
-		[get_order_details.fulfilled]: (state, { payload }) => {
+
+		[categoryListings.fulfilled]: (state, { payload }) => {
 			if (payload.code) {
 				state.isFetching = false;
- 				 state.isError = true;
+				state.isError = true;
 				state.isSuccess = false;
 				state.errorMessage = payload?.message;
 			} else {
 				state.isError = false;
 				state.isFetching = false;
 				state.isSuccess = true;
-				state.order_details = payload?.order;
-
- 			}
+				state.errorMessage = "";
+				state.category_listings = payload?.listings;
+				state.page = payload?.page;
+				state.total_records = payload?.total_records;
+			}
 		},
-		[get_order_details.pending]: (state) => {
-			state.isSuccess = false;
+
+		[categoryListings.pending]: (state) => {
 			state.isFetching = true;
 			state.isError = false;
 			state.errorMessage = "";
 		},
-		[get_order_details.rejected]: (state, { payload }) => {
+		[categoryListings.rejected]: (state, { payload }) => {
 			state.isFetching = false;
 			state.isError = true;
 			state.errorMessage = payload?.message;
@@ -127,5 +124,5 @@ export const orderSlice = createSlice({
 	},
 });
 
-export const { clearOrderState, clearCOrderDetails } = orderSlice.actions;
-export const orderSelector = (state) => state.order;
+export const { clearCategoryListings } = categorySlice.actions;
+export const categorySelector = (state) => state.category;

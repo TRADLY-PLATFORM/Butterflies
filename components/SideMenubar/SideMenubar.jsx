@@ -1,13 +1,18 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSelector } from 'react-redux';
 
 import logo from "../../assets/Images/SideMenubarImages/Tradly Logo.png";
 import { useRouter } from "next/dist/client/router";
+import { authSelector } from "../../store/feature/authSlice";
 
 const SideMenubar = () => {
 	const router = useRouter();
-
+	const {login}=useSelector(authSelector)
+console.log('====================================');
+console.log(login);
+console.log('====================================');
 	return (
 		<div className="  w-full ">
 			<div className=" flex justify-center items-center py-9 cursor-pointer">
@@ -89,7 +94,10 @@ const SideMenubar = () => {
 					</p>
 				</div>
 			</Link>
-			<Link href="/orders" passHref={true}>
+			<Link
+				href={login ? "/orders" : "/sign-in"}
+				passHref={true}
+			>
 				<div
 					className={[
 						"w-full h-12 flex   items-center   pl-7 cursor-pointer  hover:bg-primary_light",
@@ -120,7 +128,7 @@ const SideMenubar = () => {
 						className={[
 							" text-sm font-semibold   ml-5 ",
 							router.pathname ===
-  								"/orders" ||
+								"/orders" ||
 							router.pathname ===
 								"/orders/[id]"
 								? "text-primary"

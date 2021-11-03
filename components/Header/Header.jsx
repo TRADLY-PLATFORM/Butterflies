@@ -74,7 +74,7 @@ const Header = () => {
 					""
 				)}
 
-				<div className="w-screen px-[35px]  ">
+				<div className="w-screen px-[25px]  ">
 					<div className="flex justify-between items-center py-[26px] ">
 						<div className="  flex items-center">
 							<button

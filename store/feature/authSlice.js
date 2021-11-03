@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-else-return */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
  import tradly from "tradly";
 
@@ -157,9 +159,7 @@ export const authSlice = createSlice({
 			state.errorMessage = "";
 		},
 		[signIn.rejected]: (state, { payload }) => {
-			console.log("====================================");
-			console.log(payload);
-			console.log("====================================");
+ 
 			state.isFetching = false;
 			state.isError = true;
 			state.errorMessage = payload?.message;
@@ -171,9 +171,7 @@ export const authSlice = createSlice({
 				// state.isSuccess = false;
 				// state.errorMessage = payload?.message;
 			} else {
-				const expirationDate = new Date(
-					new Date().getTime() + 899 * 1000
-				);
+ 
 				const userDetails = JSON.parse(
 					localStorage.getItem("user_details")
 				);
@@ -216,9 +214,7 @@ export const authSlice = createSlice({
 			state.errorMessage = "";
 		},
 		[signUp.rejected]: (state, { payload }) => {
-			console.log("====================================");
-			console.log(payload);
-			console.log("====================================");
+ 
 			state.isFetching = false;
 			state.isError = true;
 			state.errorMessage = payload?.message;
@@ -269,9 +265,7 @@ export const authSlice = createSlice({
 			state.errorMessage = "";
 		},
 		[verifyUser.rejected]: (state, { payload }) => {
-			console.log("====================================");
-			console.log(payload);
-			console.log("====================================");
+ 
 			state.isFetching = false;
 			state.isError = true;
 			state.errorMessage = payload?.message;
