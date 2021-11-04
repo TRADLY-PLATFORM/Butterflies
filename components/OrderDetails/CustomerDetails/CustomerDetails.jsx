@@ -5,7 +5,7 @@ import Image from "next/image";
 const CustomerDetails = ({ order_details }) => {
 	const customer = order_details?.user;
 	return (
-		 <div className=" w-full h-min-[300px] bg-white border-2 border-gray-300 rounded-lg  p-7  border-opacity-40 ">
+		 <div className=" w-full h-min-[300px] bg-white shadow-c-sm rounded-lg  p-7  border-opacity-40 ">
 			<div className="  pb-3 border-b-2 border-gray-400     bg-white z-20">
 				<p className=" text-lg text-black font-semibold   ">
 					Customer And Order Details

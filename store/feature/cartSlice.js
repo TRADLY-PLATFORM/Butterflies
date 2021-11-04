@@ -28,13 +28,36 @@ export const addToCart = createAsyncThunk(
 		}
 	}
 );
+export const deleteCart = createAsyncThunk(
+	"cart/deleteCart",
+	async ({ authKey, data }, thunkAPI) => {
+		const sendData = { ...data };
+		try {
+			const response = await tradly.app.deleteFromCart({
+				authKey,
+				data: sendData,
+			});
+			const { data } = await response;
+			if (!response.error) {
+				return data;
+			} else {
+				const { error } = await response;
+				return error;
+			}
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
 
 export const cartList = createAsyncThunk(
 	"cart/cartList",
-	async ({ authKey }, thunkAPI) => {
+	async ({ authKey,bodyParam, currency }, thunkAPI) => {
 		try {
 			const response = await tradly.app.getCarts({
 				authKey,
+				bodyParam,
+				currency,
 			});
 			const { data } = await response;
 			if (!response.error) {
@@ -86,6 +109,47 @@ export const paymentMethods = createAsyncThunk(
 		}
 	}
 );
+export const getCurrencies = createAsyncThunk(
+	"cart/getCurrencies",
+	async ({ authKey }, thunkAPI) => {
+		try {
+			const response = await tradly.app.getCurrency({
+				authKey,
+			});
+			const { data } = await response;
+			if (!response.error) {
+				return data;
+			} else {
+				const { error } = await response;
+				return error;
+			}
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
+export const save_address = createAsyncThunk(
+	"cart/save_address",
+	async ({ id, addressData, authKey }, thunkAPI) => {
+		try {
+ 
+			const response = await tradly.app.addEditAddress({
+				id,
+				data: addressData,
+				authKey,
+			});
+			const { data } = await response;
+			if (!response.error) {
+				return data;
+			} else {
+				const { error } = await response;
+				return error;
+			}
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);
 export const getAddress = createAsyncThunk(
 	"cart/getAddress",
 	async ({ bodyParam, authKey }, thunkAPI) => {
@@ -108,11 +172,12 @@ export const getAddress = createAsyncThunk(
 );
 export const checkout = createAsyncThunk(
 	"cart/checkout",
-	async ({ authKey, checkoutData }, thunkAPI) => {
+	async ({ authKey, checkoutData, currency }, thunkAPI) => {
 		try {
 			const response = await tradly.app.checkout({
 				authKey,
 				data: checkoutData,
+				currency,
 			});
 			const { data } = await response;
 			if (!response.error) {
@@ -181,6 +246,8 @@ export const cartSlice = createSlice({
 		isSuccess: false,
 		isError: false,
 		errorMessage: "",
+		currencies: null,
+		addresses: null,
 		cart: null,
 		cart_details: null,
 		shipping_methods: null,
@@ -226,6 +293,77 @@ export const cartSlice = createSlice({
 			state.errorMessage = "";
 		},
 		[addToCart.rejected]: (state, { payload }) => {
+			state.isFetching = false;
+			state.isError = true;
+			state.errorMessage = payload?.message;
+		},
+		[getCurrencies.fulfilled]: (state, { payload }) => {
+			if (payload.code) {
+				state.isFetching = false;
+				state.isError = true;
+				state.isSuccess = false;
+				state.errorMessage = payload?.message;
+			} else {
+				state.isError = false;
+				state.isFetching = false;
+				state.isSuccess = true;
+				state.currencies = payload?.currencies;
+			}
+		},
+		[getCurrencies.pending]: (state) => {
+			state.isSuccess = false;
+			state.isFetching = true;
+			state.isError = false;
+			state.errorMessage = "";
+		},
+		[getCurrencies.rejected]: (state, { payload }) => {
+			state.isFetching = false;
+			state.isError = true;
+			state.errorMessage = payload?.message;
+		},
+		[save_address.fulfilled]: (state, { payload }) => {
+			if (payload.code) {
+				state.isFetching = false;
+				state.isError = true;
+				state.isSuccess = false;
+				state.errorMessage = payload?.message;
+			} else {
+				state.isError = false;
+				state.isFetching = false;
+				state.isSuccess = true;
+			}
+		},
+		[save_address.pending]: (state) => {
+			state.isSuccess = false;
+			state.isFetching = true;
+			state.isError = false;
+			state.errorMessage = "";
+		},
+		[save_address.rejected]: (state, { payload }) => {
+			state.isFetching = false;
+			state.isError = true;
+			state.errorMessage = payload?.message;
+		},
+		[getAddress.fulfilled]: (state, { payload }) => {
+			if (payload.code) {
+				state.isFetching = false;
+				state.isError = true;
+				state.isSuccess = false;
+				state.errorMessage = payload?.message;
+			} else {
+				state.isError = false;
+				state.isFetching = false;
+				state.isSuccess = true;
+				state.addresses = payload?.addresses;
+			}
+		},
+		[getAddress.pending]: (state) => {
+			state.isSuccess = false;
+			state.isFetching = true;
+			state.isError = false;
+			state.errorMessage = "";
+		},
+		[getAddress.rejected]: (state, { payload }) => {
 			state.isFetching = false;
 			state.isError = true;
 			state.errorMessage = payload?.message;
@@ -334,7 +472,6 @@ export const cartSlice = createSlice({
 				state.isSuccess = false;
 				state.errorMessage = payload?.message;
 			} else {
-				 
 				state.isError = false;
 				state.isCheckoutFetching = false;
 				state.isSuccess = true;

@@ -60,7 +60,7 @@ const OrderDetailsPageLayout = () => {
 						<AddressBox
 							order_details={order_details}
 						/>
-					</div>
+ 					</div>
 				</div>
 			</div>
 		</div>

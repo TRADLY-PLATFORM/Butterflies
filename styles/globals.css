@@ -49,3 +49,9 @@ input[type="number"] {
 	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
 		var(--tw-shadow, 0 0 #0000);
 }
+
+
+.swiper-container{
+	margin-left:0  !important;
+	margin-right:0  !important;
+}

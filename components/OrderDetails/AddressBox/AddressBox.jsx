@@ -10,7 +10,7 @@ const AddressBox = ({ order_details }) => {
 		address = order_details?.shipping_address;
 	}
 	return (
-		<div className="w-full h-min-[50px] bg-white border-2 border-gray-300 rounded-lg px-[30px]  py-5  border-opacity-40">
+		<div className="w-full h-min-[50px] bg-white  shadow-c-sm rounded-lg px-[30px]  py-5  border-opacity-40">
 			<div className="flex  ">
 				<p className=" text-lg text-black font-semibold   ">
 					{order_details?.shipping_method.name} Address
@@ -24,7 +24,7 @@ const AddressBox = ({ order_details }) => {
 								City :
 							</p>
 							<p className=" text-sm text-black font-semibold  ml-2  text-opacity-70">
-								{address.city}
+								{address.address_line_1}
 							</p>
 						</div>
 						<div className=" flex justify-start items-center py-1  ">
@@ -40,14 +40,14 @@ const AddressBox = ({ order_details }) => {
 								Postal Code :
 							</p>
 							<p className=" text-sm text-black font-semibold  ml-2  text-opacity-70">
-								{address.postal_code}
+								{address.post_code}
 							</p>
 						</div>
 						<div className=" flex justify-start items-center py-1  ">
-							<p className=" text-sm text-black font-semibold  ">
-								Full Address :
+							<p className=" text-sm text-black font-semibold w-2/6  ">
+								Address :
 							</p>
-							<p className=" text-sm text-black font-semibold  ml-2  text-opacity-70">
+							<p className=" text-sm text-black font-semibold  ml-3  text-opacity-70">
 								{
 									address.formatted_address
 								}

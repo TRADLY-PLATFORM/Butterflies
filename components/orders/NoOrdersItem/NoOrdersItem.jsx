@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import  CartIcon from "../../../assets/Images/Cart/Nocart.png";
 
-const NoCartItem = () => {
+const NoOrdersItem = () => {
 	return (
 		<div className="  min-h-screen    ">
 			<div className=" mt-8 w-full  md:w-[600px] min-h-[300px] py-10 bg-white shadow-c-sm  flex flex-col justify-center items-center mx-auto">
@@ -17,7 +17,7 @@ const NoCartItem = () => {
 					/>
 				</div>
 				<p className="text-base font-semibold text-primary mt-4">
-					No Items in Cart List.
+					No Items in Orders List.
 				</p>
 				<Link href="/" passHref={true}>
 					<button className=" mt-4 px-6 py-2 bg-primary rounded-lg text-white text-base font-semibold">
@@ -29,4 +29,4 @@ const NoCartItem = () => {
 	);
 };
 
-export default NoCartItem;
+export default NoOrdersItem;

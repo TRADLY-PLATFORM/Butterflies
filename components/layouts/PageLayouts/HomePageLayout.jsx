@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";
 import {
+	AllPromoBanners,
 	homeCollections,
 	homeSelector,
 } from "../../../store/feature/homeSlice";
@@ -20,6 +21,12 @@ const HomePageLayout = () => {
 				authKey: localStorage.getItem("auth_key"),
 			})
 		);
+		dispatch(
+			AllPromoBanners({
+				authKey: localStorage.getItem("auth_key"),
+				bodyParam: "",
+			})
+		);
 	}, [auth_key, dispatch]);
 
 	const {
@@ -29,6 +36,7 @@ const HomePageLayout = () => {
 		errorMessage,
 		categories,
 		promo_banners,
+		page_promo_banners,
 	} = useSelector(homeSelector);
 
 	return (
@@ -51,6 +59,9 @@ const HomePageLayout = () => {
 					);
 				}
 			})}
+			{/* <div>
+				<Banner banners={page_promo_banners} />
+			</div> */}
 		</div>
 	);
 };
