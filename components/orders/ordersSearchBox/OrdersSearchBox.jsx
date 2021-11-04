@@ -1,7 +1,25 @@
-import React from 'react';
+import React from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { authSelector } from "../../../store/feature/authSlice";
+import { get_orders } from "../../../store/feature/orderSlice";
 
 const OrdersSearchBox = () => {
-    return (
+	const dispatch = useDispatch()
+	const {auth_key}= useSelector(authSelector)
+	const searchOrders = (e) => {
+		dispatch(
+			get_orders({
+				authKey: auth_key,
+				bodyParam: {
+					page: 1,
+					search_key:e.target.value
+				},
+			})
+		);
+		 
+	};
+	return (
 		<div className=" h-12  md:w-80 xl:[300px]    rounded-c-48  bg-white shadow-c-sm  flex items-center overflow-hidden">
 			<svg
 				width="21"
@@ -20,9 +38,10 @@ const OrdersSearchBox = () => {
 				className="h-full bg-transparent w-full pl-3 placeholder-gray-400 outline-none border-none ring-0 focus:ring-0"
 				type="text"
 				placeholder="Search order"
+				onChange={(e) => searchOrders(e)}
 			/>
 		</div>
-    );
+	);
 };
 
 export default OrdersSearchBox;

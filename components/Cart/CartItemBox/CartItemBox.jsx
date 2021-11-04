@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";
-import { addToCart, cartList, cartSelector, clearCartState } from "../../../store/feature/cartSlice";
+import { addToCart,deleteCart, cartList, cartSelector, clearCartState } from "../../../store/feature/cartSlice";
 import PopUp from "../../Shared/PopUp/PopUp";
 import OutsideClickHandler from "react-outside-click-handler";
 
-const CartItemBox = ({ cart_details }) => {
+const CartItemBox = ({cart, cart_details }) => {
 	const [showError, setShowError] = useState(false);
 	const [error_message, setError_message] = useState("");
 
@@ -63,6 +63,25 @@ const CartItemBox = ({ cart_details }) => {
 			}
 		})
 	};
+ 
+	const delete_cart = (id) => {
+		dispatch(
+			deleteCart({
+				authKey: auth_key,
+				data: {
+					cart: {
+						listing_id: [id],
+					},
+				},
+			})
+		)
+		.then((res)=>{
+ 			if (!res.payload.code) {
+				dispatch(cartList({ authKey: auth_key }));
+			}
+		})
+		
+	}
 	const closePopUP = () => {
 		dispatch(clearCartState());
 		setShowError(false);
@@ -149,7 +168,9 @@ const CartItemBox = ({ cart_details }) => {
 								</button>
 							</div>
 							<div className="ml-6">
-								<button className="w-[32px] h-[32px] bg-primary   flex justify-center items-center text-xl leading-6 font-medium  text-white  rounded">
+								<button className="w-[32px] h-[32px] bg-primary   flex justify-center items-center text-xl leading-6 font-medium  text-white  rounded" 
+								onClick={()=>delete_cart( cartItem.listing.id)}
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										className="h-6 w-6"

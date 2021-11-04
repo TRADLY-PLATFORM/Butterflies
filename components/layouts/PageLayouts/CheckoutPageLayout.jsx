@@ -3,6 +3,8 @@ import { useRouter } from "next/dist/client/router";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";
+import { useForm } from "react-hook-form";
+
 import {
 	cartList,
 	cartSelector,
@@ -10,8 +12,11 @@ import {
 	clearCartState,
 	EphemeralKey,
 	getAddress,
+	getCurrencies,
 	paymentIntent,
 	paymentMethods,
+	saveAddress,
+	save_address,
 	shippingMethods,
 } from "../../../store/feature/cartSlice";
 import CartItemBox from "../../Cart/CartItemBox/CartItemBox";
@@ -23,6 +28,8 @@ import PopUp from "../../Shared/PopUp/PopUp";
 import Modal from "../../Shared/Modal.jsx/Modal";
 import OrderSuccess from "../../Cart/OrderSuccess/OrderSuccess";
 import NoCartItem from "../../Cart/NoCartItem/NoCartItem";
+import AddressForm from "../../Cart/AddressForm/AddressForm";
+import ShippingAddresses from "../../Cart/ShippingAddresses/ShippingAddresses";
 
 const CheckoutPageLayout = () => {
 	const [paymentMethod, setPaymentMethod] = useState(null);
@@ -31,29 +38,51 @@ const CheckoutPageLayout = () => {
 	const [showError, setShowError] = useState(false);
 	const [error_message, setError_message] = useState("");
 
+	const [showShippingAddressForm, setShowShippingAddressForm] =
+		useState(false);
+	const [selectShippingAddress, setSelectShippingAddress] = useState(null);
+	const [isNewAddress, setIsNewAddress] = useState(false);
+
+	const {
+		register,
+		handleSubmit,
+  	} = useForm();
+
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 	const { login, auth_key } = useSelector(authSelector);
-	const { order_reference } = useSelector(cartSelector);
+	const { order_reference, currencies, addresses } =
+		useSelector(cartSelector);
 	const dispatch = useDispatch();
 	const router = useRouter();
+	useEffect(() => {
+
+	}, [shippingMethod]);
 
 	useEffect(() => {
 		if (login) {
-			dispatch(cartList({ authKey: auth_key }));
+			if (currencies) {
+				dispatch(
+					cartList({
+						authKey: auth_key,
+						currency: currencies[0]?.code,
+					})
+				);
+			}
+
 			dispatch(shippingMethods({ authKey: auth_key }));
 			dispatch(paymentMethods({ authKey: auth_key }));
 			dispatch(EphemeralKey({ authKey: auth_key }));
 			dispatch(
 				getAddress({
-					bodyParam: "type=delivery",
+					bodyParam: { type: "delivery" },
 					authKey: auth_key,
 				})
 			);
 		} else {
 			// router.push("/sign-in")
 		}
-	}, [auth_key, dispatch, login, router]);
+	}, [auth_key, dispatch, login, router, currencies]);
 
 	const {
 		cart,
@@ -94,7 +123,8 @@ const CheckoutPageLayout = () => {
 				order: {
 					payment_method_id: paymentMethod.id,
 					shipping_method_id: shippingMethod.id,
-					shipping_address_id: selectShippingAddress,
+					shipping_address_id:
+						selectShippingAddress.id,
 				},
 			};
 		} else {
@@ -110,6 +140,7 @@ const CheckoutPageLayout = () => {
 				checkout({
 					authKey: auth_key,
 					checkoutData: checkout_data,
+					currency: currencies && currencies[0]?.code,
 				})
 			).then((res) => {
 				if (!res.payload.code) {
@@ -134,6 +165,7 @@ const CheckoutPageLayout = () => {
 				checkout({
 					authKey: auth_key,
 					checkoutData: checkout_data,
+					currency: currencies && currencies[0]?.code,
 				})
 			).then((res) => {
 				if (!res.payload.code) {
@@ -143,9 +175,28 @@ const CheckoutPageLayout = () => {
 		}
 	};
 
-	console.log("====================================");
-	console.log(cart, cart_details);
-	console.log("====================================");
+	const onSubmit = (data) => {
+		const id = !isNewAddress ? selectShippingAddress.id : "";
+		dispatch(
+			save_address({
+				 id,
+				addressData: {
+					address: { ...data, type: "delivery" },
+				},
+				authKey: auth_key,
+			})
+		).then((res) => {
+			if (!res.payload.code) {
+				dispatch(
+					getAddress({
+						bodyParam: { type: "delivery" },
+						authKey: auth_key,
+					})
+				);
+				setShowShippingAddressForm(false);
+			}
+		});
+	};
 
 	const closePopUP = () => {
 		dispatch(clearCartState());
@@ -189,21 +240,30 @@ const CheckoutPageLayout = () => {
 					</OutsideClickHandler>
 				</Modal>
 			)}
-			{/* <Modal>
-				<OutsideClickHandler
-					onOutsideClick={() => {
-						setShowSuccessMessage(false);
-					}}
-				>
-					<AddressForm />
-				</OutsideClickHandler>
-			</Modal> */}
+			{showShippingAddressForm && (
+				<Modal>
+					<OutsideClickHandler
+						onOutsideClick={() => {
+							setShowShippingAddressForm(
+								false
+							);
+						}}
+					>
+						<AddressForm
+							onSubmit={onSubmit}
+							handleSubmit={handleSubmit}
+							register={register}
+						/>
+					</OutsideClickHandler>
+				</Modal>
+			)}
 
 			{cart_details === null || cart_details.length > 0 ? (
 				<div className=" mt-7 mx-auto w-full    sm:px-8 md:px-0 flex  flex-col justify-center c-md:flex-row c-md:justify-between    c-md:max-w-[824px]  lg:max-w-[1000px]  ">
 					<div className="   c-md:w-[400px] lg:w-[600px] ">
 						<div className="bg-[#FEFEFE] rounded-lg py-12 px-9">
 							<CartItemBox
+							cart={cart}
 								cart_details={
 									cart_details
 								}
@@ -225,11 +285,53 @@ const CheckoutPageLayout = () => {
 						{shippingMethod?.type ===
 							"delivery" && (
 							<div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px]">
-								<div>
-									<button className=" bg-primary rounded-lg px-4 py-2 text-white text-base font-semibold">
+								<p className="text-primary text-xl leading-6 font-medium ">
+									Shipping Address
+								</p>
+								<div className="mt-6">
+									<ShippingAddresses
+										addresses={
+											addresses
+										}
+										selectShippingAddress={
+											selectShippingAddress
+										}
+										setSelectShippingAddress={
+											setSelectShippingAddress
+										}
+									/>
+								</div>
+								<div className="mt-5 flex justify-start flex-wrap">
+									<button
+										className=" bg-primary rounded-lg px-4 py-2 text-white text-sm  hover:bg-opacity-80"
+										onClick={() => {
+											setShowShippingAddressForm(
+												true
+											),
+												setIsNewAddress(
+													true
+												);
+										}}
+									>
 										Add New
 										Address
 									</button>
+									{selectShippingAddress && (
+										<button
+											className=" bg-primary rounded-lg px-4 py-2 text-white text-sm  hover:bg-opacity-80 ml-5"
+											onClick={() => {
+												setShowShippingAddressForm(
+													true
+												),
+													setIsNewAddress(
+														false
+													);
+											}}
+										>
+											Change
+											Address
+										</button>
+									)}
 								</div>
 							</div>
 						)}

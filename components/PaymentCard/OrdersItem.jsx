@@ -32,7 +32,7 @@ const OrdersItem = ({ cart, cart_details }) => {
 			</div>
 			<div className="mt-4">
 				<p className="text-lg font-semibold text-primary mt-6">
-					{cart_details[0].listing.title}
+					{cart_details[0]?.listing.title}
 				</p>
 				<p className="text-lg font-semibold text-primary mt-2">
 					{cart?.grand_total.formatted}

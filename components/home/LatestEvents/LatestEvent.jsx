@@ -67,7 +67,7 @@ const LatestEvent = ({ products }) => {
 					</p>
 				</Link>
 			</div>
-			<div className=" mt-4 flex  ">
+			<div className=" mt-4 flex  justify-start ">
 				<Swiper
 					slidesPerView="auto"
 					slidesPerGroup={1}
@@ -102,8 +102,8 @@ const LatestEvent = ({ products }) => {
 											layout="fill"
 											objectFit="cover"
 										/>
-										<div className=" absolute w-full top-0   flex   justify-between pr-1">
-											<div className=" mt-[9px]  flex   pl-[10px]  ">
+										<div className=" absolute w-full top-0   flex   justify-end pr-1">
+											{/* <div className=" mt-[9px]  flex   pl-[10px]  ">
 												<svg
 													className="text-primary"
 													width="12"
@@ -121,7 +121,7 @@ const LatestEvent = ({ products }) => {
 															.country
 													}
 												</p>
-											</div>
+											</div> */}
 											<Link
 												href="/"
 												passHref

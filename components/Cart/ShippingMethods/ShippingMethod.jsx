@@ -1,13 +1,27 @@
 import React from "react";
-import { shippingMethods } from "../../../store/feature/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { authSelector } from "../../../store/feature/authSlice";
+import { cartList, cartSelector, shippingMethods } from "../../../store/feature/cartSlice";
 
 const ShippingMethod = ({
 	shipping_methods,
 	shippingMethod,
 	setShippingMethod,
 }) => {
+	const dispatch = useDispatch();
+	const { auth_key } = useSelector(authSelector);
+	const { currencies } = useSelector(cartSelector);
 	const selectShippingMethod = (method) => {
 		setShippingMethod(method);
+		dispatch(
+			cartList({
+				authKey: auth_key,
+				bodyParam: {
+					shipping_method_id: method.id,
+				},
+				currency: currencies[0].code,
+			})
+		);
 	};
  
 	return shipping_methods ? (
