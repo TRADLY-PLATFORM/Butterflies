@@ -59,9 +59,9 @@ const HomePageLayout = () => {
 					);
 				}
 			})}
-			<div>
+			{/* <div>
 				<Banner banners={page_promo_banners} />
-			</div>
+			</div> */}
 		</div>
 	);
 };
