@@ -19,7 +19,7 @@ module.exports = {
 			},
 		},
 		colors: {
-			primary: "#15B790",
+			primary: "var( --primary_color)",
 			primary_light: "#DFFBF4",
 			secondary: "#959393",
 			transparent: "transparent",

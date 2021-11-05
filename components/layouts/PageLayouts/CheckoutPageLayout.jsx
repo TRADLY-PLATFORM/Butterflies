@@ -416,7 +416,7 @@ const CheckoutPageLayout = () => {
 						{cart && (
 							<div className="flex justify-center  mt-6">
 								<button
-									className=" w-5/6 bg-primary  rounded-full py-[12px] text-center text-base font-medium text-white flex justify-center items-center"
+									className=" w-5/6 bg-primary  rounded-full py-[12px] text-center text-base  text-white flex justify-center items-center font-semibold"
 									onClick={
 										clickCheckOut
 									}
@@ -445,16 +445,10 @@ const CheckoutPageLayout = () => {
 											</svg>
 										</span>
 									)}
-									<span>
+									<span className=" ">
 										Checkout
 									</span>
-									<span className="ml-3">
-										{
-											cart
-												?.grand_total
-												?.formatted
-										}
-									</span>
+									 
 								</button>
 							</div>
 						)}

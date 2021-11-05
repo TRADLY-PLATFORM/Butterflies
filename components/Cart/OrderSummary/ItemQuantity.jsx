@@ -5,7 +5,7 @@ const ItemQuantity = ({ cart_details }) => {
 		cart_details.map((item) => {
 			return (
 				<div
-					className=" w-full min-h-[57px] bg-[#FFFFFF] border border-primary rounded-lg  px-4 py-5 "
+					className=" w-full min-h-[57px] bg-[#FFFFFF] border border-primary rounded-lg  px-4 py-5 mb-3 "
 					key={item.id}
 				>
 					<p className=" text-sm leading-4 font-semibold text-[#4F4F4F] ">

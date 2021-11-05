@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+ 
+/* :root {
+  --primary-color: #1e90ff;
+  --white: #ffffff;
+} */
 
 * {
 	font-family: Montserrat, sans-serif;

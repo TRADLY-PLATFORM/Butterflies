@@ -56,7 +56,7 @@ const Listings = ({ Products }) => {
 	return (
 		<div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-start">
 			{Products?.map((item) => (
- 				<div className="   ms:mb-5  ms:mr-4 relative">
+				<div className="   ms:mb-5  ms:mr-4 relative">
 					<div
 						className=" ms:w-[190px] min-h-[303px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
 						onClick={() =>
@@ -68,7 +68,7 @@ const Listings = ({ Products }) => {
 						<div className=" ms:w-[190px]  h-[190px] relative">
 							<Image
 								src={getThumbnailImage(
-									item.images[0]
+									item?.images[0]
 								)}
 								alt={item.title}
 								layout="fill"
@@ -111,15 +111,15 @@ const Listings = ({ Products }) => {
 								<p className=" text-[10px]   leading-3 text-[#4F4F4F] font-medium mix-blend-normal">
 									{
 										item
-											.account
-											.name
+											?.account
+											?.name
 									}
 								</p>
 								<p className="text-[10px] leading-3 text-[#4F4F4F] font-medium   opacity-50">
 									{
 										item
-											.account
-											.total_followers
+											?.account
+											?.total_followers
 									}{" "}
 									Followers
 								</p>
@@ -166,9 +166,8 @@ const Listings = ({ Products }) => {
 							/>
 						)}
 					</div>
- 				</div>
-
- 			))}
+				</div>
+			))}
 		</div>
 	);
 };

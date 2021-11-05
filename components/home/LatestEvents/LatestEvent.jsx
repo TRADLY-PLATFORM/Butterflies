@@ -126,12 +126,21 @@ const LatestEvent = ({ products }) => {
 												  ".."
 												: item.title}
 										</p>
-										<p className=" text-[10px] leading-4 font-medium text-gray-500 mt-1">
-											{
-												item
-													.list_price
-													.formatted
-											}
+										<p className=" mt-1 flex items-center flex-wrap">
+											<span className="text-[10px] leading-4 font-medium text-gray-500">
+												{
+													item
+														.list_price
+														.currency
+												}
+											</span>
+											<span className="text-[14px] leading-4 font-medium text-gray-600 ml-1">
+												{
+													item
+														.list_price
+														.amount
+												}
+											</span>
 										</p>
 									</div>
 									<div className=" pl-2 mt-4 mb-[14px] flex items-center">

@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";
-import { addToCart,deleteCart, cartList, cartSelector, clearCartState } from "../../../store/feature/cartSlice";
+import {
+	addToCart,
+	deleteCart,
+	cartList,
+	cartSelector,
+	clearCartState,
+} from "../../../store/feature/cartSlice";
 import PopUp from "../../Shared/PopUp/PopUp";
 import OutsideClickHandler from "react-outside-click-handler";
 
-const CartItemBox = ({cart, cart_details }) => {
+const CartItemBox = ({ cart, cart_details }) => {
 	const [showError, setShowError] = useState(false);
 	const [error_message, setError_message] = useState("");
 
@@ -53,17 +59,18 @@ const CartItemBox = ({cart, cart_details }) => {
 			} else {
 				setShowError(true);
 				setError_message("Quantity cannot be less than 1");
- 				return false;
+				return false;
 			}
 		}
-		dispatch(addToCart({ authKey: auth_key, data: cartData }))
-			.then((res) => {
-			if (!res.payload.code) {
-				dispatch(cartList({ authKey: auth_key }));
+		dispatch(addToCart({ authKey: auth_key, data: cartData })).then(
+			(res) => {
+				if (!res.payload.code) {
+					dispatch(cartList({ authKey: auth_key }));
+				}
 			}
-		})
+		);
 	};
- 
+
 	const delete_cart = (id) => {
 		dispatch(
 			deleteCart({
@@ -74,14 +81,12 @@ const CartItemBox = ({cart, cart_details }) => {
 					},
 				},
 			})
-		)
-		.then((res)=>{
- 			if (!res.payload.code) {
+		).then((res) => {
+			if (!res.payload.code) {
 				dispatch(cartList({ authKey: auth_key }));
 			}
-		})
-		
-	}
+		});
+	};
 	const closePopUP = () => {
 		dispatch(clearCartState());
 		setShowError(false);
@@ -127,12 +132,17 @@ const CartItemBox = ({cart, cart_details }) => {
 							<p className=" text-base text-black font-semibold mt-[2px]">
 								{cartItem.listing.title}
 							</p>
-							<p className=" mt-[11px] text-secondary text-xs font-medium">
-								{
-									cartItem.listing
-										.list_price
-										.formatted
-								}
+							<p className=" mt-[11px] text-secondary text-xs font-medium flex flex-wrap items-center">
+								<span className=" text-xs leading-6 font-medium text-secondary mr-2">
+									{
+										cartItem.listing.list_price.currency
+									}
+								</span>
+								<span className="text-sm  ">
+									{
+										cartItem.listing.list_price.amount
+									}
+								</span>
 							</p>
 						</div>
 						<div className=" w-full mt-6 lg:mt-0  flex items-center justify-around">
@@ -168,8 +178,15 @@ const CartItemBox = ({cart, cart_details }) => {
 								</button>
 							</div>
 							<div className="ml-6">
-								<button className="w-[32px] h-[32px] bg-primary   flex justify-center items-center text-xl leading-6 font-medium  text-white  rounded" 
-								onClick={()=>delete_cart( cartItem.listing.id)}
+								<button
+									className="w-[32px] h-[32px] bg-primary   flex justify-center items-center text-xl leading-6 font-medium  text-white  rounded"
+									onClick={() =>
+										delete_cart(
+											cartItem
+												.listing
+												.id
+										)
+									}
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"

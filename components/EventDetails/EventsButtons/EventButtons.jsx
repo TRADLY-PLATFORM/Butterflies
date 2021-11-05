@@ -49,7 +49,7 @@ const EventButtons = ({ listing_details }) => {
 					}}
 				>
 					<div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-						<div className="w-ful  xs:w-[500px] mx-auto">
+						<div className="w-full  xs:w-[500px] mx-auto">
 							<PopUp
 								message={errorMessage}
 								closePopUP={closePopUP}
@@ -77,7 +77,7 @@ const EventButtons = ({ listing_details }) => {
 				</span>
 			</button> */}
 			<button
-				className="  w-[55%]  h-[52px] bg-primary rounded-lg flex justify-center items-center "
+				className="  w-[95%]  h-[52px] bg-primary rounded-lg flex justify-center items-center "
 				onClick={add_to_Cart}
 			>
 				{isFetching ? (
@@ -115,7 +115,7 @@ const EventButtons = ({ listing_details }) => {
 						/>
 					</svg>
 				)}
-				<span className=" text-xl text-white font-semibold ml-3 ">
+				<span className=" text-xl text-white font-semibold ml-7 ">
 					Book Now
 				</span>
 			</button>

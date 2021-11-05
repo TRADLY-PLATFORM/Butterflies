@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const MainBox = ({ listing_details, rating_data, like }) => {
 	return listing_details !== null ? (
-		<div className=" w-full  min-h-[300px] bg-white rounded  p-[25px] relative">
+		<div className=" w-full  min-h-[250px] bg-white rounded  p-[25px] relative">
 			<div className=" w-5/6 ">
 				<p className=" text-sm text-primary font-medium">
 					Only {listing_details.stock} tickets left
@@ -14,10 +14,13 @@ const MainBox = ({ listing_details, rating_data, like }) => {
 				<h2 className=" mt-[9px] text-[30px] text-primary font-medium ">
 					{listing_details.title}
 				</h2>
-				<p className=" mt-1 text-secondary text-xl font-medium">
-					{" "}
-					Start from{" "}
-					{listing_details.list_price.formatted}
+				<p className=" mt-1 flex items-center flex-wrap">
+					<span className="text-secondary text-base font-medium">
+						{listing_details.list_price.currency}
+					</span>
+					<span className=" text-black text-xl font-medium ml-[6px]">
+						{listing_details.list_price.amount}
+					</span>
 				</p>
 				<p className="flex justify-start items-center ">
 					<svg
@@ -43,9 +46,6 @@ const MainBox = ({ listing_details, rating_data, like }) => {
 				</p>
 			</div>
 
-			<div className=" mt-[91px] mb-[44px] ">
-				<EventButtons listing_details={listing_details} />
-			</div>
 			<div className=" absolute top-0 right-0 mt-6 mr-6">
 				<button
 					className=" h-[48px] w-[48px] relative cursor-pointer "

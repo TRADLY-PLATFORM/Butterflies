@@ -7,7 +7,7 @@ const OrderItems = ({ cart_details }) => {
 	return cart_details.map((item) => {
 		return (
 			<div
-				className="w-full  bg-[#FFFFFF] rounded-lg shadow-c-sm   overflow-hidden flex  "
+				className="w-full  bg-[#FFFFFF] rounded-lg shadow-c-sm   overflow-hidden flex  mb-3 "
 				key={item.id}
 			>
 				<div className=" w-[100px] h-[100px] relative mr-3 ">
