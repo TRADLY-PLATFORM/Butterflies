@@ -68,19 +68,42 @@ const OrderSummary = ({ order_details }) => {
 					<p className=" text-sm text-black font-semibold  ">
 						Subtotal
 					</p>
-					<p className=" text-sm text-black font-semibold   text-opacity-70">
-						{order_details?.list_total.formatted}
+					<p className=" text-sm text-black font-semibold flex items-center  ">
+						<span className=" text-xs text-opacity-70 font-normal">
+							{
+								order_details
+									?.list_total
+									.currency
+							}
+						</span>
+						<span className=" ml-[6px] text-opacity-80">
+							{
+								order_details
+									?.list_total
+									.amount
+							}
+						</span>
 					</p>
 				</div>
 				<div className=" flex justify-between items-center py-4  ">
 					<p className=" text-sm text-black font-semibold  ">
 						Delivery Fee
 					</p>
-					<p className=" text-sm text-black font-semibold   text-opacity-70">
-						{
-							order_details?.shipping_total
-								.formatted
-						}
+					<p className=" text-sm text-black font-semibold    text-opacity-70 flex items-center flex-wrap">
+						<span className="text-xs text-opacity-70 font-normal">
+							{
+								order_details
+									?.shipping_total
+									.currency
+							}
+						</span>
+						<span className="ml-[6px]">
+							{
+								order_details
+									?.shipping_total
+									.amount
+							}
+						</span>
 					</p>
 				</div>
 			</div>
@@ -99,7 +122,7 @@ const OrderSummary = ({ order_details }) => {
                     border-transparent
                      text-white
                   "
- 					onChange={(e) =>
+					onChange={(e) =>
 						status_change(e, order_details)
 					}
 				>

@@ -83,13 +83,21 @@ const OrdersItem = ({ orders }) => {
 										</p>
 									</div>
 									<div className="flex justify-center items-center">
-										<p className=" text-center text-primary font-semibold text-lg">
-											{" "}
-											{
-												item
-													.grand_total
-													.formatted
-											}
+										<p className=" text-center text-primary    flex justify-center items-center">
+											<span className=" text-sm">
+												{
+													item
+														.grand_total
+														.currency
+												}
+											</span>
+											 <span className="text-lg ml-1">
+												{
+													item
+														.grand_total
+														.amount
+												}
+											</span>
 										</p>
 									</div>
 									<div className="hidden xs:flex justify-center items-center">

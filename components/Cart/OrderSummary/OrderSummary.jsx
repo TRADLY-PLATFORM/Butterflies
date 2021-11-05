@@ -17,15 +17,36 @@ const OrderSummary = ({ cart, cart_details }) => {
 			<div className="mt-8">
 				<p className="text-base leading-6 font-semibold text-secondary flex justify-between items-center mb-2">
 					<span>Total</span>{" "}
-					<span>{cart.list_total?.formatted}</span>
+					<span className=" flex flex-wrap items-center">
+						<span className="text-sm leading-6 font-medium text-secondary mr-2">
+							{cart.list_total?.currency}
+						</span>
+						<span className="text-base leading-6 font-semibold text-gray-600">
+							{cart.list_total?.amount}
+						</span>
+					</span>
 				</p>
 				<p className="text-base leading-6 font-semibold text-secondary flex justify-between items-center mb-2">
 					<span>Shipping</span>{" "}
-					<span>{cart.shipping_total?.formatted}</span>
+					<span className=" flex flex-wrap items-center">
+						<span className="text-sm leading-6 font-medium text-secondary mr-2">
+							{cart.shipping_total?.currency}
+						</span>
+						<span className="text-base leading-6 font-semibold text-gray-600">
+							{cart.shipping_total?.amount}
+						</span>
+					</span>
 				</p>
 				<p className="text-xl leading-6 font-semibold text-black flex justify-between items-center">
 					<span>Subtotal</span>{" "}
-					<span>{cart.grand_total?.formatted}</span>
+					<span className=" flex flex-wrap items-center">
+						<span className="text-sm leading-6 font-medium text-secondary mr-2">
+							{cart.grand_total?.currency}
+						</span>
+						<span className="text-xl leading-6 font-semibold text-black">
+							{cart.grand_total?.amount}
+						</span>
+					</span>
 				</p>
 			</div>
 		</div>

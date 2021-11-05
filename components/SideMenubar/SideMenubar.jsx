@@ -41,7 +41,7 @@ console.log('====================================');
 						viewBox="0 0 18 21"
 						fill={
 							router.pathname === "/"
-								? "#15B790"
+								? "var( --primary_color)"
 								: "#959393"
 						}
 						xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@ console.log('====================================');
 						viewBox="0 0 18 21"
 						fill={
 							router.pathname === "/explore"
-								? "#15B790"
+								? "var( --primary_color)"
 								: "#959393"
 						}
 						xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +116,7 @@ console.log('====================================');
 								"/orders" ||
 							router.pathname ===
 								"/orders/[id]"
-								? "#15B790"
+								? "var( --primary_color)"
 								: "#959393"
 						}
 						className="mt-[6px]"
@@ -154,7 +154,7 @@ console.log('====================================');
 						viewBox="0 0 18 21"
 						fill={
 							router.pathname === "/history"
-								? "#15B790"
+								? "var( --primary_color)"
 								: "#959393"
 						}
 						xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +188,7 @@ console.log('====================================');
 						viewBox="0 0 18 21"
 						fill={
 							router.pathname === "/settings"
-								? "#15B790"
+								? "var( --primary_color)"
 								: "#959393"
 						}
 						xmlns="http://www.w3.org/2000/svg"

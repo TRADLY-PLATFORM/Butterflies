@@ -18,6 +18,7 @@ import {
 import OutsideClickHandler from "react-outside-click-handler";
 import PopUp from "../../Shared/PopUp/PopUp";
 import AttributeDetails from "../../EventDetails/AttributeDetails/AttributeDetails";
+import EventButtons from "../../EventDetails/EventsButtons/EventButtons";
 
 const EventDetailsPageLayout = () => {
 	const [showError, setShowError] = useState(false);
@@ -124,13 +125,14 @@ const EventDetailsPageLayout = () => {
 								}
 							/>
 						</div>
-						<div className="mt-6">
+						{listing_details?.description !== "" &&
+							<div className="mt-6">
 							<DescriptionPart
 								description={
 									listing_details?.description
 								}
 							/>
-						</div>
+						</div>}
 						{/* <div className=" mt-6">
 							<RelatedEvents />
 						</div> */}
@@ -148,8 +150,15 @@ const EventDetailsPageLayout = () => {
 							/>
 						</div>
 						<div className="mt-6">
-							<Schedule />
+							<EventButtons
+								listing_details={
+									listing_details
+								}
+							/>
 						</div>
+						{/* <div className="mt-6">
+							<Schedule />
+						</div> */}
 						{listing_details?.attributes && (
 							<div className="mt-6">
 								<AttributeDetails

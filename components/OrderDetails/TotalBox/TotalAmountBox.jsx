@@ -7,8 +7,13 @@ const TotalAmountBox = ({ order_details }) => {
 				<p className=" text-sm text-black font-semibold  ">
 					Total
 				</p>
-				<p className=" text-sm text-black font-semibold   text-opacity-70">
-					{order_details?.grand_total.formatted}
+				<p className=" text-sm text-black font-semibold   text-opacity-70 flex flex-wrap">
+					<span className=" text-xm  font-normal">
+						{order_details?.grand_total.currency}
+					</span>
+					<span className=" ml-2">
+						{order_details?.grand_total.amount}
+					</span>
 				</p>
 			</div>
 		</div>

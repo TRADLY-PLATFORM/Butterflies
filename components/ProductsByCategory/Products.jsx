@@ -86,15 +86,28 @@ const Products = ({ Products }) => {
 						</p>
 						<div className="mt-2 pl-2">
 							<p className=" text-xs leading-[15px] font-semibold text-primary">
-								{item.title}
-							</p>
-							<p className=" text-[10px] leading-4 font-medium text-gray-500 mt-1">
 								{item.title.length > 15
 									? item.title.substring(
 											0,
 											15
 									  ) + ".."
 									: item.title}
+							</p>
+							<p className=" text-[10px] leading-4 font-medium text-gray-500 mt-1 flex items-center">
+								<span className=" te-sm">
+									{
+										item
+											.list_price
+											.currency
+									}
+								</span>
+								<span className=" text-base ml-[6px]">
+									{
+										item
+											.list_price
+											.amount
+									}
+								</span>
 							</p>
 						</div>
 						<div className=" pl-2 mt-4 mb-[14px] flex items-center">
