@@ -116,7 +116,7 @@ const CartItemBox = ({cart, cart_details }) => {
 			{cart_details.map((cartItem) => {
 				return (
 					<div
-						className=" w-full border border-primary rounded-lg px-[24px] py-[16px] grid  grid-cols-[100%] justify-between lg:grid-cols-[60%,35%] "
+						className=" w-full border border-primary rounded-lg px-[24px] py-[16px] grid  grid-cols-[100%] justify-between lg:grid-cols-[60%,35%]  mb-4"
 						key={cartItem.id}
 					>
 						<div>
