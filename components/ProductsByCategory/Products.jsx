@@ -129,15 +129,15 @@ const Products = ({ Products }) => {
 								<p className=" text-[10px]   leading-3 text-[#4F4F4F] font-medium mix-blend-normal">
 									{
 										item
-											.account
-											.name
+											?.account
+											?.name
 									}
 								</p>
 								<p className="text-[10px] leading-3 text-[#4F4F4F] font-medium   opacity-50">
 									{
 										item
-											.account
-											.total_followers
+											?.account
+											?.total_followers
 									}{" "}
 									Followers
 								</p>
