@@ -2,13 +2,15 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 
 const DescriptionPart = ({ description }) => {
-	return description ? (
+	return description!== undefined || description ===""  ? (
 		<div className=" w-full  min-h-[200px] bg-[#FFFFFF] rounded  p-[24px]">
 			<p className="text-[#121212] text-sm  font-semibold leading-4 ">
 				Description
 			</p>
 			<div className="ml-2 mt-4">
-				<ReactMarkdown>{description}</ReactMarkdown>
+				<article class="prose  prose-red	">
+					<ReactMarkdown>{description}</ReactMarkdown>
+				</article>
 			</div>
 		</div>
 	) : (

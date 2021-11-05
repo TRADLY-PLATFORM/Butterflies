@@ -13,6 +13,7 @@ import {
 	EphemeralKey,
 	getAddress,
 	getCurrencies,
+	getStorageHubAddress,
 	paymentIntent,
 	paymentMethods,
 	saveAddress,
@@ -30,6 +31,7 @@ import OrderSuccess from "../../Cart/OrderSuccess/OrderSuccess";
 import NoCartItem from "../../Cart/NoCartItem/NoCartItem";
 import AddressForm from "../../Cart/AddressForm/AddressForm";
 import ShippingAddresses from "../../Cart/ShippingAddresses/ShippingAddresses";
+import StorageHubAddresses from "../../Cart/StorageHubAddress/StorageHubAddresses";
 
 const CheckoutPageLayout = () => {
 	const [paymentMethod, setPaymentMethod] = useState(null);
@@ -43,6 +45,9 @@ const CheckoutPageLayout = () => {
 	const [selectShippingAddress, setSelectShippingAddress] = useState(null);
 	const [isNewAddress, setIsNewAddress] = useState(false);
 
+	const [selectStorageHubAddress, setSelectStorageHubAddress] =
+			useState(null);
+
 	const {
 		register,
 		handleSubmit,
@@ -51,7 +56,7 @@ const CheckoutPageLayout = () => {
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 	const { login, auth_key } = useSelector(authSelector);
-	const { order_reference, currencies, addresses } =
+	const { order_reference, currencies, addresses, storage_hub_addresses } =
 		useSelector(cartSelector);
 	const dispatch = useDispatch();
 	const router = useRouter();
@@ -76,6 +81,12 @@ const CheckoutPageLayout = () => {
 			dispatch(
 				getAddress({
 					bodyParam: { type: "delivery" },
+					authKey: auth_key,
+				})
+			);
+			dispatch(
+				getStorageHubAddress({
+					bodyParam: { type: "storage_hub" },
 					authKey: auth_key,
 				})
 			);
@@ -111,6 +122,15 @@ const CheckoutPageLayout = () => {
 				return false;
 			}
 		}
+		if (shippingMethod.type === "storage_hub") {
+			if (selectStorageHubAddress === null) {
+				setShowError(true);
+				setError_message(
+					`Select Your One ${shippingMethod.name}  Address`
+				);
+				return false;
+			}
+		}
 		if (paymentMethod === null) {
 			setShowError(true);
 			setError_message("Payment Method is required");
@@ -127,7 +147,19 @@ const CheckoutPageLayout = () => {
 						selectShippingAddress.id,
 				},
 			};
-		} else {
+		}
+		else if (shippingMethod.type === "storage_hub") {
+			checkout_data = {
+				order: {
+					payment_method_id: paymentMethod.id,
+					shipping_method_id: shippingMethod.id,
+					shipping_address_id:
+						selectStorageHubAddress.id,
+				},
+			};
+		}
+		
+		else {
 			checkout_data = {
 				order: {
 					payment_method_id: paymentMethod.id,
@@ -263,7 +295,7 @@ const CheckoutPageLayout = () => {
 					<div className="   c-md:w-[400px] lg:w-[600px] ">
 						<div className="bg-[#FEFEFE] rounded-lg py-12 px-9">
 							<CartItemBox
-							cart={cart}
+								cart={cart}
 								cart_details={
 									cart_details
 								}
@@ -286,7 +318,10 @@ const CheckoutPageLayout = () => {
 							"delivery" && (
 							<div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px]">
 								<p className="text-primary text-xl leading-6 font-medium ">
-									Shipping Address
+									{
+										shippingMethod.name
+									}{" "}
+									Address
 								</p>
 								<div className="mt-6">
 									<ShippingAddresses
@@ -332,6 +367,30 @@ const CheckoutPageLayout = () => {
 											Address
 										</button>
 									)}
+								</div>
+							</div>
+						)}
+						{shippingMethod?.type ===
+							"storage_hub" && (
+							<div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px]">
+								<p className="text-primary text-xl leading-6 font-medium ">
+									{
+										shippingMethod.name
+									}
+									Address
+								</p>
+								<div className="mt-6">
+									<StorageHubAddresses
+										addresses={
+											storage_hub_addresses
+										}
+										selectStorageHubAddress={
+											selectStorageHubAddress
+										}
+										setSelectStorageHubAddress={
+											setSelectStorageHubAddress
+										}
+									/>
 								</div>
 							</div>
 						)}

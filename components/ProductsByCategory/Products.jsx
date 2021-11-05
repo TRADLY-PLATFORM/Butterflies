@@ -63,7 +63,9 @@ const Products = ({ Products }) => {
 					<div
 						className=" ms:w-[190px] min-h-[303px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
 						onClick={() =>
-							router.push(`/listing/${item.id}`)
+							router.push(
+								`/listing/${item.id}`
+							)
 						}
 					>
 						<div className=" ms:w-[190px]  h-[190px] relative">
@@ -87,10 +89,12 @@ const Products = ({ Products }) => {
 								{item.title}
 							</p>
 							<p className=" text-[10px] leading-4 font-medium text-gray-500 mt-1">
-								{
-									item.list_price
-										.formatted
-								}
+								{item.title.length > 15
+									? item.title.substring(
+											0,
+											15
+									  ) + ".."
+									: item.title}
 							</p>
 						</div>
 						<div className=" pl-2 mt-4 mb-[14px] flex items-center">
@@ -127,7 +131,7 @@ const Products = ({ Products }) => {
 							</div>
 						</div>
 					</div>
-					<div className=" mt-[9px] absolute top-0 left-0  flex   pl-[10px]  ">
+					{/* <div className=" mt-[9px] absolute top-0 left-0  flex   pl-[10px]  ">
 						<svg
 							className="text-primary"
 							width="12"
@@ -141,7 +145,7 @@ const Products = ({ Products }) => {
 						<p className=" text-black text-[10px] leading-3  font-semibold ml-1 mt-[1px]">
 							{item.location.country}
 						</p>
-					</div>
+					</div> */}
 					{/* <Link  href="#" passHref> */}
 					<div
 						className=" h-[40px] w-[40px]  absolute right-0 top-0 cursor-pointer  [z-100]  "

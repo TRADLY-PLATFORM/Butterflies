@@ -24,7 +24,7 @@ const HomePageLayout = () => {
 		dispatch(
 			AllPromoBanners({
 				authKey: localStorage.getItem("auth_key"),
-				bodyParam: "",
+				bodyParam: { placement :"home_body"},
 			})
 		);
 	}, [auth_key, dispatch]);
@@ -59,9 +59,9 @@ const HomePageLayout = () => {
 					);
 				}
 			})}
-			{/* <div>
+			<div>
 				<Banner banners={page_promo_banners} />
-			</div> */}
+			</div>
 		</div>
 	);
 };

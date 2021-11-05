@@ -6,9 +6,7 @@
 			],
 		},
 		env: {
-			NEXT_APP_ENVIRONMENT: process.env.NEXT_APP_ENVIRONMENT,
-			NEXT_APP_API_KEY: process.env.NEXT_APP_API_KEY,
- 			NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
-				process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+			ENVIRONMENT_NAME: process.env.ENVIRONMENT_NAME,
+			API_KEY: process.env.API_KEY,
 		},
  };
