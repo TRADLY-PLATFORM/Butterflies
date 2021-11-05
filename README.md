@@ -4,8 +4,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+ [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -176,7 +175,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Tradly Platform   -  hitradly@gmail.com
+Tradly Platform   -  https://community.tradly.app/
 
 Project Link: [https://github.com/TRADLY-PLATFORM/Butterflies](https://github.com/TRADLY-PLATFORM/Butterflies)
 
@@ -197,7 +196,6 @@ Project Link: [https://github.com/TRADLY-PLATFORM/Butterflies](https://github.co
 [stars-url]: https://github.com/TRADLY-PLATFORM/Butterflies/stargazers
 [issues-shield]: https://img.shields.io/github/issues/TRADLY-PLATFORM/Butterflies.svg?style=for-the-badge
 [issues-url]: https://github.com/TRADLY-PLATFORM/Butterflies/issues
- 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/showcase/tradly-platform/
  
