@@ -82,7 +82,7 @@ const VerificationForm = () => {
 			)}
 
 			<h2 className=" px-[34px]  md:px-24  text-center text-white text-[30px] md:text-[40px] font-semibold mb-4">
-				Phone Verification
+				Email Verification
 			</h2>
 			<p className=" px-[34px]  md:px-24  text-center text-white text-xl  font-semibold ">
 				Enter verification code here

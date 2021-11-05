@@ -149,7 +149,7 @@ const SignInForm = () => {
 				<div className=" mt-32 flex justify-center items-center">
 					<Link href={"/sign-up"} passHref>
 						<button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl">
-							Don’t have an account,
+							Don't have an account ? 
 							<span className="font-semibold">
 								Sign up{" "}
 							</span>
