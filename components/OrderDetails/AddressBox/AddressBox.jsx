@@ -16,7 +16,7 @@ const AddressBox = ({ order_details }) => {
 					{order_details?.shipping_method.name} Address
 				</p>
 			</div>
-			<div>
+			<div className="mt-4">
 				{address?.country ? (
 					<>
 						<div className=" flex justify-start items-center py-1  ">

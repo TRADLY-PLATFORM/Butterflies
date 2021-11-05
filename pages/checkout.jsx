@@ -7,6 +7,7 @@ import { refreshPage } from '../store/feature/authSlice';
 import { getCurrencies } from '../store/feature/cartSlice';
 
 const Checkout = () => {
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(

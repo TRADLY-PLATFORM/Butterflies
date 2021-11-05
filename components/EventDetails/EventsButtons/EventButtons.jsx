@@ -41,7 +41,7 @@ const EventButtons = ({ listing_details }) => {
 		dispatch(clearCartState());
 	};
 	return (
-		<div className=" w-full flex justify-between items-center">
+		<div className=" w-full flex justify-center items-center">
 			{isError && (
 				<OutsideClickHandler
 					onOutsideClick={() => {
@@ -59,7 +59,7 @@ const EventButtons = ({ listing_details }) => {
 				</OutsideClickHandler>
 			)}
 
-			<button className="   w-[40%] h-[52px]  flex justify-center items-center border border-primary rounded-lg box-border  ">
+			{/* <button className="   w-[40%] h-[52px]  flex justify-center items-center border border-primary rounded-lg box-border  ">
 				<svg
 					width="20"
 					height="20"
@@ -75,7 +75,7 @@ const EventButtons = ({ listing_details }) => {
 				<span className=" text-xl text-primary font-semibold ml-3">
 					Chat
 				</span>
-			</button>
+			</button> */}
 			<button
 				className="  w-[55%]  h-[52px] bg-primary rounded-lg flex justify-center items-center "
 				onClick={add_to_Cart}

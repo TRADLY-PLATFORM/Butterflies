@@ -173,9 +173,9 @@ const EventDetailsPageLayout = () => {
 								}
 							/>
 						</div> */}
-						<div className="mt-6">
+						{/* <div className="mt-6">
 							<ShareButtons />
-						</div>
+						</div> */}
 					</div>
 				</div>
 			}

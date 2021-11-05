@@ -5,8 +5,9 @@ import PaymentPageLayout from "../components/layouts/PageLayouts/PaymentPageLayo
 import { useDispatch } from "react-redux";
 import { refreshPage } from "../store/feature/authSlice";
 import { useRouter } from "next/dist/client/router";
+import tradly from "tradly";
 
-const Payment = () => {
+const Payment = (props) => {
 	const router = useRouter();
 	useEffect(() => {
 		window.addEventListener("beforeunload", alertUser);
@@ -29,7 +30,7 @@ const Payment = () => {
 	}, [dispatch]);
 
 	const stripePromise = loadStripe(
-		process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+		props.payment.stripe_api_publishable_key
 	);
 	return (
 		<Elements stripe={stripePromise}>
@@ -39,3 +40,12 @@ const Payment = () => {
 };
 
 export default Payment;
+
+export async function getStaticProps(context) {
+	const response = await tradly.app.getConfigList({
+		paramBody: "payments",
+	});
+	return {
+		props: { payment: response.data.configs },
+	};
+}

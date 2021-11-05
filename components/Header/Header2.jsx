@@ -56,9 +56,9 @@ const Header2 = () => {
 						</div>
 					</div>
 					<div className=" flex items-center justify-between">
-						<div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
+						{/* <div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
 							<HeaderButton />
-						</div>
+						</div> */}
 						<div>
 							<HeaderProfile
 								showUserMenus={
@@ -116,9 +116,9 @@ const Header2 = () => {
 							</Link>
 						</div>
 						<div className=" flex items-center justify-between">
-							<div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
+							{/* <div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
 								<HeaderButton />
-							</div>
+							</div> */}
 							<div>
 								<HeaderProfile
 									showUserMenus={
