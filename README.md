@@ -14,7 +14,7 @@
    <br />
 <p align="center">
   <a href="https://github.com/TRADLY-PLATFORM/Butterflies">
-    <img src="./assets/Images/SideMenubarImages/Tradly Logo.png" alt="Logo" width="80" height="80">
+    <img src="./assets/Images/SideMenubarImages/Tradly Logo.png" alt="Logo" width="150" height="80">
   </a>
  
   <h3 align="center">Tradly Platform</h3>
