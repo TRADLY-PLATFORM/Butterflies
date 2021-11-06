@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
- import DescriptionPart from "../../EventDetails/DescriptionPart/DescriptionPart";
+import DescriptionPart from "../../EventDetails/DescriptionPart/DescriptionPart";
 import ImagePart from "../../EventDetails/ImagePart/ImagePart";
 import MainBox from "../../EventDetails/MainBox/MainBox";
- import Schedule from "../../EventDetails/SchedulePart/Schedule ";
+import Schedule from "../../EventDetails/SchedulePart/Schedule ";
 import ShareButtons from "../../EventDetails/ShareButtons/ShareButtons";
- import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/dist/client/router";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";
@@ -19,8 +19,9 @@ import OutsideClickHandler from "react-outside-click-handler";
 import PopUp from "../../Shared/PopUp/PopUp";
 import AttributeDetails from "../../EventDetails/AttributeDetails/AttributeDetails";
 import EventButtons from "../../EventDetails/EventsButtons/EventButtons";
+import Head from "next/head";
 
-const EventDetailsPageLayout = () => {
+const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 	const [showError, setShowError] = useState(false);
 	const [error_message, setError_message] = useState("");
 
@@ -48,7 +49,6 @@ const EventDetailsPageLayout = () => {
 	} = useSelector(listingSelector);
 	useEffect(() => {
 		const handleRouteChange = (url, { shallow }) => {
-			 
 			dispatch(clearListingDetails());
 		};
 
@@ -91,8 +91,56 @@ const EventDetailsPageLayout = () => {
 		setError_message("");
 	};
 
+	// seo title
+	const seoTitle = (text) => {
+		if (text) {
+			const check = text.includes("{listing_title}");
+			if (check) {
+				return text.replace(
+					"{listing_title}",
+					listing_details?.title
+				);
+			}
+			return text;
+		} else {
+			return listing_details?.title;
+		}
+	};
+
+	// Seo description
+	const seoDescription = (text) => {
+		if (text) {
+			const check = text.includes("{listing_description}");
+			if (check) {
+				return text.replace(
+					"{listing_description}",
+					listing_details?.description
+				);
+			}
+			return text;
+		} else {
+			return listing_details?.description;
+		}
+	};
+
 	return (
 		<>
+			{listing_details && (
+				<Head>
+					<title>{seoTitle(pageTitle)}</title>
+					<meta
+						name="description"
+						content={`${seoDescription(
+							pageDescription
+						)}`}
+					/>
+					<meta
+						property="og:title"
+						content={`${seoTitle(pageTitle)}`}
+						key="title"
+					/>
+				</Head>
+			)}
 			{(showError || isError) && (
 				<OutsideClickHandler
 					onOutsideClick={() => {
@@ -125,14 +173,16 @@ const EventDetailsPageLayout = () => {
 								}
 							/>
 						</div>
-						{listing_details?.description !== "" &&
+						{listing_details?.description !==
+							"" && (
 							<div className="mt-6">
-							<DescriptionPart
-								description={
-									listing_details?.description
-								}
-							/>
-						</div>}
+								<DescriptionPart
+									description={
+										listing_details?.description
+									}
+								/>
+							</div>
+						)}
 						{/* <div className=" mt-6">
 							<RelatedEvents />
 						</div> */}

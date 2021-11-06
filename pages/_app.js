@@ -42,6 +42,6 @@ export async function getServerSideProps(context) {
 		paramBody: "onboarding",
 	});
 	return {
-		props: { onboarding: response.data.configs },
+		props: { onboarding: response?.data?.configs },
 	};
 }

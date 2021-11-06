@@ -1,0 +1,18 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /verification
+Disallow: /orders
+Disallow: /payment 
+Disallow: /checkout
+
+# Host
+Host: ahsan.com
+
+# Sitemaps
+Sitemap: ahsan.com/sitemap.xml
