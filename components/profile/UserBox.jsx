@@ -5,7 +5,7 @@ import { authSelector } from '../../store/feature/authSlice';
 const UserBox = () => {
 	const {login,first_name,last_name}=useSelector(authSelector)
     return (
-		<div className=" w-full h-min-[30px] bg-white  shadow-c-sm rounded-lg p-[20px]  grid grid-cols-[70%,30%] items-center">
+		<div className=" w-full h-min-[30px] bg-white  shadow-c-sm rounded-lg p-[20px]  grid  xs:grid-cols-[70%,30%] items-center">
 			<div className="flex justify-start items-center">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ const UserBox = () => {
 						: "Guest"}
 				</h2>
 			</div>
-			<div className=" flex justify-end">
+			<div className=" flex justify-center  xs:justify-end">
 				<button className=" px-6 py-1 bg-primary  rounded-lg text-base text-white font-medium">
 					Edit Profile
 				</button>

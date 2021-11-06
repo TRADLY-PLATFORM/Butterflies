@@ -5,7 +5,7 @@ import UserBox from '../../profile/UserBox';
 
 const ProfilePageLayout = () => {
     return (
-        <div className=" w-[700px] mx-auto">
+        <div className="   lg:w-[700px] mx-auto">
             <div>
                 <UserBox/>
             </div>

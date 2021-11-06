@@ -165,7 +165,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 			)}
 			{
 				<div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  pt-16 pb-20   c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
-					<div className=" w-[400px] lg:w-[500px] xl:w-[600px]">
+					<div className=" w-[100vw] ms:w-[400px] lg:w-[500px] xl:w-[600px]">
 						<div>
 							<ImagePart
 								images={
@@ -187,7 +187,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 							<RelatedEvents />
 						</div> */}
 					</div>
-					<div className=" w-[400px] lg:w-[500px] xl:w-[600px] mt-6 c-md:mt-0">
+					<div className="  w-[100vw] ms:w-[400px] lg:w-[500px] xl:w-[600px] mt-6 c-md:mt-0">
 						<div>
 							<MainBox
 								listing_details={
@@ -209,15 +209,17 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 						{/* <div className="mt-6">
 							<Schedule />
 						</div> */}
-						{listing_details?.attributes && (
-							<div className="mt-6">
-								<AttributeDetails
-									attributes={
-										listing_details?.attributes
-									}
-								/>
-							</div>
-						)}
+						{listing_details?.attributes &&
+							listing_details?.attributes
+								.length > 0 && (
+								<div className="mt-6">
+									<AttributeDetails
+										attributes={
+											listing_details?.attributes
+										}
+									/>
+								</div>
+							)}
 						{/* <div>
 							<AddressBox
 								location={

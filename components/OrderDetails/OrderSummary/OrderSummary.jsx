@@ -107,15 +107,15 @@ const OrderSummary = ({ order_details }) => {
 					</p>
 				</div>
 			</div>
-			<div className=" flex justify-between items-center mt-3">
-				<button className="bg-primary px-2 py-2 rounded-md text-white">
+			<div className=" flex justify-center items-center mt-3">
+				{/* <button className="bg-primary px-2 py-2 rounded-md text-white">
 					View Order History
-				</button>
+				</button> */}
 
 				<select
 					class="
                     block
-                      w-[150px] sm:w-[200px]
+                      w-[90%] sm:w-[80%]
                     
                     rounded-lg
                     bg-primary
