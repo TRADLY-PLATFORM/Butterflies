@@ -285,6 +285,9 @@ const CheckoutPageLayout = () => {
 							onSubmit={onSubmit}
 							handleSubmit={handleSubmit}
 							register={register}
+							setShowShippingAddressForm={
+								setShowShippingAddressForm
+							}
 						/>
 					</OutsideClickHandler>
 				</Modal>
@@ -448,7 +451,6 @@ const CheckoutPageLayout = () => {
 									<span className=" ">
 										Checkout
 									</span>
-									 
 								</button>
 							</div>
 						)}

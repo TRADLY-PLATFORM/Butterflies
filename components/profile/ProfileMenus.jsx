@@ -17,7 +17,7 @@ const ProfileMenus = () => {
 			<div className=" border-b border-gray-900 border-opacity-30 py-4">
 				<Link href="#" passHref={true}>
 					<button className=" text-base text-gray-800 font-medium">
-						My Terms & conditions
+						 Terms & conditions
 					</button>
 				</Link>
 			</div>

@@ -1,11 +1,35 @@
 import React from "react";
 
-const AddressForm = ({ onSubmit, handleSubmit, register }) => {
+const AddressForm = ({
+	onSubmit,
+	handleSubmit,
+	register,
+	setShowShippingAddressForm,
+}) => {
 	return (
 		<form
-			className=" w-screen xs:w-[500px] mt-7 mb-7 bg-[#FEFEFE] rounded-lg p-[31px]"
+			className=" w-screen xs:w-[500px] mt-7 mb-7 bg-[#FEFEFE] rounded-lg p-[31px] relative"
 			onSubmit={handleSubmit(onSubmit)}
 		>
+			<button
+				className=" absolute top-0 right-0 mt-5 mr-5 text-primary "
+				onClick={()=>setShowShippingAddressForm(false)}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					className="h-6 w-6 "
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						strokeWidth="2"
+						d="M6 18L18 6M6 6l12 12"
+					/>
+				</svg>
+			</button>
 			<h2 className="text-2xl font-bold">Shipping Address</h2>
 			<div className="mt-8  w-full">
 				<div className="grid grid-cols-1 gap-6">

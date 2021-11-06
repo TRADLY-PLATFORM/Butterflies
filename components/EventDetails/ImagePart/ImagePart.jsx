@@ -14,7 +14,7 @@ SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const ImagePart = ({ images }) => {
 	return (
-		<div className=" w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] ">
+		<div className=" w-[100%]  ms:w-[400px] ms:h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] ">
 			{images ? (
 				<Swiper
 					spaceBetween={30}
@@ -31,9 +31,9 @@ const ImagePart = ({ images }) => {
 						return (
 							<SwiperSlide
 								key={i}
-								className="w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] relative bg-white"
+								className= " ms:w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] relative bg-white"
 							>
-								<div className="w-[400px] h-[400px] lg:w-[500px] lg:h-[500px]  xl:w-[600px] xl:h-[600px] relative  ">
+								<div className=" w-[100vw] h-[400px] ms:w-[400px] ms:h-[400px] lg:w-[500px] lg:h-[500px]  xl:w-[600px] xl:h-[600px] relative  ">
 									<Image
 										src={
 											image
