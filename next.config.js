@@ -8,5 +8,6 @@
 		env: {
 			ENVIRONMENT_NAME: process.env.ENVIRONMENT_NAME,
 			API_KEY: process.env.API_KEY,
+			SITE_URL: process.env.SITE_URL,
 		},
  };

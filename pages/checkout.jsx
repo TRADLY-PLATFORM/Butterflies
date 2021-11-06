@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'; 
-import { useDispatch } from 'react-redux';
-import MagazineLayout from '../components/layouts/MainLayouts/MagazineLayout';
-import MainLayout from '../components/layouts/MainLayouts/MainLayout';
-import CheckoutPageLayout from '../components/layouts/PageLayouts/CheckoutPageLayout';
-import { refreshPage } from '../store/feature/authSlice';
-import { getCurrencies } from '../store/feature/cartSlice';
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import MagazineLayout from "../components/layouts/MainLayouts/MagazineLayout";
+import MainLayout from "../components/layouts/MainLayouts/MainLayout";
+import CheckoutPageLayout from "../components/layouts/PageLayouts/CheckoutPageLayout";
+import { refreshPage } from "../store/feature/authSlice";
+import { getCurrencies } from "../store/feature/cartSlice";
+import tradly from "tradly";
 
-const Checkout = () => {
-
+const Checkout = (props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(
@@ -16,24 +16,42 @@ const Checkout = () => {
 			})
 		);
 		dispatch(
-		getCurrencies({ authKey: localStorage.getItem("auth_key") })
-	)
+			getCurrencies({
+				authKey: localStorage.getItem("auth_key"),
+			})
+		);
 	}, [dispatch]);
-    return (
+	const pageTitle = props?.seo_text?.meta_title;
+	const pageDescription = props?.seo_text?.meta_description;
+	return (
 		<>
 			<div className=" hidden md:block">
-				<MagazineLayout>
+				<MagazineLayout
+					pageTitle={pageTitle}
+					pageDescription={pageDescription}
+				>
 					<CheckoutPageLayout />
 				</MagazineLayout>
 			</div>
 			<div className="   md:hidden">
-				<MainLayout>
+				<MainLayout
+					pageTitle={pageTitle}
+					pageDescription={pageDescription}
+				>
 					<CheckoutPageLayout />
 				</MainLayout>
 			</div>
 		</>
-    );
+	);
 };
 
 export default Checkout;
- 
+
+export async function getServerSideProps(context) {
+	const response = await tradly.app.getConfigList({
+		paramBody: "seo",
+	});
+	return {
+		props: { seo_text: response?.data?.configs },
+	};
+}

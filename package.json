@@ -5,12 +5,16 @@
     "build": "NODE_ENV=production env-cmd -f env/.env.production next build  ",
     "start": "NODE_ENV=production env-cmd -f env/.env.production next start",
     "lint": "next lint",
-    "start:dev": "env-cmd -f .env.dev next dev",
-    "build:dev": "env-cmd -f .env.dev next build",
-    "start:production": "NODE_ENV=production env-cmd -f NODE_ENV=production.env.production next start",
+    "start:dev": "NODE_ENV=production env-cmd -f env/.env.dev next start",
+    "build:dev": "NODE_ENV=production env-cmd -f env/.env.dev next build",
+    "start:production": "NODE_ENV=production env-cmd -f env/.env.production next start",
     "build:production": "NODE_ENV=production env-cmd -f env/.env.production next build",
     "start:sandbox": "NODE_ENV=production env-cmd -f env/.env.sandbox next start",
-    "build:sandbox": "NODE_ENV=production env-cmd -f env/.env.sandbox next build"
+    "build:sandbox": "NODE_ENV=production env-cmd -f env/.env.sandbox next build",
+    "postbuild": " env-cmd -f env/.env.production  next-sitemap --config next-sitemap.config.js",
+    "postbuild:production": "  env-cmd -f env/.env.production next-sitemap --config next-sitemap.config.js",
+    "postbuild:dev": "  env-cmd -f env/.env.dev next-sitemap --config next-sitemap.config.js",
+    "postbuild:sandbox": "  env-cmd -f env/.env.sandbox next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
     "@emotion/styled": "^11.3.0",
@@ -24,6 +28,7 @@
     "env-cmd": "^10.1.0",
     "moment": "^2.29.1",
     "next": "latest",
+    "next-sitemap": "^1.6.203",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.18.1",

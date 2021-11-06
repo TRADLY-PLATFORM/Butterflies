@@ -46,6 +46,6 @@ export async function getServerSideProps(context) {
 		paramBody: "payments",
 	});
 	return {
-		props: { payment: response.data.configs },
+		props: { payment: response?.data?.configs },
 	};
 }
