@@ -114,7 +114,7 @@ This is an example of how to list things you need to use the software and how to
 ### Installation
  
 
-1. Get a API Key at [https://superadmin.tradly.app/](https://superadmin.tradly.app/)
+1. Get a API Key at [https://superadmin.sandbox.tradly.app/](https://superadmin.sandbox.tradly.app/)
 2. Clone the repo
    ```sh
    git clone https://github.com/TRADLY-PLATFORM/Butterflies.git
