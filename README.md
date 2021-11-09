@@ -59,8 +59,7 @@ Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_mediu
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#deploy-your-own">Deploy your own</a></li>
-     <li><a href="#contributing">Contributing</a></li>
+      <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
    </ol>
