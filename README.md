@@ -35,6 +35,11 @@
 
 </div>
 
+## Deploy your own
+
+Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=tradly):
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/TRADLY-PLATFORM/Butterflies)
 
 
 <!-- TABLE OF CONTENTS -->
@@ -132,11 +137,7 @@ This is an example of how to list things you need to use the software and how to
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-## Deploy your own
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/TRADLY-PLATFORM/Butterflies)
 
 <!-- USAGE EXAMPLES -->
 <!-- ## Usage
