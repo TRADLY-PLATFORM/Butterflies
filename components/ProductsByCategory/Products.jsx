@@ -1,7 +1,5 @@
 /* eslint-disable no-shadow */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable camelcase */
+  /* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 import React from "react";
 import Image from "next/image";
@@ -59,7 +57,7 @@ const Products = ({ Products }) => {
 		<div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-start">
 			{Products?.map((item) => (
 				// <Link href={`/l/${item.id}`} passHref>
-				<div className="   ms:mb-5  ms:mr-4 relative">
+				<div key={Math.random()} className="   ms:mb-5  ms:mr-4 relative">
 					<div
 						className=" ms:w-[190px] min-h-[303px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
 						onClick={() =>

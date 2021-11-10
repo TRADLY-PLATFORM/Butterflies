@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 
 const AddressForm = ({
@@ -91,8 +92,7 @@ const AddressForm = ({
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                   "
 							placeholder="Address"
-							placeholder=""
-							{...register(
+ 							{...register(
 								"address_line_1",
 								{
 									required: true,

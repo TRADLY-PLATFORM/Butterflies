@@ -43,15 +43,15 @@ const OrdersFilter = () => {
 	};
 	return (
 		<div>
-			<label class="flex justify-center items-center ">
-				<span class="text-[#77869E]   text-sm sm:text-lg mr-4">
+			<label className="flex justify-center items-center ">
+				<span className="text-[#77869E]   text-sm sm:text-lg mr-4">
 					Filter by :
 				</span>
 				<select
 					onChange={(e) =>
 						changeFilter(e)
 					}
-					class="
+					className="
                     block
                       w-[150px] sm:w-[250px]
                     mt-1
@@ -64,6 +64,7 @@ const OrdersFilter = () => {
 					{options?.map((item) => {
 						return (
 							<option
+								key={Math.random()}
 								value={`${item.id}-${item.value}`}
 							>
 								{item.label}

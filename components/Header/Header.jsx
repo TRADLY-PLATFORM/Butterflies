@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
-import HeaderButton from "../HeaderButton/HeaderButton";
+// import HeaderButton from "../HeaderButton/HeaderButton";
 import HeaderProfile from "../HeaderProfileBox/HeaderProfile";
 import SearchBox from "../SearchBox/SearchBox";
 import logo from "../../assets/Images/MobileSize/Tradly Logo.png";
 import SideMenubar from "../SideMenubar/SideMenubar";
-import { useRouter } from "next/dist/client/router";
-import Image from "next/image";
+ import Image from "next/image";
+import StoreButton from "../StoreButton/StoreButton";
 const Header = () => {
-	const router = useRouter();
-	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+ 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [showUserMenus, setShowUserMenus] = useState(false);
 	// const dropdownRef = useRef();
 
@@ -46,9 +45,9 @@ const Header = () => {
 						<SearchBox />
 					</div>
 					<div className=" flex items-center justify-between">
-						{/* <div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
-							<HeaderButton />
-						</div> */}
+						<div className="  mr-[12px]  lg:mr-8  xl:mr-[25px] ">
+							<StoreButton />
+						</div>
 						<div>
 							<HeaderProfile
 								showUserMenus={
@@ -106,9 +105,9 @@ const Header = () => {
 							</Link>
 						</div>
 						<div className=" flex items-center justify-between">
-							{/* <div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
-								<HeaderButton />
-							</div> */}
+							<div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
+								<StoreButton />
+							</div>
 							<div>
 								<HeaderProfile
 									showUserMenus={

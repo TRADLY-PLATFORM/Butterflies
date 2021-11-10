@@ -1,12 +1,11 @@
- import React, { useEffect } from "react";
+ import React  from "react";
   import { useDispatch } from "react-redux";
  import OnBoardingImage from "../../OnBoardingImage/OnBoardingImage"
 import SignInForm from "../../SigninForm/SignInForm";
  
  
 const SignInPageLayout = () => {
-	const dispatch = useDispatch();
-      return (
+       return (
 		<div className=" grid  c-md:grid-cols-2 c-md:justify-center c-md:items-center ">
 			<div className=" hidden w-full min-h-screen  c-md:flex items-center">
 				<OnBoardingImage />

@@ -1,7 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import chatIcon from "../../../assets/Images/EventDetails/meassageIcon (1).svg";
-import bookingIcon from "../../../assets/Images/EventDetails/bookingIcon (1).svg";
-import { useDispatch, useSelector } from "react-redux";
+ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/dist/client/router";
 import {
 	addToCart,

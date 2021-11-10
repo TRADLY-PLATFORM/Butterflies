@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import icon from "../../../assets/Images/Categories/pexels-photo-247878.png";
 import Image from "next/image";
@@ -30,6 +31,7 @@ const OrdersItem = ({ orders }) => {
 					{orders?.map((item) => {
 						return (
 							<Link
+								key={Math.random()}
 								href={`/orders/${item.id}`}
 								passHref={true}
 							>

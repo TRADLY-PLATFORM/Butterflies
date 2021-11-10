@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import Link from "next/link";
-import React, { useState, useRef, useEffect } from "react";
+import React  from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -31,7 +32,7 @@ const CategoryListings = (props) => {
 
 export default CategoryListings;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
 	const response = await tradly.app.getConfigList({
 		paramBody: "seo",
 	});

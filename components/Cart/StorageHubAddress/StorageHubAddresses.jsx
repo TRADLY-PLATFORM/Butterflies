@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 
 const StorageHubAddresses = ({
@@ -10,6 +11,7 @@ const StorageHubAddresses = ({
 			{addresses?.map((location) => {
 				return (
 					<div
+						key={location.id}
 						onClick={() =>
 							setSelectStorageHubAddress(
 								location

@@ -1,8 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import EmailForm from "./EmailForm";
-import PhoneForm from "./PhoneForm";
-import { uuid } from "uuidv4";
+ import { uuid } from "uuidv4";
 import { useDispatch } from "react-redux";
 import {
 	authSelector,

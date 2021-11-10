@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import EventButtons from "../EventsButtons/EventButtons";
 import favorite from "../../../assets/Images/Home/favourite@3x.png";

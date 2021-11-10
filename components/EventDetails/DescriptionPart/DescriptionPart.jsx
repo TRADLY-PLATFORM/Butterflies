@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -8,7 +9,7 @@ const DescriptionPart = ({ description }) => {
 				Description
 			</p>
 			<div className="ml-2 mt-4">
-				<article class="prose  prose-red	">
+				<article className="prose  prose-red	">
 					<ReactMarkdown>{description}</ReactMarkdown>
 				</article>
 			</div>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -113,7 +114,7 @@ const OrderSummary = ({ order_details }) => {
 				</button> */}
 
 				<select
-					class="
+					className="
                     block
                       w-[90%] sm:w-[80%]
                     
@@ -131,7 +132,7 @@ const OrderSummary = ({ order_details }) => {
 					</option>
 					{order_details?.next_status.map((status) => {
 						return (
-							<option value={status}>
+							<option key={Math.random()} value={status}>
 								{changeStatus(status)}
 							</option>
 						);

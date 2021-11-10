@@ -1,5 +1,4 @@
-import { useRouter } from "next/dist/client/router";
-import React, { useEffect } from "react";
+ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";
@@ -8,8 +7,7 @@ import { get_orders, orderSelector } from "../../../store/feature/orderSlice";
 import OrdersItem from "../../PaymentCard/OrdersItem";
  import PaymentCard from "../../PaymentCard/PaymentCard";
 import MagazineLayout from "../MainLayouts/MagazineLayout";
-import MainLayout from "../MainLayouts/MainLayout";
-
+ 
 const PaymentPageLayout = () => {
 	const dispatch = useDispatch();
 	const { login, auth_key } = useSelector(authSelector);

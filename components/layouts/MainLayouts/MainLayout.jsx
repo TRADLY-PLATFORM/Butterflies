@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import SideMenubar from "../../SideMenubar/SideMenubar"
 import Header from "../../Header/Header"
@@ -29,7 +30,7 @@ const MainLayout = ({ children, pageTitle,pageDescription }) => {
 						<Header />
 					</div>
 					<div className=" min-h-screen  w-full  bg-[#f6f9ff]">
-						<div className=" ml-9 mr-4">
+						<div className=" ml-5 mr-5">
 							{children}
 						</div>
 					</div>
