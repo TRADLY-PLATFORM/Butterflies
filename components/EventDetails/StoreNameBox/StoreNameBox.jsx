@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Image from 'next/image';
-import imageIcon from "../../../assets/Images/EventDetails/pexels-photo-789812 1-2.png"
-const StoreNameBox = ({ account }) => {
+ const StoreNameBox = ({ account }) => {
 	return (
 		<div className=" bg-white rounded  w-full  min-h-[81px] flex   justify-between items-center  p-[16px] shadow-c-sm">
 			<div className="flex items-center">

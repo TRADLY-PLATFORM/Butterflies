@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import Header2 from '../../Header/Header2';
   import Head from "next/head";
 
 
-const MagazineLayout = ({ children, pageTitle, pageDescription }) => {
+const  MagazineLayout = ({ children, pageTitle, pageDescription }) => {
 	const [showUserMenus, setShowUserMenus] = useState(false);
 	return (
 		<>

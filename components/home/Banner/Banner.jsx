@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import bannerImage from "../../../assets/Images/Banner/Rectangle.png";
-import Image from "next/image";
+ import Image from "next/image";
  
 import { Swiper, SwiperSlide } from "swiper/react";
 

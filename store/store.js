@@ -5,6 +5,7 @@ import { categorySlice } from './feature/categorySlice';
 import { homeSlice } from './feature/homeSlice';
 import { listingSlice } from './feature/listingSlice';
 import { orderSlice } from './feature/orderSlice';
+import { storeSlice } from './feature/storeSlice';
  
 export default configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
     listing:listingSlice.reducer,
     cart:cartSlice.reducer,
     order: orderSlice.reducer,
-    category:categorySlice.reducer
+    category:categorySlice.reducer,
+    store:storeSlice.reducer,
   },
 });

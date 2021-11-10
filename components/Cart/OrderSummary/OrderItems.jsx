@@ -1,6 +1,5 @@
 import React from "react";
-import image from "../../../assets/Images/EventDetails/pexels-photo-789812 1-1.png";
-import Image from "next/image";
+ import Image from "next/image";
 import { getThumbnailImage } from "../../Shared/Constant/Constant";
 
 const OrderItems = ({ cart_details }) => {

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import "tailwindcss/tailwind.css";
 import store from "../store/store";
 import tradly from "tradly";
@@ -5,12 +6,12 @@ import { Provider } from "react-redux";
 import "../styles/globals.css";
 import { useState } from "react";
 
-function MyApp({ Component, pageProps }, props) {
+function MyApp({ Component, pageProps }) {
 	const [start, setStart] = useState(false);
  
 	tradly.init.config({
 		token: process.env.API_KEY,
-		environment: process.env.ENVIRONMENT_NAME,
+		environment: process.env.ENVIRONMENT,
 	});
 
 	tradly.app
@@ -37,7 +38,7 @@ function MyApp({ Component, pageProps }, props) {
 
 export default MyApp;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
 	const response = tradly.app.getConfigList({
 		paramBody: "onboarding",
 	});

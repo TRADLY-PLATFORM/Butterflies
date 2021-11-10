@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import MagazineLayout from "../components/layouts/MainLayouts/MagazineLayout";
@@ -47,7 +48,7 @@ const Checkout = (props) => {
 
 export default Checkout;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
 	const response = await tradly.app.getConfigList({
 		paramBody: "seo",
 	});

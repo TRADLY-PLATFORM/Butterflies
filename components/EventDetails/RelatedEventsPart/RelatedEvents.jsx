@@ -2,10 +2,8 @@ import React from "react";
 import image1 from "../../../assets/Images/EventDetails/pexels-photo-789812 1-1.png";
 import image2 from "../../../assets/Images/EventDetails/pexels-photo-789812 1-2.png";
 import image3 from "../../../assets/Images/EventDetails/pexels-photo-789812 1.png";
-import locationMarker from "../../../assets/Images/EventDetails/locationMarker.svg";
-import favorite from "../../../assets/Images/EventDetails/favourite.png";
-import heartIcon from "../../../assets/Images/EventDetails/heartIcon.png";
-import Image from "next/image";
+ import favorite from "../../../assets/Images/EventDetails/favourite.png";
+ import Image from "next/image";
 import { svgHeartIcon } from "../../Shared/Constant/Icons/Icons";
 
 import { Swiper, SwiperSlide } from "swiper/react";

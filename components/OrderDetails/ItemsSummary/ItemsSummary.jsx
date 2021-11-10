@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import icon from "../../../assets/Images/Categories/pexels-photo-247878.png";
-import Image from "next/image";
+ import Image from "next/image";
 import { getThumbnailImage } from "../../Shared/Constant/Constant";
 import Link from "next/link";
 
@@ -26,6 +26,7 @@ const ItemsSummary = ({ order_details }) => {
 				{OrderDetails?.map((item, index) => {
 					return (
 						<Link
+							key={Math.random()}
 							href={`/listing/${item.listing.id}`}
 						>
 							<div

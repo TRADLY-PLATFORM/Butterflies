@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import { paymentMethods } from "../../../store/feature/cartSlice";
-
+ 
 const PaymentMethod = ({
 	payment_methods,
 	paymentMethod,
@@ -23,7 +23,7 @@ const PaymentMethod = ({
 								paymentMethod?.id !==
 								method.id
 									? " min-w-[100px] h-5 px-6 py-4 border border-secondary flex items-center justify-between rounded-lg mr-3 mb-3  transition duration-700    hover:border-primary hover:text-primary"
-									: " min-w-[100px] h-5 px-6 py-4 border   flex items-center justify-between rounded-lg mr-3 mb-3  border-transparent bg-primary text-white rounded-md cursor-pointer  ring-2 ring-primary ring-offset-2 "
+									: " min-w-[100px] h-5 px-6 py-4 border   flex items-center justify-between   mr-3 mb-3  border-transparent bg-primary text-white rounded-md cursor-pointer  ring-2 ring-primary ring-offset-2 "
 							}
 							key={method.id}
 							onClick={() =>

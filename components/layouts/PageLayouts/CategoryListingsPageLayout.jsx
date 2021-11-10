@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable camelcase */
 import { useRouter } from "next/dist/client/router";
 import React, { useEffect } from "react";

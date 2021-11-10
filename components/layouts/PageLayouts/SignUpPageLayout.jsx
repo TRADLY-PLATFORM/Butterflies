@@ -1,7 +1,6 @@
 import React from 'react';
 import OnBoardingImage from '../../OnBoardingImage/OnBoardingImage';
-import SignInForm from '../../SigninForm/SignInForm';
-import SignUpForm from '../../SignUpForm/SignUpForm';
+ import SignUpForm from '../../SignUpForm/SignUpForm';
 
 const SignUpPageLayout = () => {
     return (

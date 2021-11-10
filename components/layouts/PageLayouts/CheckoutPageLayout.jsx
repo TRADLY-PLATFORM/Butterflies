@@ -60,9 +60,7 @@ const CheckoutPageLayout = () => {
 		useSelector(cartSelector);
 	const dispatch = useDispatch();
 	const router = useRouter();
-	useEffect(() => {
-
-	}, [shippingMethod]);
+ 
 
 	useEffect(() => {
 		if (login) {

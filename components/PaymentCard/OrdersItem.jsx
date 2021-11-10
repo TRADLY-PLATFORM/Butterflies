@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 import React from "react";
@@ -6,8 +7,7 @@ import { cartSelector } from "../../store/feature/cartSlice";
 
 const OrdersItem = ({ cart, cart_details }) => {
 	const router = useRouter();
-	const backButton = () => {};
-	const { client_secret } = useSelector(cartSelector);
+ 	const { client_secret } = useSelector(cartSelector);
 
 	return client_secret ? (
 		<div className="  w-[400px]  lg:w-[500px] ">

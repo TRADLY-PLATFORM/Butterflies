@@ -7,8 +7,7 @@ import { get_orders, orderSelector } from "../../../store/feature/orderSlice";
 import NoOrdersItem from "../../orders/NoOrdersItem/NoOrdersItem";
 import OrdersFilter from "../../orders/OrdersFilter/OrdersFilter";
 import OrdersItem from "../../orders/OrdersItem/OrdersItem";
-import OrdersSearchBox from "../../orders/ordersSearchBox/OrdersSearchBox";
-
+ 
 const OrdersPageLayout = () => {
 	const dispatch = useDispatch();
 	const { auth_key } = useSelector(authSelector);

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import MainLayout from "../../components/layouts/MainLayouts/MainLayout";
@@ -28,7 +29,7 @@ const AllListings = (props) => {
 
 export default AllListings;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
 	const response = await tradly.app.getConfigList({
 		paramBody: "seo",
 	});

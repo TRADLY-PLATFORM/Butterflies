@@ -1,7 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import icon from "../../../assets/Images/Categories/pexels-photo-247878.png";
-import Image from "next/image";
-
+ 
 const CustomerDetails = ({ order_details }) => {
 	const customer = order_details?.user;
 	return (

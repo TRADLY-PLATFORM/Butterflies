@@ -2,10 +2,8 @@ import React, {useState, useEffect } from "react";
 import image1 from "../../../assets/Images/Home/pexels-photo-789812 1-1.png";
 import image2 from "../../../assets/Images/Home/pexels-photo-789812 1-2.png";
 import image3 from "../../../assets/Images/Home/pexels-photo-789812 1.png";
-import locationMarker from "../../../assets/Images/Home/locationMarker.svg";
-import favorite from "../../../assets/Images/Home/favourite.png";
-import heartIcon from "../../../assets/Images/Home/heartIcon.png";
-import Image from "next/image";import { svgHeartIcon } from "../../Shared/Constant/Icons/Icons";
+ import favorite from "../../../assets/Images/Home/favourite.png";
+ import Image from "next/image";import { svgHeartIcon } from "../../Shared/Constant/Icons/Icons";
 
 
 const events = [

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import OutsideClickHandler from "react-outside-click-handler";
+ import OutsideClickHandler from "react-outside-click-handler";
 import PopUp from "../Shared/PopUp/PopUp";
 import PasswordForm from "./PasswordForm";
 import { useSelector } from "react-redux";
