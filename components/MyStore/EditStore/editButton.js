@@ -264,7 +264,7 @@ export const edit_store_click = (
           },
         };
 
-        axios(imageUploadConfig).then((response) => {
+        api(imageUploadConfig).then((response) => {
           if (response.data.status) {
             const fileURL = response.data.data.result[0];
             const path = fileURL.signedUrl;
