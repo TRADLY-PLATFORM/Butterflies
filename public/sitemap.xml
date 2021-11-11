@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>ahsan.com</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-10T06:39:09.357Z</lastmod></url>
-<url><loc>ahsan.com/category</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-10T06:39:09.358Z</lastmod></url>
-<url><loc>ahsan.com/listing</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-10T06:39:09.358Z</lastmod></url>
-<url><loc>ahsan.com/payment</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-10T06:39:09.358Z</lastmod></url>
-<url><loc>ahsan.com/profile</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-10T06:39:09.358Z</lastmod></url>
-<url><loc>ahsan.com/stores/create-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-10T06:39:09.358Z</lastmod></url>
-<url><loc>ahsan.com/stores/edit-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-10T06:39:09.358Z</lastmod></url>
-<url><loc>ahsan.com/stores/my-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-10T06:39:09.359Z</lastmod></url>
+<url><loc>undefined</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.042Z</lastmod></url>
+<url><loc>undefined/category</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.043Z</lastmod></url>
+<url><loc>undefined/listing</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.043Z</lastmod></url>
+<url><loc>undefined/payment</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.043Z</lastmod></url>
+<url><loc>undefined/profile</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.044Z</lastmod></url>
+<url><loc>undefined/stores/add-product</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.044Z</lastmod></url>
+<url><loc>undefined/stores/create-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.044Z</lastmod></url>
+<url><loc>undefined/stores/edit-product</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.044Z</lastmod></url>
+<url><loc>undefined/stores/edit-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.044Z</lastmod></url>
+<url><loc>undefined/stores/my-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.044Z</lastmod></url>
+<url><loc>undefined/stores/orders</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-11T12:41:41.044Z</lastmod></url>
 </urlset>

@@ -43,7 +43,15 @@ const StoreProfile = ({ my_stores }) => {
           >
             Edit Store{' '}
           </button>
-          <button className="  w-[130px] h-[30px] flex justify-center items-center bg-primary rounded-md text-white">
+          <button
+            onClick={() =>
+              router.push({
+                pathname: '/stores/orders',
+                query: { store_id: my_stores[0].id },
+              })
+            }
+            className="  w-[130px] h-[30px] flex justify-center items-center bg-primary rounded-md text-white"
+          >
             Store Orders{' '}
           </button>
         </div>

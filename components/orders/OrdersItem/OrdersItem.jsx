@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import icon from "../../../assets/Images/Categories/pexels-photo-247878.png";
-import Image from "next/image";
+ import Image from "next/image";
 import Link from "next/link";
 import {
 	changeDateFormat,
@@ -12,7 +11,7 @@ import { orderStatus } from "../../Shared/Constant/Status";
 const OrdersItem = ({ orders }) => {
 	return (
 		<div>
-			<div className=" grid  grid-cols-[60%,40%]  xs:grid-cols-[40%,30%,30%]   c-lg:grid-cols-[40%,20%,20%,20%]">
+			<div className=" grid  grid-cols-[60%,40%]  xs:grid-cols-[40%,30%,30%]   c-lg:grid-cols-[40%,20%,20%,20%] px-2">
 				<p className=" text-lg text-[#000000] text-opacity-40">
 					Order history
 				</p>
@@ -35,7 +34,7 @@ const OrdersItem = ({ orders }) => {
 								href={`/orders/${item.id}`}
 								passHref={true}
 							>
-								<div className=" grid  grid-cols-[60%,40%] xs:grid-cols-[40%,30%,30%]   c-lg:grid-cols-[40%,20%,20%,20%] items-center bg-white shadow-c-sm rounded-lg mb-3 py-3 cursor-pointer">
+								<div className=" grid  grid-cols-[60%,40%] xs:grid-cols-[40%,30%,30%]   c-lg:grid-cols-[40%,20%,20%,20%] items-center bg-white shadow-c-sm rounded-lg mb-3 py-3 px-2 cursor-pointer">
 									<div className=" flex   items-center ">
 										<div className=" w-10 h-10 relative ml-2  sm:ml-8  mr-2 sm:mr-8 rounded-md overflow-hidden">
 											<Image

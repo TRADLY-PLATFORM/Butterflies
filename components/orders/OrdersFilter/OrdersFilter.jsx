@@ -1,4 +1,5 @@
 import { useRouter } from "next/dist/client/router";
+import { route } from "next/dist/server/router";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -63,13 +64,14 @@ const OrdersFilter = () => {
 				>
 					{options?.map((item) => {
 						return (
-							<option
-								key={Math.random()}
-								value={`${item.id}-${item.value}`}
-							>
-								{item.label}
-							</option>
-						);
+              <option
+                selected={router.query.status === item.label?true:false}
+                key={Math.random()}
+                value={`${item.id}-${item.value}`}
+              >
+                {item.label}
+              </option>
+            );
 					})}
 				</select>
 			</label>
