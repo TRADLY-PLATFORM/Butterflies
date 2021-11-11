@@ -15,6 +15,7 @@ import PopUp from '../../Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { create_store_click } from './createButton';
 import { useRouter } from 'next/dist/client/router';
+import { route } from 'next/dist/server/router';
 
 const CreateStoreForm = () => {
   const [imagePath, setImagePath] = useState(null);
@@ -31,6 +32,7 @@ const CreateStoreForm = () => {
 
   const [createStoreLoading, setCreateStoreLoading] = useState(false)
   const router = useRouter();
+  
 
   const { auth_key } = useSelector(authSelector);
 
@@ -84,7 +86,7 @@ const CreateStoreForm = () => {
         Create Your Store
       </h3>
       <div className="grid grid-cols-1 gap-6">
-        <label className="block">
+        <div className="block">
           <span className="text-gray-700">Store Image</span>
           <input
             id="imageButton"
@@ -144,7 +146,7 @@ const CreateStoreForm = () => {
               </button>
             )}
           </div>
-        </label>
+        </div>
         <label className="block">
           <span className="text-gray-700">Store name</span>
           <input
