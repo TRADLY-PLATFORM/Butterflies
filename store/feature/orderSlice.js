@@ -47,7 +47,7 @@ export const changeOrderStatus = createAsyncThunk(
 	"order/changeOrderStatus",
 	async ({ authKey, id,sendData }, thunkAPI) => {
 		try {
-			const response = await tradly.app.updateOrderDetail({
+			const response = await tradly.app.updateOrderStatus({
 				authKey,
 				id,
 				data:sendData
@@ -67,7 +67,7 @@ export const changeOrderStatus = createAsyncThunk(
  
 
 export const orderSlice = createSlice({
-	name: "cart",
+	name: "order",
 	initialState: {
 		isFetching: false,
 		isSuccess: false,

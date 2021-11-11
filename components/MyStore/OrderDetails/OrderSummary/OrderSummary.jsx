@@ -1,17 +1,21 @@
 /* eslint-disable react/prop-types */
+import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { authSelector } from '../../../store/feature/authSlice';
+import { authSelector } from '../../../../store/feature/authSlice';
 import {
   changeOrderStatus,
   get_order_details,
-} from '../../../store/feature/orderSlice';
-import { changeDateFormat } from '../../Shared/Constant/Constant';
-import { changeStatus, orderStatus } from '../../Shared/Constant/Status';
+} from '../../../../store/feature/store_orderSlice';
+
+import { changeDateFormat } from '../../../Shared/Constant/Constant';
+import { changeStatus, orderStatus } from '../../../Shared/Constant/Status';
 
 const OrderSummary = ({ order_details }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
+
   const { auth_key } = useSelector(authSelector);
   const status_change = (e, order_details) => {
     if (e.target.value !== false) {
@@ -31,6 +35,7 @@ const OrderSummary = ({ order_details }) => {
             get_order_details({
               authKey: auth_key,
               id: order_details.id,
+              bodyParam: { account_id: router.query.store_id },
             })
           );
         }
@@ -92,13 +97,13 @@ const OrderSummary = ({ order_details }) => {
                       w-[90%] sm:w-[80%]
                     
                     rounded-lg
-                    bg-primary
-                    border-transparent
-                     text-white
+                    
+                    border-primary
+                     text-primary
                   "
           onChange={(e) => status_change(e, order_details)}
         >
-          <option value={false}   selected  >
+          <option value={false} selected>
             Change Status
           </option>
           {order_details?.next_status.map((status) => {

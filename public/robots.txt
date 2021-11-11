@@ -12,7 +12,7 @@ Disallow: /payment
 Disallow: /checkout
 
 # Host
-Host: ahsan.com
+Host: undefined
 
 # Sitemaps
-Sitemap: ahsan.com/sitemap.xml
+Sitemap: undefined/sitemap.xml

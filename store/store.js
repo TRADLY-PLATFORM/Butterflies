@@ -6,15 +6,17 @@ import { homeSlice } from './feature/homeSlice';
 import { listingSlice } from './feature/listingSlice';
 import { orderSlice } from './feature/orderSlice';
 import { storeSlice } from './feature/storeSlice';
+import { store_orderSlice } from './feature/store_orderSlice';
  
 export default configureStore({
   reducer: {
     home: homeSlice.reducer,
     auth: authSlice.reducer,
-    listing:listingSlice.reducer,
-    cart:cartSlice.reducer,
+    listing: listingSlice.reducer,
+    cart: cartSlice.reducer,
     order: orderSlice.reducer,
-    category:categorySlice.reducer,
-    store:storeSlice.reducer,
+    category: categorySlice.reducer,
+    store: storeSlice.reducer,
+    store_order: store_orderSlice.reducer,
   },
 });
