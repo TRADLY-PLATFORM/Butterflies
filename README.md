@@ -39,7 +39,8 @@
 
 Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=tradly):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/TRADLY-PLATFORM/Butterflies)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/TRADLY-PLATFORM/Butterflies&env=ENVIRONMENT,API_KEY,SITE_URL)
+
 
 
 <!-- TABLE OF CONTENTS -->
