@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import MainLayout from "../components/layouts/MainLayouts/MainLayout";
-import ProfilePageLayout from '../components/layouts/PageLayouts/ProfilePageLayout';
 import { refreshPage } from '../store/feature/authSlice';
+import MainLayout from '../components/layouts/MainLayouts/MainLayout';
+import PayoutPageLayout from '../components/layouts/PageLayouts/PayoutPageLayout';
 import { myStore } from '../store/feature/storeSlice';
 
-const profile = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(
-        refreshPage({
-          key: localStorage.getItem('refresh_key'),
-        })
-      );
-    }, [dispatch]);
-
-    useEffect(() => {
+const Payout = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      refreshPage({
+        key: localStorage.getItem('refresh_key'),
+      })
+    );
+  }, [dispatch]);
+  useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem('user_details'));
 
     if (localStorage.getItem('auth_key')) {
@@ -31,11 +30,11 @@ const profile = () => {
       );
     }
   }, [localStorage.getItem('auth_key')]);
-    return (
-        <MainLayout>
-            <ProfilePageLayout/>
-       </MainLayout>
-    );
+  return (
+    <MainLayout>
+      <PayoutPageLayout />
+    </MainLayout>
+  );
 };
 
-export default profile;
+export default Payout;
