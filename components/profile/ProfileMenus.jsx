@@ -1,10 +1,13 @@
  import React from 'react';
 import Link from "next/link"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/feature/authSlice';
+import { storeSelector } from '../../store/feature/storeSlice';
  
 const ProfileMenus = () => {
-     const dispatch=useDispatch()
+	const dispatch = useDispatch()
+	  const { my_stores } = useSelector(storeSelector);
+
      return (
 		<div className=" w-full h-min-[200px] p-[30px] bg-white rounded-lg shadow-c-sm">
 			<div className=" border-b border-gray-900 border-opacity-30 py-4">
@@ -14,13 +17,13 @@ const ProfileMenus = () => {
 					</button>
 				</Link>
 			</div>
-			<div className=" border-b border-gray-900 border-opacity-30 py-4">
-				<Link href="/orders" passHref={true}>
+			{my_stores.length>0 &&<div className=" border-b border-gray-900 border-opacity-30 py-4">
+				<Link href="/payout" passHref={true}>
 					<button className=" text-base text-gray-800 font-medium">
-						Payment
+						Payments
 					</button>
 				</Link>
-			</div>
+			</div>}
 			<div className=" border-b border-gray-900 border-opacity-30 py-4">
 				<Link href="#" passHref={true}>
 					<button className=" text-base text-gray-800 font-medium">
