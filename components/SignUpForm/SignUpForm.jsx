@@ -168,12 +168,12 @@ const SignUpForm = () => {
 						</button>
 					)}
 				</div>
-				<div className=" mt-32 flex justify-center items-center">
+				<div className=" mt-[68px] flex justify-center items-center">
 					<Link href={"/sign-in"} passHref>
 						<button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl">
-							Have an account ?
-							<span className="font-semibold">
-								Sign in
+							Already have an account?
+							<span className="font-semibold ml-2" >
+								Login
 							</span>
 						</button>
 					</Link>

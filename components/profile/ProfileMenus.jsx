@@ -17,7 +17,7 @@ const ProfileMenus = () => {
 					</button>
 				</Link>
 			</div>
-			{my_stores.length>0 &&<div className=" border-b border-gray-900 border-opacity-30 py-4">
+			{my_stores?.length>0 &&<div className=" border-b border-gray-900 border-opacity-30 py-4">
 				<Link href="/payout" passHref={true}>
 					<button className=" text-base text-gray-800 font-medium">
 						Payments
