@@ -19,6 +19,7 @@ import PopUp from "../../Shared/PopUp/PopUp";
 import AttributeDetails from "../../EventDetails/AttributeDetails/AttributeDetails";
 import EventButtons from "../../EventDetails/EventsButtons/EventButtons";
 import Head from "next/head";
+import Schedule from "../../EventDetails/SchedulePart/Schedule ";
 
 const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 	const [showError, setShowError] = useState(false);
@@ -205,9 +206,9 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 								}
 							/>
 						</div>
-						{/* <div className="mt-6">
-							<Schedule />
-						</div> */}
+						<div className="mt-6">
+ 							<Schedule />
+						</div>
 						{listing_details?.attributes &&
 							listing_details?.attributes
 								.length > 0 && (
