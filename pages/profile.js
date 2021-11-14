@@ -41,6 +41,9 @@ const profile = () => {
 
 export default profile;
 
+
+
+
 // export async function getServerSideProps(context) {
 //  const{login}=useSelector(authSelector)
 //   if (!login) {
