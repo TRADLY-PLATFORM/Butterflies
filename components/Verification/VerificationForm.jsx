@@ -95,9 +95,9 @@ const VerificationForm = () => {
 				</div>
 				<div className=" mt-[44px] flex justify-center items-center">
 					<button className=" w-full   min-h-[24px] flex flex-wrap  justify-center items-center bg-transparent   text-white  font-medium text-base   ">
-						Didn’t you received any code ?
-						<span className="font-semibold ml-[5px]">
-							Resend New Code
+						Didn’t receive a code ?
+						<span className="font-semibold ml-[8px]">
+							Resend  Code
 						</span>
 					</button>
 				</div>

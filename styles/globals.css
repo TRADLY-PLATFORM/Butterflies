@@ -12,7 +12,7 @@
 .swiper-pagination-bullet {
 	width: 12px !important;
 	height: 12px !important;
-	background-color: aquamarine !important;
+	background-color: var( --primary_color) !important;
 }
 
 input::-webkit-outer-spin-button,
