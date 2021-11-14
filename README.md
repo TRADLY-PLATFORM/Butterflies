@@ -35,11 +35,11 @@
 
 </div>
 
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=tradly):
+## Deploy on Vercel, Netlify
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/TRADLY-PLATFORM/Butterflies&env=ENVIRONMENT,API_KEY,SITE_URL)
+
+[<img src="https://www.netlify.com/img/deploy/button.svg">](https://app.netlify.com/start/deploy?repository=https://github.com/TRADLY-PLATFORM/Butterflies)
 
 
 
