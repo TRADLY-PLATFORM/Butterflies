@@ -361,7 +361,7 @@ const AddProductForm = () => {
         </div>
       </div>
       <div className=" mt-9 flex justify-center ">
-        {/* <button
+        <button
           className="text-white px-7 py-2 rounded-md bg-primary  flex items-center justify-center  "
           onClick={() =>
             add_product_click(
@@ -410,7 +410,7 @@ const AddProductForm = () => {
             </svg>
           )}
           Add Product
-        </button> */}
+        </button>
       </div>
     </div>
   );
