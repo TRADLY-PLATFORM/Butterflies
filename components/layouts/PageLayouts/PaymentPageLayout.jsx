@@ -34,15 +34,15 @@ const PaymentPageLayout = () => {
 		<>
 			<div className="">
 				<MagazineLayout>
-					<div className="w-screen min-h-screen   grid grid-col-[100%]   c-md:grid-cols-2">
-						<div className=" hidden   min-h-[500px]  bg-[white] c-md:flex justify-center items-center">
+					<div className="w-screen min-h-screen   grid grid-col-[100%]   c-md:grid-cols-1  justify-center">
+						{/* <div className=" hidden   min-h-[500px]  bg-[white] c-md:flex justify-center items-center">
 							<OrdersItem
 								cart={cart}
 								cart_details={
 									cart_details
 								}
 							/>
-						</div>
+						</div> */}
 						<div className="min-h-[500px] bg-[#ffffff] shadow-lg ">
 							<PaymentCard />
 						</div>
