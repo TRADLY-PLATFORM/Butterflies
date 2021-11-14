@@ -7,6 +7,7 @@ import CheckoutPageLayout from "../components/layouts/PageLayouts/CheckoutPageLa
 import { refreshPage } from "../store/feature/authSlice";
 import { getCurrencies } from "../store/feature/cartSlice";
 import tradly from "tradly";
+import EventCheckoutPageLayout from "../components/layouts/PageLayouts/EventCheckoutPageLayout";
 
 const Checkout = (props) => {
 	const dispatch = useDispatch();
@@ -25,25 +26,21 @@ const Checkout = (props) => {
 	const pageTitle = props?.seo_text?.meta_title;
 	const pageDescription = props?.seo_text?.meta_description;
 	return (
-		<>
-			<div className=" hidden md:block">
-				<MagazineLayout
-					pageTitle={pageTitle}
-					pageDescription={pageDescription}
-				>
-					<CheckoutPageLayout />
-				</MagazineLayout>
-			</div>
-			<div className="   md:hidden">
-				<MainLayout
-					pageTitle={pageTitle}
-					pageDescription={pageDescription}
-				>
-					<CheckoutPageLayout />
-				</MainLayout>
-			</div>
-		</>
-	);
+    <>
+      <div className=" hidden md:block">
+        <MagazineLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+          {/* <CheckoutPageLayout /> */}
+          <EventCheckoutPageLayout />
+        </MagazineLayout>
+      </div>
+      <div className="   md:hidden">
+        <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+          {/* <CheckoutPageLayout /> */}
+          <EventCheckoutPageLayout />
+        </MainLayout>
+      </div>
+    </>
+  );
 };
 
 export default Checkout;
