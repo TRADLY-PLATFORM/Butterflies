@@ -60,7 +60,7 @@ console.log('====================================');
 					</p>
 				</div>
 			</Link>
-			<Link href="#" passHref={true}>
+			{/* <Link href="#" passHref={true}>
 				<div
 					className={[
 						"w-full h-12 flex    items-center  pl-7",
@@ -93,7 +93,7 @@ console.log('====================================');
 						Explore
 					</p>
 				</div>
-			</Link>
+			</Link> */}
 			<Link
 				href={login ? "/orders" : "/sign-in"}
 				passHref={true}
@@ -139,7 +139,7 @@ console.log('====================================');
 					</p>
 				</div>
 			</Link>
-			<Link href="#" passHref={true}>
+			{/* <Link href="#" passHref={true}>
 				<div
 					className={[
 						"w-full h-12 flex    items-center  pl-7",
@@ -172,8 +172,8 @@ console.log('====================================');
 						History
 					</p>
 				</div>
-			</Link>
-			<Link href="#" passHref={true}>
+			</Link> */}
+			{/* <Link href="#" passHref={true}>
 				<div
 					className={[
 						"w-full h-12 flex    items-center  pl-7",
@@ -206,7 +206,7 @@ console.log('====================================');
 						Settings
 					</p>
 				</div>
-			</Link>
+			</Link> */}
 		</div>
 	);
 };

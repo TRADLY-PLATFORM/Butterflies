@@ -45,9 +45,9 @@ const Header = () => {
 						<SearchBox />
 					</div>
 					<div className=" flex items-center justify-between">
-						<div className="  mr-[12px]  lg:mr-8  xl:mr-[25px] ">
+						{/* <div className="  mr-[12px]  lg:mr-8  xl:mr-[25px] ">
 							<StoreButton />
-						</div>
+						</div> */}
 						<div>
 							<HeaderProfile
 								showUserMenus={
@@ -105,9 +105,9 @@ const Header = () => {
 							</Link>
 						</div>
 						<div className=" flex items-center justify-between">
-							<div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
+							{/* <div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
 								<StoreButton />
-							</div>
+							</div> */}
 							<div>
 								<HeaderProfile
 									showUserMenus={
