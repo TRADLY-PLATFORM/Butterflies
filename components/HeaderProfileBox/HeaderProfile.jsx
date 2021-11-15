@@ -1,25 +1,27 @@
 /* eslint-disable react/prop-types */
-import Link from "next/link";
-import React  from "react";
-import OutsideClickHandler from "react-outside-click-handler";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { authSelector, logout } from "../../store/feature/authSlice";
+import Link from 'next/link';
+import React from 'react';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { authSelector, logout } from '../../store/feature/authSlice';
+import { useRouter } from 'next/dist/client/router';
 
 const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-	const { first_name, last_name, profile_pic, login } =
-		useSelector(authSelector);
+  const { first_name, last_name, profile_pic, login } =
+    useSelector(authSelector);
 
-	const openUserMenu = () => {
-		showUserMenus ? setShowUserMenus(false) : setShowUserMenus(true);
-	};
-	const outsideClick = () => {
-		showUserMenus && setShowUserMenus(false);
-	};
+  const openUserMenu = () => {
+    showUserMenus ? setShowUserMenus(false) : setShowUserMenus(true);
+  };
+  const outsideClick = () => {
+    showUserMenus && setShowUserMenus(false);
+  };
 
-	return (
+  return (
     <>
       <div
         className="bg-transparent flex items-center  cursor-pointer"
@@ -88,7 +90,7 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
                 <div
                   className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4]"
                   onClick={() => {
-                    dispatch(logout());
+                    dispatch(logout({router}));
                   }}
                 >
                   <svg
