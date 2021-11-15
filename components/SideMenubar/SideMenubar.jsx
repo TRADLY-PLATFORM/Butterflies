@@ -29,7 +29,7 @@ console.log('====================================');
 			<Link href="/" passHref={true}>
 				<div
 					className={[
-						"w-full h-12 flex    items-center  pl-7 cursor-pointer hover:bg-primary_light",
+						"w-full h-12 flex mb-1   items-center  pl-7 cursor-pointer hover:bg-primary_light",
 						router.pathname === "/"
 							? "bg-primary_light"
 							: "",
