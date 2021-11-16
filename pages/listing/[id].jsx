@@ -7,6 +7,7 @@ import EventDetailsPageLayout from "../../components/layouts/PageLayouts/EventDe
 import { useDispatch } from "react-redux";
 import { refreshPage } from "../../store/feature/authSlice";
 import tradly from "tradly";
+import { clearListingDetails } from "../../store/feature/listingSlice";
 
 function Details(props) {
 	const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function Details(props) {
 				key: localStorage.getItem("refresh_key"),
 			})
 		);
+		dispatch(clearListingDetails());
 	}, [dispatch]);
  
 	const pageTitle = props.seo_text.meta_listing_title;

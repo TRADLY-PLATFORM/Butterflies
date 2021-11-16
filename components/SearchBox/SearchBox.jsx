@@ -19,7 +19,7 @@ const SearchBox = () => {
 			<input
 				className="h-full bg-transparent w-full pl-3 placeholder-gray-400 outline-none border-none ring-0 focus:ring-0"
 				type="text"
-				placeholder="Search Event"
+				placeholder="Search"
 			/>
 		</div>
     );
