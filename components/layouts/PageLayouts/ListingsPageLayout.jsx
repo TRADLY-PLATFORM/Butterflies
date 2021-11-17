@@ -23,19 +23,19 @@ const ListingsPageLayout = () => {
 			);
      }, [  auth_key, dispatch]);
 
-    useEffect(() => {
-		const handleRouteChange = (url, { shallow }) => {
-			dispatch(clearListings());
-		};
+    // useEffect(() => {
+	// 	const handleRouteChange = (url, { shallow }) => {
+	// 		dispatch(clearListings());
+	// 	};
 
-		router.events.on("routeChangeStart", handleRouteChange);
+	// 	router.events.on("routeChangeStart", handleRouteChange);
 
-		// If the component is unmounted, unsubscribe
-		// from the event with the `off` method:
-		return () => {
-			router.events.off("routeChangeStart", handleRouteChange);
-		};
-    }, [dispatch, router.events]);
+	// 	// If the component is unmounted, unsubscribe
+	// 	// from the event with the `off` method:
+	// 	return () => {
+	// 		router.events.off("routeChangeStart", handleRouteChange);
+	// 	};
+    // }, [dispatch, router.events]);
 
     const {listings} =useSelector(listingSelector)
     return (
