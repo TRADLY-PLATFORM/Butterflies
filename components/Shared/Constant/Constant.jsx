@@ -54,3 +54,22 @@ export function convertTimeinto24Hrs(time) {
   const number = moment(time, ['h:mm A']).format('HH:mm');
   return number;
 }
+
+export const findRepeatName = (value) => {
+  const convert = value.toString();
+  const find = repeatArray.filter((item) => item.id === `${convert}`);
+  if (find.length > 0) {
+    return find[0].name;
+  } else {
+    const dayname = value.map((day) => {
+      for (let index = 0; index < weekDays.length; index++) {
+        const element = weekDays[index];
+        if (day === element.id) {
+          return element.name;
+        }
+      }
+    });
+
+    return `Custom(${dayname.toString()})`;
+  }
+};

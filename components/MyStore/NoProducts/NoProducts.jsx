@@ -9,7 +9,7 @@ const NoProducts = ({ my_stores }) => {
   return (
     <div className=" flex flex-col justify-center    items-center  mt-10 ">
       <h1 className=" text-center text-3xl font-semibold text-black text-opacity-70  mt-10 ">
-        You don’t have a product
+        You don’t have a listing
       </h1>
       <button
         className=" px-6 py-2 bg-primary rounded-md text-white text-base mt-7"
@@ -20,7 +20,7 @@ const NoProducts = ({ my_stores }) => {
           })
         }
       >
-        Add Product
+        Add Listing
       </button>
       <div className=" w-[220px] h-[220px] relative mt-10">
         <Image

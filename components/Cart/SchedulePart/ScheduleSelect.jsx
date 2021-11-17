@@ -163,9 +163,9 @@ const ScheduleSelect = ({
                 </div>
                 <div>
                   <strong className="font-bold">
-                    {first_name ? 'Hi' + '  ' + first_name : 'Hi Guess !'}
+                    {first_name ? 'Oops!' + '  ' + first_name : 'Hi Guess !'}
                   </strong>
-                  <span className="  ml-2">No schedule avialable</span>
+                  <span className="  ml-2">No schedule available</span>
                 </div>
               </div>
             </div>

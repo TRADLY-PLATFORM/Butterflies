@@ -4,7 +4,7 @@ import React from 'react';
 const AddressBox = ({ location      }) => {
 	return (
 		<div className=" bg-white rounded  w-full  min-h-[81px] flex   justify-between  p-[16px]">
-			<div className="flex">
+			<div className="flex w-5/6">
 				<div className="flex justify-start items-start">
 					<svg
 						width="18"
@@ -19,13 +19,13 @@ const AddressBox = ({ location      }) => {
 						/>
 					</svg>
 				</div>
-				<div className="ml-[10px] ">
+				<div className="ml-[10px] w-5/6 ">
 					<p className="text-base leading-4 text-[#121212] font-semibold">
 						{location.city +
 							" " +
 							location.country}
 					</p>
-					<p className=" text-xs leading-4 font-medium text-secondary  w-[225px]   mt-[2px]">
+					<p className=" text-xs leading-4 font-medium text-secondary  w-full   mt-[2px]">
 						{location.formatted_address}
 					</p>
 				</div>

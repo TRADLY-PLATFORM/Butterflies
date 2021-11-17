@@ -128,7 +128,7 @@ const AddProductForm = () => {
     setError_message('');
   };
   return (
-    <div className=" w-full flex justify-center">
+    <>
       {(showError || isError) && (
         <OutsideClickHandler
           onOutsideClick={() => {
@@ -148,14 +148,16 @@ const AddProductForm = () => {
           </div>
         </OutsideClickHandler>
       )}
+    <div className=" w-full pt-2 pb-9 flex  flex-col gap-2   c-lg:flex-row justify-center">
+      
 
-      <div className=" w-[600px] ">
+      <div className=" w-full  xs:w-[500px]  c-lg:w-[450px] xl:w-[500px]  2xl:w-[600px] ">
         <h3 className=" font-semibold text-[#121212] text-xl mb-4">
-          Event Details
+          Listing Details
         </h3>
         <div className=" bg-white p-10  grid grid-cols-1 gap-6">
           <div className="block">
-            <span className="text-gray-700">Event Image</span>
+            <span className="text-gray-700">Listing Image</span>
             <input
               id="imageButtonInput"
               type="file"
@@ -210,11 +212,11 @@ const AddProductForm = () => {
               </button>
             </div>
             <p className=" text-sm mt-2 font-normal text-secondary">
-              Max. {listing_configs?.listing_pictures_count} photos per Event
+              Max. {listing_configs?.listing_pictures_count} photos per Listing
             </p>
           </div>
           <label className="block">
-            <span className="text-gray-700">Event Title</span>
+            <span className="text-gray-700">Listing Title</span>
             <input
               type="text"
               className="
@@ -230,7 +232,7 @@ const AddProductForm = () => {
             />
           </label>
           <label className="block">
-            <span className="text-gray-700">Event Description</span>
+            <span className="text-gray-700">Listing Description</span>
             <textarea
               className="
                     mt-0
@@ -252,7 +254,7 @@ const AddProductForm = () => {
             </label>
           )}
 
-          <div className=" grid grid-cols-[32%,32%,32%] justify-between">
+          <div className=" grid grid-cols-1 gap-6  2xl:grid-cols-[32%,32%,32%]  2xl:justify-between">
             <label className="block relative">
               <span className="text-gray-700">Selling Price</span>
               <input
@@ -371,11 +373,11 @@ const AddProductForm = () => {
           </div>
         </div>
       </div>
-      <div className=" ml-[20px]">
+      <div className="  c-lg:ml-[20px]">
         <h3 className=" font-semibold text-[#121212] text-xl mb-4">
-          Event Date
+           Date & Time
         </h3>{' '}
-        <div className="w-[438px] bg-white p-5  ">
+        <div className="w-full  xs:w-[500px] c-lg:w-[380px]  xl:w-[438px] bg-white p-5  ">
           {' '}
           <SchedulePart
             schedulesArray={schedulesArray}
@@ -412,6 +414,7 @@ const AddProductForm = () => {
                 schedulesArray
               )
             }
+            disabled={addProductLoading ? true : false}
           >
             {addProductLoading && (
               <svg
@@ -435,11 +438,12 @@ const AddProductForm = () => {
                 ></path>
               </svg>
             )}
-            Add Product
+            Add Listing
           </button>
         </div>
       </div>
-    </div>
+      </div>
+      </>
   );
 };
 

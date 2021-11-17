@@ -31,34 +31,42 @@ const ScheduleForm = ({ setSchedulesObject, schedulesObject, setDate }) => {
     }
   };
 
-    const saveTime = () => {
-        if (schedulesObject.start_date===null) {
-            setShowError(true)
-            setError_message('Select a date')
-            return false
-        } 
-        if (schedulesObject.start_time === null) {
-          setShowError(true);
-            setError_message('Select start time');
-            return false;
-        } 
-        if (schedulesObject.end_time === null) {
-          setShowError(true);
-            setError_message('Select end time');
-            return false;
-        } 
-        if (schedulesObject.repeat_days === null) {
-          setShowError(true);
-            setError_message('Select a repeat option');
-            return false;
-        }
-        if (schedulesObject.repeat_days === null) {
-          setShowError(true);
-            setError_message('Select a repeat option');
-            return false;
-        }
-        
+
+  const saveTime = () => {
+    let srttime = Date.parse(`1/1/1999 ${schedulesObject.start_time}`);
+    let edTime = Date.parse(`1/1/1999 ${schedulesObject.end_time}`);
+    if (schedulesObject.start_date === null) {
+      setShowError(true);
+      setError_message('Select a date');
+      return false;
     }
+    if (schedulesObject.start_time === null) {
+      setShowError(true);
+      setError_message('Select start time');
+      return false;
+    }
+    if (schedulesObject.end_time === null) {
+      setShowError(true);
+      setError_message('Select end time');
+      return false;
+    }
+    if (schedulesObject.repeat_days === null) {
+      setShowError(true);
+      setError_message('Select a repeat option');
+      return false;
+    }
+    if (schedulesObject.repeat_days === null) {
+      setShowError(true);
+      setError_message('Select a repeat option');
+      return false;
+    }
+    // if (edTime > srttime) {
+    //     setShowError(true);
+    //     setError_message('End time must be greater then start time');
+    //     return false;
+    // }
+    setDate()
+  };
   
   const closePopUP = () => {
     setShowError(false);
@@ -80,6 +88,9 @@ const ScheduleForm = ({ setSchedulesObject, schedulesObject, setDate }) => {
           </div>
         </OutsideClickHandler>
       )}
+      <h3 className=" font-semibold text-primary text-xl mb-4">
+        Add Schedule
+      </h3>
       <div className="grid grid-cols-1 gap-6">
         <label className="block">
           <span className="text-gray-700">Start Date</span>
@@ -156,6 +167,9 @@ const ScheduleForm = ({ setSchedulesObject, schedulesObject, setDate }) => {
                   "
             onChange={(e) => repeatValueSelect(e.target.value)}
           >
+            <option disabled selected hidden>
+              Select a value
+            </option>
             {repeatValues?.map((item, index) => (
               <option
                 key={item.id}
