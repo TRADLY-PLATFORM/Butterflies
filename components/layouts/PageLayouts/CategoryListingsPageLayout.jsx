@@ -32,19 +32,19 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
 		}
 	}, [router.query.id, auth_key, dispatch]);
 
-	useEffect(() => {
-		const handleRouteChange = (url, { shallow }) => {
-			dispatch(clearCategoryListings());
-		};
+	// useEffect(() => {
+	// 	const handleRouteChange = (url, { shallow }) => {
+	// 		dispatch(clearCategoryListings());
+	// 	};
 
-		router.events.on("routeChangeStart", handleRouteChange);
+	// 	router.events.on("routeChangeStart", handleRouteChange);
 
-		// If the component is unmounted, unsubscribe
-		// from the event with the `off` method:
-		return () => {
-			router.events.off("routeChangeStart", handleRouteChange);
-		};
-	}, [dispatch, router.events]);
+	// 	// If the component is unmounted, unsubscribe
+	// 	// from the event with the `off` method:
+	// 	return () => {
+	// 		router.events.off("routeChangeStart", handleRouteChange);
+	// 	};
+	// }, [dispatch, router.events]);
 
 	// seo title
 	const seoTitle = (text) => {
