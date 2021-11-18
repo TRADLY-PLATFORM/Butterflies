@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   accountAttribute,
   clearStoreState,
+  myAccountListingDetails,
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import SearchAddress from './SearchAddress';
@@ -13,6 +14,8 @@ import { authSelector } from '../../../store/feature/authSlice';
 import Attribute from './Attribute';
 import { useRouter } from 'next/dist/client/router';
 import { edit_product_click } from './editProduct';
+import EditListingSuccess from './EditListingSuccess';
+import Modal from '../../Shared/Modal.jsx/Modal';
 
 const EditProductForm = () => {
   const [title, setTitle] = useState('');
@@ -34,6 +37,9 @@ const EditProductForm = () => {
   const [error_message, setError_message] = useState('');
   const [editProductLoading, setEditProductLoading] = useState(false);
   const [addressSearchKey, setAddressSearchKey] = useState('');
+
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
 
   console.log('====================================');
   console.log(attributeData);
@@ -194,6 +200,26 @@ const EditProductForm = () => {
           </div>
         </OutsideClickHandler>
       )}
+
+      {showSuccessMessage && (
+        <Modal>
+          <OutsideClickHandler
+            onOutsideClick={() => {
+              setShowSuccessMessage(false);
+              dispatch(
+                myAccountListingDetails({ id: productId, authKey: auth_key })
+              );
+            }}
+          >
+            <EditListingSuccess
+              message={'Your listing updated successfully'}
+              setShowSuccessMessage={setShowSuccessMessage}
+              dispatch={dispatch}
+            />
+          </OutsideClickHandler>
+        </Modal>
+      )}
+
       <h3 className=" text-center font-semibold text-2xl text-primary mb-4">
         Edit Your Listing
       </h3>
@@ -480,7 +506,8 @@ const EditProductForm = () => {
               auth_key,
               accountId,
               productId,
-              setEditProductLoading
+              setEditProductLoading,
+              setShowSuccessMessage
             )
           }
         >
