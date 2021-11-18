@@ -396,7 +396,7 @@ const EditProductForm = () => {
         </div>
 
         <div className=" grid grid-cols-1 gap-6  2xl:grid-cols-2  2xl:justify-between">
-          {!listing_configs.hide_offer_percent && (
+          {listing_configs.hide_offer_percent && (
             <label className="block">
               <span className="text-gray-700">Offer Percent</span>
               <input
@@ -421,7 +421,7 @@ const EditProductForm = () => {
           )}
           {listing_configs.enable_stock && (
             <label className="block">
-              <span className="text-gray-700">Quantity</span>
+              <span className="text-gray-700">Ticket limits</span>
               <input
                 value={quantity}
                 type="number"

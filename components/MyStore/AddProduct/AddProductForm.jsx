@@ -43,7 +43,7 @@ const AddProductForm = () => {
   console.log('====================================');
 
   const { auth_key } = useSelector(authSelector);
- 
+
   const {
     listing_configs,
     isError,
@@ -324,7 +324,7 @@ const AddProductForm = () => {
             </div>
 
             <div className=" grid grid-cols-1 gap-6  2xl:grid-cols-2  2xl:justify-between">
-              {!listing_configs.hide_offer_percent && (
+              {listing_configs.hide_offer_percent && (
                 <label className="block">
                   <span className="text-gray-700">Offer Percent</span>
                   <input
@@ -349,7 +349,7 @@ const AddProductForm = () => {
               )}
               {listing_configs.enable_stock && (
                 <label className="block">
-                  <span className="text-gray-700">Quantity</span>
+                  <span className="text-gray-700">Ticket limit</span>
                   <input
                     value={quantity}
                     type="number"
@@ -383,7 +383,9 @@ const AddProductForm = () => {
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-                onChange={(e) => setSelectedCategory(e.target.value)}
+                onChange={(e) => {
+                  setSelectedCategory(e.target.value), setAttributeData(null);
+                }}
               >
                 <option hidden selected>
                   Select Category
