@@ -5,15 +5,18 @@ import MainLayout from "../../components/layouts/MainLayouts/MainLayout";
 import ListingsPageLayout from "../../components/layouts/PageLayouts/ListingsPageLayout";
 import { refreshPage } from "../../store/feature/authSlice";
 import tradly from "tradly";
+import { clearListings } from "../../store/feature/listingSlice";
 
 const AllListings = (props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
+		dispatch(clearListings());
 		dispatch(
 			refreshPage({
 				key: localStorage.getItem("refresh_key"),
 			})
 		);
+
 	}, [dispatch]);
 	const pageTitle = props?.seo_text?.meta_title;
 	const pageDescription = props?.seo_text?.meta_description;

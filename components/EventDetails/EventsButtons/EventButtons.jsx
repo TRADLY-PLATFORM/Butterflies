@@ -102,7 +102,7 @@ const EventButtons = ({ listing_details, selectedVariant }) => {
                   pathname: '/checkout',
                   query: { event_id: listing_details.id },
                 })
-            : router.push('/signin')
+            : router.push('/sign-in')
         }
       >
         {isFetching ? (

@@ -20,6 +20,11 @@ function MyApp({ Component, pageProps }) {
 		})
 		.then((res) => {
 			if (typeof window !== "undefined") {
+				localStorage.setItem('logo', res?.data?.configs?.splash_image);
+				localStorage.setItem(
+          'onboarding_configs',
+          JSON.stringify(res.data.configs)
+        );
 				let root = document.documentElement;
 				const color = res.data.configs.app_color_primary;
 				root.style.setProperty("--primary_color", color);
