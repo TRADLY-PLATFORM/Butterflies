@@ -252,7 +252,7 @@ const AddVariantsForm = ({
         />
       </label>
       <div className="grid grid-cols-2 gap-2">
-        {!listing_configs?.hide_offer_percent && (
+        {listing_configs?.hide_offer_percent && (
           <label className="block">
             <span className="text-gray-700">Offer percent</span>
             <input
@@ -277,7 +277,7 @@ const AddVariantsForm = ({
           </label>
         )}
         <label className="block">
-          <span className="text-gray-700">Stock</span>
+          <span className="text-gray-700">Tickets</span>
           <input
             type="number"
             className="
