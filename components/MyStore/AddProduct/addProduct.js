@@ -164,7 +164,7 @@ export const add_product_click = (
                                     changeRoute = true;
                                   } else {
                                     setShowError(true);
-                                    setError_message(response?.error?.message);
+                                    setError_message(res?.error?.message);
                                     setAddProductLoading(false);
                                   }
                                 });
@@ -221,7 +221,7 @@ export const add_product_click = (
                                           .addEditVariants({
                                             authKey: auth_key,
                                             listingId,
-                                            id:'',
+                                            id: '',
                                             data: {
                                               variant: { ...variant_data },
                                             },
@@ -264,7 +264,7 @@ export const add_product_click = (
                             }
                           } else {
                             setShowError(true);
-                            setError_message(response?.error?.message);
+                            setError_message(res?.error?.message);
                             setAddProductLoading(false);
                           }
                         })
@@ -363,7 +363,7 @@ export const add_product_click = (
                                             } else {
                                               setShowError(true);
                                               setError_message(
-                                                response?.error?.message
+                                                res?.error?.message
                                               );
                                               setAddProductLoading(false);
                                             }
@@ -408,27 +408,30 @@ export const add_product_click = (
                                                   body: element.images,
                                                 }).then((res) => {
                                                   const variant_data = {
-                                          active: true,
-                                          title: element.title,
-                                          description: element.description,
-                                          list_price: element.list_price,
-                                          offer_percent: element.offer_percent,
-                                          stock: element.stock,
-                                          images: [variant_ImagePath],
-                                          variant_values: [
-                                            {
-                                              variant_type_id:
-                                                element.variant_type,
-                                              variant_type_value_id:
-                                                element.variant_type_value,
-                                            },
-                                          ],
-                                        };
+                                                    active: true,
+                                                    title: element.title,
+                                                    description:
+                                                      element.description,
+                                                    list_price:
+                                                      element.list_price,
+                                                    offer_percent:
+                                                      element.offer_percent,
+                                                    stock: element.stock,
+                                                    images: [variant_ImagePath],
+                                                    variant_values: [
+                                                      {
+                                                        variant_type_id:
+                                                          element.variant_type,
+                                                        variant_type_value_id:
+                                                          element.variant_type_value,
+                                                      },
+                                                    ],
+                                                  };
                                                   tradly.app
                                                     .addEditVariants({
                                                       authKey: auth_key,
                                                       listingId,
-                                                      id:'',
+                                                      id: '',
                                                       data: {
                                                         variant: {
                                                           ...variant_data,
@@ -446,16 +449,15 @@ export const add_product_click = (
                                                             1
                                                         ) {
                                                           changeRoute = true;
-                                                        } else {
-                                                          setShowError(true);
-                                                          setError_message(
-                                                            response?.error
-                                                              ?.message
-                                                          );
-                                                          setAddProductLoading(
-                                                            false
-                                                          );
                                                         }
+                                                      } else {
+                                                        setShowError(true);
+                                                        setError_message(
+                                                          res?.error?.message
+                                                        );
+                                                        setAddProductLoading(
+                                                          false
+                                                        );
                                                       }
                                                     });
                                                 });
@@ -478,9 +480,7 @@ export const add_product_click = (
                                       }
                                     } else {
                                       setShowError(true);
-                                      setError_message(
-                                        response?.error?.message
-                                      );
+                                      setError_message(res?.error?.message);
                                       setAddProductLoading(false);
                                     }
                                   })
@@ -496,6 +496,10 @@ export const add_product_click = (
                                 setAddProductLoading(false);
                                 console.log('Error:' + error.message);
                               });
+                          } else {
+                            setShowError(true);
+                            setError_message(response?.error?.message);
+                            setAddProductLoading(false);
                           }
                         });
                     }
@@ -549,7 +553,7 @@ export const add_product_click = (
                                   changeRoute = true;
                                 } else {
                                   setShowError(true);
-                                  setError_message(response?.error?.message);
+                                  setError_message(res?.error?.message);
                                   setAddProductLoading(false);
                                 }
                               });
@@ -586,27 +590,27 @@ export const add_product_click = (
                                       body: element.images,
                                     }).then((res) => {
                                       const variant_data = {
-                                          active: true,
-                                          title: element.title,
-                                          description: element.description,
-                                          list_price: element.list_price,
-                                          offer_percent: element.offer_percent,
-                                          stock: element.stock,
-                                          images: [variant_ImagePath],
-                                          variant_values: [
-                                            {
-                                              variant_type_id:
-                                                element.variant_type,
-                                              variant_type_value_id:
-                                                element.variant_type_value,
-                                            },
-                                          ],
-                                        };
+                                        active: true,
+                                        title: element.title,
+                                        description: element.description,
+                                        list_price: element.list_price,
+                                        offer_percent: element.offer_percent,
+                                        stock: element.stock,
+                                        images: [variant_ImagePath],
+                                        variant_values: [
+                                          {
+                                            variant_type_id:
+                                              element.variant_type,
+                                            variant_type_value_id:
+                                              element.variant_type_value,
+                                          },
+                                        ],
+                                      };
                                       tradly.app
                                         .addEditVariants({
                                           authKey: auth_key,
                                           listingId,
-                                          id:'',
+                                          id: '',
                                           data: {
                                             variant: { ...variant_data },
                                           },
@@ -620,13 +624,13 @@ export const add_product_click = (
                                               variantsArray.length + 1
                                             ) {
                                               changeRoute = true;
-                                            } else {
-                                              setShowError(true);
-                                              setError_message(
-                                                response?.error?.message
-                                              );
-                                              setAddProductLoading(false);
                                             }
+                                          } else {
+                                            setShowError(true);
+                                            setError_message(
+                                              res?.error?.message
+                                            );
+                                            setAddProductLoading(false);
                                           }
                                         });
                                     });
@@ -647,13 +651,13 @@ export const add_product_click = (
                           }
                         } else {
                           setShowError(true);
-                          setError_message(response?.error?.message);
+                          setError_message(res?.error?.message);
                           setAddProductLoading(false);
                         }
                       })
                       .catch((error) => {
                         setShowError(true);
-                        setError_message(response?.error?.message);
+                        setError_message(error?.response?.error?.message);
                         setAddProductLoading(false);
                       });
                   }
@@ -666,7 +670,7 @@ export const add_product_click = (
               setAddProductLoading(false);
             });
         }
-      } else {
+       } else {
         setShowError(true);
         setError_message(response?.error?.message);
         setAddProductLoading(false);

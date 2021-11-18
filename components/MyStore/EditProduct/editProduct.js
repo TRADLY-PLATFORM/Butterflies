@@ -1,12 +1,14 @@
- import trady from 'tradly';
+import trady from 'tradly';
 
 export const edit_product_click = (
+  imagePath,
   files,
   fullFile,
   title,
   description,
   price,
   shippingCharge,
+  offerPercent,
   quantity,
   coordinates,
   selectedCategory,
@@ -23,11 +25,13 @@ export const edit_product_click = (
   setEditProductLoading
 ) => {
   setEditProductLoading(true);
-  if (files === null || !files.length > 0) {
+  if(fullFile!==null){
+    if (files === null || !files.length > 0) {
     setShowError(true);
     setError_message('Image is required');
     setEditProductLoading(false);
     return false;
+  }
   }
   if (title === '') {
     setShowError(true);
@@ -80,46 +84,183 @@ export const edit_product_click = (
     return false;
   }
 
-  trady.app
-    .generateS3ImageURL({
-      authKey: auth_key,
-      data: {
-        files: files,
-      },
-    })
-    .then((response) => {
-      if (!response.error) {
-        // dispatch(SetFiles(response.data.data.result[0]));
-        const responseFiles = response.data.result;
+  if (fullFile !== null) {
+    trady.app
+      .generateS3ImageURL({
+        authKey: auth_key,
+        data: {
+          files: files,
+        },
+      })
+      .then((response) => {
+        if (!response.error) {
+          // dispatch(SetFiles(response.data.data.result[0]));
+          const responseFiles = response.data.result;
 
-        var increment = 0;
-        for (let index = 0; index < responseFiles.length; index++) {
-          const path = responseFiles[index].signedUrl;
-          const ImagePath = responseFiles[index].fileUri;
+          var increment = 0;
+          for (let index = 0; index < responseFiles.length; index++) {
+            const path = responseFiles[index].signedUrl;
+            const ImagePath = responseFiles[index].fileUri;
 
-          fetch(path, {
-            method: 'PUT',
-            headers: {
-              ContentType: files[index].type,
-            },
-            body: fullFile[0],
-          })
-            .then((res) => {
-              if (res.ok) {
-                increment = increment + 1;
-                if (increment === files.length) {
-                  if (attributeData !== null) {
-                    const check = attributeData.find((attr) => attr.uploadFile);
-                    if (check === undefined) {
+            fetch(path, {
+              method: 'PUT',
+              headers: {
+                ContentType: files[index].type,
+              },
+              body: fullFile[0],
+            })
+              .then((res) => {
+                if (res.ok) {
+                  increment = increment + 1;
+                  if (increment === files.length) {
+                    if (attributeData !== null) {
+                      const check = attributeData.find(
+                        (attr) => attr.uploadFile
+                      );
+                      if (check === undefined) {
+                        const listingData = {
+                          listing: {
+                            list_price: price,
+                            description: description,
+                            account_id: accountId,
+                            currency_id: currency,
+                            attributes: attributeData,
+                            title: title,
+                            offer_percent: offerPercent,
+                            images: responseFiles.map((res) => res.fileUri),
+                            category_id: [selectedCategory],
+                            type: 'listings',
+                          },
+                        };
+                        if (listing_configs.listing_address_enabled) {
+                          listingData['coordinates'] = coordinates;
+                        }
+                        if (listing_configs.enable_stock) {
+                          listingData['stock'] = quantity;
+                        }
+                        if (listing_configs.show_shipping_charges) {
+                          listingData['shipping_charges'] = shippingCharge;
+                        }
+
+                        // ekhane
+                        trady.app
+                          .postListing({
+                            id: productId,
+                            authKey: auth_key,
+                            data: listingData,
+                          })
+                          .then((res) => {
+                            if (!res.error) {
+                              setEditProductLoading(false);
+                              router.push('/stores/my-store');
+                            } else {
+                              setShowError(true);
+                              setError_message(res?.error?.message);
+                              setEditProductLoading(false);
+                            }
+                          });
+                      } else {
+                        trady.app
+                          .generateS3ImageURL({
+                            authKey: auth_key,
+                            data: {
+                              files: [
+                                {
+                                  name: check.values[0].name,
+                                  type: check.values[0].type,
+                                },
+                              ],
+                            },
+                          })
+                          .then((response) => {
+                            if (!response.error) {
+                              const fileURL = response.data.result[0];
+                              const path = fileURL.signedUrl;
+                              const ImagePath2 = fileURL.fileUri;
+                              fetch(path, {
+                                method: 'put',
+                                headers: {
+                                  ContentType: check.values[0].type,
+                                },
+                                body: check.values[0],
+                              })
+                                .then((res) => {
+                                  const filter = attributeData.filter(
+                                    (attr) => !attr.uploadFile
+                                  );
+                                  const attributeUpdate = [
+                                    ...filter,
+                                    { values: [ImagePath2], id: check.id },
+                                  ];
+                                  const listingData = {
+                                    listing: {
+                                      list_price: price,
+                                      description: description,
+                                      account_id: accountId,
+                                      currency_id: currency,
+                                      attributes: attributeUpdate,
+                                      title: title,
+                                      offer_percent: offerPercent,
+                                      images: responseFiles.map(
+                                        (res) => res.fileUri
+                                      ),
+                                      category_id: [selectedCategory],
+                                      type: 'listings',
+                                    },
+                                  };
+
+                                  if (listing_configs.listing_address_enabled) {
+                                    listingData['coordinates'] = coordinates;
+                                  }
+                                  if (listing_configs.enable_stock) {
+                                    listingData['stock'] = quantity;
+                                  }
+                                  if (listing_configs.show_shipping_charges) {
+                                    listingData['shipping_charges'] =
+                                      shippingCharge;
+                                  }
+
+                                  // ekhane
+                                  trady.app
+                                    .postListing({
+                                      id: productId,
+                                      authKey: auth_key,
+                                      data: listingData,
+                                    })
+                                    .then((res) => {
+                                      if (!res.error) {
+                                        setEditProductLoading(false);
+                                        router.push('/stores/my-store');
+                                      } else {
+                                        setShowError(true);
+                                        setError_message(res?.error?.message);
+                                        setEditProductLoading(false);
+                                      }
+                                    });
+                                })
+                                .catch((error) => {
+                                  setShowError(true);
+                                  setError_message(
+                                    error?.response?.error?.message
+                                  );
+                                  setEditProductLoading(false);
+                                });
+                            } else {
+                              setShowError(true);
+                              setError_message(response?.error?.message);
+                              setEditProductLoading(false);
+                            }
+                          });
+                      }
+                    } else {
                       const listingData = {
                         listing: {
                           list_price: price,
                           description: description,
                           account_id: accountId,
                           currency_id: currency,
-                          attributes: attributeData,
                           title: title,
-                          offer_percent: 0,
+                          offer_percent: offerPercent,
                           images: responseFiles.map((res) => res.fileUri),
                           category_id: [selectedCategory],
                           type: 'listings',
@@ -146,142 +287,203 @@ export const edit_product_click = (
                           if (!res.error) {
                             setEditProductLoading(false);
                             router.push('/stores/my-store');
-                          }
-                        });
-                    } else {
-                      trady.app
-                        .generateS3ImageURL({
-                          authKey: auth_key,
-                          data: {
-                            files: [
-                              {
-                                name: check.values[0].name,
-                                type: check.values[0].type,
-                              },
-                            ],
-                          },
-                        })
-                        .then((response) => {
-                          if (!response.error) {
-                            const fileURL = response.data.result[0];
-                            const path = fileURL.signedUrl;
-                            const ImagePath2 = fileURL.fileUri;
-                            fetch(path, {
-                              method: 'put',
-                              headers: {
-                                ContentType: check.values[0].type,
-                              },
-                              body: check.values[0],
-                            })
-                              .then((res) => {
-                                const filter = attributeData.filter(
-                                  (attr) => !attr.uploadFile
-                                );
-                                const attributeUpdate = [
-                                  ...filter,
-                                  { values: [ImagePath2], id: check.id },
-                                ];
-                                const listingData = {
-                                  listing: {
-                                    list_price: price,
-                                    description: description,
-                                    account_id: accountId,
-                                    currency_id: currency,
-                                    attributes: attributeUpdate,
-                                    title: title,
-                                    offer_percent: 0,
-                                    images: responseFiles.map(
-                                      (res) => res.fileUri
-                                    ),
-                                    category_id: [selectedCategory],
-                                    type: 'listings',
-                                  },
-                                };
-
-                                if (listing_configs.listing_address_enabled) {
-                                  listingData['coordinates'] = coordinates;
-                                }
-                                if (listing_configs.enable_stock) {
-                                  listingData['stock'] = quantity;
-                                }
-                                if (listing_configs.show_shipping_charges) {
-                                  listingData['shipping_charges'] =
-                                    shippingCharge;
-                                }
-
-                                // ekhane
-                                trady.app
-                                  .postListing({
-                                    id: productId,
-                                    authKey: auth_key,
-                                    data: listingData,
-                                  })
-                                  .then((res) => {
-                                    if (!res.error) {
-                                      setEditProductLoading(false);
-                                      router.push('/stores/my-store');
-                                    }
-                                  });
-                              })
-                              .catch((error) => {
-                                setEditProductLoading(false);
-                                console.log('Error:' + error.message);
-                              });
+                          } else {
+                            setShowError(true);
+                            setError_message(res?.error?.message);
+                            setEditProductLoading(false);
                           }
                         });
                     }
-                  } else {
-                    const listingData = {
-                      listing: {
-                        list_price: price,
-                        description: description,
-                        account_id: accountId,
-                        currency_id: currency,
-                        title: title,
-                        offer_percent: 0,
-                        images: responseFiles.map((res) => res.fileUri),
-                        category_id: [selectedCategory],
-                        type: 'listings',
-                      },
-                    };
-                    if (listing_configs.listing_address_enabled) {
-                      listingData['coordinates'] = coordinates;
-                    }
-                    if (listing_configs.enable_stock) {
-                      listingData['stock'] = quantity;
-                    }
-                    if (listing_configs.show_shipping_charges) {
-                      listingData['shipping_charges'] = shippingCharge;
-                    }
-
-                    // ekhane
-                    trady.app
-                      .postListing({
-                        id: productId,
-                        authKey: auth_key,
-                        data: listingData,
-                      })
-                      .then((res) => {
-                        if (!res.error) {
-                          setEditProductLoading(false);
-                          router.push('/stores/my-store');
-                        }
-                      });
                   }
                 }
-              }
-            })
-            .catch((error) => {
-              setShowError(true);
-              setError_message(error?.response?.data?.error.message);
-              setEditProductLoading(false);
-            });
+              })
+              .catch((error) => {
+                setShowError(true);
+                setError_message(error?.response?.data?.error.message);
+                setEditProductLoading(false);
+              });
+          }
+        } else {
+          setShowError(true);
+          setError_message(response?.error?.message);
+          setEditProductLoading(false);
         }
+      })
+      .catch((error) => {
+        setShowError(true);
+        setError_message(error?.response?.error?.message);
+        setEditProductLoading(false);
+      });
+  } else {
+    if (attributeData !== null) {
+      const check = attributeData.find((attr) => attr.uploadFile);
+      if (check === undefined) {
+        const listingData = {
+          listing: {
+            list_price: price,
+            description: description,
+            account_id: accountId,
+            currency_id: currency,
+            attributes: attributeData,
+            title: title,
+            offer_percent: offerPercent,
+            images: imagePath.map((item) => item.path),
+            category_id: [selectedCategory],
+            type: 'listings',
+          },
+        };
+        if (listing_configs.listing_address_enabled) {
+          listingData['coordinates'] = coordinates;
+        }
+        if (listing_configs.enable_stock) {
+          listingData['stock'] = quantity;
+        }
+        if (listing_configs.show_shipping_charges) {
+          listingData['shipping_charges'] = shippingCharge;
+        }
+
+        // ekhane
+        trady.app
+          .postListing({
+            id: productId,
+            authKey: auth_key,
+            data: listingData,
+          })
+          .then((res) => {
+            if (!res.error) {
+              setEditProductLoading(false);
+              router.push('/stores/my-store');
+            } else {
+              setShowError(true);
+              setError_message(res?.error?.message);
+              setEditProductLoading(false);
+            }
+          });
+      } else {
+        trady.app
+          .generateS3ImageURL({
+            authKey: auth_key,
+            data: {
+              files: [
+                {
+                  name: check.values[0].name,
+                  type: check.values[0].type,
+                },
+              ],
+            },
+          })
+          .then((response) => {
+            if (!response.error) {
+              const fileURL = response.data.result[0];
+              const path = fileURL.signedUrl;
+              const ImagePath2 = fileURL.fileUri;
+              fetch(path, {
+                method: 'put',
+                headers: {
+                  ContentType: check.values[0].type,
+                },
+                body: check.values[0],
+              })
+                .then((res) => {
+                  const filter = attributeData.filter(
+                    (attr) => !attr.uploadFile
+                  );
+                  const attributeUpdate = [
+                    ...filter,
+                    { values: [ImagePath2], id: check.id },
+                  ];
+                  const listingData = {
+                    listing: {
+                      list_price: price,
+                      description: description,
+                      account_id: accountId,
+                      currency_id: currency,
+                      attributes: attributeUpdate,
+                      title: title,
+                      offer_percent: offerPercent,
+                      images: imagePath.map((item) => item.path),
+                      category_id: [selectedCategory],
+                      type: 'listings',
+                    },
+                  };
+
+                  if (listing_configs.listing_address_enabled) {
+                    listingData['coordinates'] = coordinates;
+                  }
+                  if (listing_configs.enable_stock) {
+                    listingData['stock'] = quantity;
+                  }
+                  if (listing_configs.show_shipping_charges) {
+                    listingData['shipping_charges'] = shippingCharge;
+                  }
+
+                  // ekhane
+                  trady.app
+                    .postListing({
+                      id: productId,
+                      authKey: auth_key,
+                      data: listingData,
+                    })
+                    .then((res) => {
+                      if (!res.error) {
+                        setEditProductLoading(false);
+                        router.push('/stores/my-store');
+                      } else {
+                        setShowError(true);
+                        setError_message(res?.error?.message);
+                        setEditProductLoading(false);
+                      }
+                    });
+                })
+                .catch((error) => {
+                  setShowError(true);
+                  setError_message(error?.response?.error?.message);
+                  setEditProductLoading(false);
+                });
+            }
+          });
       }
-    })
-    .catch((error) => {
-      setShowError(true);
-      setError_message(error?.response?.data?.error.message);
-      setEditProductLoading(false);
-    });
+    } else {
+      const listingData = {
+        listing: {
+          list_price: price,
+          description: description,
+          account_id: accountId,
+          currency_id: currency,
+          title: title,
+          offer_percent: offerPercent,
+          images: imagePath.map((item) => item.path),
+          category_id: [selectedCategory],
+          type: 'listings',
+        },
+      };
+      if (listing_configs.listing_address_enabled) {
+        listingData['coordinates'] = coordinates;
+      }
+      if (listing_configs.enable_stock) {
+        listingData['stock'] = quantity;
+      }
+      if (listing_configs.show_shipping_charges) {
+        listingData['shipping_charges'] = shippingCharge;
+      }
+
+      // ekhane
+      trady.app
+        .postListing({
+          id: productId,
+          authKey: auth_key,
+          data: listingData,
+        })
+        .then((res) => {
+          if (!res.error) {
+            setEditProductLoading(false);
+            router.push('/stores/my-store');
+          } else {
+            setShowError(true);
+            setError_message(res?.error?.message);
+            setEditProductLoading(false);
+          }
+        });
+    }
+  }
 };

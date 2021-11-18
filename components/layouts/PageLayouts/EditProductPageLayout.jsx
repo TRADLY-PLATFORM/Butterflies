@@ -9,6 +9,7 @@ import {
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import EditProductForm from '../../MyStore/EditProduct/EditProductForm';
+import EditVariantsPart from '../../MyStore/EditProduct/Variants/EditVariantsPart';
 
 const EditProductPageLayout = () => {
   const { auth_key } = useSelector(authSelector);
@@ -31,8 +32,13 @@ const EditProductPageLayout = () => {
   }, [auth_key]);
   return (
     <div className="  flex justify-center ">
-      <div className=" bg-white  w-[700px]  p-10">
-        {listing_configs !== null && <EditProductForm />}
+      <div>
+        <div className=" bg-white  w-[700px]  p-10">
+          {listing_configs !== null && <EditProductForm />}
+        </div>
+        <div className="    w-[700px]  mt-9">
+          {listing_configs !== null && <EditVariantsPart />}
+        </div>
       </div>
     </div>
   );
