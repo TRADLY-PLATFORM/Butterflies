@@ -12,8 +12,7 @@ import PopUp from '../../Shared/PopUp/PopUp';
 import { authSelector } from '../../../store/feature/authSlice';
 import Attribute from './Attribute';
 import { useRouter } from 'next/dist/client/router';
-import {   edit_product_click } from './editProduct';
-
+import { edit_product_click } from './editProduct';
 
 const EditProductForm = () => {
   const [title, setTitle] = useState('');
@@ -21,6 +20,8 @@ const EditProductForm = () => {
   const [price, setPrice] = useState(0);
   const [shippingCharge, setShippingCharge] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [offerPercent, setOfferPercent] = useState(0);
+
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [attributeData, setAttributeData] = useState(null);
   const [currency, setCurrency] = useState(null);
@@ -28,12 +29,15 @@ const EditProductForm = () => {
   const [coordinates, setCoordinates] = useState(null);
   const [imagePath, setImagePath] = useState([]);
   const [files, setFiles] = useState([]);
-  const [fullFile, setFullFile] = useState([]);
+  const [fullFile, setFullFile] = useState(null);
   const [showError, setShowError] = useState(false);
   const [error_message, setError_message] = useState('');
   const [editProductLoading, setEditProductLoading] = useState(false);
-    const [addressSearchKey, setAddressSearchKey] = useState('');
+  const [addressSearchKey, setAddressSearchKey] = useState('');
 
+  console.log('====================================');
+  console.log(attributeData);
+  console.log('====================================');
 
   const { auth_key } = useSelector(authSelector);
 
@@ -60,11 +64,39 @@ const EditProductForm = () => {
       setShippingCharge(
         Number(my_account_listing_details.shipping_charges.amount)
       );
-      // setCoordinates({
-      //   latitude: address.latitude,
-      //   longitude: address.longitude,
-      // });
+      setQuantity(Number(my_account_listing_details.stock));
+      setOfferPercent(Number(my_account_listing_details.offer_percent));
+      setImagePath(
+        my_account_listing_details.images.map((item, index) => {
+          return { id: index, path: item };
+        })
+      );
+      setCoordinates({
+        latitude: my_account_listing_details.coordinates?.latitude,
+        longitude: my_account_listing_details.coordinates?.longitude,
+      });
+      setAddressSearchKey(
+        my_account_listing_details.location.formatted_address
+      );
       setSelectedCategory(my_account_listing_details.category_id[0]);
+      dispatch(
+        accountAttribute({
+          prams: {
+            category_id: my_account_listing_details.category_id[0],
+            type: 'listings',
+          },
+          authKey: auth_key,
+        })
+      );
+      setAttributeData(
+        my_account_listing_details.attributes.map((attr) => {
+          if (attr.field_type === 1 || attr.field_type === 2) {
+            return { id: attr.id, values: attr.values.map((item) => item.id) };
+          } else if (attr.field_type === 3 || attr.field_type === 4) {
+            return { id: attr.id, values: attr.values.map((item) => item) };
+          }
+        })
+      );
     }
   }, [my_account_listing_details]);
 
@@ -114,7 +146,7 @@ const EditProductForm = () => {
           { id: imagePath.length + 1, name: file.name, type: file.type },
         ]);
       }
-      if (fullFile.length > 0) {
+      if (fullFile?.length > 0) {
         setFullFile([...fullFile, file]);
       } else {
         setFullFile([file]);
@@ -123,18 +155,17 @@ const EditProductForm = () => {
   };
 
   const imageDelete = async (id) => {
-    const ImagePathFilter = imagePath.filter((image) => image.id !== id);
-    const filesFilter = files.filter((file) => file.id !== id);
-    const full_filesFilter = fullFile.filter((file, i) => i + 1 !== id);
-    setImagePath(ImagePathFilter);
-
-    setFiles(filesFilter);
-    setFullFile(full_filesFilter);
-    // if (fullFile.length > 0) {
-    //   setFullFile([...fullFile, file]);
-    // } else {
-    //   setFullFile([file]);
-    // }
+    if (fullFile !== null) {
+      const ImagePathFilter = imagePath.filter((image) => image.id !== id);
+      const filesFilter = files.filter((file) => file.id !== id);
+      const full_filesFilter = fullFile.filter((file, i) => i + 1 !== id);
+      setImagePath(ImagePathFilter);
+      setFiles(filesFilter);
+      setFullFile(full_filesFilter);
+    } else {
+      setImagePath([]);
+      setFullFile([]);
+    }
   };
 
   const closePopUP = () => {
@@ -164,11 +195,11 @@ const EditProductForm = () => {
         </OutsideClickHandler>
       )}
       <h3 className=" text-center font-semibold text-2xl text-primary mb-4">
-        Edit Your Product
+        Edit Your Listing
       </h3>
       <div className="grid grid-cols-1 gap-6">
         <div className="block">
-          <span className="text-gray-700">Product Image</span>
+          <span className="text-gray-700">Listing Image</span>
           <input
             id="imageButtonInput"
             type="file"
@@ -215,19 +246,21 @@ const EditProductForm = () => {
                 );
               })}
 
-            <button
-              className=" w-[100px]  h-[100px] flex justify-center items-center  mt-3  bg-gray-100 text-sm rounded "
-              onClick={() => imageButtonClick()}
-            >
-              Add Image
-            </button>
+            {fullFile && (
+              <button
+                className=" w-[100px]  h-[100px] flex justify-center items-center  mt-3  bg-gray-100 text-sm rounded "
+                onClick={() => imageButtonClick()}
+              >
+                Add Image
+              </button>
+            )}
           </div>
           <p className=" text-sm mt-2 font-normal text-secondary">
-            Max. {listing_configs?.listing_pictures_count} photos per product
+            Max. {listing_configs?.listing_pictures_count} photos per listing
           </p>
         </div>
         <label className="block">
-          <span className="text-gray-700">Product Title</span>
+          <span className="text-gray-700">Listing Title</span>
           <input
             value={title}
             type="text"
@@ -244,7 +277,7 @@ const EditProductForm = () => {
           />
         </label>
         <label className="block">
-          <span className="text-gray-700">Product Description</span>
+          <span className="text-gray-700">Listing Description</span>
           <textarea
             value={description}
             className="
@@ -271,7 +304,7 @@ const EditProductForm = () => {
           </label>
         )}
 
-        <div className=" grid grid-cols-[32%,32%,32%] justify-between">
+        <div className=" grid grid-cols-1 gap-6  2xl:grid-cols-2  2xl:justify-between">
           <label className="block relative">
             <span className="text-gray-700">Selling Price</span>
             <input
@@ -296,7 +329,7 @@ const EditProductForm = () => {
             <select
               className="
                      w-[85px]
-                     absolute top-0  left-0 mt-8
+                     absolute top-0  left-0 mt-7
                     px-2 py-1
                     border-0  transition  duration-700
                     focus:ring-0 focus:border-primary
@@ -329,6 +362,32 @@ const EditProductForm = () => {
                 onChange={(e) => {
                   if (e.target.value >= 0) {
                     setShippingCharge(e.target.value);
+                  }
+                }}
+              />
+            </label>
+          )}
+        </div>
+
+        <div className=" grid grid-cols-1 gap-6  2xl:grid-cols-2  2xl:justify-between">
+          {!listing_configs.hide_offer_percent && (
+            <label className="block">
+              <span className="text-gray-700">Offer Percent</span>
+              <input
+                value={offerPercent}
+                type="number"
+                className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+                placeholder="1"
+                onChange={(e) => {
+                  if (e.target.value >= 0) {
+                    setOfferPercent(e.target.value);
                   }
                 }}
               />
@@ -370,13 +429,19 @@ const EditProductForm = () => {
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={(e) => {
+              setSelectedCategory(e.target.value), setAttributeData(null);
+            }}
           >
-            <option hidden selected>
+            {/* <option hidden selected>
               Select Category
-            </option>
+            </option> */}
             {listing_categories?.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option
+                selected={category.id === selectedCategory ? true : false}
+                key={category.id}
+                value={category.id}
+              >
                 {category.name}
               </option>
             ))}
@@ -394,12 +459,14 @@ const EditProductForm = () => {
           className="text-white px-7 py-2 rounded-md bg-primary  flex items-center justify-center  "
           onClick={() =>
             edit_product_click(
+              imagePath,
               files,
               fullFile,
               title,
               description,
               price,
               shippingCharge,
+              offerPercent,
               quantity,
               coordinates,
               selectedCategory,
@@ -439,7 +506,7 @@ const EditProductForm = () => {
               ></path>
             </svg>
           )}
-          Edit Product
+          Edit Listing
         </button>
       </div>
     </div>

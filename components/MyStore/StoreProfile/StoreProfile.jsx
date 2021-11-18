@@ -33,7 +33,7 @@ const StoreProfile = ({ my_stores }) => {
         </div>
         <div className=" mt-4 md:mt-0 flex flex-row justify-between   md:flex-col flex-wrap ">
           <button
-            className="  w-[130px] h-[30px] flex justify-center items-center bg-primary rounded-md mb-2 text-white"
+            className="  w-[145px] h-[30px] flex justify-center items-center bg-primary rounded-md mb-2 text-white"
             onClick={() =>
               router.push({
                 pathname: '/stores/edit-store',
@@ -41,7 +41,7 @@ const StoreProfile = ({ my_stores }) => {
               })
             }
           >
-            Edit Store{' '}
+            Edit Account{' '}
           </button>
           <button
             onClick={() =>
@@ -50,9 +50,9 @@ const StoreProfile = ({ my_stores }) => {
                 query: { store_id: my_stores[0].id },
               })
             }
-            className="  w-[130px] h-[30px] flex justify-center items-center bg-primary rounded-md text-white"
+            className="  w-[145px] h-[30px] flex justify-center items-center bg-primary rounded-md text-white"
           >
-            Store Orders{' '}
+            Account Orders{' '}
           </button>
         </div>
       </div>

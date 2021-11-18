@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { changeDateFormat } from '../../Shared/Constant/Constant';
+import { changeDateFormat, findRepeatName } from '../../Shared/Constant/Constant';
 import moment from 'moment';
 
 const Schedule = ({ schedules }) => {
   return (
-    <div className=" bg-white rounded  w-full h-[66px] flex   justify-between  p-[16px]  ">
+    <div className=" bg-white rounded  w-full min-h-[66px] flex   justify-between  p-[16px]  ">
       <div className="flex">
         <div className="flex justify-start items-start">
           <svg
@@ -28,6 +28,7 @@ const Schedule = ({ schedules }) => {
           <p className=" text-xs leading-4 font-medium text-secondary mt-[2px] ">
             {schedules[0].start_time} - {schedules[0].end_time}
           </p>
+          <p>{findRepeatName(schedules[0].repeat_days)}</p>
         </div>
       </div>
       <div className="  flex justify-center  float-right">

@@ -191,8 +191,13 @@ const Attribute = ({ attributeData, setAttributeData }) => {
         // Data
         let options;
         if (attr.field_type === 1 || attr.field_type === 2) {
-          options = attr.values?.map((value) => {
-            return { value: value.name, label: value.name, id: value.id };
+          options = attr.values?.map((value,index) => {
+            return {
+              value: value.name,
+              label: value.name,
+              id: value.id,
+              isOptionSelected:index ===1?true:false,
+            };
           });
         }
         return (
@@ -220,7 +225,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                       )
                     }
                     placeholder={'Select your' + ' ' + attr.name}
-                    options={options}
+                      options={options}
                   />
                 </div>
               )}
@@ -307,7 +312,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
               )}
               {attr.field_type === 5 &&
                 (file === null ? (
-                  <div>
+                  <div className="mt-6">
                     <div>
                       <div className=" h-0 overflow-hidden">
                         <input
@@ -341,7 +346,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                     </div>
                   </div>
                 ) : (
-                  <div className=" grid grid-cols-[20%,70%,10%;] xs:grid-cols-[10%,70%,20%] items-center px-[10px] py-[5px] border-2 border-primary rounded-md">
+                  <div className=" mt-5 grid grid-cols-[20%,70%,10%;] xs:grid-cols-[10%,70%,20%] items-center px-[10px] py-[5px] border-2 border-primary rounded-md">
                     <div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

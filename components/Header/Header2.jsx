@@ -62,9 +62,9 @@ const Header2 = () => {
             </div>
           </div>
           <div className=" flex items-center justify-between">
-            {/* <div className="  mr-[12px]  lg:mr-8  xl:mr-9 ">
+            <div className="  mr-[12px]  lg:mr-8  xl:mr-9 ">
 							<StoreButton />
-						</div> */}
+						</div>
             <div>
               <HeaderProfile
                 showUserMenus={showUserMenus}
@@ -118,9 +118,9 @@ const Header2 = () => {
               )}
             </div>
             <div className=" flex items-center justify-between">
-              {/* <div className="  mr-[12px]  lg:mr-8  xl:mr-9 ">
+              <div className="  mr-[12px]  lg:mr-8  xl:mr-9 ">
 								<StoreButton />
-							</div> */}
+							</div>
               <div>
                 <HeaderProfile
                   showUserMenus={showUserMenus}

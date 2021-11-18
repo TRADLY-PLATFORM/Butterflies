@@ -38,9 +38,10 @@
     "react-phone-input-2": "^2.14.0",
     "react-redux": "^7.2.6",
     "react-select": "^5.2.1",
+    "react-time-picker": "^4.4.4",
     "sass": "^1.43.4",
     "swiper": "^6.8.3",
-    "tradly": "^1.0.27",
+    "tradly": "^1.0.31",
     "unified": "^10.1.0",
     "uuidv4": "^6.2.12"
   },

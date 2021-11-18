@@ -93,11 +93,11 @@ const EditStoreForm = ({ my_stores, accountId }) => {
         </OutsideClickHandler>
       )}
       <h3 className=" text-center font-semibold text-2xl text-primary mb-4">
-        Edit Your Store
+        Edit Your Account
       </h3>
       <div className="grid grid-cols-1 gap-6">
         <label className="block">
-          <span className="text-gray-700">Store Image</span>
+          <span className="text-gray-700">Account Image</span>
           <input
             id="imageButton"
             type="file"
@@ -120,7 +120,7 @@ const EditStoreForm = ({ my_stores, accountId }) => {
               <div className=" relative w-[100px] mt-4">
                 <Image
                   src={imagePath.path}
-                  alt="store image"
+                  alt="Account image"
                   width={100}
                   height={100}
                   objectFit="cover"
@@ -158,7 +158,7 @@ const EditStoreForm = ({ my_stores, accountId }) => {
           </div>
         </label>
         <label className="block">
-          <span className="text-gray-700">Store name</span>
+          <span className="text-gray-700">Account name</span>
           <input
             value={name}
             type="text"
@@ -192,7 +192,7 @@ const EditStoreForm = ({ my_stores, accountId }) => {
         </label>
 
         <label className="block ">
-          <span className="text-gray-700">Store Address</span>
+          <span className="text-gray-700">Account Address</span>
           <SearchAddress
             setCoordinates={setCoordinates}
             addressSearchKey={addressSearchKey}
@@ -274,7 +274,7 @@ const EditStoreForm = ({ my_stores, accountId }) => {
               ></path>
             </svg>
           )}
-          Edit Store
+          Edit Account
         </button>
       </div>
     </div>

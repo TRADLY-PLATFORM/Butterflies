@@ -9,10 +9,15 @@ import {
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import AddProductForm from '../../MyStore/AddProduct/AddProductForm';
+import SchedulePart from '../../MyStore/AddProduct/schedule/SchedulePart';
+import VariantsPart from '../../MyStore/AddProduct/Variants/VariantsPart';
 
-const AddProductPageLayout = () => {
+const AddListingSuccessPageLayout = () => {
   const { auth_key } = useSelector(authSelector);
   const { listing_configs } = useSelector(storeSelector);
+  console.log('====================================');
+  console.log(listing_configs);
+  console.log('====================================');
   const dispatch = useDispatch();
   useEffect(() => {
     if (auth_key) {
@@ -27,12 +32,14 @@ const AddProductPageLayout = () => {
   }, [auth_key]);
 
   return (
-    <div className="  flex justify-center ">
-      <div className=" bg-white  w-[700px]  p-10">
-        {listing_configs !== null && <AddProductForm />}
+    <>
+      <div className=" flex justify-center">
+        <div className=" w-full">
+          {/* {listing_configs !== null && <AddProductForm />} */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default AddProductPageLayout;
+export default AddListingSuccessPageLayout;

@@ -1,5 +1,5 @@
 import { set } from 'react-hook-form';
-import trady from 'tradly';
+import tradly from 'tradly';
 
 export const add_product_click = (
   files,
@@ -8,6 +8,7 @@ export const add_product_click = (
   description,
   price,
   shippingCharge,
+  offerPercent,
   quantity,
   coordinates,
   selectedCategory,
@@ -20,7 +21,9 @@ export const add_product_click = (
   listing_configs,
   auth_key,
   accountId,
-  setAddProductLoading
+  setAddProductLoading,
+  schedulesArray,
+  variantsArray
 ) => {
   setAddProductLoading(true);
   if (files === null || !files.length > 0) {
@@ -51,7 +54,7 @@ export const add_product_click = (
     setShowError(true);
     setError_message(
       'Minimum price cannot be less than ' +
-        parseInt(listingsConfigs.listing_min_price)
+        parseInt(listing_configs.listing_min_price)
     );
     setAddProductLoading(false);
     return false;
@@ -80,7 +83,7 @@ export const add_product_click = (
     return false;
   }
 
-  trady.app
+  tradly.app
     .generateS3ImageURL({
       authKey: auth_key,
       data: {
@@ -112,18 +115,16 @@ export const add_product_click = (
                     const check = attributeData.find((attr) => attr.uploadFile);
                     if (check === undefined) {
                       const listingData = {
-                        listing: {
-                          list_price: price,
-                          description: description,
-                          account_id: accountId,
-                          currency_id: currency,
-                          attributes: attributeData,
-                          title: title,
-                          offer_percent: 0,
-                          images: responseFiles.map((res) => res.fileUri),
-                          category_id: [selectedCategory],
-                          type: 'listings',
-                        },
+                        list_price: price,
+                        description: description,
+                        account_id: accountId,
+                        currency_id: currency,
+                        attributes: attributeData,
+                        title: title,
+                        offer_percent: offerPercent,
+                        images: responseFiles.map((res) => res.fileUri),
+                        category_id: [selectedCategory],
+                        type: 'listings',
                       };
                       if (listing_configs.listing_address_enabled) {
                         listingData['coordinates'] = coordinates;
@@ -136,20 +137,146 @@ export const add_product_click = (
                       }
 
                       // ekhane
-                      trady.app
+                      tradly.app
                         .postListing({
                           id: '',
                           authKey: auth_key,
-                          data: listingData,
+                          data: { listing: listingData },
                         })
                         .then((res) => {
                           if (!res.error) {
+                            let changeRoute = false;
+                            const listingId = res.data.listing.id;
+                            if (
+                              schedulesArray !== null &&
+                              schedulesArray.length > 0
+                            ) {
+                              tradly.app
+                                .createSchedule({
+                                  id: res.data.listing.id,
+                                  authKey: auth_key,
+                                  data: { schedules: schedulesArray },
+                                })
+                                .then((res) => {
+                                  if (!res.error) {
+                                    // setAddProductLoading(false);
+                                    // router.push('/stores/my-store');
+                                    changeRoute = true;
+                                  } else {
+                                    setShowError(true);
+                                    setError_message(res?.error?.message);
+                                    setAddProductLoading(false);
+                                  }
+                                });
+                            }
+                            if (
+                              variantsArray !== null &&
+                              variantsArray.length > 0
+                            ) {
+                              let isLoopFinish = 0;
+                              for (let i = 0; i < variantsArray.length; i++) {
+                                const element = variantsArray[i];
+                                tradly.app
+                                  .generateS3ImageURL({
+                                    authKey: auth_key,
+                                    data: {
+                                      files: [
+                                        {
+                                          name: element.images.name,
+                                          type: element.images.type,
+                                        },
+                                      ],
+                                    },
+                                  })
+                                  .then((response) => {
+                                    if (!response.error) {
+                                      const fileURL = response.data.result[0];
+                                      const path = fileURL.signedUrl;
+                                      const variant_ImagePath = fileURL.fileUri;
+                                      fetch(path, {
+                                        method: 'put',
+                                        headers: {
+                                          ContentType: element.images.type,
+                                        },
+                                        body: element.images,
+                                      }).then((res) => {
+                                        const variant_data = {
+                                          active: true,
+                                          title: element.title,
+                                          description: element.description,
+                                          list_price: element.list_price,
+                                          offer_percent: element.offer_percent,
+                                          stock: element.stock,
+                                          images: [variant_ImagePath],
+                                          variant_values: [
+                                            {
+                                              variant_type_id:
+                                                element.variant_type,
+                                              variant_type_value_id:
+                                                element.variant_type_value,
+                                            },
+                                          ],
+                                        };
+                                        tradly.app
+                                          .addEditVariants({
+                                            authKey: auth_key,
+                                            listingId,
+                                            id: '',
+                                            data: {
+                                              variant: { ...variant_data },
+                                            },
+                                          })
+                                          .then((res) => {
+                                            if (!res.error) {
+                                              isLoopFinish = isLoopFinish + 1;
+
+                                              if (
+                                                isLoopFinish ===
+                                                variantsArray.length + 1
+                                              ) {
+                                                changeRoute = true;
+                                              } else {
+                                                setShowError(true);
+                                                setError_message(
+                                                  response?.error?.message
+                                                );
+                                                setAddProductLoading(false);
+                                              }
+                                            }
+                                          });
+                                      });
+                                    } else {
+                                      setShowError(true);
+                                      setError_message(
+                                        response?.error?.message
+                                      );
+                                      setAddProductLoading(false);
+                                    }
+                                  });
+                              }
+                            }
+                            if (changeRoute) {
+                              setAddProductLoading(false);
+                              router.push('/stores/my-store');
+                            } else {
+                              setAddProductLoading(false);
+                              router.push('/stores/my-store');
+                            }
+                          } else {
+                            setShowError(true);
+                            setError_message(res?.error?.message);
                             setAddProductLoading(false);
-                            router.push('/stores/my-store');
                           }
+                        })
+                        .catch((error) => {
+                          setShowError(true);
+                          setError_message(
+                            error?.response?.data?.error.message
+                          );
+                          setAddProductLoading(false);
                         });
                     } else {
-                      trady.app
+                      tradly.app
                         .generateS3ImageURL({
                           authKey: auth_key,
                           data: {
@@ -182,20 +309,18 @@ export const add_product_click = (
                                   { values: [ImagePath2], id: check.id },
                                 ];
                                 const listingData = {
-                                  listing: {
-                                    list_price: price,
-                                    description: description,
-                                    account_id: accountId,
-                                    currency_id: currency,
-                                    attributes: attributeUpdate,
-                                    title: title,
-                                    offer_percent: 0,
-                                    images: responseFiles.map(
-                                      (res) => res.fileUri
-                                    ),
-                                    category_id: [selectedCategory],
-                                    type: 'listings',
-                                  },
+                                  list_price: price,
+                                  description: description,
+                                  account_id: accountId,
+                                  currency_id: currency,
+                                  attributes: attributeUpdate,
+                                  title: title,
+                                  offer_percent: offerPercent,
+                                  images: responseFiles.map(
+                                    (res) => res.fileUri
+                                  ),
+                                  category_id: [selectedCategory],
+                                  type: 'listings',
                                 };
 
                                 if (listing_configs.listing_address_enabled) {
@@ -210,39 +335,185 @@ export const add_product_click = (
                                 }
 
                                 // ekhane
-                                trady.app
+                                tradly.app
                                   .postListing({
                                     id: '',
                                     authKey: auth_key,
-                                    data: listingData,
+                                    data: { listing: listingData },
                                   })
                                   .then((res) => {
                                     if (!res.error) {
+                                      let changeRoute = false;
+                                      const listingId = res.data.listing.id;
+                                      if (
+                                        schedulesArray !== null &&
+                                        schedulesArray.length > 0
+                                      ) {
+                                        tradly.app
+                                          .createSchedule({
+                                            id: res.data.listing.id,
+                                            authKey: auth_key,
+                                            data: { schedules: schedulesArray },
+                                          })
+                                          .then((res) => {
+                                            if (!res.error) {
+                                              // setAddProductLoading(false);
+                                              // router.push('/stores/my-store');
+                                              changeRoute = true;
+                                            } else {
+                                              setShowError(true);
+                                              setError_message(
+                                                res?.error?.message
+                                              );
+                                              setAddProductLoading(false);
+                                            }
+                                          });
+                                      }
+                                      if (
+                                        variantsArray !== null &&
+                                        variantsArray.length > 0
+                                      ) {
+                                        let isLoopFinish = 0;
+                                        for (
+                                          let i = 0;
+                                          i < variantsArray.length;
+                                          i++
+                                        ) {
+                                          const element = variantsArray[i];
+                                          tradly.app
+                                            .generateS3ImageURL({
+                                              authKey: auth_key,
+                                              data: {
+                                                files: [
+                                                  {
+                                                    name: element.images.name,
+                                                    type: element.images.type,
+                                                  },
+                                                ],
+                                              },
+                                            })
+                                            .then((response) => {
+                                              if (!response.error) {
+                                                const fileURL =
+                                                  response.data.result[0];
+                                                const path = fileURL.signedUrl;
+                                                const variant_ImagePath =
+                                                  fileURL.fileUri;
+                                                fetch(path, {
+                                                  method: 'put',
+                                                  headers: {
+                                                    ContentType:
+                                                      element.images.type,
+                                                  },
+                                                  body: element.images,
+                                                }).then((res) => {
+                                                  const variant_data = {
+                                                    active: true,
+                                                    title: element.title,
+                                                    description:
+                                                      element.description,
+                                                    list_price:
+                                                      element.list_price,
+                                                    offer_percent:
+                                                      element.offer_percent,
+                                                    stock: element.stock,
+                                                    images: [variant_ImagePath],
+                                                    variant_values: [
+                                                      {
+                                                        variant_type_id:
+                                                          element.variant_type,
+                                                        variant_type_value_id:
+                                                          element.variant_type_value,
+                                                      },
+                                                    ],
+                                                  };
+                                                  tradly.app
+                                                    .addEditVariants({
+                                                      authKey: auth_key,
+                                                      listingId,
+                                                      id: '',
+                                                      data: {
+                                                        variant: {
+                                                          ...variant_data,
+                                                        },
+                                                      },
+                                                    })
+                                                    .then((res) => {
+                                                      if (!res.error) {
+                                                        isLoopFinish =
+                                                          isLoopFinish + 1;
+
+                                                        if (
+                                                          isLoopFinish ===
+                                                          variantsArray.length +
+                                                            1
+                                                        ) {
+                                                          changeRoute = true;
+                                                        }
+                                                      } else {
+                                                        setShowError(true);
+                                                        setError_message(
+                                                          res?.error?.message
+                                                        );
+                                                        setAddProductLoading(
+                                                          false
+                                                        );
+                                                      }
+                                                    });
+                                                });
+                                              } else {
+                                                setShowError(true);
+                                                setError_message(
+                                                  response?.error?.message
+                                                );
+                                                setAddProductLoading(false);
+                                              }
+                                            });
+                                        }
+                                      }
+                                      if (changeRoute) {
+                                        setAddProductLoading(false);
+                                        router.push('/stores/my-store');
+                                      } else {
+                                        setAddProductLoading(false);
+                                        router.push('/stores/my-store');
+                                      }
+                                    } else {
+                                      setShowError(true);
+                                      setError_message(res?.error?.message);
                                       setAddProductLoading(false);
-                                      router.push('/stores/my-store');
                                     }
+                                  })
+                                  .catch((error) => {
+                                    setShowError(true);
+                                    setError_message(
+                                      error?.response?.data?.error.message
+                                    );
+                                    setAddProductLoading(false);
                                   });
                               })
                               .catch((error) => {
                                 setAddProductLoading(false);
                                 console.log('Error:' + error.message);
                               });
+                          } else {
+                            setShowError(true);
+                            setError_message(response?.error?.message);
+                            setAddProductLoading(false);
                           }
                         });
                     }
                   } else {
                     const listingData = {
-                      listing: {
-                        list_price: price,
-                        description: description,
-                        account_id: accountId,
-                        currency_id: currency,
-                        title: title,
-                        offer_percent: 0,
-                        images: responseFiles.map((res) => res.fileUri),
-                        category_id: [selectedCategory],
-                        type: 'listings',
-                      },
+                      list_price: price,
+                      description: description,
+                      account_id: accountId,
+                      currency_id: currency,
+                      title: title,
+                      offer_percent: offerPercent,
+                      images: responseFiles.map((res) => res.fileUri),
+                      category_id: [selectedCategory],
+                      type: 'listings',
                     };
                     if (listing_configs.listing_address_enabled) {
                       listingData['coordinates'] = coordinates;
@@ -255,17 +526,139 @@ export const add_product_click = (
                     }
 
                     // ekhane
-                    trady.app
+                    tradly.app
                       .postListing({
                         id: '',
                         authKey: auth_key,
-                        data: listingData,
+                        data: { listing: listingData },
                       })
                       .then((res) => {
                         if (!res.error) {
+                          let changeRoute = false;
+                          const listingId = res.data.listing.id;
+                          if (
+                            schedulesArray !== null &&
+                            schedulesArray.length > 0
+                          ) {
+                            tradly.app
+                              .createSchedule({
+                                id: res.data.listing.id,
+                                authKey: auth_key,
+                                data: { schedules: schedulesArray },
+                              })
+                              .then((res) => {
+                                if (!res.error) {
+                                  // setAddProductLoading(false);
+                                  // router.push('/stores/my-store');
+                                  changeRoute = true;
+                                } else {
+                                  setShowError(true);
+                                  setError_message(res?.error?.message);
+                                  setAddProductLoading(false);
+                                }
+                              });
+                          }
+                          if (
+                            variantsArray !== null &&
+                            variantsArray.length > 0
+                          ) {
+                            let isLoopFinish = 0;
+                            for (let i = 0; i < variantsArray.length; i++) {
+                              const element = variantsArray[i];
+                              tradly.app
+                                .generateS3ImageURL({
+                                  authKey: auth_key,
+                                  data: {
+                                    files: [
+                                      {
+                                        name: element.images.name,
+                                        type: element.images.type,
+                                      },
+                                    ],
+                                  },
+                                })
+                                .then((response) => {
+                                  if (!response.error) {
+                                    const fileURL = response.data.result[0];
+                                    const path = fileURL.signedUrl;
+                                    const variant_ImagePath = fileURL.fileUri;
+                                    fetch(path, {
+                                      method: 'put',
+                                      headers: {
+                                        ContentType: element.images.type,
+                                      },
+                                      body: element.images,
+                                    }).then((res) => {
+                                      const variant_data = {
+                                        active: true,
+                                        title: element.title,
+                                        description: element.description,
+                                        list_price: element.list_price,
+                                        offer_percent: element.offer_percent,
+                                        stock: element.stock,
+                                        images: [variant_ImagePath],
+                                        variant_values: [
+                                          {
+                                            variant_type_id:
+                                              element.variant_type,
+                                            variant_type_value_id:
+                                              element.variant_type_value,
+                                          },
+                                        ],
+                                      };
+                                      tradly.app
+                                        .addEditVariants({
+                                          authKey: auth_key,
+                                          listingId,
+                                          id: '',
+                                          data: {
+                                            variant: { ...variant_data },
+                                          },
+                                        })
+                                        .then((res) => {
+                                          if (!res.error) {
+                                            isLoopFinish = isLoopFinish + 1;
+
+                                            if (
+                                              isLoopFinish ===
+                                              variantsArray.length + 1
+                                            ) {
+                                              changeRoute = true;
+                                            }
+                                          } else {
+                                            setShowError(true);
+                                            setError_message(
+                                              res?.error?.message
+                                            );
+                                            setAddProductLoading(false);
+                                          }
+                                        });
+                                    });
+                                  } else {
+                                    setShowError(true);
+                                    setError_message(response?.error?.message);
+                                    setAddProductLoading(false);
+                                  }
+                                });
+                            }
+                          }
+                          if (changeRoute) {
+                            setAddProductLoading(false);
+                            router.push('/stores/my-store');
+                          } else {
+                            setAddProductLoading(false);
+                            router.push('/stores/my-store');
+                          }
+                        } else {
+                          setShowError(true);
+                          setError_message(res?.error?.message);
                           setAddProductLoading(false);
-                          router.push('/stores/my-store');
                         }
+                      })
+                      .catch((error) => {
+                        setShowError(true);
+                        setError_message(error?.response?.error?.message);
+                        setAddProductLoading(false);
                       });
                   }
                 }
@@ -273,15 +666,19 @@ export const add_product_click = (
             })
             .catch((error) => {
               setShowError(true);
-              setError_message(error?.response?.data?.error.message);
+              setError_message(response?.error?.message);
               setAddProductLoading(false);
             });
         }
+       } else {
+        setShowError(true);
+        setError_message(response?.error?.message);
+        setAddProductLoading(false);
       }
     })
     .catch((error) => {
       setShowError(true);
-      setError_message(error?.response?.data?.error.message);
+      setError_message(response?.error?.message);
       setAddProductLoading(false);
     });
 };
