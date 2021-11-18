@@ -74,7 +74,7 @@ const ScheduleForm = ({ setSchedulesObject, schedulesObject, setDate }) => {
   };
 
   return (
-    <div className="w-[400px] min-h-[500px] bg-white rounded p-10  ">
+    <div className="w-full bg-white rounded p-6  ">
       {showError && (
         <OutsideClickHandler
           onOutsideClick={() => {

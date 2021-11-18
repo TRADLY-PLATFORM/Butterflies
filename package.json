@@ -17,8 +17,8 @@
     "postbuild:sandbox": "  env-cmd -f env/.env.sandbox next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
-     "@emotion/styled": "^11.3.0",
-     "@reduxjs/toolkit": "^1.6.2",
+    "@emotion/styled": "^11.3.0",
+    "@reduxjs/toolkit": "^1.6.2",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.20.3",
     "@tailwindcss/forms": "^0.3.4",
@@ -41,7 +41,7 @@
     "react-time-picker": "^4.4.4",
     "sass": "^1.43.4",
     "swiper": "^6.8.3",
-    "tradly": "^1.0.27",
+    "tradly": "^1.0.31",
     "unified": "^10.1.0",
     "uuidv4": "^6.2.12"
   },
