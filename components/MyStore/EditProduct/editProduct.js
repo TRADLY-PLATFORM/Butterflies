@@ -22,16 +22,17 @@ export const edit_product_click = (
   auth_key,
   accountId,
   productId,
-  setEditProductLoading
+  setEditProductLoading,
+  setShowSuccessMessage
 ) => {
   setEditProductLoading(true);
-  if(fullFile!==null){
+  if (fullFile !== null) {
     if (files === null || !files.length > 0) {
-    setShowError(true);
-    setError_message('Image is required');
-    setEditProductLoading(false);
-    return false;
-  }
+      setShowError(true);
+      setError_message('Image is required');
+      setEditProductLoading(false);
+      return false;
+    }
   }
   if (title === '') {
     setShowError(true);
@@ -152,7 +153,7 @@ export const edit_product_click = (
                           .then((res) => {
                             if (!res.error) {
                               setEditProductLoading(false);
-                              router.push('/stores/my-store');
+                              setShowSuccessMessage(true);
                             } else {
                               setShowError(true);
                               setError_message(res?.error?.message);
@@ -230,7 +231,7 @@ export const edit_product_click = (
                                     .then((res) => {
                                       if (!res.error) {
                                         setEditProductLoading(false);
-                                        router.push('/stores/my-store');
+                                        setShowSuccessMessage(true);
                                       } else {
                                         setShowError(true);
                                         setError_message(res?.error?.message);
@@ -286,7 +287,7 @@ export const edit_product_click = (
                         .then((res) => {
                           if (!res.error) {
                             setEditProductLoading(false);
-                            router.push('/stores/my-store');
+                           setShowSuccessMessage(true);
                           } else {
                             setShowError(true);
                             setError_message(res?.error?.message);
@@ -352,7 +353,7 @@ export const edit_product_click = (
           .then((res) => {
             if (!res.error) {
               setEditProductLoading(false);
-              router.push('/stores/my-store');
+              setShowSuccessMessage(true);
             } else {
               setShowError(true);
               setError_message(res?.error?.message);
@@ -427,7 +428,7 @@ export const edit_product_click = (
                     .then((res) => {
                       if (!res.error) {
                         setEditProductLoading(false);
-                        router.push('/stores/my-store');
+                        setShowSuccessMessage(true);
                       } else {
                         setShowError(true);
                         setError_message(res?.error?.message);
@@ -477,7 +478,7 @@ export const edit_product_click = (
         .then((res) => {
           if (!res.error) {
             setEditProductLoading(false);
-            router.push('/stores/my-store');
+            setShowSuccessMessage(true);
           } else {
             setShowError(true);
             setError_message(res?.error?.message);
