@@ -153,7 +153,7 @@ const AddProductForm = () => {
           </div>
         </OutsideClickHandler>
       )}
-      <div className=" w-full pt-2  pb-20 flex  flex-col gap-8 md:gap-2   c-lg:flex-row justify-center">
+      <div className=" w-full pt-2  pb-20 flex items-center  flex-col gap-8 md:gap-2   c-lg:flex-row justify-center c-lg:items-start  ">
         <div className=" w-full  xs:w-[500px]  c-lg:w-[450px] xl:w-[500px]  2xl:w-[600px] ">
           <h3 className=" font-semibold text-[#121212] text-xl mb-4">
             Listing Details
@@ -416,12 +416,11 @@ const AddProductForm = () => {
             />
           </div>
         </div>
-        <div className="  c-lg:ml-[20px]">
+        <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full  xs:w-[500px] c-lg:w-[380px]  xl:w-[438px]">
           <h3 className=" font-semibold text-[#121212] text-xl mb-4">
             Date & Time
           </h3>{' '}
-          <div className="w-full  xs:w-[500px] c-lg:w-[380px]  xl:w-[438px]    ">
-            {' '}
+          <div className=" ">
             <SchedulePart
               schedulesArray={schedulesArray}
               setSchedulesArray={setSchedulesArray}

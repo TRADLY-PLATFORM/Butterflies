@@ -41,10 +41,6 @@ const EditProductForm = () => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 
-  console.log('====================================');
-  console.log(attributeData);
-  console.log('====================================');
-
   const { auth_key } = useSelector(authSelector);
 
   const {
@@ -215,12 +211,14 @@ const EditProductForm = () => {
               message={'Your listing updated successfully'}
               setShowSuccessMessage={setShowSuccessMessage}
               dispatch={dispatch}
+              productId={productId}
+              auth_key={auth_key}
             />
           </OutsideClickHandler>
         </Modal>
       )}
 
-      <h3 className=" text-center font-semibold text-2xl text-primary mb-4">
+      <h3 className=" text-center font-semibold text-2xl text-primary mb-7">
         Edit Your Listing
       </h3>
       <div className="grid grid-cols-1 gap-6">

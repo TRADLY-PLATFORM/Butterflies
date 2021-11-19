@@ -5,7 +5,13 @@ import Link from 'next/link';
 import successImage from '../../../assets/Images/success/Success.png';
 import { myAccountListingDetails } from '../../../store/feature/storeSlice';
  
-const EditListingSuccess = ({ message, setShowSuccessMessage, dispatch }) => {
+const EditListingSuccess = ({
+  message,
+  setShowSuccessMessage,
+  dispatch,
+  productId,
+  auth_key,
+}) => {
   return (
     <div className="bg-white shadow-c-sm w-full  xs:w-[450px] min-h-[250px] rounded-lg  p-[20px] xs:p-[30px]">
       <div className=" w-full flex  flex-col justify-center">

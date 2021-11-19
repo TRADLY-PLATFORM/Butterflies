@@ -5,7 +5,7 @@ import Link from 'next/link';
 import successImage from '../../../../../assets/Images/success/Success.png';
 import { myAccountListingDetails } from '../../../../../store/feature/storeSlice';
 
-const VariantSuccess = ({
+const ScheduleSuccess = ({
   message,
   setShowSuccessMessage,
   dispatch,
@@ -48,4 +48,4 @@ const VariantSuccess = ({
   );
 };
 
-export default VariantSuccess;
+export default ScheduleSuccess;

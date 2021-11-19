@@ -4,17 +4,21 @@ import { useSelector } from 'react-redux';
 import SignInPageLayout from '../components/layouts/PageLayouts/SignInPageLayout';
 import { authSelector } from '../store/feature/authSlice';
  import tradly from 'tradly';
+import { useDispatch } from 'react-redux';
+import { setGeneralConfig } from '../store/feature/configsSlice';
 
 const SignIn = (props) => {
-	console.log('====================================');
-	console.log(props);
-	console.log('====================================');
+	console.log('===========ahsanullahsunsbd@gmail.com=========================');
+ 
+
 	const router = useRouter()
+	const dispatch=useDispatch()
 	const {login}=useSelector(authSelector)
 	useEffect(() => {
 		if (login) {
 			router.push("/")
 		}
+	dispatch(setGeneralConfig(props))
 	}, [login, router]);
     return (
 		<div>

@@ -52,7 +52,7 @@ const SchedulePart = ({ schedulesArray, setSchedulesArray }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-6 bg-white p-5">
+      <div className=" w-full grid grid-cols-1 gap-6 bg-white p-5">
         {!schedulesArray === null || schedulesArray?.length > 0 ? (
           <div>
             {schedulesArray?.map((item, index) => {

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import SearchAddress from './SearchAddress';
@@ -17,7 +18,7 @@ import { create_store_click } from './createButton';
 import { useRouter } from 'next/dist/client/router';
 import { route } from 'next/dist/server/router';
 
-const CreateStoreForm = () => {
+const CreateStoreForm = ({ accounts_configs }) => {
   const [imagePath, setImagePath] = useState(null);
   const [files, setFiles] = useState(null);
   const [name, setName] = useState(null);
@@ -26,13 +27,11 @@ const CreateStoreForm = () => {
   const [attributeData, setAttributeData] = useState(null);
   const [description, setDescription] = useState(null);
 
-
   const [showError, setShowError] = useState(false);
   const [error_message, setError_message] = useState('');
 
-  const [createStoreLoading, setCreateStoreLoading] = useState(false)
+  const [createStoreLoading, setCreateStoreLoading] = useState(false);
   const router = useRouter();
-  
 
   const { auth_key } = useSelector(authSelector);
 
@@ -52,15 +51,15 @@ const CreateStoreForm = () => {
     }
   }, [category]);
 
-  const {isError,errorMessage, account_categories } = useSelector(storeSelector);
+  const { isError, errorMessage, account_categories } =
+    useSelector(storeSelector);
 
-    
-    	const closePopUP = () => {
-        dispatch(clearStoreState());
-        setShowError(false);
-        setError_message('');
-      };
-    
+  const closePopUP = () => {
+    dispatch(clearStoreState());
+    setShowError(false);
+    setError_message('');
+  };
+
   return (
     <div className=" w-full">
       {(showError || isError) && (
@@ -179,12 +178,14 @@ const CreateStoreForm = () => {
           ></textarea>
         </label>
 
-        <label className="block ">
-          <span className="text-gray-700">Account Address</span>
-          <SearchAddress setCoordinates={setCoordinates} />
-        </label>
+        {accounts_configs?.account_address_enabled && (
+          <label className="block ">
+            <span className="text-gray-700">Account Address</span>
+            <SearchAddress setCoordinates={setCoordinates} />
+          </label>
+        )}
 
-        <label className="block">
+        { <label className="block">
           <span className="text-gray-700 ">Categories</span>
           <select
             className="
@@ -206,7 +207,7 @@ const CreateStoreForm = () => {
               </option>
             ))}
           </select>
-        </label>
+        </label>}
         <div>
           <Attribute
             attributeData={attributeData}
@@ -230,7 +231,9 @@ const CreateStoreForm = () => {
               auth_key,
               dispatch,
               setCreateStoreLoading,
-              router
+              router,
+              accounts_configs,
+              account_categories
             )
           }
         >

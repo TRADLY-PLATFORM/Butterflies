@@ -2,11 +2,14 @@ import { useRouter } from 'next/dist/client/router';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
+import { configsSelector } from '../../../store/feature/configsSlice';
 import { myStore, storeSelector } from '../../../store/feature/storeSlice';
 import EditStoreForm from '../../MyStore/EditStore/EditStoreForm';
 
 const EditStorePageLayout = () => {
   const { auth_key, user_details } = useSelector(authSelector);
+const { accounts_configs } = useSelector(configsSelector);
+
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -30,7 +33,13 @@ const EditStorePageLayout = () => {
   return (
     <div className="  flex justify-center ">
       <div className=" bg-white  w-[700px]  p-10">
-        {my_stores !== null && <EditStoreForm my_stores={my_stores} accountId={router.query.id} />}
+        {my_stores !== null && (
+          <EditStoreForm
+            my_stores={my_stores}
+            accountId={router.query.id}
+            accounts_configs={accounts_configs}
+          />
+        )}
       </div>
     </div>
   );

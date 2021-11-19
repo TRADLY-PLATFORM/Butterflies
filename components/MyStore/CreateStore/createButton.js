@@ -1,5 +1,6 @@
 import api from '../../../pages/api/api';
 import { postStore } from '../../../store/feature/storeSlice';
+import tradly from 'tradly';
 
 export const create_store_click = (
   files,
@@ -13,7 +14,9 @@ export const create_store_click = (
   auth_key,
   dispatch,
   setCreateStoreLoading,
-  router
+  router,
+  accounts_configs,
+  account_categories
 ) => {
   setCreateStoreLoading(true);
 
@@ -34,36 +37,33 @@ export const create_store_click = (
     setError_message('Store Description is require');
     setCreateStoreLoading(false);
     return false;
-  } else if (coordinates === null) {
+  } else if (accounts_configs.account_address_enabled && coordinates === null) {
     setShowError(true);
     setError_message('Address is required');
     setCreateStoreLoading(false);
     return false;
   } else if (category === null) {
     setShowError(true);
-    setError_message('category is required');
+    setError_message('Select one category');
     setCreateStoreLoading(false);
     return false;
   }
-  var config = {
-    method: 'post',
-    url: 'v1/utils/S3signedUploadURL',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: {
-      files: [
-        {
-          name: files.name,
-          type: files.type,
-        },
-      ],
-    },
-  };
-  api(config)
+
+  tradly.app
+    .generateS3ImageURL({
+      authKey: auth_key,
+      data: {
+        files: [
+          {
+            name: files.name,
+            type: files.type,
+          },
+        ],
+      },
+    })
     .then((response) => {
-      if (response.data.status) {
-        const fileURL = response.data.data.result[0];
+      if (!response.error) {
+        const fileURL = response.data.result[0];
         const path = fileURL.signedUrl;
         const ImagePath = fileURL.fileUri;
         fetch(path, {
@@ -78,117 +78,137 @@ export const create_store_click = (
               if (attributeData !== null) {
                 const check = attributeData.find((attr) => attr.uploadFile);
                 if (check === undefined) {
-                  let stores = {
-                    account: {
-                      name: name,
-                      category_id: [category],
-                      description: description,
-                      web_address: '',
-                      images: [ImagePath],
-                      coordinates: coordinates,
-                      attributes: attributeData,
-                      type: 'accounts',
-                    },
-                  };
-                  dispatch(
-                    postStore({ id: '', prams: stores, authKey: auth_key })
-                  ).then((res) => {
-                    if (!res.payload.code) {
-                      router.push('/stores/my-store');
-                      setCreateStoreLoading(false);
-                    }
-                  });
-                } else {
-                  let imageUploadConfig = {
-                    method: 'post',
-                    url: 'v1/utils/S3signedUploadURL',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    data: {
-                      files: [
-                        {
-                          name: check.values[0].name,
-                          type: check.values[0].type,
-                        },
-                      ],
-                    },
-                  };
-
-                  api(imageUploadConfig).then((response) => {
-                    if (response.data.status) {
-                      const fileURL = response.data.data.result[0];
-                      const path = fileURL.signedUrl;
-                      const ImagePath2 = fileURL.fileUri;
-                      fetch(path, {
-                        method: 'put',
-                        headers: {
-                          ContentType: check.values[0].type,
-                        },
-                        body: check.values[0],
-                      })
-                        .then((res) => {
-                          const filter = attributeData.filter(
-                            (attr) => !attr.uploadFile
-                          );
-                          const attributeUpdate = [
-                            ...filter,
-                            { values: [ImagePath2], id: check.id },
-                          ];
-                          let stores = {
-                            account: {
-                              name: name,
-                              category_id: [category],
-                              description: description,
-                              web_address: '',
-                              images: [ImagePath],
-                              coordinates: coordinates,
-                              attributes: attributeUpdate,
-                              type: 'accounts',
-                            },
-                          };
-                          dispatch(
-                            postStore({
-                              id: '',
-                              prams: stores,
-                              authKey: auth_key,
-                            })
-                          ).then((res) => {
-                            if (!res.payload.code) {
-                              router.push('/stores/my-store');
-                              setCreateStoreLoading(false);
-                            }
-                          });
-                        })
-                        .catch((error) => {
-                          setCreateStoreLoading(false);
-                          setShowError(true);
-                          setError_message(
-                            error?.response?.data?.error.message
-                          );
-                        });
-                    }
-                  });
-                }
-              } else {
-                let stores = {
-                  account: {
+                  let storesData = {
                     name: name,
                     category_id: [category],
                     description: description,
                     web_address: '',
                     images: [ImagePath],
-                    coordinates: coordinates,
+                    attributes: attributeData,
                     type: 'accounts',
-                  },
+                  };
+                  if (accounts_configs.account_address_enabled) {
+                    storesData['coordinates'] = coordinates;
+                  }
+                  dispatch(
+                    postStore({
+                      id: '',
+                      prams: { account: storesData },
+                      authKey: auth_key,
+                    })
+                  ).then((res) => {
+                    if (!res.payload.code) {
+                      router.push('/stores/my-store');
+                      setCreateStoreLoading(false);
+                    } else {
+                      setCreateStoreLoading(false);
+                      setShowError(true);
+                      setError_message(res.payload.message);
+                    }
+                  });
+                } else {
+                  tradly.app
+                    .generateS3ImageURL({
+                      authKey: auth_key,
+                      data: {
+                        files: [
+                          {
+                            name: check.values[0].name,
+                            type: check.values[0].type,
+                          },
+                        ],
+                      },
+                    })
+                    .then((response) => {
+                      if (!response.error) {
+                        const fileURL = response.data.result[0];
+                        const path = fileURL.signedUrl;
+                        const ImagePath2 = fileURL.fileUri;
+                        fetch(path, {
+                          method: 'put',
+                          headers: {
+                            ContentType: check.values[0].type,
+                          },
+                          body: check.values[0],
+                        })
+                          .then((res) => {
+                            const filter = attributeData.filter(
+                              (attr) => !attr.uploadFile
+                            );
+                            const attributeUpdate = [
+                              ...filter,
+                              { values: [ImagePath2], id: check.id },
+                            ];
+                            let storesData = {
+                              name: name,
+                              category_id: [category],
+                              description: description,
+                              web_address: '',
+                              images: [ImagePath],
+                              attributes: attributeUpdate,
+                              type: 'accounts',
+                            };
+                            if (accounts_configs.account_address_enabled) {
+                              storesData['coordinates'] = coordinates;
+                            }
+                            dispatch(
+                              postStore({
+                                id: '',
+                                prams: { account: storesData },
+                                authKey: auth_key,
+                              })
+                            ).then((res) => {
+                              if (!res.payload.code) {
+                                router.push('/stores/my-store');
+                                setCreateStoreLoading(false);
+                              } else {
+                                setCreateStoreLoading(false);
+                                setShowError(true);
+                                setError_message(res.payload.message);
+                              }
+                            });
+                          })
+                          .catch((error) => {
+                            setCreateStoreLoading(false);
+                            setShowError(true);
+                            setError_message(
+                              error?.response?.data?.error.message
+                            );
+                          });
+                      } else {
+                        setCreateStoreLoading(false);
+                        setShowError(true);
+                        setError_message(response.error.message);
+                      }
+                    });
+                }
+              } else {
+                let storesData = {
+                  name: name,
+                  category_id: [category],
+                  description: description,
+                  web_address: '',
+                  images: [ImagePath],
+                  type: 'accounts',
                 };
+                if (accounts_configs.account_address_enabled) {
+                  storesData['coordinates'] = coordinates;
+                }
 
                 dispatch(
-                  postStore({ id: '', prams: stores, authKey: auth_key })
+                  postStore({
+                    id: '',
+                    prams: { account: storesData },
+                    authKey: auth_key,
+                  })
                 ).then((res) => {
                   if (!res.payload.code) {
                     router.push('/stores/my-store');
                     setCreateStoreLoading(false);
+                  } else {
+                    setCreateStoreLoading(false);
+                    setShowError(true);
+                    setError_message(res.payload.message);
                   }
                 });
               }
@@ -199,6 +219,10 @@ export const create_store_click = (
             setShowError(true);
             setError_message(error.response.data.error.message);
           });
+      } else {
+        setCreateStoreLoading(false);
+        setShowError(true);
+        setError_message(response.error.message);
       }
     })
     .catch((error) => {
