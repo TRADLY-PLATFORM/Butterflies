@@ -40,12 +40,12 @@ export const edit_product_click = (
     setEditProductLoading(false);
     return false;
   }
-  if (description === '') {
-    setShowError(true);
-    setError_message('Description is required');
-    setEditProductLoading(false);
-    return false;
-  }
+  // if (description === '') {
+  //   setShowError(true);
+  //   setError_message('Description is required');
+  //   setEditProductLoading(false);
+  //   return false;
+  // }
   if (price === '') {
     setShowError(true);
     setError_message('Price is required');
@@ -122,7 +122,6 @@ export const edit_product_click = (
                         const listingData = {
                           listing: {
                             list_price: price,
-                            description: description,
                             account_id: accountId,
                             currency_id: currency,
                             attributes: attributeData,
@@ -141,6 +140,9 @@ export const edit_product_click = (
                         }
                         if (listing_configs.show_shipping_charges) {
                           listingData['shipping_charges'] = shippingCharge;
+                        }
+                        if (!description === '') {
+                          listingData['description'] = description;
                         }
 
                         // ekhane
@@ -196,7 +198,6 @@ export const edit_product_click = (
                                   const listingData = {
                                     listing: {
                                       list_price: price,
-                                      description: description,
                                       account_id: accountId,
                                       currency_id: currency,
                                       attributes: attributeUpdate,
@@ -219,6 +220,9 @@ export const edit_product_click = (
                                   if (listing_configs.show_shipping_charges) {
                                     listingData['shipping_charges'] =
                                       shippingCharge;
+                                  }
+                                  if (!description === '') {
+                                    listingData['description'] = description;
                                   }
 
                                   // ekhane
@@ -255,17 +259,14 @@ export const edit_product_click = (
                       }
                     } else {
                       const listingData = {
-                        listing: {
-                          list_price: price,
-                          description: description,
-                          account_id: accountId,
-                          currency_id: currency,
-                          title: title,
-                          offer_percent: offerPercent,
-                          images: responseFiles.map((res) => res.fileUri),
-                          category_id: [selectedCategory],
-                          type: 'listings',
-                        },
+                        list_price: price,
+                        account_id: accountId,
+                        currency_id: currency,
+                        title: title,
+                        offer_percent: offerPercent,
+                        images: responseFiles.map((res) => res.fileUri),
+                        category_id: [selectedCategory],
+                        type: 'listings',
                       };
                       if (listing_configs.listing_address_enabled) {
                         listingData['coordinates'] = coordinates;
@@ -276,18 +277,21 @@ export const edit_product_click = (
                       if (listing_configs.show_shipping_charges) {
                         listingData['shipping_charges'] = shippingCharge;
                       }
+                      if (!description === '') {
+                        listingData['description'] = description;
+                      }
 
                       // ekhane
                       trady.app
                         .postListing({
                           id: productId,
                           authKey: auth_key,
-                          data: listingData,
+                          data: { listing: listingData },
                         })
                         .then((res) => {
                           if (!res.error) {
                             setEditProductLoading(false);
-                           setShowSuccessMessage(true);
+                            setShowSuccessMessage(true);
                           } else {
                             setShowError(true);
                             setError_message(res?.error?.message);
@@ -320,18 +324,16 @@ export const edit_product_click = (
       const check = attributeData.find((attr) => attr.uploadFile);
       if (check === undefined) {
         const listingData = {
-          listing: {
-            list_price: price,
-            description: description,
-            account_id: accountId,
-            currency_id: currency,
-            attributes: attributeData,
-            title: title,
-            offer_percent: offerPercent,
-            images: imagePath.map((item) => item.path),
-            category_id: [selectedCategory],
-            type: 'listings',
-          },
+          list_price: price,
+
+          account_id: accountId,
+          currency_id: currency,
+          attributes: attributeData,
+          title: title,
+          offer_percent: offerPercent,
+          images: imagePath.map((item) => item.path),
+          category_id: [selectedCategory],
+          type: 'listings',
         };
         if (listing_configs.listing_address_enabled) {
           listingData['coordinates'] = coordinates;
@@ -342,13 +344,16 @@ export const edit_product_click = (
         if (listing_configs.show_shipping_charges) {
           listingData['shipping_charges'] = shippingCharge;
         }
+        if (!description === '') {
+          listingData['description'] = description;
+        }
 
         // ekhane
         trady.app
           .postListing({
             id: productId,
             authKey: auth_key,
-            data: listingData,
+            data: { listing: listingData },
           })
           .then((res) => {
             if (!res.error) {
@@ -394,18 +399,15 @@ export const edit_product_click = (
                     { values: [ImagePath2], id: check.id },
                   ];
                   const listingData = {
-                    listing: {
-                      list_price: price,
-                      description: description,
-                      account_id: accountId,
-                      currency_id: currency,
-                      attributes: attributeUpdate,
-                      title: title,
-                      offer_percent: offerPercent,
-                      images: imagePath.map((item) => item.path),
-                      category_id: [selectedCategory],
-                      type: 'listings',
-                    },
+                    list_price: price,
+                     account_id: accountId,
+                    currency_id: currency,
+                    attributes: attributeUpdate,
+                    title: title,
+                    offer_percent: offerPercent,
+                    images: imagePath.map((item) => item.path),
+                    category_id: [selectedCategory],
+                    type: 'listings',
                   };
 
                   if (listing_configs.listing_address_enabled) {
@@ -417,13 +419,15 @@ export const edit_product_click = (
                   if (listing_configs.show_shipping_charges) {
                     listingData['shipping_charges'] = shippingCharge;
                   }
-
+ if (!description === '') {
+   listingData['description'] = description;
+ }
                   // ekhane
                   trady.app
                     .postListing({
                       id: productId,
                       authKey: auth_key,
-                      data: listingData,
+                      data: { listing: listingData },
                     })
                     .then((res) => {
                       if (!res.error) {
@@ -446,17 +450,14 @@ export const edit_product_click = (
       }
     } else {
       const listingData = {
-        listing: {
-          list_price: price,
-          description: description,
-          account_id: accountId,
-          currency_id: currency,
-          title: title,
-          offer_percent: offerPercent,
-          images: imagePath.map((item) => item.path),
-          category_id: [selectedCategory],
-          type: 'listings',
-        },
+        list_price: price,
+        account_id: accountId,
+        currency_id: currency,
+        title: title,
+        offer_percent: offerPercent,
+        images: imagePath.map((item) => item.path),
+        category_id: [selectedCategory],
+        type: 'listings',
       };
       if (listing_configs.listing_address_enabled) {
         listingData['coordinates'] = coordinates;
@@ -467,13 +468,15 @@ export const edit_product_click = (
       if (listing_configs.show_shipping_charges) {
         listingData['shipping_charges'] = shippingCharge;
       }
-
+      if (!description === '') {
+        listingData['description'] = description;
+      }
       // ekhane
       trady.app
         .postListing({
           id: productId,
           authKey: auth_key,
-          data: listingData,
+          data: { listing: listingData },
         })
         .then((res) => {
           if (!res.error) {

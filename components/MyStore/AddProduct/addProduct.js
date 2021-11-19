@@ -38,12 +38,12 @@ export const add_product_click = (
     setAddProductLoading(false);
     return false;
   }
-  if (description === '') {
-    setShowError(true);
-    setError_message('Description is required');
-    setAddProductLoading(false);
-    return false;
-  }
+  // if (description === '') {
+  //   setShowError(true);
+  //   setError_message('Description is required');
+  //   setAddProductLoading(false);
+  //   return false;
+  // }
   if (price === '') {
     setShowError(true);
     setError_message('Price is required');
@@ -116,8 +116,7 @@ export const add_product_click = (
                     if (check === undefined) {
                       const listingData = {
                         list_price: price,
-                        description: description,
-                        account_id: accountId,
+                         account_id: accountId,
                         currency_id: currency,
                         attributes: attributeData,
                         title: title,
@@ -135,6 +134,9 @@ export const add_product_click = (
                       if (listing_configs.show_shipping_charges) {
                         listingData['shipping_charges'] = shippingCharge;
                       }
+                       if (!description === '') {
+                         listingData['description'] = description;
+                       }
 
                       // ekhane
                       tradly.app
@@ -310,8 +312,7 @@ export const add_product_click = (
                                 ];
                                 const listingData = {
                                   list_price: price,
-                                  description: description,
-                                  account_id: accountId,
+                                   account_id: accountId,
                                   currency_id: currency,
                                   attributes: attributeUpdate,
                                   title: title,
@@ -333,6 +334,9 @@ export const add_product_click = (
                                   listingData['shipping_charges'] =
                                     shippingCharge;
                                 }
+                                 if (!description === '') {
+                                   listingData['description'] = description;
+                                 }
 
                                 // ekhane
                                 tradly.app
@@ -506,8 +510,7 @@ export const add_product_click = (
                   } else {
                     const listingData = {
                       list_price: price,
-                      description: description,
-                      account_id: accountId,
+                       account_id: accountId,
                       currency_id: currency,
                       title: title,
                       offer_percent: offerPercent,
@@ -524,6 +527,9 @@ export const add_product_click = (
                     if (listing_configs.show_shipping_charges) {
                       listingData['shipping_charges'] = shippingCharge;
                     }
+                     if (!description === '') {
+                       listingData['description'] = description;
+                     }
 
                     // ekhane
                     tradly.app

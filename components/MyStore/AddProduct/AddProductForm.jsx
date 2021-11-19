@@ -251,7 +251,7 @@ const AddProductForm = () => {
               ></textarea>
             </label>
 
-            {listing_configs.listing_address_enabled && (
+            {listing_configs?.listing_address_enabled && (
               <label className="block ">
                 <span className="text-gray-700"> Address</span>
                 <SearchAddress setCoordinates={setCoordinates} />

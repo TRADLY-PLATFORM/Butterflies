@@ -125,6 +125,7 @@ const [error_message, setError_message] = useState('');
               message={'Your schedules updated successfully'}
               setShowSuccessMessage={setShowSuccessMessage}
               dispatch={dispatch}
+              productId={productId}
               auth_key={auth_key}
             />
           </OutsideClickHandler>
@@ -207,16 +208,16 @@ const [error_message, setError_message] = useState('');
                     </button>
                     <button
                       onClick={() => {
-                         deleteSchedule(
-                           setError_message,
-                           setShowError,
-                           setEditScheduleLoading,
-                           schedulesArray,
-                           productId,
-                           auth_key,
-                           setShowSuccessMessage,
-                           index
-                         );
+                        deleteSchedule(
+                          setError_message,
+                          setShowError,
+                          setEditScheduleLoading,
+                          schedulesArray,
+                          productId,
+                          auth_key,
+                          setShowSuccessMessage,
+                          index
+                        );
                       }}
                     >
                       <svg
@@ -282,7 +283,28 @@ const [error_message, setError_message] = useState('');
         </div>
       </div>
       {isScheduleFormOpen && isEditSchedule && (
-        <div className="mt-6  ">
+        <div className="mt-6 relative ">
+          <button
+            className="absolute top  right-0 text-primary font-semibold text-xl mt-5 mr-5"
+            onClick={() => {
+              setIsScheduleFormOpen(false), setIsEditSchedule(false);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
           <ScheduleForm
             schedulesObject={schedulesObject}
             setSchedulesObject={setSchedulesObject}
@@ -293,7 +315,28 @@ const [error_message, setError_message] = useState('');
         </div>
       )}
       {isScheduleFormOpen && !isEditSchedule && (
-        <div className="mt-6  ">
+        <div className="mt-6 relative ">
+          <button
+            className="absolute top  right-0 text-primary font-semibold text-xl mt-5 mr-5"
+            onClick={() => {
+              setIsScheduleFormOpen(false);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
           <AddScheduleForm
             schedulesObject={schedulesObject}
             setSchedulesObject={setSchedulesObject}

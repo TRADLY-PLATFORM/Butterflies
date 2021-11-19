@@ -38,8 +38,7 @@ const EditProductForm = () => {
   const [editProductLoading, setEditProductLoading] = useState(false);
   const [addressSearchKey, setAddressSearchKey] = useState('');
 
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const { auth_key } = useSelector(authSelector);
 
@@ -90,15 +89,20 @@ const EditProductForm = () => {
           authKey: auth_key,
         })
       );
-      setAttributeData(
-        my_account_listing_details.attributes.map((attr) => {
-          if (attr.field_type === 1 || attr.field_type === 2) {
-            return { id: attr.id, values: attr.values.map((item) => item.id) };
-          } else if (attr.field_type === 3 || attr.field_type === 4) {
-            return { id: attr.id, values: attr.values.map((item) => item) };
-          }
-        })
-      );
+      if (my_account_listing_details.attributes.length > 0) {
+        setAttributeData(
+          my_account_listing_details.attributes.map((attr) => {
+            if (attr.field_type === 1 || attr.field_type === 2) {
+              return {
+                id: attr.id,
+                values: attr.values.map((item) => item.id),
+              };
+            } else if (attr.field_type === 3 || attr.field_type === 4) {
+              return { id: attr.id, values: attr.values.map((item) => item) };
+            }
+          })
+        );
+      }
     }
   }, [my_account_listing_details]);
 
@@ -317,7 +321,7 @@ const EditProductForm = () => {
           ></textarea>
         </label>
 
-        {listing_configs.listing_address_enabled && (
+        {listing_configs?.listing_address_enabled && (
           <label className="block ">
             <span className="text-gray-700">Store Address</span>
             <SearchAddress

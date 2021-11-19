@@ -2,14 +2,21 @@
 import React, { useEffect, useState } from 'react';
 import icon from '../../../../assets/Images/Home/pexels-photo-789812 1.png';
 import Image from 'next/image';
- import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../../store/feature/authSlice';
 import tradly from 'tradly';
 import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../../../Shared/PopUp/PopUp';
-import { myAccountListingDetails, storeSelector } from '../../../../store/feature/storeSlice';
+import {
+  myAccountListingDetails,
+  storeSelector,
+} from '../../../../store/feature/storeSlice';
 import EditVariantsForm from './EditVariantsForm';
-import { addNewVariant, deleteVariant, editVariantButton } from './variantButton';
+import {
+  addNewVariant,
+  deleteVariant,
+  editVariantButton,
+} from './variantButton';
 import { useRouter } from 'next/dist/client/router';
 import { getThumbnailImage } from '../../../Shared/Constant/Constant';
 import Modal from '../../../Shared/Modal.jsx/Modal';
@@ -100,15 +107,14 @@ const EditVariantsPart = () => {
   };
 
   const addVariantClick = () => {
-    
-     const check = my_account_listing_details.variants?.find(
-       (item) =>
-         item.variant_values[0].variant_type_id ===
-           variantsObject.variant_type &&
-         item.variant_values[0].variant_type_value_id ===
-           variantsObject.variant_type_value
+    const check = my_account_listing_details.variants?.find(
+      (item) =>
+        item.variant_values[0].variant_type_id ===
+          variantsObject.variant_type &&
+        item.variant_values[0].variant_type_value_id ===
+          variantsObject.variant_type_value
     );
-    
+
     if (check === undefined) {
       const variantId = '';
       addNewVariant(
@@ -322,7 +328,30 @@ const EditVariantsPart = () => {
         )}
       </div>
       {showVariantForm && isEditVariant && editVariantData !== null && (
-        <div className="  bg-white w-full min-h-[300px] mt-4">
+        <div className="  bg-white w-full min-h-[300px] mt-4 relative">
+          <button
+            className="absolute top  right-0 text-primary font-semibold text-xl mt-5 mr-5"
+            onClick={() => {
+              setShowVariantForm(false),
+                setIsEditVariant(false),
+                setEditVariantData(null);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
           <EditVariantsForm
             editVariantData={editVariantData}
             variantsType={variantsType}
@@ -336,15 +365,36 @@ const EditVariantsPart = () => {
         </div>
       )}
       {showVariantForm && !isEditVariant && (
-        <AddVariantsForm
-          variantsType={variantsType}
-          variantsObject={variantsObject}
-          setVariantsObject={setVariantsObject}
-          addVariantClick={addVariantClick}
-          setShowError={setShowError}
-          setError_message={setError_message}
-          addvariantLoading={addvariantLoading}
-        />
+        <div className="  bg-white w-full min-h-[300px] mt-4 relative">
+          <button
+            className="absolute top  right-0 text-primary font-semibold text-xl mt-5 mr-5"
+            onClick={() => setShowVariantForm(false)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <AddVariantsForm
+            variantsType={variantsType}
+            variantsObject={variantsObject}
+            setVariantsObject={setVariantsObject}
+            addVariantClick={addVariantClick}
+            setShowError={setShowError}
+            setError_message={setError_message}
+            addvariantLoading={addvariantLoading}
+          />
+        </div>
       )}
     </>
   );
