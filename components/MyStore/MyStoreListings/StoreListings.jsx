@@ -77,7 +77,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
           >
             <div className=" ms:w-[190px]  h-[190px] relative">
               <Image
-                src={getThumbnailImage(item.images[0])}
+                src={item.images[0]}
                 alt={item.title}
                 layout="fill"
                 objectFit="cover"

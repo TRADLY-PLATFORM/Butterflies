@@ -48,6 +48,12 @@ const ScheduleForm = ({
       repeat_days: editScheduleData.repeat_days,
       active: true,
     });
+    setRepeatValue(editScheduleData.repeat_days);
+
+    if (findRepeatId(schedulesObject?.repeat_days).id === "custom") {
+      setShowCustomRepeatValue(true);
+    }
+
   }, [editScheduleData]);
   console.log('====================================');
   console.log(schedulesObject);
@@ -200,7 +206,7 @@ const ScheduleForm = ({
                 value={item.id}
                 selected={
                   item.id ===
-                  findRepeatId(schedulesObject?.repeat_days, item.id).id
+                  findRepeatId(schedulesObject?.repeat_days).id
                     ? true
                     : false
                 }
