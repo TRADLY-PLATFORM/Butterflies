@@ -186,6 +186,8 @@ const EditVariantsPart = () => {
               message={'Your variants updated successfully'}
               setShowSuccessMessage={setShowSuccessMessage}
               dispatch={dispatch}
+              productId={productId}
+              auth_key={auth_key}
             />
           </OutsideClickHandler>
         </Modal>

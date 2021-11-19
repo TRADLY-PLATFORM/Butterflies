@@ -1,13 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
- import Select from 'react-select';
- import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import { storeSelector } from '../../../store/feature/storeSlice';
- 
-const Attribute = ({ attributeData, setAttributeData }) => {
 
-    const{attributes}=useSelector(storeSelector)
+const Attribute = ({ attributeData, setAttributeData }) => {
+  const { attributes } = useSelector(storeSelector);
 
   // statte
   const [file, setFile] = useState(null);
@@ -191,12 +190,11 @@ const Attribute = ({ attributeData, setAttributeData }) => {
         // Data
         let options;
         if (attr.field_type === 1 || attr.field_type === 2) {
-          options = attr.values?.map((value,index) => {
+          options = attr.values?.map((value, index) => {
             return {
               value: value.name,
               label: value.name,
               id: value.id,
-              isOptionSelected:index ===1?true:false,
             };
           });
         }
@@ -225,7 +223,8 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                       )
                     }
                     placeholder={'Select your' + ' ' + attr.name}
-                      options={options}
+                     
+                    options={options}
                   />
                 </div>
               )}

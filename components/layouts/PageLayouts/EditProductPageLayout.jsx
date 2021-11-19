@@ -9,6 +9,7 @@ import {
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import EditProductForm from '../../MyStore/EditProduct/EditProductForm';
+import EditSchedulePart from '../../MyStore/EditProduct/schedule/EditSchedulePart';
 import EditVariantsPart from '../../MyStore/EditProduct/Variants/EditVariantsPart';
 
 const EditProductPageLayout = () => {
@@ -31,14 +32,17 @@ const EditProductPageLayout = () => {
     }
   }, [auth_key]);
   return (
-    <div className="  flex justify-center ">
-      <div>
-        <div className=" bg-white  w-[700px]  p-10">
+    <div className="  w-full pt-2  pb-20 flex items-center c-lg:items-start  flex-col gap-8 md:gap-2   c-lg:flex-row justify-center">
+      <div className="w-full  xs:w-[500px]  c-lg:w-[450px] xl:w-[500px]  2xl:w-[600px] ">
+        <div className=" bg-white  w-full  p-5 shadow-c-sm rounded-lg">
           {listing_configs !== null && <EditProductForm />}
         </div>
-        <div className="    w-[700px]  mt-9">
+        <div className="    w-[full  mt-9">
           {listing_configs !== null && <EditVariantsPart />}
         </div>
+      </div>
+      <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full  xs:w-[500px] c-lg:w-[380px]  xl:w-[438px]">
+        <EditSchedulePart />
       </div>
     </div>
   );
