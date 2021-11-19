@@ -10,14 +10,14 @@ import {
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import { useSelector } from 'react-redux';
- import { authSelector } from '../../../store/feature/authSlice';
+import { authSelector } from '../../../store/feature/authSlice';
 import Attribute from './Attribute';
 import PopUp from '../../Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
-import {   edit_store_click } from './editButton';
+import { edit_store_click } from './editButton';
 import { useRouter } from 'next/dist/client/router';
 
-const EditStoreForm = ({ my_stores, accountId }) => {
+const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
   const [imagePath, setImagePath] = useState(null);
   const [files, setFiles] = useState(null);
   const [name, setName] = useState(null);
@@ -29,7 +29,6 @@ const EditStoreForm = ({ my_stores, accountId }) => {
 
   const [showError, setShowError] = useState(false);
   const [error_message, setError_message] = useState('');
-
 
   const [editStoreLoading, setEditStoreLoading] = useState(false);
   const router = useRouter();
@@ -71,6 +70,10 @@ const EditStoreForm = ({ my_stores, accountId }) => {
     setError_message('');
   };
 
+  console.log('====================================');
+  console.log(accounts_configs);
+  console.log('====================================');
+
   return (
     <div className=" w-full">
       {(showError || isError) && (
@@ -96,7 +99,7 @@ const EditStoreForm = ({ my_stores, accountId }) => {
         Edit Your Account
       </h3>
       <div className="grid grid-cols-1 gap-6">
-        <label className="block">
+        <div className="block">
           <span className="text-gray-700">Account Image</span>
           <input
             id="imageButton"
@@ -156,7 +159,7 @@ const EditStoreForm = ({ my_stores, accountId }) => {
               </button>
             )}
           </div>
-        </label>
+        </div>
         <label className="block">
           <span className="text-gray-700">Account name</span>
           <input
@@ -191,14 +194,16 @@ const EditStoreForm = ({ my_stores, accountId }) => {
           ></textarea>
         </label>
 
-        <label className="block ">
-          <span className="text-gray-700">Account Address</span>
-          <SearchAddress
-            setCoordinates={setCoordinates}
-            addressSearchKey={addressSearchKey}
-            setAddressSearchKey={setAddressSearchKey}
-          />
-        </label>
+        {accounts_configs.account_address_enabled && (
+          <label className="block ">
+            <span className="text-gray-700">Account Address</span>
+            <SearchAddress
+              setCoordinates={setCoordinates}
+              addressSearchKey={addressSearchKey}
+              setAddressSearchKey={setAddressSearchKey}
+            />
+          </label>
+        )}
 
         <label className="block">
           <span className="text-gray-700 ">Categories</span>
@@ -211,7 +216,9 @@ const EditStoreForm = ({ my_stores, accountId }) => {
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-            onChange={(e) => setCategory(Number(e.target.value))}
+            onChange={(e) => {
+              setCategory(Number(e.target.value)), setAttributeData(null);
+            }}
           >
             <option hidden selected>
               Select Category
@@ -248,7 +255,8 @@ const EditStoreForm = ({ my_stores, accountId }) => {
               dispatch,
               accountId,
               setEditStoreLoading,
-              router
+              router,
+              accounts_configs
             )
           }
         >

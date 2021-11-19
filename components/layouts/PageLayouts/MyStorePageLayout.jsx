@@ -33,7 +33,7 @@ const MyStorePageLayout = () => {
         if (!res.payload.code) {
           dispatch(
             myAccountListings({
-              prams: { page: 1, account_id: res.payload.accounts[0].id },
+              prams: { page: 1, account_id: res.payload.accounts[0]?.id },
               authKey: auth_key,
             })
           );

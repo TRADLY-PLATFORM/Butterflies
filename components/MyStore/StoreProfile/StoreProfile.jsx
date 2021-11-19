@@ -16,7 +16,7 @@ const StoreProfile = ({ my_stores }) => {
         <div className=" flex items-center">
           <div className=" w-[70px] h-[70px] rounded-full overflow-hidden  relative   mr-6 ">
             <Image
-              src={getThumbnailImage(my_stores[0]?.images[0])}
+              src={my_stores[0]?.images[0]}
               layout="fill"
               objectFit="cover"
               alt="banner"
