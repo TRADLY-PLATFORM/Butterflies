@@ -7,10 +7,13 @@ import { authSelector } from '../../../../store/feature/authSlice';
 import {
   changeOrderStatus,
   get_order_details,
+  store_orderSelector,
+  store_orderSlice,
 } from '../../../../store/feature/store_orderSlice';
 
 import { changeDateFormat } from '../../../Shared/Constant/Constant';
 import { changeStatus, orderStatus } from '../../../Shared/Constant/Status';
+import CustomLoading from '../../../Shared/Loading/CustomLoading';
 
 const OrderSummary = ({ order_details }) => {
   const dispatch = useDispatch();
@@ -42,8 +45,10 @@ const OrderSummary = ({ order_details }) => {
       });
     }
   };
+  const { isChangeStatusFetching } = useSelector(store_orderSelector);
   return (
     <div className="w-full h-min-[300px] bg-white  shadow-c-sm rounded-lg p-[30px] border-opacity-40">
+      {isChangeStatusFetching && <CustomLoading />}
       <div className="flex justify-between items-center">
         <p className=" text-lg text-black font-semibold   ">Order Summary</p>
         <button className=" bg-gray-200  px-6 py-2 rounded-lg text-primary font-semibold">
@@ -86,7 +91,7 @@ const OrderSummary = ({ order_details }) => {
           </p>
         </div>
       </div>
-      <div className=" flex justify-center items-center mt-3">
+      <div className=" flex justify-end items-center mt-3">
         {/* <button className="bg-primary px-2 py-2 rounded-md text-white">
 					View Order History
 				</button> */}
@@ -94,7 +99,7 @@ const OrderSummary = ({ order_details }) => {
         <select
           className="
                     block
-                      w-[90%] sm:w-[80%]
+                      w-[50%] sm:w-[50%]
                     
                     rounded-lg
                     
@@ -103,16 +108,22 @@ const OrderSummary = ({ order_details }) => {
                   "
           onChange={(e) => status_change(e, order_details)}
         >
-          <option value={false} selected>
+          <option value={false} selected hidden>
             Change Status
           </option>
-          {order_details?.next_status.map((status) => {
-            return (
-              <option key={Math.random()} value={status}>
-                {changeStatus(status)}
-              </option>
-            );
-          })}
+          {order_details?.next_status.length > 0 ? (
+            order_details?.next_status.map((status) => {
+              return (
+                <option key={Math.random()} value={status}>
+                  {changeStatus(status)}
+                </option>
+              );
+            })
+          ) : (
+            <option  disabled >
+               No status for change
+            </option>
+          )}
         </select>
       </div>
     </div>

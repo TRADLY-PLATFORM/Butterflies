@@ -71,6 +71,7 @@ export const store_orderSlice = createSlice({
   name: 'store_order',
   initialState: {
     isFetching: false,
+    isChangeStatusFetching:false,
     isSuccess: false,
     isError: false,
     errorMessage: '',
@@ -145,24 +146,24 @@ export const store_orderSlice = createSlice({
     },
     [changeOrderStatus.fulfilled]: (state, { payload }) => {
       if (payload.code) {
-        state.isFetching = false;
+        state.isChangeStatusFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
       } else {
         state.isError = false;
-        state.isFetching = false;
+        state.isChangeStatusFetching = false;
         state.isSuccess = true;
       }
     },
     [changeOrderStatus.pending]: (state) => {
       state.isSuccess = false;
-      state.isFetching = true;
+      state.isChangeStatusFetching = true;
       state.isError = false;
       state.errorMessage = '';
     },
     [changeOrderStatus.rejected]: (state, { payload }) => {
-      state.isFetching = false;
+      state.isChangeStatusFetching = false;
       state.isError = true;
       state.errorMessage = payload?.message;
     },

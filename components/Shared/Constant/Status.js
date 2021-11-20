@@ -19,10 +19,10 @@ export const orderStatus = (id) => {
 		return "Out for delivery";
 	}
 	if (id === 7) {
-		return "Not delivered, returned";
+		return "Returned";
 	}
 	if (id === 8) {
-		return "Not delivered, return confirmed";
+		return " Return confirmed";
 	}
 	if (id === 9) {
 		return "Delivered";
@@ -73,10 +73,10 @@ export const changeStatus = (id) => {
 		return "Out for delivery";
 	}
 	if (id === 7) {
-		return "Not delivered, returned";
+		return "  returned";
 	}
 	if (id === 8) {
-		return "Not delivered, return confirmed";
+		return " return confirmed";
 	}
 	if (id === 9) {
 		return "Delivered";
@@ -97,10 +97,10 @@ export const changeStatus = (id) => {
 		return "Return disputed";
 	}
 	if (id === 15) {
-		return "Cancel by seller ";
+		return "Cancel Order ";
 	}
 	if (id === 16) {
-		return "Cancel by customer";
+		return "Cancel Order";
 	}
 	if (id === 17) {
 		return "Ready for pickup";

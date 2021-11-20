@@ -98,7 +98,7 @@ const OrderSummary = ({ order_details }) => {
                   "
           onChange={(e) => status_change(e, order_details)}
         >
-          <option value={false}   selected  >
+          <option value={false}   selected hidden >
             Change Status
           </option>
           {order_details?.next_status.map((status) => {
