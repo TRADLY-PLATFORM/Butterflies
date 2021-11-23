@@ -67,8 +67,6 @@ input[type="number"] {
   100% { opacity: 0 }
 }
 .ldio-uqpdw6hds div {
-  left: 94px;
-  top: 48px;
   position: absolute;
   animation: ldio-uqpdw6hds linear 1s infinite;
   background: var( --primary_color);

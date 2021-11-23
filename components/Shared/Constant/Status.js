@@ -73,10 +73,10 @@ export const changeStatus = (id) => {
 		return "Out for delivery";
 	}
 	if (id === 7) {
-		return "  returned";
+		return "  return";
 	}
 	if (id === 8) {
-		return " return confirmed";
+		return " return confirm";
 	}
 	if (id === 9) {
 		return "Delivered";

@@ -1,21 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../../store/feature/authSlice';
-import {
-  changeOrderStatus,
-  get_order_details,
-  store_orderSelector,
-  store_orderSlice,
-} from '../../../../store/feature/store_orderSlice';
-
-import { changeDateFormat } from '../../../Shared/Constant/Constant';
-import { changeStatus, orderStatus } from '../../../Shared/Constant/Status';
+import { changeOrderStatus, get_order_details, store_orderSelector } from '../../../../store/feature/store_orderSlice';
+import { changeStatus } from '../../../Shared/Constant/Status';
 import CustomLoading from '../../../Shared/Loading/CustomLoading';
 
-const OrderSummary = ({
+const Status = ({
   order_details,
   setShowError,
   setError_message,
@@ -90,62 +82,9 @@ const OrderSummary = ({
   return (
     <div>
       {isChangeStatusFetching && <CustomLoading />}
-      <div className="w-full h-min-[300px] bg-white  shadow-c-sm rounded-lg p-[30px] border-opacity-40">
-        <div className="flex justify-between items-center">
-          <p className=" text-lg text-black font-semibold   ">Order Summary</p>
-          <p className="     rounded-lg text-primary font-semibold">
-            {orderStatus(order_details?.order_status)}
-          </p>
-        </div>
-        <div>
-          <div className=" flex justify-between items-center py-4  ">
-            <p className=" text-sm text-black font-semibold  ">Order Created</p>
-            <p className=" text-sm text-black font-semibold   text-opacity-70">
-              {changeDateFormat(order_details?.created_at, 'DD/MM/YYYY')}
-            </p>
-          </div>
-          <div className=" flex justify-between items-center py-4  ">
-            <p className=" text-sm text-black font-semibold  ">Order Time</p>
-            <p className=" text-sm text-black font-semibold   text-opacity-70">
-              {changeDateFormat(order_details?.created_at, 'hh:mm A')}
-            </p>
-          </div>
-          <div className=" flex justify-between items-center py-4  ">
-            <p className=" text-sm text-black font-semibold  ">Subtotal</p>
-            <p className=" text-sm text-black font-semibold flex items-center  ">
-              <span className=" text-xs text-opacity-70 font-normal">
-                {order_details?.list_total.currency}
-              </span>
-              <span className=" ml-[6px] text-opacity-80">
-                {order_details?.list_total.amount}
-              </span>
-            </p>
-          </div>
-          <div className=" flex justify-between items-center py-4  ">
-            <p className=" text-sm text-black font-semibold  ">Delivery Fee</p>
-            <p className=" text-sm text-black font-semibold    text-opacity-70 flex items-center flex-wrap">
-              <span className="text-xs text-opacity-70 font-normal">
-                {order_details?.shipping_total.currency}
-              </span>
-              <span className="ml-[6px]">
-                {order_details?.shipping_total.amount}
-              </span>
-            </p>
-          </div>
-          <div className=" flex justify-between items-center py-4  ">
-            <p className=" text-sm text-black font-semibold  ">Total</p>
-            <p className=" text-sm text-black font-semibold   text-opacity-70 flex flex-wrap">
-              <span className=" text-xm  font-normal">
-                {order_details?.grand_total.currency}
-              </span>
-              <span className=" ml-2">{order_details?.grand_total.amount}</span>
-            </p>
-          </div>
-        </div>
-      </div>
       <div className="w-full h-min-[100px] bg-white  shadow-c-sm rounded-lg py-5 px-[30px] border-opacity-40 flex justify-between items-center mt-5">
         <span className=" text-lg text-primary font-semibold">
-          Change Status:
+          Change Order Status:
         </span>
 
         <select
@@ -180,4 +119,4 @@ const OrderSummary = ({
   );
 };
 
-export default OrderSummary;
+export default Status;

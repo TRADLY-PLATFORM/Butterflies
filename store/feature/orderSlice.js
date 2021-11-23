@@ -67,105 +67,106 @@ export const changeOrderStatus = createAsyncThunk(
  
 
 export const orderSlice = createSlice({
-	name: "order",
-	initialState: {
-		isFetching: false,
-		isSuccess: false,
-		isError: false,
-		errorMessage: "",
-		orders: null,
-		order_details: null,
-	},
-	reducers: {
-		clearOrderState: (state) => {
-			state.isError = false;
-			state.isSuccess = false;
-			state.isFetching = false;
-			state.errorMessage = "";
-			return state;
-		},
-		clearOrderDetails: (state) => {
-			state.isError = false;
-			state.isSuccess = false;
-			state.isFetching = false;
-			state.errorMessage = "";
-			state.order_details = null;
-			return state;
-		},
-	},
-	extraReducers: {
-		[get_orders.fulfilled]: (state, { payload }) => {
-			if (payload.code) {
-				state.isFetching = false;
-				state.isError = true;
-				state.isSuccess = false;
-				state.errorMessage = payload?.message;
-			} else {
-				state.isError = false;
-				state.isFetching = false;
-				state.isSuccess = true;
-				state.orders = payload?.orders;
-			}
-		},
-		[get_orders.pending]: (state) => {
-			state.isSuccess = false;
-			state.isFetching = true;
-			state.isError = false;
-			state.errorMessage = "";
-		},
-		[get_orders.rejected]: (state, { payload }) => {
-			state.isFetching = false;
-			state.isError = true;
-			state.errorMessage = payload?.message;
-		},
-		[get_order_details.fulfilled]: (state, { payload }) => {
-			if (payload.code) {
-				state.isFetching = false;
-				state.isError = true;
-				state.isSuccess = false;
-				state.errorMessage = payload?.message;
-			} else {
-				state.isError = false;
-				state.isFetching = false;
-				state.isSuccess = true;
-				state.order_details = payload?.order;
-			}
-		},
-		[get_order_details.pending]: (state) => {
-			state.isSuccess = false;
-			state.isFetching = true;
-			state.isError = false;
-			state.errorMessage = "";
-		},
-		[get_order_details.rejected]: (state, { payload }) => {
-			state.isFetching = false;
-			state.isError = true;
-			state.errorMessage = payload?.message;
-		},
-		[changeOrderStatus.fulfilled]: (state, { payload }) => {
-			if (payload.code) {
-				state.isFetching = false;
-				state.isError = true;
-				state.isSuccess = false;
-				state.errorMessage = payload?.message;
-			} else {
-				state.isError = false;
-				state.isFetching = false;
-				state.isSuccess = true;
-			}
-		},
-		[changeOrderStatus.pending]: (state) => {
-			state.isSuccess = false;
-			state.isFetching = true;
-			state.isError = false;
-			state.errorMessage = "";
-		},
-		[changeOrderStatus.rejected]: (state, { payload }) => {
-			state.isFetching = false;
-			state.isError = true;
-			state.errorMessage = payload?.message;
-		},
-	},
+  name: 'order',
+  initialState: {
+    isFetching: false,
+    isChangeStatusFetching: false,
+    isSuccess: false,
+    isError: false,
+    errorMessage: '',
+    orders: null,
+    order_details: null,
+  },
+  reducers: {
+    clearOrderState: (state) => {
+      state.isError = false;
+      state.isSuccess = false;
+      state.isFetching = false;
+      state.errorMessage = '';
+      return state;
+    },
+    clearOrderDetails: (state) => {
+      state.isError = false;
+      state.isSuccess = false;
+      state.isFetching = false;
+      state.errorMessage = '';
+      state.order_details = null;
+      return state;
+    },
+  },
+  extraReducers: {
+    [get_orders.fulfilled]: (state, { payload }) => {
+      if (payload.code) {
+        state.isFetching = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
+      } else {
+        state.isError = false;
+        state.isFetching = false;
+        state.isSuccess = true;
+        state.orders = payload?.orders;
+      }
+    },
+    [get_orders.pending]: (state) => {
+      state.isSuccess = false;
+      state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    [get_orders.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload?.message;
+    },
+    [get_order_details.fulfilled]: (state, { payload }) => {
+      if (payload.code) {
+        state.isFetching = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
+      } else {
+        state.isError = false;
+        state.isFetching = false;
+        state.isSuccess = true;
+        state.order_details = payload?.order;
+      }
+    },
+    [get_order_details.pending]: (state) => {
+      state.isSuccess = false;
+      state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    [get_order_details.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload?.message;
+    },
+    [changeOrderStatus.fulfilled]: (state, { payload }) => {
+      if (payload.code) {
+        state.isChangeStatusFetching = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
+      } else {
+        state.isError = false;
+        state.isChangeStatusFetching = false;
+        state.isSuccess = true;
+      }
+    },
+    [changeOrderStatus.pending]: (state) => {
+      state.isSuccess = false;
+      state.isChangeStatusFetching = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    [changeOrderStatus.rejected]: (state, { payload }) => {
+      state.isChangeStatusFetching = false;
+      state.isError = true;
+      state.errorMessage = payload?.message;
+    },
+  },
 });
 
 export const { clearOrderState, clearCOrderDetails } = orderSlice.actions;
