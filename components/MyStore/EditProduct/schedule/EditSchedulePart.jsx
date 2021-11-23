@@ -154,12 +154,12 @@ const [error_message, setError_message] = useState('');
               return (
                 <div
                   key={index}
-                  className="border border-secondary border-opacity-70 rounded  px-2 py-3 flex  m-2"
+                  className="border-2 border-gray-200 border-opacity-70 rounded  px-2 py-3 flex  m-2"
                 >
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
+                      className="h-5 w-5 text-gray-700"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -173,17 +173,19 @@ const [error_message, setError_message] = useState('');
                     </svg>
                   </div>
                   <div className="ml-3 w-4/5">
-                    <p className="text-base leading-4 text-[#121212] font-medium">
+                    <p className="text-base leading-4  text-gray-700 font-medium">
                       {moment(item.start_date).format('dddd, MMM  YY')}
                     </p>
-                    <p className=" text-xs leading-4 font-medium text-secondary mt-[2px] ">
+                    <p className=" text-xs leading-4 font-medium text-secondary mt-[3px] ">
                       {item.start_time} - {item.end_time}
                     </p>
-                    <p>{findRepeatName(item.repeat_days)}</p>
+                    <p className="text-gray-700 mt-1   ">
+                      {findRepeatName(item.repeat_days)}
+                    </p>
                   </div>
                   <div className="flex flex-col   relative  ml-2">
                     <button
-                      className="mb-2"
+                      className="mb-2 text-gray-700"
                       onClick={() => {
                         setIsEditSchedule(true);
                         setIsScheduleFormOpen(true);
@@ -222,7 +224,7 @@ const [error_message, setError_message] = useState('');
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
+                        className="h-6 w-6 text-gray-700"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
