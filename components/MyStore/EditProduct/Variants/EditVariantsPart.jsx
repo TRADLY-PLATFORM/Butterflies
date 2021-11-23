@@ -224,7 +224,7 @@ const EditVariantsPart = () => {
                       {' '}
                       {item.stock} tickets left
                     </p>
-                    <p className="text-black font-semibold">{item.title}</p>
+                    <p className="text-gray-700 font-semibold">{item.title}</p>
                     <p className=" flex items-center  ">
                       <span className=" text-secondary font-normal  text-xs">
                         {item.offer_price.currency}{' '}
@@ -247,7 +247,7 @@ const EditVariantsPart = () => {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
+                      className="h-6 w-6 text-gray-700"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -270,7 +270,7 @@ const EditVariantsPart = () => {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
+                      className="h-6 w-6 text-gray-700"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -372,7 +372,7 @@ const EditVariantsPart = () => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-7 w-7"
+              className="h-7 w-7 "
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
