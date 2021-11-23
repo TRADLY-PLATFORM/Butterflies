@@ -14,15 +14,18 @@ import {
   getThumbnailImage,
 } from '../../Shared/Constant/Constant';
 import Warning from '../../Shared/PopUp/Warning';
+import CustomLoading from '../../Shared/Loading/CustomLoading';
 
 const StoreListings = ({ my_store_listings, my_stores }) => {
   const [showWarning, setShowWarning] = useState(false);
   const [warning_message, setWarning_message] = useState('');
+  const[isLoading,setIsloading]=useState(false)
 
   const { auth_key } = useSelector(authSelector);
   const dispatch = useDispatch();
 
   const deleteListing = (id) => {
+    setIsloading(true);
     tradly.app.deleteListing({ id, authKey: auth_key }).then((res) => {
       if (!res.error) {
         dispatch(
@@ -31,6 +34,9 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
             authKey: auth_key,
           })
         );
+        setIsloading(false);
+      }else{
+        setIsloading(false);
       }
     });
   };
@@ -43,6 +49,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
   const router = useRouter();
   return (
     <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-start">
+      {isLoading && <CustomLoading/>}
       {showWarning && (
         <OutsideClickHandler
           onOutsideClick={() => {
@@ -51,10 +58,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
         >
           <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
             <div className="w-full  xs:w-[500px] mx-auto">
-              <Warning
-                message={warning_message}
-                closePopUP={closePopUP}
-              />
+              <Warning message={warning_message} closePopUP={closePopUP} />
             </div>
           </div>
         </OutsideClickHandler>
@@ -69,9 +73,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
                 router.push(`/listing/${item.id}`);
               } else {
                 setShowWarning(true);
-                setWarning_message(
-                  "Product is under review."
-                );
+                setWarning_message('Product is under review.');
               }
             }}
           >
@@ -100,20 +102,30 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
               </p>
             </div>
             <div className=" pl-2 mt-4 mb-[14px] flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+              {item?.account?.images.length > 0 ? (
+                <div className="h-5 w-5 rounded-full overflow-hidden  relative">
+                  <Image
+                    src={getThumbnailImage(item?.account.images[0])}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              )}
               <div className="ml-1">
                 <p className=" text-[10px]   leading-3 text-[#4F4F4F] font-medium mix-blend-normal">
                   {item?.account?.name}
@@ -134,8 +146,10 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
                   query: { product_id: item.id, account_id: my_stores[0].id },
                 });
               } else {
-                setShowWarning(true)
-                setWarning_message("Product is under review, You can't edit now.")
+                setShowWarning(true);
+                setWarning_message(
+                  "Product is under review, You can't edit now."
+                );
               }
             }}
           >
