@@ -37,13 +37,16 @@ function MyApp({ Component, pageProps }) {
       paramBody: 'general',
     })
     .then((res) => {
-      if (!res.error) {
-        localStorage.setItem('marketplace_type', res.data.configs.type);
-        localStorage.setItem('marketplace_module', res.data.configs.sub_type);
-        setStart(true);
-      } else {
-        setStart(false);
-      }
+      if (typeof window !== 'undefined') {
+        if (!res.error) {
+          localStorage.setItem('marketplace_type', res.data.configs.type);
+          localStorage.setItem('marketplace_module', res.data.configs.sub_type);
+          setStart(true);
+        } else {
+          setStart(false);
+        }
+       }
+      
     });
 
   return (
