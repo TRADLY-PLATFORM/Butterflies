@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import DescriptionPart from '../../EventDetails/DescriptionPart/DescriptionPart';
-import ImagePart from '../../EventDetails/ImagePart/ImagePart';
-import MainBox from '../../EventDetails/MainBox/MainBox';
+import DescriptionPart from '../../ListingDetails/DescriptionPart/DescriptionPart';
+import ImagePart from '../../ListingDetails/ImagePart/ImagePart';
+import MainBox from '../../ListingDetails/MainBox/MainBox';
 import { useRouter } from 'next/dist/client/router';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -16,12 +16,12 @@ import {
 } from '../../../store/feature/listingSlice';
 import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../../Shared/PopUp/PopUp';
-import AttributeDetails from '../../EventDetails/AttributeDetails/AttributeDetails';
-import EventButtons from '../../EventDetails/EventsButtons/EventButtons';
+import AttributeDetails from '../../ListingDetails/AttributeDetails/AttributeDetails';
+import EventButtons from '../../ListingDetails/EventsButtons/EventButtons';
 import Head from 'next/head';
-import Schedule from '../../EventDetails/SchedulePart/Schedule ';
-import AddressBox from '../../EventDetails/AddressBox/AddressBox';
-import Variants from '../../EventDetails/Variants/Variants';
+import Schedule from '../../ListingDetails/SchedulePart/Schedule ';
+import AddressBox from '../../ListingDetails/AddressBox/AddressBox';
+import Variants from '../../ListingDetails/Variants/Variants';
 
 const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);

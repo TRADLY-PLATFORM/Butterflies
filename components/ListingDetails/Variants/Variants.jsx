@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Image from 'next/image';
-
+ import { useSelector } from 'react-redux';
+import { configsSelector } from '../../../store/feature/configsSlice';
+import * as constant from '../../Shared/Constant/TextConstant/listingDetailsConstant';
 const Variants = ({ variants, setSelectedVariant, selectedVariant }) => {
+ const{marketplace_type}=useSelector(configsSelector)
   return (
     <div className="bg-white rounded  w-full min-h-[66px]    p-[16px]   ">
       <p className="text-[#121212] text-sm  font-semibold leading-4 ">
-        Select Ticket
+        {constant.variant_title(marketplace_type)}
       </p>
       <div className="  mt-5     ">
         {variants.map((item) => {
@@ -25,8 +28,7 @@ const Variants = ({ variants, setSelectedVariant, selectedVariant }) => {
               </div>
               <div className=" ml-3">
                 <p className=" text-sm text-primary font-normal">
-                  {' '}
-                  {item.stock} tickets left
+                  {constant.variant_stock_text(marketplace_type,item.stock)}
                 </p>
                 <p className="text-black font-semibold">{item.title}</p>
                 <p className=" flex items-center  ">

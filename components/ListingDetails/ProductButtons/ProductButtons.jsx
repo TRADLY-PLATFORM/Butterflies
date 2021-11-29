@@ -39,6 +39,7 @@ const ProductButtons = ({ listing_details, selectedVariant }) => {
       const cartData = {
         cart: {
           listing_id: listing_details.id,
+          variant_id: selectedVariant,
           quantity: 1,
         },
       };
