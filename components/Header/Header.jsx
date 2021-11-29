@@ -8,7 +8,17 @@ import logo from '../../assets/Images/MobileSize/Tradly Logo.png';
 import SideMenubar from '../SideMenubar/SideMenubar';
 import Image from 'next/image';
 import StoreButton from '../StoreButton/StoreButton';
+import ProductSideMenubar from '../SideMenubar/ProductSideMenubar';
 const Header = () => {
+
+  const [marketplace_type, setMarketplace_type] = useState(null);
+  
+    useEffect(() => {
+      setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    }, [0]);
+  
+  
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showUserMenus, setShowUserMenus] = useState(false);
 
@@ -37,6 +47,16 @@ const Header = () => {
     const drawer = document.getElementById('sideDrawer');
     setIsDrawerOpen(false);
   };
+
+
+    const selectmenubar = () => {
+      if (marketplace_type === 1) {
+        return <ProductSideMenubar />;
+      } else {
+        return <SideMenubar />;
+      }
+    };
+
   return (
     <>
       <div className="hidden md:block">
@@ -51,8 +71,8 @@ const Header = () => {
           </div>
           <div className=" flex items-center justify-between">
             <div className="  mr-[12px]  lg:mr-8  xl:mr-[25px] ">
-							<StoreButton />
-						</div>
+              <StoreButton />
+            </div>
             <div>
               <HeaderProfile
                 showUserMenus={showUserMenus}
@@ -107,8 +127,8 @@ const Header = () => {
             </div>
             <div className=" flex items-center justify-between">
               <div className="  mr-[12px]  lg:mr-8  xl:mr-16 ">
-								<StoreButton />
-							</div>
+                <StoreButton />
+              </div>
               <div>
                 <HeaderProfile
                   showUserMenus={showUserMenus}
@@ -151,9 +171,7 @@ const Header = () => {
               />
             </svg>
           </button>
-          <div className="">
-            <SideMenubar />
-          </div>
+          <div className="">{selectmenubar()}</div>
         </div>
       </div>
     </>
