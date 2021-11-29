@@ -32,6 +32,7 @@ import NoCartItem from "../../Cart/NoCartItem/NoCartItem";
 import AddressForm from "../../Cart/AddressForm/AddressForm";
 import ShippingAddresses from "../../Cart/ShippingAddresses/ShippingAddresses";
 import StorageHubAddresses from "../../Cart/StorageHubAddress/StorageHubAddresses";
+import CustomLoading from "../../Shared/Loading/CustomLoading";
 
 const CheckoutPageLayout = () => {
 	const [paymentMethod, setPaymentMethod] = useState(null);
@@ -235,232 +236,172 @@ const CheckoutPageLayout = () => {
 	};
 
 	return (
-		<>
-			{(showError || isError) && (
-				<OutsideClickHandler
-					onOutsideClick={() => {
-						(showError || isError) &&
-							(setShowError(false),
-							setError_message(""),
-							dispatch(clearCartState()));
-					}}
-				>
-					<div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-						<div className="w-ful  xs:w-[500px] mx-auto">
-							<PopUp
-								message={
-									error_message ||
-									errorMessage
-								}
-								closePopUP={closePopUP}
-							/>
-						</div>
-					</div>
-				</OutsideClickHandler>
-			)}
-			{showSuccessMessage && (
-				<Modal>
-					<OutsideClickHandler
-						onOutsideClick={() => {
-							setShowSuccessMessage(false);
-							router.push("/");
-						}}
-					>
-						<OrderSuccess />
-					</OutsideClickHandler>
-				</Modal>
-			)}
-			{showShippingAddressForm && (
-				<Modal>
-					<OutsideClickHandler
-						onOutsideClick={() => {
-							setShowShippingAddressForm(
-								false
-							);
-						}}
-					>
-						<AddressForm
-							onSubmit={onSubmit}
-							handleSubmit={handleSubmit}
-							register={register}
-							setShowShippingAddressForm={
-								setShowShippingAddressForm
-							}
-						/>
-					</OutsideClickHandler>
-				</Modal>
-			)}
+    <>
+      {isFetching&& <CustomLoading/>}
+      {(showError || isError) && (
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            (showError || isError) &&
+              (setShowError(false),
+              setError_message(''),
+              dispatch(clearCartState()));
+          }}
+        >
+          <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
+            <div className="w-ful  xs:w-[500px] mx-auto">
+              <PopUp
+                message={error_message || errorMessage}
+                closePopUP={closePopUP}
+              />
+            </div>
+          </div>
+        </OutsideClickHandler>
+      )}
+      {showSuccessMessage && (
+        <Modal>
+          <OutsideClickHandler
+            onOutsideClick={() => {
+              setShowSuccessMessage(false);
+              router.push('/');
+            }}
+          >
+            <OrderSuccess />
+          </OutsideClickHandler>
+        </Modal>
+      )}
+      {showShippingAddressForm && (
+        <Modal>
+          <OutsideClickHandler
+            onOutsideClick={() => {
+              setShowShippingAddressForm(false);
+            }}
+          >
+            <AddressForm
+              onSubmit={onSubmit}
+              handleSubmit={handleSubmit}
+              register={register}
+              setShowShippingAddressForm={setShowShippingAddressForm}
+            />
+          </OutsideClickHandler>
+        </Modal>
+      )}
 
-			{cart_details === null || cart_details.length > 0 ? (
-				<div className=" mt-7 mx-auto w-full    sm:px-8 md:px-0 flex  flex-col justify-center c-md:flex-row c-md:justify-between    c-md:max-w-[824px]  lg:max-w-[1000px]  ">
-					<div className="   c-md:w-[400px] lg:w-[600px] ">
-						<div className="bg-[#FEFEFE] rounded-lg py-12 px-9">
-							<CartItemBox
-								cart={cart}
-								cart_details={
-									cart_details
-								}
-							/>
-						</div>
-						<div className="mt-6">
-							<ShippingMethod
-								shipping_methods={
-									shipping_methods
-								}
-								shippingMethod={
-									shippingMethod
-								}
-								setShippingMethod={
-									setShippingMethod
-								}
-							/>
-						</div>
-						{shippingMethod?.type ===
-							"delivery" && (
-							<div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px]">
-								<p className="text-primary text-xl leading-6 font-medium ">
-									{
-										shippingMethod.name
-									}{" "}
-									Address
-								</p>
-								<div className="mt-6">
-									<ShippingAddresses
-										addresses={
-											addresses
-										}
-										selectShippingAddress={
-											selectShippingAddress
-										}
-										setSelectShippingAddress={
-											setSelectShippingAddress
-										}
-									/>
-								</div>
-								<div className="mt-5 flex justify-start flex-wrap">
-									<button
-										className=" bg-primary rounded-lg px-4 py-2 text-white text-sm  hover:bg-opacity-80"
-										onClick={() => {
-											setShowShippingAddressForm(
-												true
-											),
-												setIsNewAddress(
-													true
-												);
-										}}
-									>
-										Add New
-										Address
-									</button>
-									{selectShippingAddress && (
-										<button
-											className=" bg-primary rounded-lg px-4 py-2 text-white text-sm  hover:bg-opacity-80 ml-5"
-											onClick={() => {
-												setShowShippingAddressForm(
-													true
-												),
-													setIsNewAddress(
-														false
-													);
-											}}
-										>
-											Change
-											Address
-										</button>
-									)}
-								</div>
-							</div>
-						)}
-						{shippingMethod?.type ===
-							"storage_hub" && (
-							<div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px]">
-								<p className="text-primary text-xl leading-6 font-medium ">
-									{
-										shippingMethod.name
-									}
-									Address
-								</p>
-								<div className="mt-6">
-									<StorageHubAddresses
-										addresses={
-											storage_hub_addresses
-										}
-										selectStorageHubAddress={
-											selectStorageHubAddress
-										}
-										setSelectStorageHubAddress={
-											setSelectStorageHubAddress
-										}
-									/>
-								</div>
-							</div>
-						)}
-						<div className="mt-6">
-							<PaymentMethod
-								payment_methods={
-									payment_methods
-								}
-								paymentMethod={
-									paymentMethod
-								}
-								setPaymentMethod={
-									setPaymentMethod
-								}
-							/>
-						</div>
-					</div>
-					<div className=" mt-6 c-md:mt-0 c-md:w-[400px] lg:w-[380px]">
-						<OrderSummary
-							cart={cart}
-							cart_details={cart_details}
-						/>
-						{cart && (
-							<div className="flex justify-center  mt-6">
-								<button
-									className=" w-5/6 bg-primary  rounded-full py-[12px] text-center text-base  text-white flex justify-center items-center font-semibold"
-									onClick={
-										clickCheckOut
-									}
-								>
-									{isCheckoutFetching && (
-										<span>
-											<svg
-												className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-											>
-												<circle
-													className="opacity-25"
-													cx="12"
-													cy="12"
-													r="10"
-													stroke="currentColor"
-													strokeWidth="4"
-												></circle>
-												<path
-													className="opacity-75"
-													fill="currentColor"
-													d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-												></path>
-											</svg>
-										</span>
-									)}
-									<span className=" ">
-										Checkout
-									</span>
-								</button>
-							</div>
-						)}
-					</div>
-				</div>
-			) : (
-				<div>
-					<NoCartItem />
-				</div>
-			)}
-		</>
-	);
+      {cart_details === null || cart_details.length > 0 ? (
+        <div className=" mt-7 mx-auto w-full    sm:px-8 md:px-0 flex  flex-col justify-center c-md:flex-row c-md:justify-between    c-md:max-w-[824px]  lg:max-w-[1000px]  ">
+          <div className="   c-md:w-[400px] lg:w-[600px] ">
+            <div className="bg-[#FEFEFE] rounded-lg py-12 px-9">
+              <CartItemBox cart={cart} cart_details={cart_details} />
+            </div>
+            <div className="mt-6">
+              <ShippingMethod
+                shipping_methods={shipping_methods}
+                shippingMethod={shippingMethod}
+                setShippingMethod={setShippingMethod}
+              />
+            </div>
+            {shippingMethod?.type === 'delivery' && (
+              <div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px]">
+                <p className="text-primary text-xl leading-6 font-medium ">
+                  {shippingMethod.name} Address
+                </p>
+                <div className="mt-6">
+                  <ShippingAddresses
+                    addresses={addresses}
+                    selectShippingAddress={selectShippingAddress}
+                    setSelectShippingAddress={setSelectShippingAddress}
+                  />
+                </div>
+                <div className="mt-5 flex justify-start flex-wrap">
+                  <button
+                    className=" bg-primary rounded-lg px-4 py-2 text-white text-sm  hover:bg-opacity-80"
+                    onClick={() => {
+                      setShowShippingAddressForm(true), setIsNewAddress(true);
+                    }}
+                  >
+                    Add New Address
+                  </button>
+                  {selectShippingAddress && (
+                    <button
+                      className=" bg-primary rounded-lg px-4 py-2 text-white text-sm  hover:bg-opacity-80 ml-5"
+                      onClick={() => {
+                        setShowShippingAddressForm(true),
+                          setIsNewAddress(false);
+                      }}
+                    >
+                      Change Address
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+            {shippingMethod?.type === 'storage_hub' && (
+              <div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px]">
+                <p className="text-primary text-xl leading-6 font-medium ">
+                  {shippingMethod.name}
+                  Address
+                </p>
+                <div className="mt-6">
+                  <StorageHubAddresses
+                    addresses={storage_hub_addresses}
+                    selectStorageHubAddress={selectStorageHubAddress}
+                    setSelectStorageHubAddress={setSelectStorageHubAddress}
+                  />
+                </div>
+              </div>
+            )}
+            <div className="mt-6">
+              <PaymentMethod
+                payment_methods={payment_methods}
+                paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}
+              />
+            </div>
+          </div>
+          <div className=" mt-6 c-md:mt-0 c-md:w-[400px] lg:w-[380px]">
+            <OrderSummary cart={cart} cart_details={cart_details} />
+            {cart && (
+              <div className="flex justify-center  mt-6">
+                <button
+                  className=" w-5/6 bg-primary  rounded-full py-[12px] text-center text-base  text-white flex justify-center items-center font-semibold"
+                  onClick={clickCheckOut}
+                >
+                  {isCheckoutFetching && (
+                    <span>
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                    </span>
+                  )}
+                  <span className=" ">Checkout</span>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div>
+          <NoCartItem />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default CheckoutPageLayout;

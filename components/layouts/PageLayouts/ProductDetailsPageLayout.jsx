@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import {
-  clearListingDetails,
   clearListingState,
   listingDetails,
   listingLike,
@@ -17,13 +16,13 @@ import {
 import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../../Shared/PopUp/PopUp';
 import AttributeDetails from '../../ListingDetails/AttributeDetails/AttributeDetails';
-import EventButtons from '../../ListingDetails/EventsButtons/EventButtons';
 import Head from 'next/head';
-import Schedule from '../../ListingDetails/SchedulePart/Schedule ';
 import AddressBox from '../../ListingDetails/AddressBox/AddressBox';
 import Variants from '../../ListingDetails/Variants/Variants';
+import ProductButtons from '../../ListingDetails/ProductButtons/ProductButtons';
+import StoreNameBox from '../../ListingDetails/StoreNameBox/StoreNameBox';
 
-const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
+const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
   const [error_message, setError_message] = useState('');
 
@@ -187,17 +186,19 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                 />
               </div>
             )}
+
             <div className="mt-6">
-              <EventButtons
+              <ProductButtons
                 listing_details={listing_details}
                 selectedVariant={selectedVariant}
               />
             </div>
-            {listing_details?.schedules?.length > 0 && (
+            {listing_details?.account && (
               <div className="mt-6">
-                <Schedule schedules={listing_details?.schedules} />
+                <StoreNameBox account={listing_details?.account} />
               </div>
             )}
+
             {listing_details?.location &&
               Object.keys(listing_details?.location).length > 0 && (
                 <div className="mt-6">
@@ -228,4 +229,4 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   );
 };
 
-export default EventDetailsPageLayout;
+export default ProductDetailsPageLayout;

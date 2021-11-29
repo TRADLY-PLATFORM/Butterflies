@@ -10,7 +10,7 @@ const MainBox = ({ listing_details, rating_data, like }) => {
 		<div className=" w-full  min-h-[250px] bg-white rounded  p-[25px] relative">
 			<div className=" w-5/6 ">
 				<p className=" text-sm text-primary font-medium">
-					Only {listing_details.stock} tickets left
+					Only {listing_details.stock} products in stock
 				</p>
 				<h2 className=" mt-[9px] text-[30px] text-primary font-medium ">
 					{listing_details.title}
