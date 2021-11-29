@@ -36,7 +36,7 @@ module.exports = {
       blue: colors.blue,
     },
     borderRadius: {
-      'c-48': '48px',
+     'c-48': '48px',
       none: '0',
       sm: '0.125rem',
       DEFAULT: '0.25rem',
