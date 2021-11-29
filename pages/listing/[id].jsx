@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { refreshPage } from "../../store/feature/authSlice";
 import tradly from "tradly";
 import { clearListingDetails } from "../../store/feature/listingSlice";
+import ProductDetailsPageLayout from "../../components/layouts/PageLayouts/ProductDetailsPageLayout";
 
 function Details(props) {
 	const dispatch = useDispatch();
@@ -24,25 +25,25 @@ function Details(props) {
 	const pageDescription = props.seo_text.meta_listing_description;
 
 	return (
-		<>
-			<div className=" hidden md:block">
-				<MagazineLayout>
-					<EventDetailsPageLayout
-						pageTitle={pageTitle}
-						pageDescription={pageDescription}
-					/>
-				</MagazineLayout>
-			</div>
-			<div className="   md:hidden">
-				<MainLayout>
-					<EventDetailsPageLayout
-						pageTitle={pageTitle}
-						pageDescription={pageDescription}
-					/>
-				</MainLayout>
-			</div>
-		</>
-	);
+    <>
+      <div className=" hidden md:block">
+        <MagazineLayout>
+          <ProductDetailsPageLayout
+            pageTitle={pageTitle}
+            pageDescription={pageDescription}
+          />
+        </MagazineLayout>
+      </div>
+      <div className="   md:hidden">
+        <MainLayout>
+          <ProductDetailsPageLayout
+            pageTitle={pageTitle}
+            pageDescription={pageDescription}
+          />
+        </MainLayout>
+      </div>
+    </>
+  );
 }
 
 export default Details;

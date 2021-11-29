@@ -10,6 +10,7 @@ import {
 import Banner from "../../home/Banner/Banner";
 import Categories from "../../home/Categories/Categories";
 import LatestEvent from "../../home/LatestEvents/LatestEvent";
+import StoresForFollow from "../../home/Stores/StoresForFollow";
  
 const HomePageLayout = () => {
 	const dispatch = useDispatch();
@@ -49,6 +50,15 @@ const HomePageLayout = () => {
 			</div>
 			{collections?.map((collection) => {
 				const scope_type = collection.scope_type;
+				if (scope_type === 1) {
+					return (
+						<div key={Math.random()}>
+							<StoresForFollow
+								stores={collection}
+							/>
+						</div>
+					);
+				}
 				if (scope_type === 4) {
 					return (
 						<div key={Math.random()}>
@@ -58,6 +68,7 @@ const HomePageLayout = () => {
 						</div>
 					);
 				}
+
 			})}
 			<div>
 				<Banner banners={page_promo_banners} />

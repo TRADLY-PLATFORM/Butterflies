@@ -29,8 +29,8 @@ const Checkout = (props) => {
     <>
       <div className=" hidden md:block">
         <MagazineLayout pageTitle={pageTitle} pageDescription={pageDescription}>
-          {/* <CheckoutPageLayout /> */}
-          <EventCheckoutPageLayout />
+          <CheckoutPageLayout />
+          {/* <EventCheckoutPageLayout /> */}
         </MagazineLayout>
       </div>
       <div className="   md:hidden">
