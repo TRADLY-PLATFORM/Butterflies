@@ -95,9 +95,9 @@ const StoresForFollow = ({ stores }) => {
                   </div>
                   <div>
                     <p className="w-full text-[#000000] font-semibold text-[14px] text-center ">
-                      {item.user.first_name.length > 15
-                        ? item.user.first_name.substring(0, 15) + '..'
-                        : item.user.first_name}
+                      {item?.user?.first_name.length > 15
+                        ? item?.user?.first_name.substring(0, 15) + '..'
+                        : item?.user?.first_name}
                     </p>
                     <p className="mt-2 text-[#4A4A4A] text-[18px] w-full text-center">
                       {item.name.length > 15
