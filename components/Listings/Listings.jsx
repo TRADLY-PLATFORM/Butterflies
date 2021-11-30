@@ -11,20 +11,17 @@ import {
   getThumbnailImage,
 } from '../Shared/Constant/Constant';
 import { authSelector } from '../../store/feature/authSlice';
-import { listingLike } from '../../store/feature/listingSlice';
+import { getAllListings, listingLike, listingSelector } from '../../store/feature/listingSlice';
 import favorite from '../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../assets/Images/Home/heartIcon@3x.png';
-import {
-  categoryListings,
-  categorySelector,
-} from '../../store/feature/categorySlice';
+ 
 
 const Listings = ({ Products }) => {
   const { login, auth_key } = useSelector(authSelector);
   // const { isSuccess } = useSelector(listingSelector);
   const dispatch = useDispatch();
   const router = useRouter();
-  const { page } = useSelector(categorySelector);
+  const { page } = useSelector(listingSelector);
 
   const like = (id, isLiked) => {
     if (login) {
@@ -37,10 +34,10 @@ const Listings = ({ Products }) => {
       ).then((res) => {
         if (!res.payload.code) {
           dispatch(
-            categoryListings({
+            getAllListings({
               prams: {
                 page,
-                per_page: 20,
+                per_page: 30,
               },
               authKey: auth_key,
             })

@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Header3 from '../../Header/Header3';
 
 const MainLayout = ({ children, pageTitle, pageDescription }) => {
+ 
   return (
     <>
       <Head>

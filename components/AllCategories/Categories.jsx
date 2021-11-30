@@ -15,11 +15,12 @@ const Categories = ({ allCategories }) => (
 						href={{
 							pathname: "/category/[name]",
 							query: {
-								id: item.id,
+								id: item.id,page:1,
 								name: item.name.replace(
 									/\s/g,
 									"-"
 								),
+								
 							},
 						}}
 						passHref

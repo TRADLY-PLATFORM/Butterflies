@@ -29,7 +29,7 @@ const Accounts = ({ accounts }) => {
             if (!res.code) {
              dispatch(
                get_all_accounts({
-                 bodyParam: { page: 1, type: 'accounts', per_page: 30 },
+                 bodyParam: { page: router.query.page, type: 'accounts', per_page: 30 },
                  authKey: auth_key,
                })
              );

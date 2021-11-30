@@ -12,7 +12,7 @@ const StoreButton = () => {
     
     return (
 		<Link
-			href={login ? "/stores/my-store" : "/sign-in"}
+			href={login ? "/stores/my-store?page=1" : "/sign-in"}
 			passHref={true}
 		>
 			<div className="cursor-pointer">

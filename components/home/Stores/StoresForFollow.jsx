@@ -56,7 +56,13 @@ const StoresForFollow = ({ stores }) => {
     <div className="mt-10">
       <div className="flex justify-between items-center  ">
         <h2 className=" text-2xl text-black font-semibold">{stores.title}</h2>
-        <Link href="/stores" passHref>
+        <Link
+          href={{
+            pathname: '/stores',
+            query: { page: 1},
+          }}
+          passHref
+        >
           <p className="text-base text-primary font-semibold cursor-pointer">
             View All
           </p>
@@ -108,9 +114,12 @@ const StoresForFollow = ({ stores }) => {
                   <div>
                     <button
                       className={[
-                        'w-full h-[34px] flex justify-center items-center rounded-xl border border-primary  ', item.following?"text-[#FFFFFF]  bg-primary":"text-primary   bg-transparent",
+                        'w-full h-[34px] flex justify-center items-center rounded-xl border border-primary  ',
+                        item.following
+                          ? 'text-[#FFFFFF]  bg-primary'
+                          : 'text-primary   bg-transparent',
                       ].join(' ')}
-                      onClick={() => follow(item.id,item.following)}
+                      onClick={() => follow(item.id, item.following)}
                     >
                       {item.following ? 'Following' : 'Follow'}
                     </button>
