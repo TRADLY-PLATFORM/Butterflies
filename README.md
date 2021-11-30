@@ -20,7 +20,7 @@
   <h3 align="center">Tradly Platform</h3>
 
   <p align="center">
-     An open source NextJS Template. Contents served from Tradly Headless API
+     An open source NextJS Template with Tailwind UI. Contents served from Tradly Headless API
     <br />
     <a href="https://portal.tradly.app/docs/introduction"><strong>Explore the docs »</strong></a>
     <br />
