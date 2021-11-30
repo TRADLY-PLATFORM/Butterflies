@@ -37,6 +37,6 @@ export async function getServerSideProps() {
 		paramBody: "seo",
 	});
 	return {
-		props: { seo_text: response?.data?.configs },
-	};
+    props: { seo_text: response?.data?.configs || null },
+  };
 }

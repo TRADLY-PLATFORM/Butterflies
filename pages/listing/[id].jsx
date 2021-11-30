@@ -52,10 +52,8 @@ function Details(props) {
   return (
     marketplace_type && (
       <>
-        <div className=" hidden md:block">
-          <MagazineLayout>{selectLayout()}</MagazineLayout>
-        </div>
-        <div className="   md:hidden">
+         
+        <div className="  ">
           <MainLayout>{selectLayout()}</MainLayout>
         </div>
       </>
