@@ -415,8 +415,8 @@ export const storeSlice = createSlice({
         state.isSuccess = true;
         state.errorMessage = '';
         state.my_store_listings = payload?.listings;
-        state.my_store_listings_page = payload?.listings.page;
-        state.my_store_listings_total_records = payload?.listings.total_records;
+        state.my_store_listings_page = payload?.page;
+        state.my_store_listings_total_records = payload?.total_records;
       }
     },
     [myAccountListings.pending]: (state) => {
