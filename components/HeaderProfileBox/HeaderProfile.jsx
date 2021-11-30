@@ -29,10 +29,11 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className=" h-[24px] w-[24px]  md:h-10 md:w-10"
+          className=" h-[24px] w-[24px]  md:h-10 md:w-10 text-gray-600"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+
         >
           <path
             strokeLinecap="round"
