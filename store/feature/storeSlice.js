@@ -199,10 +199,33 @@ export const currencies = createAsyncThunk(
   }
 );
 
+export const get_all_accounts = createAsyncThunk(
+  'store/get_all_accounts',
+
+  async ({ bodyParam, authKey }, thunkAPI) => {
+    try {
+      const response = await tradly.app.getAccounts({
+        bodyParam,
+        authKey,
+      });
+      const { data } = await response;
+      if (!response.error) {
+        return data;
+      } else {
+        const { error } = await response;
+        return error;
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const storeSlice = createSlice({
   name: 'store',
   initialState: {
     isFetching: false,
+    isAllAccountsFetching: false,
     addressFetching: false,
     isSuccess: false,
     isError: false,
@@ -218,6 +241,9 @@ export const storeSlice = createSlice({
     listing_configs: null,
     currencies: null,
     my_account_listing_details: null,
+    all_accounts: [],
+    all_accounts_total_records: '',
+    all_accounts_page: '',
   },
   reducers: {
     clearStoreState: (state) => {
@@ -424,6 +450,32 @@ export const storeSlice = createSlice({
     },
     [currencies.rejected]: (state, { payload }) => {
       state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload?.message;
+    },
+    [get_all_accounts.fulfilled]: (state, { payload }) => {
+      if (payload.code) {
+        state.isAllAccountsFetching = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
+      } else {
+        state.isError = false;
+        state.isAllAccountsFetching = false;
+        state.isSuccess = true;
+        state.errorMessage = '';
+        state.all_accounts =   payload?.accounts  ;
+        state.all_accounts_page = payload?.page;
+        state.all_accounts_total_records = payload?.total_records;
+      }
+    },
+    [get_all_accounts.pending]: (state) => {
+      state.isAllAccountsFetching = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    [get_all_accounts.rejected]: (state, { payload }) => {
+      state.isAllAccountsFetching = false;
       state.isError = true;
       state.errorMessage = payload?.message;
     },

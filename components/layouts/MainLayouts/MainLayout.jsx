@@ -11,7 +11,7 @@ const MainLayout = ({ children, pageTitle, pageDescription }) => {
     setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
   }, [0]);
   const selectmenubar = () => {
-    if (marketplace_type === 1) {
+    if (!marketplace_type === 1) {
       return <ProductSideMenubar />;
     } else {
       return <SideMenubar />;
@@ -19,7 +19,7 @@ const MainLayout = ({ children, pageTitle, pageDescription }) => {
   };
 
   return (
-    marketplace_type && (
+      (
       <>
         <Head>
           <title>{pageTitle}</title>

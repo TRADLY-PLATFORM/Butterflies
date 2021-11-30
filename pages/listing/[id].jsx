@@ -26,8 +26,8 @@ function Details(props) {
     setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
   }, [dispatch]);
 
-  const pageTitle = props.seo_text.meta_listing_title;
-  const pageDescription = props.seo_text.meta_listing_description;
+  const pageTitle = props?.seo_text?.meta_listing_title;
+  const pageDescription = props?.seo_text?.meta_listing_description;
 
  
 
@@ -74,8 +74,8 @@ export async function getServerSideProps() {
   });
   return {
     props: {
-      seo_text: response?.data?.configs,
-      general_configs: response2?.data?.configs,
+      seo_text: response?.data?.configs || null,
+      general_configs: response2?.data?.configs ||[],
     },
   };
 }

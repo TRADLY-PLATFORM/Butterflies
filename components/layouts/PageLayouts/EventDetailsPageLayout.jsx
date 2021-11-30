@@ -156,7 +156,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         </OutsideClickHandler>
       )}
       {
-        <div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  pt-16 pb-20   c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
+        <div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  md:pt-[20px] pb-20   c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
           <div className=" w-[100vw] ms:w-[400px] lg:w-[500px] xl:w-[600px]">
             <div>
               <ImagePart images={listing_details?.images} />

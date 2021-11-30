@@ -56,7 +56,7 @@ const StoresForFollow = ({ stores }) => {
     <div className="mt-10">
       <div className="flex justify-between items-center  ">
         <h2 className=" text-2xl text-black font-semibold">{stores.title}</h2>
-        <Link href="/" passHref>
+        <Link href="/stores" passHref>
           <p className="text-base text-primary font-semibold cursor-pointer">
             View All
           </p>
@@ -95,9 +95,9 @@ const StoresForFollow = ({ stores }) => {
                   </div>
                   <div>
                     <p className="w-full text-[#000000] font-semibold text-[14px] text-center ">
-                      {item.user.first_name.length > 15
-                        ? item.user.first_name.substring(0, 15) + '..'
-                        : item.user.first_name}
+                      {item?.user?.first_name.length > 15
+                        ? item?.user?.first_name.substring(0, 15) + '..'
+                        : item?.user?.first_name}
                     </p>
                     <p className="mt-2 text-[#4A4A4A] text-[18px] w-full text-center">
                       {item.name.length > 15

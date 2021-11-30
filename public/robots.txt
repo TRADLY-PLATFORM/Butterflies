@@ -3,9 +3,9 @@ User-agent: *
 Allow: /
 
 # Host
-Host: ahsan.com
+Host: undefined
 
 # Sitemaps
-Sitemap: ahsan.com/sitemap.xml
-Sitemap: ahsan.com/listing-sitemap.xml
-Sitemap: ahsan.com/category-sitemap.xml
+Sitemap: undefined/sitemap.xml
+Sitemap: undefined/listing-sitemap.xml
+Sitemap: undefined/category-sitemap.xml

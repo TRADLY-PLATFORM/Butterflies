@@ -36,7 +36,7 @@ export async function getServerSideProps() {
   return {
     props: {
       seo_text: response?.data?.configs || null,
-      general_configs: response2?.data?.configs,
+      general_configs: response2?.data?.configs || [],
     },
   };
 }
