@@ -41,7 +41,7 @@ const Accounts = ({ accounts }) => {
     };
 
   return (
-    <div className="  grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-start">
+    <div className="  grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-center">
       {accounts?.map((item) => {
         return (
           <div className=" relative  ms:mb-5  ms:mr-4 " key={item.id}>

@@ -49,7 +49,7 @@ const Listings = ({ Products }) => {
     }
   };
   return (
-    <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-start">
+    <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-center">
       {Products?.map((item) => (
         <div key={Math.random()} className="   ms:mb-5  ms:mr-4 relative">
           <div

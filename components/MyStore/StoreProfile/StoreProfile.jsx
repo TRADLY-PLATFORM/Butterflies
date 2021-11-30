@@ -9,7 +9,7 @@ const StoreProfile = ({ my_stores }) => {
   const router = useRouter();
   return (
     <div>
-      <div className=" hidden md:block  absolute w-[100%] h-[200px] right-0 top-0 mt-[100px]">
+      <div className=" hidden md:block  absolute w-[100%] h-[200px] right-0 top-0 mt-[160px]">
         <Image src={banner} layout="fill" objectFit="cover" alt="banner" />
       </div>
       <div className=" relative  w-full  min-h-[126px] px-[10px] sm:px-[40px] py-[20px] bg-white flex flex-col md:flex-row justify-between md:items-center rounded-[10px] shadow-c-xsm  md:mt-[130px]">
