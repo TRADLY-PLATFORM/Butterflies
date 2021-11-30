@@ -460,9 +460,6 @@ export const storeSlice = createSlice({
         state.isSuccess = false;
         state.errorMessage = payload?.message;
       } else {
-        console.log('====================================');
-        console.log(payload);
-        console.log('====================================');
         state.isError = false;
         state.isAllAccountsFetching = false;
         state.isSuccess = true;

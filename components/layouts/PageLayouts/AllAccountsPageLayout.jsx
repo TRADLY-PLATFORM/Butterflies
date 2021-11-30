@@ -20,7 +20,7 @@ const AllAccountsPageLayout = () => {
         authKey: auth_key,
       })
     );
-  }, [0]);
+  }, [auth_key]);
 
   const moreAccounts = () => {
     dispatch(

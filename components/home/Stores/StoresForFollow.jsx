@@ -56,7 +56,7 @@ const StoresForFollow = ({ stores }) => {
     <div className="mt-10">
       <div className="flex justify-between items-center  ">
         <h2 className=" text-2xl text-black font-semibold">{stores.title}</h2>
-        <Link href="/" passHref>
+        <Link href="/stores" passHref>
           <p className="text-base text-primary font-semibold cursor-pointer">
             View All
           </p>

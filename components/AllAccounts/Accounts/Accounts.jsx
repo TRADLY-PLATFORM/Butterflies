@@ -3,8 +3,41 @@ import React from 'react';
 import Image from "next/image"
 import { getThumbnailImage } from '../../Shared/Constant/Constant';
 import demoImage from "../../../assets/Images/store/avatar1.png"
+import tradly from "tradly"
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelector } from '../../../store/feature/authSlice';
+import {
+  get_all_accounts,
+  storeSelector,
+} from '../../../store/feature/storeSlice';
+
 
 const Accounts = ({ accounts }) => {
+    const { login, auth_key } = useSelector(authSelector);
+    const dispatch=useDispatch()
+    const follow = (id, isFollow) => {
+      if (login) {
+        tradly.app
+          .followUnfollowAccounts({
+            id,
+            authKey: auth_key,
+            isFollowing: isFollow,
+          })
+          .then((res) => {
+            if (!res.code) {
+             dispatch(
+               get_all_accounts({
+                 bodyParam: { page: 1, type: 'accounts', per_page: 30 },
+                 authKey: auth_key,
+               })
+             );
+            }
+          });
+      } else {
+        router.push('/sign-in');
+      }
+    };
+
   return (
     <div className="  grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-start">
       {accounts?.map((item) => {
