@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
@@ -15,16 +15,22 @@ import {
 } from '../../Shared/Constant/Constant';
 import Warning from '../../Shared/PopUp/Warning';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
+import { configsSelector } from '../../../store/feature/configsSlice';
 
 const StoreListings = ({ my_store_listings, my_stores }) => {
+  const [marketplace_type, setMarketplace_type ] = useState(null);
+
+  useEffect(() => {
+    setMarketplace_type(localStorage.getItem('marketplace_type'));
+  },[0])
+
   const [showWarning, setShowWarning] = useState(false);
   const [warning_message, setWarning_message] = useState('');
-  const[isLoading,setIsloading]=useState(false)
+  const [isLoading, setIsloading] = useState(false);
 
   const { auth_key } = useSelector(authSelector);
   const dispatch = useDispatch();
-    const router = useRouter();
-
+  const router = useRouter();
 
   const deleteListing = (id) => {
     setIsloading(true);
@@ -32,25 +38,25 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
       if (!res.error) {
         dispatch(
           myAccountListings({
-            prams: { page:router.query.page , account_id: my_stores[0].id },
+            prams: { page: router.query.page, account_id: my_stores[0].id },
             authKey: auth_key,
           })
         );
         setIsloading(false);
-      }else{
+      } else {
         setIsloading(false);
       }
     });
   };
 
-    const closePopUP = () => {
-       setShowWarning(false);
-      setWarning_message('');
-    };
+  const closePopUP = () => {
+    setShowWarning(false);
+    setWarning_message('');
+  };
 
   return (
     <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-start">
-      {isLoading && <CustomLoading/>}
+      {isLoading && <CustomLoading />}
       {showWarning && (
         <OutsideClickHandler
           onOutsideClick={() => {
@@ -68,7 +74,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
       {my_store_listings?.map((item) => (
         <div key={Math.random()} className="   ms:mb-5  ms:mr-4 relative">
           <div
-            className=" ms:w-[190px] min-h-[303px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
+            className=" ms:w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
             onClick={() => {
               if (item.active) {
                 router.push(`/listing/${item.id}`);
@@ -86,11 +92,13 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
                 objectFit="cover"
               />
             </div>
-            <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
-              {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
-            </p>
+            {marketplace_type === 2 && (
+              <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
+                {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
+              </p>
+            )}
             <div className="mt-2 pl-2">
-              <p className=" text-xs leading-[15px] font-semibold text-primary">
+              <p className=" text-sm leading-[15px] font-semibold text-primary">
                 {item.title.length > 15
                   ? item.title.substring(0, 15) + '..'
                   : item.title}
@@ -129,7 +137,9 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
               )}
               <div className="ml-1">
                 <p className=" text-[10px]   leading-3 text-[#4F4F4F] font-medium mix-blend-normal">
-                  {item?.account?.name}
+                  {item?.account?.name.length > 10
+                    ? item?.account?.name.substring(0, 18) + '..'
+                    : item?.account?.name}
                 </p>
                 <p className="text-[10px] leading-3 text-[#4F4F4F] font-medium   opacity-50">
                   {item?.account?.total_followers} Followers

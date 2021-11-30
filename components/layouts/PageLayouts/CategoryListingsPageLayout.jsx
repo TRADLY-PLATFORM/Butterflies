@@ -139,7 +139,7 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           </div>
         </div>
       )}
-      <div className="mt-12 flex justify-center ">
+      <div className="mt-12 pb-12 flex justify-center ">
         <ReactPaginate
           breakLabel="..."
           nextLabel={
