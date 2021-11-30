@@ -54,6 +54,7 @@ const Drawer = () => {
               ? {
                   name: item.name.replace(/\s/g, '-'),
                   id: item.id,
+                  page: 1,
                 }
               : '';
           return (
@@ -76,8 +77,7 @@ const Drawer = () => {
                   <p
                     className={[
                       ' text-sm font-semibold   ml-5 ',
-                      router.pathname === '/orders' ||
-                      router.pathname === '/orders/[id]'
+                      router?.query?.name === item.name.replace(/\s/g, '-')
                         ? 'text-primary'
                         : ' text-secondary',
                     ].join(' ')}

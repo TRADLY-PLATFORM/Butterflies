@@ -66,7 +66,7 @@ const AllAccountsPageLayout = () => {
         {all_accounts?.length > 0 && <Accounts accounts={all_accounts} />}
       </div>
 
-      <div className="mt-12 flex justify-center ">
+      <div className="mt-12 pb-12 flex justify-center ">
         <ReactPaginate
           breakLabel="..."
           nextLabel={

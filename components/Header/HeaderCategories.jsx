@@ -3,11 +3,13 @@ import { useSelector } from 'react-redux';
 import tradly from 'tradly';
 import { authSelector } from '../../store/feature/authSlice';
 import Link from 'next/link';
+import { useRouter } from 'next/dist/client/router';
 
 const HeaderCategories = () => {
   const [categories, setCategories] = useState(null);
 
   const { auth_key } = useSelector(authSelector);
+  const router =useRouter()
 
   useEffect(() => {
     const width = window.innerWidth;
@@ -54,6 +56,7 @@ const HeaderCategories = () => {
               ? {
                   name: item.name.replace(/\s/g, '-'),
                   id: item.id,
+                  page: 1,
                 }
               : '';
 
@@ -62,18 +65,23 @@ const HeaderCategories = () => {
               key={Math.random()}
               href={{
                 pathname: `${
-                  item.name !== 'More'
-                    ? '/category/[name]'
-                    : '/category'
+                  item.name !== 'More' ? '/category/[name]' : '/category'
                 }`,
                 query,
               }}
-              
               passHref
             >
               <div className="">
-                <p className=" min-h-[44px] px-3 flex justify-center items-center cursor-pointer transition duration-300 hover:text-primary ">
-                  {item.name }
+                <p
+                  className={[
+                    ' min-h-[44px] px-3 flex justify-center items-center cursor-pointer transition duration-300 hover:text-primary ',
+                    router?.query?.name ===
+                    item.name.replace(/\s/g, '-')
+                      ? 'text-primary'
+                      : '',
+                  ].join(' ')}
+                >
+                  {item.name}
                 </p>
               </div>
             </Link>

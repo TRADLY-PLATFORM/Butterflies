@@ -18,7 +18,7 @@ const MainLayout = ({ children, pageTitle, pageDescription }) => {
         <div className="  sticky  top-0 z-50 ">
           <Header3 />
         </div>
-        <div className="bg-[#f6f9ff] min-h-screen  overflow-x-hidden px-[50px] pt-5">
+        <div className="bg-[#f6f9ff] min-h-screen  overflow-x-hidden px-[50px]  2xl:px-[12%] pt-5">
           <div>{children}</div>
         </div>
       </div>

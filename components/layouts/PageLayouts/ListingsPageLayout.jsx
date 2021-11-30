@@ -99,7 +99,7 @@ const ListingsPageLayout = () => {
           </div>
         )}
       </div>
-      <div className="mt-12 flex justify-center ">
+      <div className="mt-12   flex justify-center pb-12 ">
         {listings !== null && <ReactPaginate
           breakLabel="..."
           nextLabel={
