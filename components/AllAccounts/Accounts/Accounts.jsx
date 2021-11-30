@@ -10,10 +10,12 @@ import {
   get_all_accounts,
   storeSelector,
 } from '../../../store/feature/storeSlice';
+import { useRouter } from 'next/dist/client/router';
 
 
 const Accounts = ({ accounts }) => {
-    const { login, auth_key } = useSelector(authSelector);
+  const { login, auth_key } = useSelector(authSelector);
+  const router = useRouter()
     const dispatch=useDispatch()
     const follow = (id, isFollow) => {
       if (login) {
