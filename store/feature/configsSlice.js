@@ -16,8 +16,8 @@ export const configsSlice = createSlice({
   reducers: {
     setGeneralConfig: (state, { payload }) => {
       state.general_configs = payload?.general_configs;
-      state.marketplace_type = payload?.general_configs.type;
-      state.marketplace_module = payload?.general_configs.sub_type;
+      state.marketplace_type = payload?.general_configs?.type;
+      state.marketplace_module = payload?.general_configs?.sub_type;
       return state;
     },
     setAccountConfig: (state, { payload }) => {

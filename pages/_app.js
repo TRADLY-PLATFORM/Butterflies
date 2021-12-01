@@ -6,9 +6,11 @@ import { Provider } from 'react-redux';
 import '../styles/globals.css';
 import { useState } from 'react';
 import { setGeneralConfig } from '../store/feature/configsSlice';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }) {
   const [start, setStart] = useState(false);
+  const [logo, setLogo] = useState(false);
 
   tradly.init.config({
     token: process.env.API_KEY,
@@ -21,6 +23,9 @@ function MyApp({ Component, pageProps }) {
     })
     .then((res) => {
       if (typeof window !== 'undefined') {
+        const favicon = document.getElementById('favicon');
+         
+        setLogo(res?.data?.configs?.splash_image);
         localStorage.setItem('logo', res?.data?.configs?.splash_image);
         localStorage.setItem(
           'onboarding_configs',
@@ -29,6 +34,7 @@ function MyApp({ Component, pageProps }) {
         let root = document.documentElement;
         const color = res.data.configs.app_color_primary;
         root.style.setProperty('--primary_color', color);
+        
         setStart(true);
       }
     });
@@ -51,9 +57,14 @@ function MyApp({ Component, pageProps }) {
 
   return (
     start && (
-      <Provider store={store}>
-        <Component {...pageProps} />
-      </Provider>
+      <>
+        <Head>
+          <link rel="icon" href={logo} />
+        </Head>
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
+      </>
     )
   );
 }

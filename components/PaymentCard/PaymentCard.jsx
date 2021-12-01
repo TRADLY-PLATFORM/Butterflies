@@ -229,7 +229,7 @@ const PaymentCard = () => {
 						</div>
 					</OutsideClickHandler>
 				)}
-				<div className="  w-full px-[30px] py-6 sm:px-[0px]  sm:w-[421px]">
+				<div className="  w-full  md:px-[30px] py-2   sm:w-[421px]">
 					<form onSubmit={handleFormSubmit}>
 						<div>
 							<BillingDetailsForm

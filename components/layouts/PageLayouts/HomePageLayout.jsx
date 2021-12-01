@@ -26,7 +26,7 @@ const HomePageLayout = () => {
     dispatch(
       AllPromoBanners({
         authKey: localStorage.getItem('auth_key'),
-        bodyParam: { placement: 'home_body' },
+        bodyParam: { placement: 'footer' },
       })
     );
   }, [auth_key, dispatch]);
@@ -42,14 +42,15 @@ const HomePageLayout = () => {
   } = useSelector(homeSelector);
 
   const { genral_configs, marketplace_type, marketplace_module } =
-		useSelector(configsSelector);
- 
+    useSelector(configsSelector);
 
   return (
     <div className="">
-     {!page_promo_banners?.length>0 && <div>
-        <Banner banners={promo_banners} />
-      </div>}
+      {!page_promo_banners?.length > 0 && page_promo_banners?.length !== null && (
+        <div>
+          <Banner banners={promo_banners} />
+        </div>
+      )}
       <div>
         <Categories categories={categories} />
       </div>

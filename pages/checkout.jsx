@@ -42,15 +42,7 @@ const Checkout = (props) => {
   return (
     marketplace_type && (
       <>
-        <div className=" hidden md:block">
-          <MagazineLayout
-            pageTitle={pageTitle}
-            pageDescription={pageDescription}
-          >
-            {selectLayout()}
-          </MagazineLayout>
-        </div>
-        <div className="   md:hidden">
+        <div className="">
           <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             {selectLayout()}
           </MainLayout>
