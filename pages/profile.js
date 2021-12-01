@@ -5,8 +5,11 @@ import MainLayout from "../components/layouts/MainLayouts/MainLayout";
 import ProfilePageLayout from '../components/layouts/PageLayouts/ProfilePageLayout';
 import { authSelector, refreshPage } from '../store/feature/authSlice';
 import { myStore } from '../store/feature/storeSlice';
+import tradly from "tradly"
+import { setGeneralConfig } from '../store/feature/configsSlice';
 
-const profile = () => {
+
+const profile = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(
@@ -29,7 +32,9 @@ const profile = () => {
           },
           authKey: localStorage.getItem('auth_key'),
         })
+        
       );
+      dispatch(setGeneralConfig(props));
     }
   }, [localStorage.getItem('auth_key')]);
     return (
@@ -44,18 +49,11 @@ export default profile;
 
 
 
-// export async function getServerSideProps(context) {
-//  const{login}=useSelector(authSelector)
-//   if (!login) {
-//     return {
-//       redirect: {
-//         destination: '/',
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: {}, // will be passed to the page component as props
-//   };
-// }
+export async function getServerSideProps() {
+  const response = await tradly.app.getConfigList({
+    paramBody: 'general',
+  });
+  return {
+    props: { general_configs: response?.data?.configs || [] },
+  };
+}

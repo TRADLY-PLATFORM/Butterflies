@@ -28,7 +28,7 @@ const Payment = (props) => {
     );
   }, [dispatch]);
 
-  const stripePromise = loadStripe(props.payment.stripe_api_publishable_key);
+  const stripePromise = loadStripe(props.payment?.stripe_api_publishable_key);
   return (
     <Elements stripe={stripePromise}>
       <PaymentPageLayout />
@@ -43,6 +43,6 @@ export async function getServerSideProps() {
     paramBody: 'payments',
   });
   return {
-    props: { payment: response?.data?.configs },
+    props: { payment: response?.data?.configs||[] },
   };
 }

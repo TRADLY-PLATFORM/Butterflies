@@ -31,9 +31,6 @@ const Warning = ({ message, closePopUP }) => {
         </svg>
       </div>
       <div>
-        <strong className="font-bold">
-          {first_name ? 'Hi' + '  ' + first_name : 'Hi Guess !'}
-        </strong>
         <span className="  ml-2">{message}</span>
       </div>
       <div className="flex items-center justify-center" onClick={closePopUP}>
