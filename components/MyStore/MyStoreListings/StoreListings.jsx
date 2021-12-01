@@ -55,7 +55,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
   };
 
   return (
-    <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-start">
+    <div className=" grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">
       {isLoading && <CustomLoading />}
       {showWarning && (
         <OutsideClickHandler
@@ -72,9 +72,9 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
       )}
 
       {my_store_listings?.map((item) => (
-        <div key={Math.random()} className="   ms:mb-5  ms:mr-4 relative">
+        <div key={Math.random()} className="  relative">
           <div
-            className=" ms:w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
+            className=" w-full  min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
             onClick={() => {
               if (item.active) {
                 router.push(`/listing/${item.id}`);
@@ -84,7 +84,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
               }
             }}
           >
-            <div className=" ms:w-[190px]  h-[190px] relative">
+            <div className=" aspect-w-1 aspect-h-1 relative  mb-4 ">
               <Image
                 src={item.images[0]}
                 alt={item.title}
@@ -98,19 +98,16 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
               </p>
             )}
             <div className="mt-2 pl-2">
-              <p className=" text-sm leading-[15px] font-semibold text-primary">
-                {item.title.length > 15
-                  ? item.title.substring(0, 15) + '..'
+              <p className="  text-sm ms:text-base xmd:text-lg leading-[15px] font-semibold text-primary">
+                {item.title.length > 18
+                  ? item.title.substring(0, 18) + '..'
                   : item.title}
               </p>
-              <p className=" text-[10px] leading-4 font-medium text-gray-500 mt-1 flex items-center">
-                <span className=" te-sm">{item.list_price.currency}</span>
-                <span className=" text-base ml-[6px]">
-                  {item.list_price.amount}
-                </span>
+              <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-1">
+                {item.list_price.formatted}
               </p>
             </div>
-            <div className=" pl-2 mt-4 mb-[14px] flex items-center">
+            {/* <div className=" pl-2 mt-4 mb-[14px] flex items-center">
               {item?.account?.images.length > 0 ? (
                 <div className="h-5 w-5 rounded-full overflow-hidden  relative">
                   <Image
@@ -145,7 +142,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
                   {item?.account?.total_followers} Followers
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div

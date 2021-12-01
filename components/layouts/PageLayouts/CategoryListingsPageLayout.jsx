@@ -12,6 +12,7 @@ import {
 import Products from '../../ProductsByCategory/Products';
 import Head from 'next/head';
 import ReactPaginate from 'react-paginate';
+import NewProducts from '../../ProductsByCategory/NewProducts';
 
 
 const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
@@ -104,7 +105,7 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
       </Head>
       {category_listings === null || category_listings?.length > 0 ? (
         <div>
-          <Products Products={category_listings} />
+          <NewProducts Products={category_listings} />
         </div>
       ) : (
         <div className=" w-full h-[200px] mt-5 flex justify-center items-start">

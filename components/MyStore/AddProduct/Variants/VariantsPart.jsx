@@ -9,6 +9,8 @@ import tradly from 'tradly';
 import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../../../Shared/PopUp/PopUp';
 import { storeSelector } from '../../../../store/feature/storeSlice';
+import { configsSelector } from '../../../../store/feature/configsSlice';
+import { stock_card_text } from '../../../Shared/Constant/TextConstant/addlistingConstant';
 
 const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
   const [showVariantForm, setShowVariantForm] = useState(false);
@@ -17,6 +19,9 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
   const [error_message, setError_message] = useState('');
 
   const { currencies } = useSelector(storeSelector);
+
+   const { genral_configs, marketplace_type, marketplace_module } =
+     useSelector(configsSelector);
 
   const [variantsObject, setVariantsObject] = useState({
     variant_type: null,
@@ -102,7 +107,7 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
         </OutsideClickHandler>
       )}
       <div className="bg-white p-5  rounded-lg shadow-c-sm">
-        {(!variantsArray === null || variantsArray?.length > 0) ? (
+        {!variantsArray === null || variantsArray?.length > 0 ? (
           <div>
             {variantsArray.map((item, index) => {
               return (
@@ -121,7 +126,7 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
                   <div className=" ml-6 w-3/6 md:w-4/6">
                     <p className=" text-sm text-primary font-normal">
                       {' '}
-                      {item.stock} tickets left
+                      {stock_card_text(marketplace_type, item.stock)}
                     </p>
                     <p className="text-black font-semibold">{item.title}</p>
                     <p className=" flex items-center  ">
@@ -205,7 +210,26 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
         )}
       </div>
       {showVariantForm && (
-        <div className="  bg-white w-full min-h-[300px] mt-4">
+        <div className="  bg-white w-full min-h-[300px] mt-4 relative">
+          <button
+            className="absolute top  right-0 text-primary font-semibold text-xl mt-5 mr-5"
+            onClick={() => setShowVariantForm(false)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7 "
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
           <AddVariantsForm
             variantsType={variantsType}
             variantsObject={variantsObject}
@@ -213,6 +237,7 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
             addVariantClick={addVariantClick}
             setError_message={setError_message}
             setShowError={setShowError}
+            marketplace_type={marketplace_type}
           />
         </div>
       )}

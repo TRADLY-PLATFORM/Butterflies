@@ -11,6 +11,7 @@ import {
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import { useRouter } from 'next/dist/client/router';
+import AccountCard from '../../Shared/Cards/AccountCard';
 
 
 const Accounts = ({ accounts }) => {
@@ -44,54 +45,8 @@ const Accounts = ({ accounts }) => {
     <div className="  grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-center">
       {accounts?.map((item) => {
         return (
-          <div className=" relative  ms:mb-5  ms:mr-4 " key={item.id}>
-            <div
-              className=" ms:w-[190px] min-h-[260px] bg-[#FEFEFE]   rounded   overflow-hidden cursor-pointer shadow-c-xsm relative px-[22px] py-[25px] flex flex-col justify-between "
-              //   onClick={() => router.push(`/listing/${item.id}`)}
-            >
-              <div className="w-[64px]  h-[64px] rounded-full overflow-hidden relative mx-auto ">
-                {item?.images?.length > 0 ? (
-                  <Image
-                    src={getThumbnailImage(item?.images[0])}
-                    alt={item?.title}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                ) : (
-                  <Image
-                    src={demoImage}
-                    alt="image"
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                )}
-              </div>
-              <div>
-                <p className="w-full text-[#000000] font-semibold text-[14px] text-center ">
-                  {item.user.first_name.length > 15
-                    ? item.user.first_name.substring(0, 15) + '..'
-                    : item.user.first_name}
-                </p>
-                <p className="mt-2 text-[#4A4A4A] text-[18px] w-full text-center">
-                  {item.name.length > 15
-                    ? item.name.substring(0, 13) + '..'
-                    : item.name}
-                </p>
-              </div>
-              <div>
-                <button
-                  className={[
-                    'w-full h-[34px] flex justify-center items-center rounded-xl border border-primary  ',
-                    item.following
-                      ? 'text-[#FFFFFF]  bg-primary'
-                      : 'text-primary   bg-transparent',
-                  ].join(' ')}
-                  onClick={() => follow(item.id, item.following)}
-                >
-                  {item.following ? 'Following' : 'Follow'}
-                </button>
-              </div>
-            </div>
+          <div className=" relative w-[190px]  ms:mb-5  ms:mr-4 " key={item.id}>
+            <AccountCard item={item} follow={follow} />
           </div>
         );
       })}

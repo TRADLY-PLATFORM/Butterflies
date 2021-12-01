@@ -2,6 +2,7 @@ import { useRouter } from 'next/dist/client/router';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
+import { configsSelector } from '../../../store/feature/configsSlice';
 import {
   currencies,
   listingCategories,
@@ -18,6 +19,9 @@ const EditProductPageLayout = () => {
   const productId = router.query.product_id;
 
   const { listing_configs } = useSelector(storeSelector);
+  const { genral_configs, marketplace_type, marketplace_module } =
+    useSelector(configsSelector);
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (auth_key) {
@@ -37,13 +41,17 @@ const EditProductPageLayout = () => {
         <div className=" bg-white  w-full  p-5 shadow-c-sm rounded-lg">
           {listing_configs !== null && <EditProductForm />}
         </div>
-        <div className="    w-[full  mt-9">
-          {listing_configs !== null && <EditVariantsPart />}
+        {marketplace_type === 2 && (
+          <div className="    w-[full  mt-9">
+            {listing_configs !== null && <EditVariantsPart />}
+          </div>
+        )}
+      </div>
+      {marketplace_type === 2 && (
+        <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full  xs:w-[500px] c-lg:w-[380px]  xl:w-[438px]">
+          <EditSchedulePart />
         </div>
-      </div>
-      <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full  xs:w-[500px] c-lg:w-[380px]  xl:w-[438px]">
-        <EditSchedulePart />
-      </div>
+      )}
     </div>
   );
 };

@@ -24,6 +24,7 @@ import { homeCollections } from '../../../store/feature/homeSlice';
 
 import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
+import AccountCard from '../../Shared/Cards/AccountCard';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
@@ -59,7 +60,7 @@ const StoresForFollow = ({ stores }) => {
         <Link
           href={{
             pathname: '/stores',
-            query: { page: 1},
+            query: { page: 1 },
           }}
           passHref
         >
@@ -79,53 +80,14 @@ const StoresForFollow = ({ stores }) => {
         >
           {stores?.accounts?.map((item) => (
             <SwiperSlide
-              className=" w-[190px] h-[270px]    rounded mr-4 overflow-hidden"
+              className=" w-[166px] h-[270px]    rounded mr-4 overflow-hidden"
               key={Math.random() * 3000000}
               style={{
                 width: '190px',
                 minHeight: '270px',
               }}
             >
-              <div className=" relative">
-                <div
-                  className=" w-[190px] min-h-[260px] bg-[#FEFEFE]   rounded mr-4 overflow-hidden cursor-pointer shadow-c-xsm relative px-[22px] py-[25px] flex flex-col justify-between "
-                  //   onClick={() => router.push(`/listing/${item.id}`)}
-                >
-                  <div className="w-[64px]  h-[64px] rounded-full overflow-hidden relative mx-auto ">
-                    <Image
-                      src={getThumbnailImage(item.images[0])}
-                      alt={item.title}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="w-full text-[#000000] font-semibold text-[14px] text-center ">
-                      {item?.user?.first_name.length > 15
-                        ? item?.user?.first_name.substring(0, 15) + '..'
-                        : item?.user?.first_name}
-                    </p>
-                    <p className="mt-2 text-[#4A4A4A] text-[18px] w-full text-center">
-                      {item.name.length > 15
-                        ? item.name.substring(0, 13) + '..'
-                        : item.name}
-                    </p>
-                  </div>
-                  <div>
-                    <button
-                      className={[
-                        'w-full h-[34px] flex justify-center items-center rounded-xl border border-primary  ',
-                        item.following
-                          ? 'text-[#FFFFFF]  bg-primary'
-                          : 'text-primary   bg-transparent',
-                      ].join(' ')}
-                      onClick={() => follow(item.id, item.following)}
-                    >
-                      {item.following ? 'Following' : 'Follow'}
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <AccountCard item={item} follow={follow}/>
             </SwiperSlide>
           ))}
         </Swiper>

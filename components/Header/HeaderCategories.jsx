@@ -27,11 +27,17 @@ const HeaderCategories = () => {
               setCategories(response);
             } else {
               var sliceLength;
-              if (width < 1100) {
-                sliceLength = 3;
+              if (width < 1300) {
+                sliceLength = 7;
+              }
+              if (width < 1000) {
+                sliceLength = 6;
+              }
+              if (width < 900) {
+                sliceLength = 5;
               }
 
-              let updatedCategories = response.slice(0, sliceLength || 5);
+              let updatedCategories = response.slice(0, sliceLength || 10);
               let moreCategory = {
                 id: Math.random(),
                 name: 'More',
@@ -75,13 +81,16 @@ const HeaderCategories = () => {
                 <p
                   className={[
                     ' min-h-[44px] px-3 flex justify-center items-center cursor-pointer transition duration-300 hover:text-primary ',
-                    router?.query?.name ===
-                    item.name.replace(/\s/g, '-')
+                    router?.query?.name === item.name.replace(/\s/g, '-')
                       ? 'text-primary'
                       : '',
                   ].join(' ')}
                 >
-                  {item.name}
+                  {item.name === 'More'
+                    ? item.name
+                    : item.name.length > 8
+                    ? item.name.substring(0, 7)+'.'
+                    : item.name}
                 </p>
               </div>
             </Link>

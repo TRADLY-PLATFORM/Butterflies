@@ -16,6 +16,8 @@ import { useRouter } from 'next/dist/client/router';
 import { edit_product_click } from './editProduct';
 import EditListingSuccess from './EditListingSuccess';
 import Modal from '../../Shared/Modal.jsx/Modal';
+import { configsSelector } from '../../../store/feature/configsSlice';
+import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
 
 const EditProductForm = () => {
   const [title, setTitle] = useState('');
@@ -50,6 +52,8 @@ const EditProductForm = () => {
     listing_categories,
     my_account_listing_details,
   } = useSelector(storeSelector);
+    const { genral_configs, marketplace_type, marketplace_module } =
+      useSelector(configsSelector);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -423,7 +427,7 @@ const EditProductForm = () => {
           )}
           {listing_configs.enable_stock && (
             <label className="block">
-              <span className="text-gray-700">Ticket limits</span>
+              <span className="text-gray-700">{ stock_text(marketplace_type)}</span>
               <input
                 value={quantity}
                 type="number"
