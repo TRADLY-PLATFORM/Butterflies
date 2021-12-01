@@ -38,9 +38,9 @@ const Banner = ({ banners }) => {
 					return (
 						<SwiperSlide
 							key={i}
-							className="w-full h-[200px] md:h-[400px]  relative rounded-lg overflow-hidden"
+							className=" w-full flex flex-col justify-center items-center mb-14"
 						>
-							<div className=" w-full h-[200px] relative rounded-lg overflow-hidden">
+							<div className=" w-full h-[200px] md:h-[400px]  relative rounded-lg overflow-hidden">
 								<Image
 									src={
 										banner.image_path
