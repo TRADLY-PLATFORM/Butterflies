@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { storeSelector } from '../../../../store/feature/storeSlice';
+import { stock_text } from '../../../Shared/Constant/TextConstant/addlistingConstant';
 
 const AddVariantsForm = ({
   variantsType,
@@ -11,6 +12,7 @@ const AddVariantsForm = ({
   addVariantClick,
   setShowError,
   setError_message,
+  marketplace_type,
 }) => {
   const [imagePath, setImagePath] = useState(null);
   const [files, setFiles] = useState(null);
@@ -49,7 +51,7 @@ const AddVariantsForm = ({
       setError_message('Price is required');
       return false;
     }
-    
+
     addVariantClick();
   };
 
@@ -169,11 +171,10 @@ const AddVariantsForm = ({
                     focus:ring-0 focus:border-primary
                   "
             onChange={(e) => {
-               
-                setVariantsObject({
-                  ...variantsObject,
-                  variant_type_value: Number(e.target.value),
-                });
+              setVariantsObject({
+                ...variantsObject,
+                variant_type_value: Number(e.target.value),
+              });
             }}
           >
             <option hidden selected>
@@ -277,7 +278,7 @@ const AddVariantsForm = ({
           </label>
         )}
         <label className="block">
-          <span className="text-gray-700">Tickets</span>
+          <span className="text-gray-700">{stock_text(marketplace_type)}</span>
           <input
             type="number"
             className="

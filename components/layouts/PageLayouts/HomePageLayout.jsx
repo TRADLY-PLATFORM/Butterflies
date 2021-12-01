@@ -47,9 +47,9 @@ const HomePageLayout = () => {
 
   return (
     <div className="">
-      <div>
+     {!page_promo_banners?.length>0 && <div>
         <Banner banners={promo_banners} />
-      </div>
+      </div>}
       <div>
         <Categories categories={categories} />
       </div>

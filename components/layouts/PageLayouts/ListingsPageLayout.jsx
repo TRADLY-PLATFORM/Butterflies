@@ -10,6 +10,7 @@ import {
 import Listings from '../../Listings/Listings';
 import ReactPaginate from 'react-paginate';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
+import NewListings from '../../Listings/NewListings';
 
 const ListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -63,7 +64,7 @@ const ListingsPageLayout = () => {
       <div>
         {listings === null || listings?.length > 0 ? (
           <div>
-            <Listings Products={listings} />
+            <NewListings Products={listings} />
           </div>
         ) : (
           <div className=" w-full h-[200px] mt-5 flex justify-center items-start">

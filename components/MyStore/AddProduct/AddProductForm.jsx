@@ -16,6 +16,9 @@ import { add_product_click } from './addProduct';
 import SchedulePart from './schedule/SchedulePart';
 import AddVariantForm from './Variants/AddVariantsForm';
 import VariantsPart from './Variants/VariantsPart';
+import { configsSelector } from '../../../store/feature/configsSlice';
+import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
+import tradly from 'tradly';
 
 const AddProductForm = () => {
   const [title, setTitle] = useState('');
@@ -37,12 +40,11 @@ const AddProductForm = () => {
   const [addProductLoading, setAddProductLoading] = useState(false);
   const [schedulesArray, setSchedulesArray] = useState(null);
   const [variantsArray, setVariantsArray] = useState(null);
-
-  console.log('====================================');
-  console.log(schedulesArray);
-  console.log('====================================');
+  const [variantsType, setVariantsType] = useState(null);
 
   const { auth_key } = useSelector(authSelector);
+  const { genral_configs, marketplace_type, marketplace_module } =
+    useSelector(configsSelector);
 
   const {
     listing_configs,
@@ -51,6 +53,14 @@ const AddProductForm = () => {
     currencies,
     listing_categories,
   } = useSelector(storeSelector);
+
+  useEffect(() => {
+    tradly.app.getVariantTypes({ authKey: auth_key }).then((res) => {
+      if (!res.error) {
+        setVariantsType(res.data.variant_types);
+      }
+    });
+  }, [auth_key]);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -153,7 +163,7 @@ const AddProductForm = () => {
           </div>
         </OutsideClickHandler>
       )}
-      <div className=" w-full pt-2  pb-20 flex items-center  flex-col gap-8 md:gap-2   c-lg:flex-row justify-center c-lg:items-start  ">
+      <div className=" w-full pt-2  pb-[100px] flex items-center  flex-col gap-8 md:gap-2   c-lg:flex-row justify-center c-lg:items-start  ">
         <div className=" w-full  xs:w-[500px]  c-lg:w-[450px] xl:w-[500px]  2xl:w-[600px] ">
           <h3 className=" font-semibold text-[#121212] text-xl mb-4">
             Listing Details
@@ -349,7 +359,9 @@ const AddProductForm = () => {
               )}
               {listing_configs.enable_stock && (
                 <label className="block">
-                  <span className="text-gray-700">Ticket limit</span>
+                  <span className="text-gray-700">
+                    {stock_text(marketplace_type)}
+                  </span>
                   <input
                     value={quantity}
                     type="number"
@@ -404,29 +416,35 @@ const AddProductForm = () => {
               />
             </div>
           </div>
-          <h3 className=" font-semibold mt-9 text-[#121212] text-xl mb-4">
-            Variants
-          </h3>{' '}
-          <div className="w-full    ">
-            {' '}
-            <VariantsPart
-              variantsArray={variantsArray}
-              setVariantsArray={setVariantsArray}
-              currency={currency}
-            />
-          </div>
+          {variantsType?.length > 0 && marketplace_type ===2 &&(
+            <>
+              <h3 className=" font-semibold mt-9 text-[#121212] text-xl mb-4">
+                Variants
+              </h3>{' '}
+              <div className="w-full    ">
+                {' '}
+                <VariantsPart
+                  variantsArray={variantsArray}
+                  setVariantsArray={setVariantsArray}
+                  currency={currency}
+                />
+              </div>
+            </>
+          )}
         </div>
-        <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full  xs:w-[500px] c-lg:w-[380px]  xl:w-[438px]">
-          <h3 className=" font-semibold text-[#121212] text-xl mb-4">
-            Date & Time
-          </h3>{' '}
-          <div className=" ">
-            <SchedulePart
-              schedulesArray={schedulesArray}
-              setSchedulesArray={setSchedulesArray}
-            />
+        {marketplace_type === 2 && (
+          <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full  xs:w-[500px] c-lg:w-[380px]  xl:w-[438px]">
+            <h3 className=" font-semibold text-[#121212] text-xl mb-4">
+              Date & Time
+            </h3>{' '}
+            <div className=" ">
+              <SchedulePart
+                schedulesArray={schedulesArray}
+                setSchedulesArray={setSchedulesArray}
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="  relative  mt-10 md:mt-0  md:fixed w-full h-[80px] md:bg-white bottom-0 left-0 ">
           <div className="h-full   flex   justify-center md:justify-end items-center ">
