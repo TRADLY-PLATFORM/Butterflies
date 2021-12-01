@@ -13,37 +13,26 @@ module.exports = {
       boxShadow: {
         'c-sm': '0px 8px 28px rgba(0, 0, 0, 0.07)',
         'c-xsm': '0px 1px 2px rgba(0, 0, 0, 0.24)',
+        'c-md': '0px 24px 45px rgba(58, 76, 130, 0.08)',
       },
       transitionProperty: {
         width: 'width',
       },
-    },
-    colors: {
-      primary: 'var( --primary_color)',
-      primary_light: '#DFFBF4',
-      secondary: '#959393',
-      transparent: 'transparent',
-      current: 'currentColor',
-      black: colors.black,
-      white: colors.white,
-      gray: colors.trueGray,
-      indigo: colors.indigo,
-      red: colors.red,
-      yellow: colors.amber,
-      rose: colors.rose,
-      orange: colors.orange,
-      green: colors.green,
-      blue: colors.blue,
-    },
-    borderRadius: {
-     'c-48': '48px',
-      none: '0',
-      sm: '0.125rem',
-      DEFAULT: '0.25rem',
-      md: '0.375rem',
-      lg: '0.5rem',
-      xl: '16px',
-      full: '9999px',
+      gridTemplateColumns: {
+        listing_card_5: 'repeat(5, minmax(0, 290px))',
+        listing_card_4: 'repeat(4, minmax(0, 290px))',
+        listing_card_3: 'repeat(3, minmax(0, 290px))',
+        listing_card_2: 'repeat(2, minmax(0, 290px))',
+        listing_card_sm_2: 'repeat(2, minmax(0, 200px))',
+      },
+      colors: {
+        primary: 'var( --primary_color)',
+        primary_light: '#DFFBF4',
+        secondary: '#959393',
+      },
+      borderRadius: {
+        'c-48': '48px',
+      },
     },
     screens: {
       xs: '540px',
@@ -51,12 +40,15 @@ module.exports = {
       xxs: '350px',
       'c-lg': '1100px',
       'c-md': '824px',
-
       ...defaultTheme.screens,
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
 };

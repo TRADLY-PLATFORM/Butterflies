@@ -18,6 +18,7 @@ import {
 	changeDateFormat,
 	getThumbnailImage,
 } from "../../Shared/Constant/Constant";
+import {configsSelector}from "../../../store/feature/configsSlice"
 import { authSelector } from "../../../store/feature/authSlice";
 import { listingLike } from "../../../store/feature/listingSlice";
 import { homeCollections } from "../../../store/feature/homeSlice";
@@ -29,6 +30,7 @@ SwiperCore.use([Navigation, Pagination]);
 
 const LatestEvent = ({ products }) => {
 	const { login, auth_key } = useSelector(authSelector);
+  const { marketplace_type , marketplace_module } = useSelector(configsSelector);
 	// const { isSuccess } = useSelector(listingSelector);
 	const dispatch = useDispatch();
 	const router = useRouter();
@@ -57,7 +59,13 @@ const LatestEvent = ({ products }) => {
     <div className="mt-10">
       <div className="flex justify-between items-center  ">
         <h2 className=" text-2xl text-black font-semibold">{products.title}</h2>
-        <Link href="/listing" passHref>
+        <Link
+          href={{
+            pathname: '/listing',
+            query: { page: 1 },
+          }}
+          passHref
+        >
           <p className="text-base text-primary font-semibold cursor-pointer">
             View All
           </p>
@@ -78,12 +86,13 @@ const LatestEvent = ({ products }) => {
               key={Math.random() * 3000000}
               style={{
                 width: '190px',
-                minHeight: '310px',
+                minHeight: '210px',
+                paddingBottom: '10px',
               }}
             >
               <div className=" relative">
                 <div
-                  className=" w-[190px] min-h-[303px] bg-[#FEFEFE]   rounded mr-4 overflow-hidden cursor-pointer shadow-c-xsm relative"
+                  className=" w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded mr-4 overflow-hidden cursor-pointer shadow-c-xsm relative"
                   onClick={() => router.push(`/listing/${item.id}`)}
                 >
                   <div className="w-[190px]  h-[190px] relative">
@@ -94,13 +103,15 @@ const LatestEvent = ({ products }) => {
                       objectFit="cover"
                     />
                   </div>
-                  <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
-                    {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
-                  </p>
+                  {marketplace_type === 2 && (
+                    <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
+                      {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
+                    </p>
+                  )}
                   <div className="mt-2 pl-2">
-                    <p className=" text-xs leading-[15px] font-semibold text-primary">
-                      {item.title.length > 20
-                        ? item.title.substring(0, 20) + '..'
+                    <p className=" text-sm leading-[15px] font-semibold text-primary">
+                      {item.title.length > 18
+                        ? item.title.substring(0, 18) + '..'
                         : item.title}
                     </p>
                     <p className=" mt-1 flex items-center flex-wrap">
@@ -140,7 +151,9 @@ const LatestEvent = ({ products }) => {
 
                     <div className="ml-1">
                       <p className=" text-[10px]   leading-3 text-[#4F4F4F] font-medium mix-blend-normal">
-                        {item?.account?.name}
+                        {item?.account?.name.length > 20
+                          ? item?.account?.name.substring(0, 18) + '..'
+                          : item?.account?.name}
                       </p>
                       <p className="text-[10px] leading-3 text-[#4F4F4F] font-medium   opacity-50">
                         {item?.account?.total_followers} Followers

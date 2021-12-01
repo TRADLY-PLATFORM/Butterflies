@@ -7,6 +7,7 @@ import { refreshPage } from '../../store/feature/authSlice';
 import tradly from 'tradly';
 import { setListingConfig } from '../../store/feature/storeSlice';
 import AddEventPageLayout from '../../components/layouts/PageLayouts/AddEventPageLayout';
+import { setGeneralConfig } from '../../store/feature/configsSlice';
 
 
 const AddProduct = (props) => {
@@ -18,6 +19,7 @@ const AddProduct = (props) => {
           })
         );
         dispatch(setListingConfig(props));
+         dispatch(setGeneralConfig(props));
       }, [dispatch]);
     
   
@@ -36,7 +38,13 @@ export async function getServerSideProps() {
   const response = await tradly.app.getConfigList({
     paramBody: 'listings',
   });
+   const response2 = await tradly.app.getConfigList({
+     paramBody: 'general',
+   });
   return {
-    props: { listing_configs: response?.data?.configs },
+    props: {
+      listing_configs: response?.data?.configs ||[],
+      general_configs: response2?.data?.configs || [],
+    },
   };
 }

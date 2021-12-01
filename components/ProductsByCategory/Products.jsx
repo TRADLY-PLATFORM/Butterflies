@@ -18,9 +18,11 @@ import {
 	categoryListings,
 	categorySelector,
 } from "../../store/feature/categorySlice";
+import { configsSelector } from "../../store/feature/configsSlice";
 
 const Products = ({ Products }) => {
-	const { login, auth_key } = useSelector(authSelector);
+  const { login, auth_key } = useSelector(authSelector);
+  const { marketplace_type, marketplace_module } = useSelector(configsSelector);
 	// const { isSuccess } = useSelector(listingSelector);
 	const dispatch = useDispatch();
 	const router = useRouter();
@@ -54,12 +56,12 @@ const Products = ({ Products }) => {
 		}
 	};
 	return (
-    <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-start">
+    <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-center">
       {Products?.map((item) => (
         // <Link href={`/l/${item.id}`} passHref>
         <div key={Math.random()} className="   ms:mb-5  ms:mr-4 relative">
           <div
-            className=" ms:w-[190px] min-h-[303px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
+            className=" ms:w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
             onClick={() => router.push(`/listing/${item.id}`)}
           >
             <div className=" ms:w-[190px]  h-[190px] relative">
@@ -70,11 +72,13 @@ const Products = ({ Products }) => {
                 objectFit="cover"
               />
             </div>
-            <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
-              {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
-            </p>
+            {marketplace_type === 2 && (
+              <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
+                {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
+              </p>
+            )}
             <div className="mt-2 pl-2">
-              <p className=" text-xs leading-[15px] font-semibold text-primary">
+              <p className=" text-sm leading-[15px] font-semibold text-primary">
                 {item.title.length > 15
                   ? item.title.substring(0, 15) + '..'
                   : item.title}
@@ -113,7 +117,9 @@ const Products = ({ Products }) => {
               )}
               <div className="ml-1">
                 <p className=" text-[10px]   leading-3 text-[#4F4F4F] font-medium mix-blend-normal">
-                  {item?.account?.name}
+                  {item?.account?.name.length > 10
+                    ? item?.account?.name.substring(0, 18) + '..'
+                    : item?.account?.name}
                 </p>
                 <p className="text-[10px] leading-3 text-[#4F4F4F] font-medium   opacity-50">
                   {item?.account?.total_followers} Followers

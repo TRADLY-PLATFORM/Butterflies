@@ -24,6 +24,6 @@ export async function getServerSideProps() {
     paramBody: 'general',
   });
   return {
-    props: { general_configs: response?.data?.configs },
+    props: { general_configs: response?.data?.configs||[] },
   };
 }

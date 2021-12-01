@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import DescriptionPart from '../../EventDetails/DescriptionPart/DescriptionPart';
-import ImagePart from '../../EventDetails/ImagePart/ImagePart';
-import MainBox from '../../EventDetails/MainBox/MainBox';
+import DescriptionPart from '../../ListingDetails/DescriptionPart/DescriptionPart';
+import ImagePart from '../../ListingDetails/ImagePart/ImagePart';
+import MainBox from '../../ListingDetails/MainBox/MainBox';
 import { useRouter } from 'next/dist/client/router';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -16,12 +16,12 @@ import {
 } from '../../../store/feature/listingSlice';
 import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../../Shared/PopUp/PopUp';
-import AttributeDetails from '../../EventDetails/AttributeDetails/AttributeDetails';
-import EventButtons from '../../EventDetails/EventsButtons/EventButtons';
+import AttributeDetails from '../../ListingDetails/AttributeDetails/AttributeDetails';
+import EventButtons from '../../ListingDetails/EventsButtons/EventButtons';
 import Head from 'next/head';
-import Schedule from '../../EventDetails/SchedulePart/Schedule ';
-import AddressBox from '../../EventDetails/AddressBox/AddressBox';
-import Variants from '../../EventDetails/Variants/Variants';
+import Schedule from '../../ListingDetails/SchedulePart/Schedule ';
+import AddressBox from '../../ListingDetails/AddressBox/AddressBox';
+import Variants from '../../ListingDetails/Variants/Variants';
 
 const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -156,7 +156,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         </OutsideClickHandler>
       )}
       {
-        <div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  pt-16 pb-20   c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
+        <div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  md:pt-[20px] pb-20   c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
           <div className=" w-[100vw] ms:w-[400px] lg:w-[500px] xl:w-[600px]">
             <div>
               <ImagePart images={listing_details?.images} />

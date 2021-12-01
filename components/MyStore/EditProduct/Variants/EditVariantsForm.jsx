@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { storeSelector } from '../../../../store/feature/storeSlice';
+import { configsSelector } from '../../../../store/feature/configsSlice';
+import { stock_text } from '../../../Shared/Constant/TextConstant/addlistingConstant';
 
 const EditVariantsForm = ({
   editVariantData,
@@ -19,6 +21,8 @@ const EditVariantsForm = ({
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(null);
 
   const { currencies, listing_configs } = useSelector(storeSelector);
+    const { genral_configs, marketplace_type, marketplace_module } =
+      useSelector(configsSelector);
 
   const clickAddButton = () => {
     if (variantsObject.images === null) {
@@ -321,7 +325,7 @@ const EditVariantsForm = ({
           </label>
         )}
         <label className="block">
-          <span className="text-gray-700">Tickets</span>
+          <span className="text-gray-700">{ stock_text(marketplace_type)}</span>
           <input
             value={variantsObject.stock}
             type="number"

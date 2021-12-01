@@ -5,11 +5,13 @@ import MainLayout from '../components/layouts/MainLayouts/MainLayout';
 import HomePageLayout from '../components/layouts/PageLayouts/HomePageLayout';
 import { refreshPage } from '../store/feature/authSlice';
 import tradly from 'tradly';
+import { setGeneralConfig } from '../store/feature/configsSlice';
 
 const Index = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshPage({ key: localStorage.getItem('refresh_key') }));
+      dispatch(setGeneralConfig(props))
   }, [dispatch]);
 
   const pageTitle = props?.seo_text?.meta_title;
@@ -28,7 +30,13 @@ export async function getServerSideProps() {
   const response = await tradly.app.getConfigList({
     paramBody: 'seo',
   });
+  const response2 = await tradly.app.getConfigList({
+    paramBody: 'general',
+  });
   return {
-    props: { seo_text: response?.data?.configs || null },
+    props: {
+      seo_text: response?.data?.configs || null,
+      general_configs: response2?.data?.configs || [],
+    },
   };
 }

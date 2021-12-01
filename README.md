@@ -20,13 +20,11 @@
   <h3 align="center">Tradly Platform</h3>
 
   <p align="center">
-     An open source NextJS Template. Contents served from Tradly Headless API
+     An open source NextJS Template with Tailwind UI. Contents served from Tradly Headless API
     <br />
     <a href="https://portal.tradly.app/docs/introduction"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://butterflies-sandbox-cdk3ee3g7-my-team1871.vercel.app/">View Demo</a>
-    ·
     <a href="https://github.com/TRADLY-PLATFORM/Butterflies/issues">Report Bug</a>
     ·
     <a href="https://github.com/TRADLY-PLATFORM/Butterflies/issues">Request Feature</a>
@@ -37,7 +35,7 @@
 
 ## Deploy on Vercel, Netlify
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/TRADLY-PLATFORM/Butterflies&env=ENVIRONMENT,API_KEY,SITE_URL)
+[Deploy with Vercel](https://vercel.com/new/clone?repository-url=https://github.com/TRADLY-PLATFORM/Butterflies&project-name=%7Btenant_name%7D&repository-name=%7Btenant_name%7D&demo-title=DemoStorefront&demo-description=Tradly%20starter%20kit%20to%20launch%20your%20marketplace%20&demo-url=https://sneakershub.vercel.app&demo-image=https://user-images.githubusercontent.com/61427976/133940948-09361d1c-08b3-43e3-b588-ac1dd3ff3e0c.png&envLink=https://portal.tradly.app/docs/vercel&integration-ids=oac_ZjlyX04ie0YNeck9UjeAMfba&redirect-url=https://superadmin.sandbox.tradly.app&developer-id=oac_ZjlyX04ie0YNeck9UjeAMfba)
 
 [<img src="https://www.netlify.com/img/deploy/button.svg">](https://app.netlify.com/start/deploy?repository=https://github.com/TRADLY-PLATFORM/Butterflies)
 

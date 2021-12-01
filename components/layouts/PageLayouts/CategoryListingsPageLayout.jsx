@@ -1,80 +1,95 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable camelcase */
-import { useRouter } from "next/dist/client/router";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { authSelector } from "../../../store/feature/authSlice";
+import { useRouter } from 'next/dist/client/router';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelector } from '../../../store/feature/authSlice';
 import {
-	categoryListings,
-	categorySelector,
-	clearCategoryListings,
-} from "../../../store/feature/categorySlice";
-import Products from "../../ProductsByCategory/Products";
-import Head from "next/head";
+  categoryListings,
+  categorySelector,
+  clearCategoryListings,
+} from '../../../store/feature/categorySlice';
+import Products from '../../ProductsByCategory/Products';
+import Head from 'next/head';
+import ReactPaginate from 'react-paginate';
+import NewProducts from '../../ProductsByCategory/NewProducts';
+
 
 const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
-	const router = useRouter();
+  const [pageCount, setPageCount] = useState(0);
 
-	const dispatch = useDispatch();
-	const { auth_key,first_name } = useSelector(authSelector);
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+  const { auth_key, first_name } = useSelector(authSelector);
+  useEffect(() => {
+    if (router.query.id) {
+      dispatch(
+        categoryListings({
+          prams: {
+            page: router.query.page,
+            per_page: 30,
+            category_id: router.query.id,
+          },
+          authKey: auth_key,
+        })
+      );
+    }
+  }, [router.query.id, auth_key, dispatch]);
+
+  const moreListings = (data) => {
+    dispatch(
+      categoryListings({
+        prams: {
+          page: Number(data.selected) + 1,
+          per_page: 30,
+          category_id: router.query.id,
+        },
+        authKey: auth_key,
+      })
+    ).then((res) => {
+      if (!res.payload.code) {
+        router.push({ query: { page: res.payload.page } });
+      }
+    });
+  };
+
+  // seo title
+  const seoTitle = (text) => {
+    if (text) {
+      const check = text.includes('{listing_category}');
+      if (check) {
+        return text.replace('{listing_category}', router.query.name);
+      }
+      return text;
+    }
+  };
+
+  // Seo description
+  const seoDescription = (text) => {
+    if (text) {
+      const check = text.includes('{listing_category_description}');
+      if (check) {
+        return text.replace(
+          '{listing_category_description}',
+          router.query.name
+        );
+      }
+      return text;
+    }
+  };
+
+  const { category_listings, page, total_records } =
+    useSelector(categorySelector);
+
 	useEffect(() => {
-		if (router.query.id) {
-			dispatch(
-				categoryListings({
-					prams: {
-						page: 1,
-						per_page: 20,
-						category_id: router.query.id,
-					},
-					authKey: auth_key,
-				})
-			);
-		}
-	}, [router.query.id, auth_key, dispatch]);
-
-	// useEffect(() => {
-	// 	const handleRouteChange = (url, { shallow }) => {
-	// 		dispatch(clearCategoryListings());
-	// 	};
-
-	// 	router.events.on("routeChangeStart", handleRouteChange);
-
-	// 	// If the component is unmounted, unsubscribe
-	// 	// from the event with the `off` method:
-	// 	return () => {
-	// 		router.events.off("routeChangeStart", handleRouteChange);
-	// 	};
-	// }, [dispatch, router.events]);
-
-	// seo title
-	const seoTitle = (text) => {
-		if (text) {
-			const check = text.includes("{listing_category}");
-			if (check) {
-				return text.replace("{listing_category}", router.query.name);
-			}
-			return text;
-		}
-	};
-
-	// Seo description
-	const seoDescription = (text) => {
-		if (text) {
-			const check = text.includes(
-				"{listing_category_description}"
-			);
-			if (check) {
-				return text.replace(
-					"{listing_category_description}",
-					router.query.name
-				);
-			}
-			return text;
-		}
-	};
-
-	const { category_listings } = useSelector(categorySelector);
-	return (
+      const totalpage = Math.ceil(total_records / 30);
+		if (Number(total_records) > 30) {
+      setPageCount(totalpage);
+    }
+    }, [total_records]);
+	
+  return (
     <>
       <Head>
         <title>{seoTitle(pageTitle)}</title>
@@ -90,7 +105,7 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
       </Head>
       {category_listings === null || category_listings?.length > 0 ? (
         <div>
-          <Products Products={category_listings} />
+          <NewProducts Products={category_listings} />
         </div>
       ) : (
         <div className=" w-full h-[200px] mt-5 flex justify-center items-start">
@@ -125,6 +140,56 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           </div>
         </div>
       )}
+      <div className="mt-12 pb-12 flex justify-center ">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel={
+            <svg
+              className="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          }
+          onPageChange={(data) => moreListings(data)}
+          pageRangeDisplayed={2}
+          pageCount={pageCount}
+          previousLabel={
+            <svg
+              className="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          }
+          renderOnZeroPageCount={null}
+          containerClassName=""
+          className="relative z-0 inline-flex flex-wrap justify-center rounded-md shadow-sm -space-x-px "
+          pageClassName="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center text-sm font-medium"
+          pageLinkClassName="px-4 py-2 border"
+          previousClassName="relative inline-flex items-center px-2 py-2   border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+          nextClassName="relative inline-flex items-center px-2 py-2  border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+          breakLinkClassName="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700"
+          activeLinkClassName="z-10 bg-primary  border-primary text-white relative inline-flex items-center px-4 py-2 border text-md font-semibold"
+          disabledLinkClassName=""
+          prevPageRel="2"
+          forcePage={page - 1}
+        />
+      </div>
     </>
   );
 };
