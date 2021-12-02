@@ -123,7 +123,7 @@ const EventCheckoutPageLayout = () => {
       setError_message('select one schedule time. ');
       return false;
     }
-
+ 
     if (paymentMethod === null) {
       setShowError(true);
       setError_message('Payment Method is required');

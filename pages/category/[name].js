@@ -20,8 +20,8 @@ const CategoryListings = (props) => {
 		dispatch(clearCategoryListings());
 	}, [dispatch]);
 
-	const pageTitle = props.seo_text.meta_listing_category_title;
-	const pageDescription = props.seo_text.meta_listing_description;
+	const pageTitle = props?.seo_text?.meta_listing_category_title;
+	const pageDescription = props?.seo_text?.meta_listing_description;
 	return (
 		<MainLayout>
 			<CategoryListingsPageLayout

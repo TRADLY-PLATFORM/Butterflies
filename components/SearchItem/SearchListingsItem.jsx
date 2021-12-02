@@ -6,10 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  changeDateFormat,
-  getThumbnailImage,
-} from '../Shared/Constant/Constant';
+ 
 import { authSelector } from '../../store/feature/authSlice';
  
 import favorite from '../../assets/Images/Home/favourite@3x.png';
