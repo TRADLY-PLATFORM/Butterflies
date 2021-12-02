@@ -4,8 +4,13 @@ import Image from 'next/image';
  import { useSelector } from 'react-redux';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import * as constant from '../../Shared/Constant/TextConstant/listingDetailsConstant';
-const Variants = ({ variants, setSelectedVariant, selectedVariant }) => {
- const{marketplace_type}=useSelector(configsSelector)
+const Variants = ({
+  variants,
+  setSelectedVariant,
+  selectedVariant,
+  listing_details,
+}) => {
+  const { marketplace_type } = useSelector(configsSelector);
   return (
     <div className="bg-white rounded  w-full min-h-[66px]    p-[16px]   ">
       <p className="text-[#121212] text-sm  font-semibold leading-4 ">
@@ -24,11 +29,15 @@ const Variants = ({ variants, setSelectedVariant, selectedVariant }) => {
               onClick={() => setSelectedVariant(item.id)}
             >
               <div className="h-full w-[90px] relative">
-                <Image src={item.images[0]} layout="fill" />
+                {item.images.length > 0 ? (
+                  <Image src={item.images[0]} layout="fill" />
+                ) : (
+                  <Image src={listing_details.images[0]} layout="fill" />
+                )}
               </div>
               <div className=" ml-3">
                 <p className=" text-sm text-primary font-normal">
-                  {constant.variant_stock_text(marketplace_type,item.stock)}
+                  {constant.variant_stock_text(marketplace_type, item.stock)}
                 </p>
                 <p className="text-black font-semibold">{item.title}</p>
                 <p className=" flex items-center  ">

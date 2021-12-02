@@ -103,11 +103,11 @@ const LatestEvent = ({ products }) => {
                       objectFit="cover"
                     />
                   </div>
-                  {marketplace_type === 2 && (
+                  {/* {marketplace_type === 2 && (
                     <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
                       {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
                     </p>
-                  )}
+                  )} */}
                   <div className="mt-2 pl-2">
                     <p className=" text-sm leading-[15px] font-semibold text-primary">
                       {item.title.length > 18

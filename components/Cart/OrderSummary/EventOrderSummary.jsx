@@ -24,7 +24,9 @@ const EventOrderSummary = ({ listing_details, quantity }) => {
                 src={
                   !variant_id
                     ? getThumbnailImage(listing_details.images[0])
-                    : getThumbnailImage(selecte_varient_details[0].images[0])
+                    : selecte_varient_details[0].images.length > 0
+                    ? getThumbnailImage(selecte_varient_details[0].images[0])
+                    : getThumbnailImage(listing_details.images[0])
                 }
                 layout="fill"
                 objectFit="cover"
