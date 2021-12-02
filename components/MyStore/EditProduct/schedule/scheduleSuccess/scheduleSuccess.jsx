@@ -51,7 +51,7 @@ const ScheduleSuccess = ({
         </p>
       </div>
       <div className="flex flex-col xs:flex-row  justify-between items-center">
-        <Link href="/stores/my-store" passHref={true}>
+        <Link href="/stores/my-store?page=1" passHref={true}>
           <button className="bg-primary mt-8 px-4 py-2 rounded text-base text-white font-medium ">
             Back To Account
           </button>
