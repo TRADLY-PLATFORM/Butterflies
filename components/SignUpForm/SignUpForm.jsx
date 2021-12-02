@@ -35,11 +35,7 @@ const SignUpForm = ({ general_configs }) => {
     setError_message('');
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      router.push('/verification');
-    }
-  }, [isSuccess, router]);
+  
 
   const createAccount = () => {
     if (firstName === null) {
@@ -91,7 +87,11 @@ const SignUpForm = ({ general_configs }) => {
         type: 'customer',
       },
     };
-    dispatch(signUp({ prams: users }));
+    dispatch(signUp({ prams: users })).then((res) => {
+      if (!res.payload.code) {
+        router.push('/verification');
+      }
+    })
   };
 
   return (

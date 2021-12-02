@@ -43,7 +43,7 @@
     "react-time-picker": "^4.4.4",
     "sass": "^1.43.4",
     "swiper": "^6.8.3",
-    "tradly": "^1.0.31",
+    "tradly": "^1.0.33",
     "unified": "^10.1.0",
     "uuidv4": "^6.2.12"
   },
