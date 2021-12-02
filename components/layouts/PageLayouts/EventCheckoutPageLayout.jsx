@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import { useForm } from 'react-hook-form';
+import tradly from 'tradly';
 
 import {
   cartList,
@@ -62,13 +63,15 @@ const EventCheckoutPageLayout = () => {
     setSelectedDate(moment(dates[0]).format('YYYY-MM-DD'));
     setSelectedDateIndex(0);
     if (auth_key && router.query.event_id && selectedDate) {
-      api
-        .get(
-          `/products/v1/listings/${router.query.event_id}/schedules_per_day?days=30&start_at=${selectedDate}`
-        )
+      tradly.app
+        .getSchedule({
+          id: `${router.query.event_id}/`,
+          bodyParam: { days: 30, start_at: selectedDate },
+          authKey: auth_key,
+        })
         .then((res) => {
-          if (res.data.status) {
-            setScheduleArray(res.data.data.schedules_per_day);
+          if (!res.error) {
+            setScheduleArray(res.data.schedules_per_day);
           }
         });
     }
@@ -118,12 +121,15 @@ const EventCheckoutPageLayout = () => {
   const { listing_details } = useSelector(listingSelector);
 
   const clickCheckOut = () => {
-    if (listing_details?.schedules.length > 0 && selectedScheduleTimeIndex === null) {
+    if (
+      listing_details?.schedules.length > 0 &&
+      selectedScheduleTimeIndex === null
+    ) {
       setShowError(true);
       setError_message('select one schedule time. ');
       return false;
     }
- 
+
     if (paymentMethod === null) {
       setShowError(true);
       setError_message('Payment Method is required');
@@ -244,7 +250,7 @@ const EventCheckoutPageLayout = () => {
               setQuantity={setQuantity}
             />
           </div>
-          {listing_details?.schedules.length > 0 && (
+          {listing_details?.schedules?.length > 0 && (
             <div className="mt-6">
               <ScheduleSelect
                 dates={dates}
