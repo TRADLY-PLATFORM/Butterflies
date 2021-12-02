@@ -234,7 +234,7 @@ const EventCheckoutPageLayout = () => {
         </Modal>
       )}
 
-      <div className=" mt-7 mx-auto w-full    sm:px-8 md:px-0 flex  flex-col justify-center c-md:flex-row c-md:justify-between    c-md:max-w-[824px]  lg:max-w-[1000px]  ">
+      <div className="   mx-auto w-full    sm:px-8 md:px-0 flex  flex-col justify-center c-md:flex-row c-md:justify-between    c-md:max-w-[824px]  lg:max-w-[1000px]  ">
         <div className="   c-md:w-[400px] lg:w-[600px] ">
           <div className="bg-[#FEFEFE] rounded-lg py-12 px-9">
             {/* <CartItemBox cart={cart} cart_details={cart_details} /> */}
