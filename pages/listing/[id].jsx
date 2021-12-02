@@ -32,7 +32,7 @@ function Details(props) {
  
 
   const selectLayout = () => {
-    if (marketplace_type === 1) {
+    if (!marketplace_type === 1) {
       return (
         <ProductDetailsPageLayout
           pageTitle={pageTitle}

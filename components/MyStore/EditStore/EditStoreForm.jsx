@@ -194,7 +194,7 @@ const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
           ></textarea>
         </label>
 
-        {accounts_configs.account_address_enabled && (
+        {accounts_configs?.account_address_enabled && (
           <label className="block ">
             <span className="text-gray-700">Account Address</span>
             <SearchAddress

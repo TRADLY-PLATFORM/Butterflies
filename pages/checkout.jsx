@@ -32,7 +32,7 @@ const Checkout = (props) => {
   const pageDescription = props?.seo_text?.meta_description;
 
   const selectLayout = () => {
-    if (marketplace_type === 1) {
+    if (!marketplace_type === 1) {
       return <CheckoutPageLayout />;
     } else {
       return <EventCheckoutPageLayout />;
@@ -63,8 +63,8 @@ export async function getServerSideProps() {
   });
   return {
     props: {
-      seo_text: response?.data?.configs,
-      general_configs: response2?.data?.configs,
+      seo_text: response?.data?.configs||null,
+      general_configs: response2?.data?.configs||[],
     },
   };
 }
