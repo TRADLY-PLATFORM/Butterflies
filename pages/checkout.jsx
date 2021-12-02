@@ -32,7 +32,7 @@ const Checkout = (props) => {
   const pageDescription = props?.seo_text?.meta_description;
 
   const selectLayout = () => {
-    if (!marketplace_type === 1) {
+    if (marketplace_type === 1) {
       return <CheckoutPageLayout />;
     } else {
       return <EventCheckoutPageLayout />;
