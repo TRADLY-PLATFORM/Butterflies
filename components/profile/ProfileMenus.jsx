@@ -63,7 +63,7 @@ const ProfileMenus = () => {
         )}
         <div className=" border-b border-[#EBECEF] py-4">
           <button
-            onClick={() => window.open(general_configs.terms_url)}
+            onClick={() => window.open(general_configs?.terms_url)}
             className=" text-base text-[#4F4F4F] font-medium"
           >
             Terms & Conditions
@@ -71,7 +71,7 @@ const ProfileMenus = () => {
         </div>
         <div className=" border-b border-[#EBECEF] py-4">
           <button
-            onClick={() => window.open(general_configs.privacy_policy_url)}
+            onClick={() => window.open(general_configs?.privacy_policy_url)}
             className=" text-base text-[#4F4F4F] font-medium"
           >
             Privacy Policy
@@ -130,7 +130,7 @@ const ProfileMenus = () => {
         )}
         <div className=" border-b border-[#EBECEF] py-4">
           <button
-            onClick={() => window.open(general_configs.terms_url)}
+            onClick={() => window.open(general_configs?.terms_url)}
             className=" text-base text-[#4F4F4F] font-medium"
           >
             Terms & Conditions
@@ -138,7 +138,7 @@ const ProfileMenus = () => {
         </div>
         <div className=" border-b border-[#EBECEF] py-4">
           <button
-            onClick={() => window.open(general_configs.privacy_policy_url)}
+            onClick={() => window.open(general_configs?.privacy_policy_url)}
             className=" text-base text-[#4F4F4F] font-medium"
           >
             Privacy Policy
