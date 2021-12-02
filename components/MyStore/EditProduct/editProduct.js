@@ -108,7 +108,7 @@ export const edit_product_click = (
               headers: {
                 ContentType: files[index].type,
               },
-              body: fullFile[0],
+              body: fullFile[index],
             })
               .then((res) => {
                 if (res.ok) {
