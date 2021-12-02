@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import tradly from 'tradly';
 import ForgotPasswordPageLayout from '../../components/layouts/PageLayouts/ForgotPasswordPageLayout';
+import SetPasswordPageLayout from '../../components/layouts/PageLayouts/SetPasswordPageLayout';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
 
 const ForgotPassword = (props) => {
@@ -12,8 +13,8 @@ const ForgotPassword = (props) => {
 
   return (
     <div>
-      <ForgotPasswordPageLayout />
-    </div>
+      <SetPasswordPageLayout/>
+     </div>
   );
 };
 
@@ -24,6 +25,6 @@ export async function getServerSideProps() {
     paramBody: 'general',
   });
   return {
-    props: { general_configs: response?.data?.configs },
+    props: { general_configs: response?.data?.configs||[] },
   };
 }

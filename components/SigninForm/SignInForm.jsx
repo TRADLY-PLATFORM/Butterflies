@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import EmailForm from "./EmailForm";
- import { uuid } from "uuidv4";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import EmailForm from './EmailForm';
+import { uuid } from 'uuidv4';
+import { useDispatch } from 'react-redux';
 import {
-	authSelector,
-	clearState,
-	signIn,
-} from "../../store/feature/authSlice";
-import PopUp from "../Shared/PopUp/PopUp";
-import * as EmailValidator from "email-validator";
-import { useSelector } from "react-redux";
-import OutsideClickHandler from "react-outside-click-handler";
-import { useRouter } from "next/dist/client/router";
+  authSelector,
+  clearState,
+  signIn,
+} from '../../store/feature/authSlice';
+import PopUp from '../Shared/PopUp/PopUp';
+import * as EmailValidator from 'email-validator';
+import { useSelector } from 'react-redux';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { useRouter } from 'next/dist/client/router';
 
 const SignInForm = ({ general_configs }) => {
   const [email, setEmail] = useState(null);
@@ -60,14 +60,12 @@ const SignInForm = ({ general_configs }) => {
       },
     };
 
-    dispatch(signIn({ prams: users }));
+    dispatch(signIn({ prams: users })).then((res) => {
+      if (!res.payload.code) {
+        router.push('/');
+      }
+    });
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      router.push('/');
-    }
-  }, [isSuccess, router]);
 
   return (
     <div className="w-full   min-h-screen  py-36">
@@ -137,7 +135,10 @@ const SignInForm = ({ general_configs }) => {
               Log in
             </button>
           )}
-          <button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium  text-xl">
+          <button
+            className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium  text-xl"
+            onClick={() => router.push('/forgot-password')}
+          >
             Forgot your password?
           </button>
         </div>
