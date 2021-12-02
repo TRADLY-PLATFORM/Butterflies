@@ -19,17 +19,19 @@ const EventOrderSummary = ({ listing_details, quantity }) => {
       <div className="mt-5">
         <div className="w-full  bg-[#FFFFFF] rounded-lg shadow-c-sm   overflow-hidden flex  mb-3 ">
           <div className=" w-[100px] h-[100px] relative mr-3 ">
-            <Image
-              src={
-                !variant_id
-                  ? getThumbnailImage(listing_details.images[0])
-                  : getThumbnailImage(selecte_varient_details[0].images[0])
-              }
-              layout="fill"
-              objectFit="cover"
-              alt="Order Items"
-              priority={true}
-            />
+            {listing_details?.images.length > 0 && (
+              <Image
+                src={
+                  !variant_id
+                    ? getThumbnailImage(listing_details.images[0])
+                    : getThumbnailImage(selecte_varient_details[0].images[0])
+                }
+                layout="fill"
+                objectFit="cover"
+                alt="Order Items"
+                priority={true}
+              />
+            )}
           </div>
           <div className=" flex flex-col justify-around py-2">
             <div>
