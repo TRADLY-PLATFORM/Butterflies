@@ -141,7 +141,7 @@ export const edit_product_click = (
                         if (listing_configs.show_shipping_charges) {
                           listingData['shipping_charges'] = shippingCharge;
                         }
-                        if (!description === '') {
+                        if (!description?.replace(/\s/g, '').length <= 0) {
                           listingData['description'] = description;
                         }
 
@@ -221,7 +221,9 @@ export const edit_product_click = (
                                     listingData['shipping_charges'] =
                                       shippingCharge;
                                   }
-                                  if (!description === '') {
+                                  if (
+                                    !description?.replace(/\s/g, '').length <= 0
+                                  ) {
                                     listingData['description'] = description;
                                   }
 
@@ -277,7 +279,7 @@ export const edit_product_click = (
                       if (listing_configs.show_shipping_charges) {
                         listingData['shipping_charges'] = shippingCharge;
                       }
-                      if (!description === '') {
+                      if (!description?.replace(/\s/g, '').length <= 0) {
                         listingData['description'] = description;
                       }
 
@@ -344,7 +346,7 @@ export const edit_product_click = (
         if (listing_configs.show_shipping_charges) {
           listingData['shipping_charges'] = shippingCharge;
         }
-        if (!description === '') {
+        if (!description?.replace(/\s/g, '').length <= 0) {
           listingData['description'] = description;
         }
 
@@ -419,7 +421,7 @@ export const edit_product_click = (
                   if (listing_configs.show_shipping_charges) {
                     listingData['shipping_charges'] = shippingCharge;
                   }
- if (!description === '') {
+ if (!description?.replace(/\s/g, '').length <= 0) {
    listingData['description'] = description;
  }
                   // ekhane
@@ -468,7 +470,7 @@ export const edit_product_click = (
       if (listing_configs.show_shipping_charges) {
         listingData['shipping_charges'] = shippingCharge;
       }
-      if (!description === '') {
+      if (!description?.replace(/\s/g, '').length <= 0) {
         listingData['description'] = description;
       }
       // ekhane
