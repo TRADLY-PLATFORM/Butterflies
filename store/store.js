@@ -7,6 +7,7 @@ import { homeSlice } from './feature/homeSlice';
 import { listingSlice } from './feature/listingSlice';
 import { orderSlice } from './feature/orderSlice';
 import { payoutSlice } from './feature/payout';
+import { searchSlice } from './feature/search';
 import { storeSlice } from './feature/storeSlice';
 import { store_orderSlice } from './feature/store_orderSlice';
 
@@ -22,5 +23,6 @@ export default configureStore({
     store_order: store_orderSlice.reducer,
     payout: payoutSlice.reducer,
     configs: configsSlice.reducer,
+    search:searchSlice.reducer
   },
 });
