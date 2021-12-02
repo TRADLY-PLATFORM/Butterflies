@@ -7,16 +7,15 @@ import { useRouter } from 'next/dist/client/router';
 import { configsSelector } from '../../store/feature/configsSlice';
 
 const ProfileMenus = () => {
- const[isAccountOpen,setIsAccountOpen]=useState(false)
-   
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const { my_stores } = useSelector(storeSelector);
-  const{general_configs,accounts_configs,marketplace_type}=useSelector(configsSelector)
+  const { general_configs, accounts_configs, marketplace_type } =
+    useSelector(configsSelector);
 
-  console.log('====================================');
-  console.log(general_configs);
-  console.log('====================================');
+  
 
   return (
     <div className=" w-full h-min-[200px] p-[30px] bg-white rounded-lg shadow-c-sm">
@@ -78,13 +77,15 @@ const ProfileMenus = () => {
             Privacy Policy
           </button>
         </div>
-        {/* <div className=" border-b border-[#EBECEF] py-4">
-          <Link href="#" passHref={true}>
-            <button className=" text-base text-[#4F4F4F] font-medium">
-              Invite Friend
-            </button>
-          </Link>
-        </div> */}
+        {/* {general_configs.invite_friends_collection_enabled && (
+          <div className=" border-b border-[#EBECEF] py-4">
+            <Link href="/invite" passHref={true}>
+              <button className=" text-base text-[#4F4F4F] font-medium">
+                Invite Friend
+              </button>
+            </Link>
+          </div>
+        )} */}
         <div className="   border-[#EBECEF] py-4">
           <button
             onClick={() => {

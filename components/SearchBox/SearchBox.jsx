@@ -1,6 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/dist/client/router';
+import { route } from 'next/dist/server/router';
 
 const SearchBox = () => {
+  const [searchKey, setSearchKey] = useState(null)
+const router = useRouter()
+ 
+  const handleKeypress = (e) => {
+    if (!searchKey?.replace(/\s/g, '').length <= 0) {
+      if (e.key === 'Enter') {
+        router.push({ pathname: `/search/${searchKey}`, query: { page: 1 } });
+      }
+    }
+  };
+    
+
+  useEffect(() => {
+    if (router?.query?.key) {
+      setSearchKey(router.query.key)
+    }
+  },[0])
+  
     return (
       <div className=" h-12  md:w-[200px] xl:w-[270px]    rounded-[8px]  bg-[rgba(250, 250, 250, 0.93)] shadow-c-sm  flex items-center overflow-hidden border border-[rgba(34,34,34,.2] ">
         <svg
@@ -17,9 +37,12 @@ const SearchBox = () => {
           />
         </svg>
         <input
+          value={searchKey}
           className="h-full bg-transparent w-full pl-3 placeholder-gray-400 outline-none border-none ring-0 focus:ring-0"
           type="text"
           placeholder="Search"
+          onChange={(e) => setSearchKey(e.target.value)}
+          onKeyPress={(e) => handleKeypress(e)}
         />
       </div>
     );
