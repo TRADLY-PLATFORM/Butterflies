@@ -28,9 +28,9 @@ const UserBox = () => {
 				</h2>
 			</div>
 			<div className=" flex justify-center  xs:justify-end">
-				<button className=" px-6 py-1 bg-primary  rounded-lg text-base text-white font-medium">
+				{/* <button className=" px-6 py-1 bg-primary  rounded-lg text-base text-white font-medium">
 					Edit Profile
-				</button>
+				</button> */}
 			</div>
 		</div>
     );
