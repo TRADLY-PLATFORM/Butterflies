@@ -3,10 +3,13 @@ import { useRouter } from 'next/dist/client/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 
- import ReactPaginate from 'react-paginate';
+import ReactPaginate from 'react-paginate';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import NewListings from '../../Listings/NewListings';
-import { getWishListListings, wishSelector } from '../../../store/feature/wishSlice';
+import {
+  getWishListListings,
+  wishSelector,
+} from '../../../store/feature/wishSlice';
 import WishList from '../../WishList/WishList';
 
 const WishListPageLayout = () => {
@@ -27,10 +30,10 @@ const WishListPageLayout = () => {
         authKey: auth_key,
       })
     );
-  }, [auth_key, dispatch,router]);
+  }, [auth_key, dispatch, router]);
 
   const moreListings = (data) => {
-      router.push({ query: { page: Number(data.selected) + 1, per_page: 30 } });
+    router.push({ query: { page: Number(data.selected) + 1, per_page: 30 } });
     // dispatch(
     //   getAllListings({
     //     prams: {
@@ -87,9 +90,6 @@ const WishListPageLayout = () => {
                 </svg>
               </div>
               <div className="ml-5">
-                <strong className="font-bold">
-                  {first_name ? 'Hi' + '  ' + first_name : 'Hi Guess !'}, Oops!
-                </strong>
                 <span className="  ml-2">
                   No listings found under this page.
                 </span>
