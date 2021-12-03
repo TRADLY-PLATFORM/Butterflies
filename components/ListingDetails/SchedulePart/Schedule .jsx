@@ -14,12 +14,7 @@ import Modal from '../../Shared/Modal.jsx/Modal';
 import OutsideClickHandler from 'react-outside-click-handler';
 import SchedulesModal from './SchedulesModal';
 
-const Schedule = ({
-  schedules,
-  listing_details,
-  setShowError,
-  setError_message,
-}) => {
+const Schedule = ({ schedules }) => {
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
   let dates = getDatesArray();
@@ -51,7 +46,13 @@ const Schedule = ({
           }
         });
     }
-  }, [setSelectedDate, auth_key, isScheduleOpen,router?.query.id, selectedDate]);
+  }, [
+    setSelectedDate,
+    auth_key,
+    isScheduleOpen,
+    router?.query.id,
+    selectedDate,
+  ]);
 
   return (
     <>

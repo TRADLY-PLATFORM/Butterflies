@@ -191,17 +191,12 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
             <div className="mt-6">
               <EventButtons
                 listing_details={listing_details}
-                listing_details={listing_details}
+                selectedVariant={selectedVariant}
               />
             </div>
             {listing_details?.schedules?.length > 0 && (
               <div className="mt-6">
-                <Schedule
-                  schedules={listing_details?.schedules}
-                  selectedVariant={selectedVariant}
-                  setShowError={setShowError}
-                  setError_message={setError_message}
-                />
+                <Schedule schedules={listing_details?.schedules} />
               </div>
             )}
             {listing_details?.location &&
