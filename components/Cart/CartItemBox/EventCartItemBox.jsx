@@ -13,6 +13,7 @@ import {
 import PopUp from '../../Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/dist/client/router';
+import { configsSelector } from '../../../store/feature/configsSlice';
 
 const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
   const [showError, setShowError] = useState(false);
@@ -24,6 +25,8 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
     (item) => item.id === Number(variant_id)
   );
 
+  const { marketplace_type, listings_configs } = useSelector(configsSelector);
+
   const dispatch = useDispatch();
   const { login, auth_key } = useSelector(authSelector);
   const { isError, isSuccess, errorMessage } = useSelector(cartSelector);
@@ -33,7 +36,7 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
       ? listing_details.stock
       : selecte_varient_details[0].stock;
     if (increase) {
-      if (quantity === ItemQuantity) {
+      if (quantity === ItemQuantity && listings_configs?.enable_stock) {
         setShowError(true);
         setError_message(`There are not ${quantity + 1} products in stock`);
 
@@ -70,7 +73,7 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
           }}
         >
           <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-            <div className="w-ful  xs:w-[500px] mx-auto">
+            <div className="w-full  xs:w-[500px] mx-auto">
               <PopUp
                 message={error_message || errorMessage}
                 closePopUP={closePopUP}
@@ -82,13 +85,15 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
 
       <div className=" w-full border border-primary rounded-lg px-[24px] py-[16px] grid  grid-cols-[100%] justify-between lg:grid-cols-[60%,35%]  mb-4">
         <div>
-          <p className=" text-xs  font-semibold leading-6 text-primary">
-            {`${
-              !variant_id
-                ? listing_details.stock
-                : selecte_varient_details[0].stock
-            }  tickets left`}
-          </p>
+          {listings_configs?.enable_stock && (
+            <p className=" text-xs  font-semibold leading-6 text-primary">
+              {`${
+                !variant_id
+                  ? listing_details?.stock
+                  : selecte_varient_details[0]?.stock
+              }  tickets left`}
+            </p>
+          )}
           <p className=" text-base text-black font-semibold mt-[2px]">
             {!variant_id
               ? listing_details.title

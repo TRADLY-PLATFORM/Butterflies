@@ -35,7 +35,7 @@ const Drawer = () => {
       <div className="    left-0 right-0    flex  justify-center     mb-2">
         {logo && (
           <Link href="/" passHref={true}>
-            <div className=" flex items-center   relative cursor-pointer ">
+            <div className=" flex items-center   relative cursor-pointer py-4">
               <Image
                 src={logo}
                 height={44}

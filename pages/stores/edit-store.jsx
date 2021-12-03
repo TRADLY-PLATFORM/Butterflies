@@ -33,6 +33,6 @@ export async function getServerSideProps() {
     paramBody: 'accounts',
   });
   return {
-    props: { accounts_configs: response?.data?.configs },
+    props: { accounts_configs: response?.data?.configs||[] },
   };
 }

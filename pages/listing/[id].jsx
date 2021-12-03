@@ -9,11 +9,12 @@ import { refreshPage } from '../../store/feature/authSlice';
 import tradly from 'tradly';
 import { clearListingDetails } from '../../store/feature/listingSlice';
 import ProductDetailsPageLayout from '../../components/layouts/PageLayouts/ProductDetailsPageLayout';
-import { setGeneralConfig } from '../../store/feature/configsSlice';
+import { setGeneralConfig, setListingConfig } from '../../store/feature/configsSlice';
 
 function Details(props) {
   const [marketplace_type, setmarketplace_type] = useState(null);
 
+  console.log(props?.listings_configs);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -23,6 +24,7 @@ function Details(props) {
     );
     dispatch(clearListingDetails());
     dispatch(setGeneralConfig(props));
+    dispatch(setListingConfig(props));
     setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
   }, [dispatch]);
 
@@ -70,10 +72,14 @@ export async function getServerSideProps() {
   const response2 = await tradly.app.getConfigList({
     paramBody: 'general',
   });
+  const response3 = await tradly.app.getConfigList({
+    paramBody: 'listings',
+  });
   return {
     props: {
       seo_text: response?.data?.configs || null,
-      general_configs: response2?.data?.configs ||[],
+      general_configs: response2?.data?.configs || [],
+      listings_configs: response3?.data?.configs || [],
     },
   };
 }

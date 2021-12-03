@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import Image from "next/image"
+import Image from 'next/image';
 import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
 import { changeDateFormat, getThumbnailImage } from '../Constant/Constant';
 import { useRouter } from 'next/dist/client/router';
 
 const ListingCard = ({ item, like, marketplace_type }) => {
-  const router = useRouter(); 
+  const router = useRouter();
   return (
     <div className="  relative">
       <div
@@ -15,12 +15,14 @@ const ListingCard = ({ item, like, marketplace_type }) => {
         onClick={() => router.push(`/listing/${item.id}`)}
       >
         <div className="   aspect-w-1 aspect-h-1 relative  mb-4 ">
-          <Image
-            src={getThumbnailImage(item?.images[0])}
-            alt={item.title}
-            layout="fill"
-            objectFit="cover"
-          />
+          {item?.images?.length > 0 && (
+            <Image
+              src={getThumbnailImage(item?.images[0])}
+              alt={item.title}
+              layout="fill"
+              objectFit="cover"
+            />
+          )}
         </div>
         {/* {marketplace_type === 2 && (
           <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
@@ -37,7 +39,6 @@ const ListingCard = ({ item, like, marketplace_type }) => {
             {item.list_price.formatted}
           </p>
         </div>
-        
       </div>
 
       <div

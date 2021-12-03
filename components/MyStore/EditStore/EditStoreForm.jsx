@@ -45,6 +45,7 @@ const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
       longitude: my_stores[0].longitude,
     });
     setAddressSearchKey(my_stores[0].location.formatted_address);
+    setCategory();
   }, [0]);
   useEffect(() => {
     dispatch(categories({ prams: { parent: 0, type: 'accounts' } }));
@@ -70,9 +71,7 @@ const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
     setError_message('');
   };
 
-  console.log('====================================');
-  console.log(accounts_configs);
-  console.log('====================================');
+  
 
   return (
     <div className=" w-full">
@@ -189,7 +188,7 @@ const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-            rows="2"
+            rows="4"
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </label>
@@ -230,12 +229,12 @@ const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
             ))}
           </select>
         </label>
-        <div>
+        {category !== null &&<div>
           <Attribute
             attributeData={attributeData}
             setAttributeData={setAttributeData}
           />
-        </div>
+        </div>}
       </div>
       <div className=" mt-9 flex justify-center  ">
         <button

@@ -20,7 +20,7 @@ const AccountCard = ({ item, follow }) => {
       </div>
       <div className="mt-2 mb-2">
         <p className="w-full text-[#000000] font-semibold text-[14px] leading-4   ">
-          {item.name.length > 15
+          {item?.name?.length > 15
             ? item.name.substring(0, 13) + '..'
             : item.name}
         </p>

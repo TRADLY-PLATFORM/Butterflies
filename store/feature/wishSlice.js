@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import tradly from 'tradly';
 
 export const listingLike = createAsyncThunk(
-  'search/listingLike',
+  'wish/listingLike',
   async ({ id, isLiked, authKey }, thunkAPI) => {
     try {
       const response = await tradly.app.likeListing({
@@ -23,11 +23,11 @@ export const listingLike = createAsyncThunk(
   }
 );
 
-export const getSearchListings = createAsyncThunk(
-  'search/getSearchListings',
+export const getWishListListings = createAsyncThunk(
+  'wish/getWishListListings',
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getListings({
+      const response = await tradly.app.getMyListingsLikes({
         bodyParam: prams,
         authKey,
       });
@@ -43,8 +43,8 @@ export const getSearchListings = createAsyncThunk(
   }
 );
 
-export const searchSlice = createSlice({
-  name: 'search',
+export const wishSlice = createSlice({
+  name: 'wish',
   initialState: {
     isFetching: false,
     isSuccess: false,
@@ -55,7 +55,7 @@ export const searchSlice = createSlice({
     total_records: '',
   },
   reducers: {
-    clearSearchState: (state) => {
+    clearWishState: (state) => {
       state.isError = false;
       state.isSuccess = false;
       state.isFetching = false;
@@ -63,7 +63,7 @@ export const searchSlice = createSlice({
       return state;
     },
 
-    clearSearch: (state) => {
+    clearWish: (state) => {
       state.isError = false;
       state.isSuccess = false;
       state.isFetching = false;
@@ -98,7 +98,7 @@ export const searchSlice = createSlice({
       state.isError = true;
       state.errorMessage = payload?.message;
     },
-    [getSearchListings.fulfilled]: (state, { payload }) => {
+    [getWishListListings.fulfilled]: (state, { payload }) => {
       if (payload.code) {
         state.isFetching = false;
         state.isError = true;
@@ -113,13 +113,13 @@ export const searchSlice = createSlice({
         state.total_records = payload?.total_records;
       }
     },
-    [getSearchListings.pending]: (state) => {
+    [getWishListListings.pending]: (state) => {
       state.isSuccess = false;
       state.isFetching = true;
       state.isError = false;
       state.errorMessage = '';
     },
-    [getSearchListings.rejected]: (state, { payload }) => {
+    [getWishListListings.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload?.message;
@@ -127,5 +127,5 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { clearSearch, clearSearchState } = searchSlice.actions;
-export const searchSelector = (state) => state.search;
+export const { clearWish, clearWishState } = wishSlice.actions;
+export const wishSelector = (state) => state.wish;

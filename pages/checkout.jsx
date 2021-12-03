@@ -8,7 +8,7 @@ import { refreshPage } from '../store/feature/authSlice';
 import { getCurrencies } from '../store/feature/cartSlice';
 import tradly from 'tradly';
 import EventCheckoutPageLayout from '../components/layouts/PageLayouts/EventCheckoutPageLayout';
-import { setGeneralConfig } from '../store/feature/configsSlice';
+import { setGeneralConfig, setListingConfig } from '../store/feature/configsSlice';
 
 const Checkout = (props) => {
   const [marketplace_type, setmarketplace_type] = useState(null);
@@ -26,6 +26,7 @@ const Checkout = (props) => {
       })
     );
     dispatch(setGeneralConfig(props));
+    dispatch(setListingConfig(props));
     setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
   }, [dispatch]);
   const pageTitle = props?.seo_text?.meta_title;
@@ -61,10 +62,14 @@ export async function getServerSideProps() {
   const response2 = await tradly.app.getConfigList({
     paramBody: 'general',
   });
+  const response3 = await tradly.app.getConfigList({
+    paramBody: 'listings',
+  });
   return {
     props: {
-      seo_text: response?.data?.configs||null,
-      general_configs: response2?.data?.configs||[],
+      seo_text: response?.data?.configs || null,
+      general_configs: response2?.data?.configs || [],
+      listings_configs: response3?.data?.configs || [],
     },
   };
 }

@@ -1,24 +1,24 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import EventButtons from "../EventsButtons/EventButtons";
-import favorite from "../../../assets/Images/Home/favourite@3x.png";
-import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
-import Image from "next/image";
+import React from 'react';
+import EventButtons from '../EventsButtons/EventButtons';
+import favorite from '../../../assets/Images/Home/favourite@3x.png';
+import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
+import Image from 'next/image';
 import * as constant from '../../Shared/Constant/TextConstant/listingDetailsConstant';
-import { useSelector } from "react-redux";
-import { configsSelector } from "../../../store/feature/configsSlice";
-
+import { useSelector } from 'react-redux';
+import { configsSelector } from '../../../store/feature/configsSlice';
 
 const MainBox = ({ listing_details, rating_data, like }) => {
+  const { marketplace_type, listings_configs } = useSelector(configsSelector);
 
-	const { marketplace_type } = useSelector(configsSelector);
-
-	return listing_details !== null ? (
+  return listing_details !== null ? (
     <div className=" w-full  min-h-[250px] bg-white rounded  p-[25px] relative">
       <div className=" w-5/6 ">
-        <p className=" text-sm text-primary font-medium">
-          {constant.stock_text(marketplace_type, listing_details.stock)}
-        </p>
+        {listings_configs?.enable_stock && (
+          <p className=" text-sm text-primary font-medium">
+            {constant.stock_text(marketplace_type, listing_details.stock)}
+          </p>
+        )}
         <h2 className=" mt-[9px] text-[30px] text-primary font-medium ">
           {listing_details.title}
         </h2>
@@ -26,7 +26,7 @@ const MainBox = ({ listing_details, rating_data, like }) => {
           <span className="text-secondary text-base font-medium">
             {listing_details.list_price.currency}
           </span>
-          <span className=" text-black text-xl font-medium ml-[6px]">
+          <span className=" text-black text-xl font-medium ml-[8px]">
             {listing_details.list_price.amount}
           </span>
         </p>
