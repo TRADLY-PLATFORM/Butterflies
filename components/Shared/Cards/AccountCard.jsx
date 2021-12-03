@@ -9,12 +9,14 @@ const AccountCard = ({ item, follow }) => {
   return (
     <div className="w-full min-h-[166px] p-2 bg-[#FEFEFE] rounded-lg shadow-md">
       <div className=" rounded  overflow-hidden relative mx-auto  aspect-w-1 aspect-h-1">
-        <Image
-          src={getThumbnailImage(item.images[0])}
-          alt={item.title}
-          layout="fill"
-          objectFit="cover"
-        />
+        {item?.images?.length > 0 && (
+          <Image
+            src={getThumbnailImage(item.images[0])}
+            alt={item.title}
+            layout="fill"
+            objectFit="cover"
+          />
+        )}
       </div>
       <div className="mt-2 mb-2">
         <p className="w-full text-[#000000] font-semibold text-[14px] leading-4   ">
