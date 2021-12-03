@@ -65,7 +65,7 @@ const EventCheckoutPageLayout = () => {
     if (auth_key && router.query.event_id && selectedDate) {
       tradly.app
         .getSchedule({
-          id: `${router.query.event_id}/`,
+          id: `${router.query.event_id}`,
           bodyParam: { days: 30, start_at: selectedDate },
           authKey: auth_key,
         })

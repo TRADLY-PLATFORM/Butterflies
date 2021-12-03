@@ -7,7 +7,7 @@ const InvitePageLayout = () => {
       const { general_configs, accounts_configs, marketplace_type } =
         useSelector(configsSelector);
     return (
-      <div className="  ">
+      <div className=" flex justify-center ">
         {/* <iframe
           src="https://www.facebook.com/plugins/share_button.php?href=https://superadmin.dev.tradly.app/"
           width="96"
