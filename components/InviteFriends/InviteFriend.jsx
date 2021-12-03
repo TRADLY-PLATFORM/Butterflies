@@ -51,7 +51,7 @@ const InviteFriend = ({ general_configs }) => {
         <div className="cursor-pointer">
           <a
             target="_blank"
-            href={`whatsapp://send?text=${general_configs?.branch_link_base_url}`}
+            href={`whatsapp://send?text=${general_configs?.branch_link_domain}`}
             data-action="share/whatsapp/share"
             target="_blank"
             rel="noreferrer"
@@ -64,7 +64,7 @@ const InviteFriend = ({ general_configs }) => {
         <div className="cursor-pointer">
           <a
             target="_blank"
-            href={`https://www.facebook.com/sharer/sharer.php?u=${general_configs?.branch_link_base_url}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${general_configs?.branch_link_domain}`}
             rel="noreferrer"
           >
             <div className="w-[40px] h-[40px] relative  ">
@@ -78,7 +78,7 @@ const InviteFriend = ({ general_configs }) => {
               navigator
                 .share({
                   title: `${general_configs?.invite_friends_collection_title}`,
-                  url: `${general_configs?.branch_link_base_url}`,
+                  url: `${general_configs?.branch_link_domain}`,
                 })
                 .then(() => {
                   console.log('Thanks for sharing!');
