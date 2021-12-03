@@ -77,7 +77,7 @@ const ProfileMenus = () => {
             Privacy Policy
           </button>
         </div>
-        {general_configs.invite_friends_collection_enabled && (
+        {general_configs?.invite_friends_collection_enabled && (
           <div className=" border-b border-[#EBECEF] py-4">
             <Link href="/invite" passHref={true}>
               <button className=" text-base text-[#4F4F4F] font-medium">
@@ -144,7 +144,7 @@ const ProfileMenus = () => {
             Privacy Policy
           </button>
         </div>
-        {general_configs.invite_friends_collection_enabled && (
+        {general_configs?.invite_friends_collection_enabled && (
           <div className=" border-b border-[#EBECEF] py-4">
             <Link href="/invite" passHref={true}>
               <button className=" text-base text-[#4F4F4F] font-medium">
