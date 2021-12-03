@@ -77,7 +77,7 @@ const ProfileMenus = () => {
             Privacy Policy
           </button>
         </div>
-        {/* {general_configs.invite_friends_collection_enabled && (
+        {general_configs.invite_friends_collection_enabled && (
           <div className=" border-b border-[#EBECEF] py-4">
             <Link href="/invite" passHref={true}>
               <button className=" text-base text-[#4F4F4F] font-medium">
@@ -85,7 +85,7 @@ const ProfileMenus = () => {
               </button>
             </Link>
           </div>
-        )} */}
+        )}
         <div className="   border-[#EBECEF] py-4">
           <button
             onClick={() => {
@@ -144,13 +144,15 @@ const ProfileMenus = () => {
             Privacy Policy
           </button>
         </div>
-        {/* <div className=" border-b border-[#EBECEF] py-4">
-          <Link href="#" passHref={true}>
-            <button className=" text-base text-[#4F4F4F] font-medium">
-              Invite Friend
-            </button>
-          </Link>
-        </div> */}
+        {general_configs.invite_friends_collection_enabled && (
+          <div className=" border-b border-[#EBECEF] py-4">
+            <Link href="/invite" passHref={true}>
+              <button className=" text-base text-[#4F4F4F] font-medium">
+                Invite Friend
+              </button>
+            </Link>
+          </div>
+        )}
         <div className="   border-[#EBECEF] py-4">
           <button
             onClick={() => {
