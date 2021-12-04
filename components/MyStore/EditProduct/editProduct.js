@@ -402,7 +402,7 @@ export const edit_product_click = (
                   ];
                   const listingData = {
                     list_price: price,
-                     account_id: accountId,
+                    account_id: accountId,
                     currency_id: currency,
                     attributes: attributeUpdate,
                     title: title,
@@ -421,9 +421,9 @@ export const edit_product_click = (
                   if (listing_configs.show_shipping_charges) {
                     listingData['shipping_charges'] = shippingCharge;
                   }
- if (!description?.replace(/\s/g, '').length <= 0) {
-   listingData['description'] = description;
- }
+                  if (!description?.replace(/\s/g, '').length <= 0) {
+                    listingData['description'] = description;
+                  }
                   // ekhane
                   trady.app
                     .postListing({

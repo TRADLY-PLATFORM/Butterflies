@@ -48,7 +48,13 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
       })
     ).then((res) => {
       if (!res.payload.code) {
-        router.push({ query: { page: res.payload.page } });
+        router.push({
+          query: {
+            id: router.query.id,
+            name: router.query.name,
+            page: Number(data.selected) + 1,
+          },
+        });
       }
     });
   };

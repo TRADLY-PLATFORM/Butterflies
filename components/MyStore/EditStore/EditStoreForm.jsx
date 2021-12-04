@@ -45,7 +45,7 @@ const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
       longitude: my_stores[0].longitude,
     });
     setAddressSearchKey(my_stores[0].location.formatted_address);
-    setCategory();
+     
   }, [0]);
   useEffect(() => {
     dispatch(categories({ prams: { parent: 0, type: 'accounts' } }));

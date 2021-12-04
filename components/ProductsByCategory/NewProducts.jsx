@@ -20,6 +20,7 @@ import {
 } from '../../store/feature/categorySlice';
 import { configsSelector } from '../../store/feature/configsSlice';
 import ListingCard from '../Shared/Cards/ListingCard';
+import CustomLoading from "../Shared/Loading/CustomLoading"
 
 const NewProducts = ({ Products }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -27,7 +28,7 @@ const NewProducts = ({ Products }) => {
   // const { isSuccess } = useSelector(listingSelector);
   const dispatch = useDispatch();
   const router = useRouter();
-  const { page } = useSelector(categorySelector);
+  const { page,isFetching } = useSelector(categorySelector);
 
   const like = (id, isLiked) => {
     if (login) {
@@ -43,7 +44,7 @@ const NewProducts = ({ Products }) => {
             categoryListings({
               prams: {
                 page,
-                per_page: 20,
+                per_page: 30,
                 category_id: router.query.id,
               },
               authKey: auth_key,
@@ -57,6 +58,7 @@ const NewProducts = ({ Products }) => {
   };
   return (
     <div className="grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">
+      {isFetching && <CustomLoading/>}
       {Products?.map((item) => (
         <div key={Math.random()} className=" relative">
           <ListingCard

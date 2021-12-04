@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { refreshPage } from '../store/feature/authSlice';
 import MainLayout from '../components/layouts/MainLayouts/MainLayout';
-import PayoutPageLayout from '../components/layouts/PageLayouts/PayoutPageLayout';
+import ProfilePageLayout from '../components/layouts/PageLayouts/ProfilePageLayout';
+import { authSelector, refreshPage } from '../store/feature/authSlice';
 import { myStore } from '../store/feature/storeSlice';
+import tradly from 'tradly';
+import { setGeneralConfig } from '../store/feature/configsSlice';
+import EditProfilePageLayout from '../components/layouts/PageLayouts/EditProfilePageLayout';
 
-const Payout = () => {
+const EditProfile = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -14,6 +18,7 @@ const Payout = () => {
       })
     );
   }, [dispatch]);
+
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem('user_details'));
 
@@ -28,13 +33,23 @@ const Payout = () => {
           authKey: localStorage.getItem('auth_key'),
         })
       );
+      dispatch(setGeneralConfig(props));
     }
   }, [localStorage.getItem('auth_key')]);
   return (
     <MainLayout>
-       <PayoutPageLayout />
+      <EditProfilePageLayout />
     </MainLayout>
   );
 };
 
-export default Payout;
+export default EditProfile;
+
+export async function getServerSideProps() {
+  const response = await tradly.app.getConfigList({
+    paramBody: 'general',
+  });
+  return {
+    props: { general_configs: response?.data?.configs || [] },
+  };
+}
