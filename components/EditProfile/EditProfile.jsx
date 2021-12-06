@@ -7,6 +7,7 @@ import PopUp from '../Shared/PopUp/PopUp';
 import CustomLoading from "../Shared/Loading/CustomLoading"
 import { authSelector } from '../../store/feature/authSlice';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const EditProfile = () => {
   const [imagePath, setImagePath] = useState(null);
@@ -19,7 +20,8 @@ const EditProfile = () => {
   const [error_message, setError_message] = useState('');
 
   const [loading, setLoading] = useState(false);
-    const router = useRouter();
+  const router = useRouter();
+  const dispatch=useDispatch()
     const{auth_key}=useSelector(authSelector)
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const EditProfile = () => {
           {
               loading&& <CustomLoading/>
           }
-      <div className="bg-[#ffffff] w-full md:w-[768px] min-h-[400px] rounded-[10px] shadow-c-xsm px-[38px]  grid items-center ">
+      <div className="bg-[#ffffff] w-[95%]   md:w-[768px] min-h-[400px] rounded-[10px] shadow-c-xsm px-[38px]  grid items-center ">
         <div>
           <div className=" mb-[40px] flex justify-center">
             <input
@@ -168,8 +170,9 @@ const EditProfile = () => {
                   setShowError,
                   setError_message,
                   setLoading,
-                    auth_key,
-                  userId
+                  auth_key,
+                  userId,
+                  dispatch
                 );
               }}
             >

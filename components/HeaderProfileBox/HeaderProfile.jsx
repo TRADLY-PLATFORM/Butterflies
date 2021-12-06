@@ -10,6 +10,7 @@ import {
   booking,
   order,
 } from '../Shared/Constant/TextConstant/MenuTextConstant';
+import Image from 'next/image';
 
 const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
   const [marketplace_type, setMarketplace_type] = useState(null);
@@ -31,26 +32,39 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
     showUserMenus && setShowUserMenus(false);
   };
 
+ 
+
   return (
     <>
       <div
-        className="bg-transparent flex items-center  cursor-pointer relative"
+        className="bg-transparent flex items-center  cursor-pointer relative  "
         onClick={openUserMenu}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className=" h-[24px] w-[24px]  md:h-10 md:w-10 text-gray-600"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
+        {profile_pic !== undefined && profile_pic !== "" ? (
+          <div className=" w-10 h-10 relative rounded-full overflow-hidden">
+            <Image
+              src={profile_pic}
+              objectFit="cover"
+              width={40}
+              height={40}
+            />
+          </div>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className=" h-10 w-10  md:h-10 md:w-10 text-gray-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        )}
         <p className=" hidden lg:block text-base font-medium text-primary  lg:ml-2">
           {login ? first_name : 'Guest'}
         </p>

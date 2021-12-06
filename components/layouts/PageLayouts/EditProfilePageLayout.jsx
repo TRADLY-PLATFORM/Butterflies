@@ -3,8 +3,8 @@ import EditProfile from '../../EditProfile/EditProfile';
 
 const EditProfilePageLayout = () => {
     return (
-      <div className="flex   justify-center">
-        <div>
+      <div className="flex   justify-center w-full">
+        <div className="w-full flex justify-center">
           <EditProfile />
         </div>
       </div>

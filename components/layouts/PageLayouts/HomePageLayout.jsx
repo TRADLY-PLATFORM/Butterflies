@@ -51,9 +51,9 @@ const HomePageLayout = () => {
           <Banner banners={promo_banners} />
         </div>
       )}
-      <div>
+      {/* <div>
         <Categories categories={categories} />
-      </div>
+      </div> */}
       {collections?.map((collection) => {
         const scope_type = collection.scope_type;
         if (scope_type === 1 && marketplace_module === 1) {

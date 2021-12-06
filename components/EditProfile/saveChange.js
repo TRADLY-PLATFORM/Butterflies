@@ -1,4 +1,5 @@
 import tradly from 'tradly';
+import { updateUserInfo } from '../../store/feature/authSlice';
 
 export const saveChange = (
   firstName,
@@ -9,7 +10,8 @@ export const saveChange = (
   setError_message,
   setLoading,
   auth_key,
-  userId
+  userId,
+  dispatch
 ) => {
   setLoading(true);
   if (firstName === null || firstName?.replace(/\s/g, '').length <= 0) {
@@ -68,7 +70,15 @@ export const saveChange = (
               })
               .then((res) => {
                 if (!res.error) {
-                  setLoading(false);
+                  dispatch(updateUserInfo({ userId, auth_key })).then((res) => {
+                    if (!res.payload.code) {
+                      setLoading(false);
+                    } else {
+                        setShowError(true);
+                        setError_message(response.payload.message);
+                        setLoading(false);
+                    }
+                  })
                 }
               });
           });
@@ -76,6 +86,34 @@ export const saveChange = (
           setShowError(true);
           setError_message(response.error.message);
           setLoading(false);
+        }
+      });
+  }
+  else {
+    const userData = {
+      user: {
+        first_name: firstName,
+        last_name: lastName,
+        profile_pic: imagePath.path,
+      },
+    };
+    tradly.app
+      .updateUserInfo({
+        id: userId,
+        data: userData,
+        authKey: auth_key,
+      })
+      .then((res) => {
+        if (!res.error) {
+          dispatch(updateUserInfo({ userId, auth_key })).then((res) => {
+            if (!res.payload.code) {
+              setLoading(false);
+            } else {
+              setShowError(true);
+              setError_message(response.payload.message);
+              setLoading(false);
+            }
+          });
         }
       });
   }
