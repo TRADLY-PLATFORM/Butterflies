@@ -46,11 +46,10 @@ const HomePageLayout = () => {
 
   return (
     <div className="">
-      {!page_promo_banners?.length > 0 && page_promo_banners?.length !== null && (
-        <div>
-          <Banner banners={promo_banners} />
-        </div>
-      )}
+      <div>
+        <Banner banners={promo_banners} />
+      </div>
+
       {/* <div>
         <Categories categories={categories} />
       </div> */}

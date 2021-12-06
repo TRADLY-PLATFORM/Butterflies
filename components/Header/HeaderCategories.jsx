@@ -28,16 +28,16 @@ const HeaderCategories = () => {
             } else {
               var sliceLength;
               if (width < 1300) {
-                sliceLength = 7;
-              }
-              if (width < 1000) {
                 sliceLength = 6;
               }
-              if (width < 900) {
+              if (width < 1000) {
                 sliceLength = 5;
               }
+              if (width < 900) {
+                sliceLength = 4;
+              }
 
-              let updatedCategories = response.slice(0, sliceLength || 10);
+              let updatedCategories = response.slice(0, sliceLength || 9);
               let moreCategory = {
                 id: Math.random(),
                 name: 'More',
@@ -88,8 +88,8 @@ const HeaderCategories = () => {
                 >
                   {item.name === 'More'
                     ? item.name
-                    : item.name.length > 8
-                    ? item.name.substring(0, 7)+'.'
+                    : item.name.length > 12
+                    ? item.name.substring(0, 11)+'.'
                     : item.name}
                 </p>
               </div>

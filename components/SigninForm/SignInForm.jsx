@@ -41,7 +41,7 @@ const SignInForm = ({ general_configs }) => {
 
   const clickSignIn = () => {
     if (general_configs?.auth_type === 1) {
-      if (number === null) {
+      if (email === null) {
         setShowError(true);
         setError_message('Mobile Number is required');
         return false;
