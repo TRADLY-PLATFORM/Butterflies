@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import React from "react";
- import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import tradly from "tradly"
  
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -15,55 +16,84 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const Banner = ({ banners }) => {
-	// const banner = [
-	// 	{ name: "Pitching Event Online", image: bannerImage },
-	// 	{ name: "Pitching Event Online", image: bannerImage },
-	// 	{ name: "Pitching Event Online", image: bannerImage },
-	// 	{ name: "Pitching Event Online", image: bannerImage },
-	// ];
+	const[appPromoBanners,setAppsPromoBanners]=useState(null)
+	useEffect(() => {
+		tradly.app.getPromoBanner({ authKey: '', bodyParam: { medium: "app" } }).then((res) => {
+			 if(!res.error){
+				 setAppsPromoBanners(res.data.promo_banners);
+			 }
+		 })
+	 },[])
 	return (
-		<div className=" w-full   h-auto mb-9 mx-auto">
-			<Swiper
-				spaceBetween={30}
-				centeredSlides={true}
-				autoplay={{
-					delay: 2500,
-					disableOnInteraction: false,
-				}}
-				pagination={{
-					clickable: true,
-				}}
-			>
-				{banners?.map((banner, i) => {
-					return (
-						<SwiperSlide
-							key={i}
-							className=" w-full flex flex-col justify-center items-center mb-14"
-						>
-							<div className=" w-full h-[200px] md:h-[400px]  relative rounded-lg overflow-hidden">
-								<Image
-									src={
-										banner.image_path
-									}
-									alt="Banner Image"
-									layout="fill"
-									objectFit="cover"
-								/>
-							</div>
-							{/* <div className=" absolute top-0  left-0  mt-[50px]   ml-6">
-								<p className=" text-2xl text-white font-semibold">
-									{banner.name}
-								</p>
-								<button className=" mt-5  w-28 h-6 flex justify-center items-center bg-primary text-white font-semibold  text-xs  rounded-xl">
-									Register Here
-								</button>
-							</div> */}
-						</SwiperSlide>
-					);
-				})}
-			</Swiper>
-		</div>
-	);
+    <>
+      <div className=" hidden md:block w-full   h-auto mb-9 mx-auto">
+        <Swiper
+          spaceBetween={30}
+          centeredSlides={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+        >
+          {banners?.map((banner, i) => {
+            return (
+              <SwiperSlide
+                key={i}
+                className=" w-full flex flex-col justify-center items-center mb-14"
+              >
+                <div className=" w-full h-full aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                  <Image
+                    src={banner.image_path}
+                    alt="Banner Image"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
+      <div className=" block md:hidden w-full   h-auto mb-9 mx-auto">
+        <Swiper
+          spaceBetween={30}
+          centeredSlides={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+        >
+          {appPromoBanners?.map((banner, i) => {
+            return (
+              <SwiperSlide
+                key={i}
+                className=" w-full flex flex-col justify-center items-center mb-14"
+              >
+                <div className=" w-full h-full aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                  <Image
+                    src={banner.image_path}
+                    alt="Banner Image"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
+    </>
+  );
 };
 
 export default Banner;
+
+
+
+// w-full h-[200px] md:h-[400px]  relative rounded-lg overflow-hidden
