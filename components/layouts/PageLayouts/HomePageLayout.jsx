@@ -9,6 +9,7 @@ import {
   homeSelector,
 } from '../../../store/feature/homeSlice';
 import Banner from '../../home/Banner/Banner';
+import Banner2 from '../../home/Banner/Bannner2';
 import Categories from '../../home/Categories/Categories';
 import LatestEvent from '../../home/LatestEvents/LatestEvent';
 import StoresForFollow from '../../home/Stores/StoresForFollow';
@@ -49,7 +50,7 @@ const HomePageLayout = () => {
   return (
     <div className="">
       <div>
-        <Banner banners={promo_banners} />
+        <Banner2 banners={promo_banners} />
       </div>
 
       {general_configs?.home_categories_enabled && (
@@ -75,7 +76,7 @@ const HomePageLayout = () => {
         }
       })}
       <div>
-        <Banner banners={page_promo_banners} />
+        <Banner2 banners={page_promo_banners} />
       </div>
     </div>
   );
