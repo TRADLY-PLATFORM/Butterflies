@@ -1,11 +1,10 @@
-
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Head from 'next/head';
 import Header3 from '../../Header/Header3';
+import Footer from '../../Footer/Footer';
 
 const MainLayout = ({ children, pageTitle, pageDescription }) => {
- 
   return (
     <>
       <Head>
@@ -21,6 +20,9 @@ const MainLayout = ({ children, pageTitle, pageDescription }) => {
         <div className="bg-[#f6f9ff] min-h-screen  overflow-x-hidden px-[50px]  2xl:px-[12%] pt-5">
           <div>{children}</div>
         </div>
+        <div className="bg-wite min-h-[200px]  left-0 bottom-0 px-[50px]  2xl:px-[12%]">
+          <Footer />
+        </div>
       </div>
 
       <div className=" md:hidden">
@@ -30,33 +32,12 @@ const MainLayout = ({ children, pageTitle, pageDescription }) => {
         <div className="w-screen min-h-screen bg-[#f6f9ff] pt-[24px] px-[16px] pb-14">
           {children}
         </div>
+        <div className="bg-wite min-h-[200px]  left-0 bottom-0 px-[16px] xs:px-[35px] ">
+          <Footer />
+        </div>
       </div>
     </>
   );
 };
 
 export default MainLayout;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
