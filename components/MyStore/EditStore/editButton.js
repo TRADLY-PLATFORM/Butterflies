@@ -78,7 +78,7 @@ export const edit_store_click = (
             body: files,
           })
             .then((res) => {
-              if (attributeData !== null) {
+              if (attributeData !== null && attributeData?.length !== 0) {
                 const check = attributeData.find((attr) => attr.uploadFile);
                 if (check === undefined) {
                   const storesData = {
@@ -235,7 +235,7 @@ export const edit_store_click = (
         setError_message(error.response.data.error.message);
       });
   } else {
-    if (attributeData !== null) {
+    if (attributeData !== null  && attributeData?.length !== 0) {
       const check = attributeData.find((attr) => attr.uploadFile);
       if (check === undefined) {
         const storesData = {

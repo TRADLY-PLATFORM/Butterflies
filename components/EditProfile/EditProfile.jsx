@@ -4,25 +4,28 @@ import { useRouter } from 'next/dist/client/router';
 import { saveChange } from './saveChange';
 import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../Shared/PopUp/PopUp';
-import CustomLoading from "../Shared/Loading/CustomLoading"
+import CustomLoading from '../Shared/Loading/CustomLoading';
 import { authSelector } from '../../store/feature/authSlice';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import SuccessPopUp from '../Shared/PopUp/Success';
 
 const EditProfile = () => {
   const [imagePath, setImagePath] = useState(null);
   const [files, setFiles] = useState(null);
   const [firstName, setFirstName] = useState(null);
-    const [lastName, setLastName] = useState(null);
-    const[userId,setUserId]=useState(null)
+  const [lastName, setLastName] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   const [showError, setShowError] = useState(false);
   const [error_message, setError_message] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [success_message, setSuccess_message] = useState('');
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const dispatch=useDispatch()
-    const{auth_key}=useSelector(authSelector)
+  const dispatch = useDispatch();
+  const { auth_key } = useSelector(authSelector);
 
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem('user_details'));
@@ -30,15 +33,16 @@ const EditProfile = () => {
     setLastName(userDetails.last_name);
     if (userDetails.profile_pic) {
       setImagePath({ path: userDetails.profile_pic });
-      }
-      setUserId(userDetails.id)
+    }
+    setUserId(userDetails.id);
   }, [0]);
-    
-     const closePopUP = () => {
-        setShowError(false);
-       setError_message('');
-     };
 
+  const closePopUP = () => {
+    setShowError(false);
+    setError_message('');
+    setShowSuccess(false);
+    setSuccess_message('');
+  };
 
   return (
     <>
@@ -54,10 +58,21 @@ const EditProfile = () => {
             </div>
           </div>
         </OutsideClickHandler>
-          )}
-          {
-              loading&& <CustomLoading/>
-          }
+      )}
+      {showSuccess && (
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            showSuccess && (setShowSuccess(false), setSuccess_message(''));
+          }}
+        >
+          <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
+            <div className="w-full  xs:w-[500px] mx-auto">
+              <SuccessPopUp message={success_message} closePopUP={closePopUP} />
+            </div>
+          </div>
+        </OutsideClickHandler>
+      )}
+      {loading && <CustomLoading />}
       <div className="bg-[#ffffff] w-[95%]   md:w-[768px] min-h-[400px] rounded-[10px] shadow-c-xsm px-[38px]  grid items-center ">
         <div>
           <div className=" mb-[40px] flex justify-center">
@@ -172,7 +187,9 @@ const EditProfile = () => {
                   setLoading,
                   auth_key,
                   userId,
-                  dispatch
+                  dispatch,
+                  setShowSuccess,
+                  setSuccess_message,
                 );
               }}
             >

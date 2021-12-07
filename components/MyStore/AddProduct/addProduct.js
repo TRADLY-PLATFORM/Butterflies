@@ -111,7 +111,7 @@ export const add_product_click = (
               if (res.ok) {
                 increment = increment + 1;
                 if (increment === files.length) {
-                  if (attributeData !== null) {
+                  if (attributeData !== null  && attributeData?.length !== 0) {
                     const check = attributeData.find((attr) => attr.uploadFile);
                     if (check === undefined) {
                       const listingData = {

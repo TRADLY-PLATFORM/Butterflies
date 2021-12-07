@@ -11,7 +11,9 @@ export const saveChange = (
   setLoading,
   auth_key,
   userId,
-  dispatch
+  dispatch,
+  setShowSuccess,
+  setSuccess_message
 ) => {
   setLoading(true);
   if (firstName === null || firstName?.replace(/\s/g, '').length <= 0) {
@@ -73,12 +75,14 @@ export const saveChange = (
                   dispatch(updateUserInfo({ userId, auth_key })).then((res) => {
                     if (!res.payload.code) {
                       setLoading(false);
+                      setShowSuccess(true)
+                      setSuccess_message('Your profile updated successfully')
                     } else {
-                        setShowError(true);
-                        setError_message(response.payload.message);
-                        setLoading(false);
+                      setShowError(true);
+                      setError_message(response.payload.message);
+                      setLoading(false);
                     }
-                  })
+                  });
                 }
               });
           });
@@ -88,8 +92,7 @@ export const saveChange = (
           setLoading(false);
         }
       });
-  }
-  else {
+  } else {
     const userData = {
       user: {
         first_name: firstName,
@@ -108,6 +111,8 @@ export const saveChange = (
           dispatch(updateUserInfo({ userId, auth_key })).then((res) => {
             if (!res.payload.code) {
               setLoading(false);
+               setShowSuccess(true);
+               setSuccess_message('Your profile updated successfully');
             } else {
               setShowError(true);
               setError_message(response.payload.message);

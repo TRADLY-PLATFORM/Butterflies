@@ -41,8 +41,10 @@ const HomePageLayout = () => {
     page_promo_banners,
   } = useSelector(homeSelector);
 
-  const { genral_configs, marketplace_type, marketplace_module } =
+  const { general_configs, marketplace_type, marketplace_module } =
     useSelector(configsSelector);
+
+  console.log(general_configs);
 
   return (
     <div className="">
@@ -50,9 +52,11 @@ const HomePageLayout = () => {
         <Banner banners={promo_banners} />
       </div>
 
-      {/* <div>
-        <Categories categories={categories} />
-      </div> */}
+      {general_configs?.home_categories_enabled && (
+        <div>
+          <Categories categories={categories} />
+        </div>
+      )}
       {collections?.map((collection) => {
         const scope_type = collection.scope_type;
         if (scope_type === 1 && marketplace_module === 1) {

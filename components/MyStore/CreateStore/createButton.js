@@ -75,7 +75,7 @@ export const create_store_click = (
         })
           .then((res) => {
             if (res.status) {
-              if (attributeData !== null) {
+              if (attributeData !== null && attributeData?.length !== 0) {
                 const check = attributeData.find((attr) => attr.uploadFile);
                 if (check === undefined) {
                   let storesData = {

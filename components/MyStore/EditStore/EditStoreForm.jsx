@@ -17,7 +17,14 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { edit_store_click } from './editButton';
 import { useRouter } from 'next/dist/client/router';
 
-const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
+const EditStoreForm = ({
+  my_stores,
+  accountId,
+  accounts_configs,
+  my_account_details,
+}) => {
+ 
+
   const [imagePath, setImagePath] = useState(null);
   const [files, setFiles] = useState(null);
   const [name, setName] = useState(null);
@@ -34,21 +41,48 @@ const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
   const router = useRouter();
 
   const { auth_key } = useSelector(authSelector);
-
   const dispatch = useDispatch();
-  useEffect(() => {
-    setImagePath({ path: my_stores[0].images[0] });
-    setName(my_stores[0].name);
-    setDescription(my_stores[0].description);
-    setCoordinates({
-      latitude: my_stores[0].latitude,
-      longitude: my_stores[0].longitude,
-    });
-    setAddressSearchKey(my_stores[0].location.formatted_address);
-     
-  }, [0]);
+
   useEffect(() => {
     dispatch(categories({ prams: { parent: 0, type: 'accounts' } }));
+  }, [0]);
+
+  useEffect(() => {
+    setImagePath({ path: my_account_details.images[0] });
+    setName(my_account_details.name);
+    setDescription(my_account_details.description);
+    setCoordinates({
+      latitude: my_account_details?.coordinates?.latitude,
+      longitude: my_account_details?.coordinates?.longitude,
+    });
+    setAddressSearchKey(my_account_details?.location?.formatted_address);
+    setCategory(my_account_details.categories[0].id);
+
+    dispatch(
+      accountAttribute({
+        prams: {
+          category_id: my_account_details.categories[0].id,
+          type: 'accounts',
+        },
+        authKey: auth_key,
+      })
+    );
+
+    if (my_account_details.attributes.length > 0) {
+      setAttributeData(
+        my_account_details?.attributes?.map((attr) => {
+          if (attr.field_type === 1 || attr.field_type === 2) {
+            return {
+              id: attr.id,
+              values: attr.values.map((item) => item.id),
+            };
+          } else if (attr.field_type === 3 || attr.field_type === 4) {
+            return { id: attr.id, values: attr.values.map((item) => item) };
+          }
+        })
+      );
+    }
+
   }, [0]);
 
   useEffect(() => {
@@ -70,8 +104,6 @@ const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
     setShowError(false);
     setError_message('');
   };
-
-  
 
   return (
     <div className=" w-full">
@@ -219,22 +251,24 @@ const EditStoreForm = ({ my_stores, accountId, accounts_configs }) => {
               setCategory(Number(e.target.value)), setAttributeData(null);
             }}
           >
-            <option hidden selected>
-              Select Category
-            </option>
-            {account_categories?.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
+            {account_categories?.map((ct) => (
+              <option
+                selected={ct.id === category ? true : false}
+                key={ct.id}
+                value={ct.id}
+              >
+                {ct.name}
               </option>
             ))}
           </select>
         </label>
-        {category !== null &&<div>
+
+        <div>
           <Attribute
             attributeData={attributeData}
             setAttributeData={setAttributeData}
           />
-        </div>}
+        </div>
       </div>
       <div className=" mt-9 flex justify-center  ">
         <button

@@ -8,6 +8,7 @@ import HeaderCategories from './HeaderCategories';
 import OutsideClickHandler from 'react-outside-click-handler';
 import Drawer from './Drawer';
 import WishListButton from "../WishListButton/WishListButton"
+import { getThumbnailImage } from '../Shared/Constant/Constant';
 
 const Header3 = () => {
   const [logo, setLogo] = useState(null);
@@ -43,7 +44,7 @@ const Header3 = () => {
                 <Link href="/" passHref={true}>
                   <div className=" flex items-center   relative cursor-pointer ">
                     <Image
-                      src={logo}
+                      src={getThumbnailImage(logo)}
                       height={44}
                       width={250}
                       objectFit="contain"

@@ -221,6 +221,30 @@ export const get_all_accounts = createAsyncThunk(
   }
 );
 
+export const accountDetails = createAsyncThunk(
+  'store/accountDetails',
+
+  async ({ id, authKey }, thunkAPI) => {
+    try {
+      const response = await tradly.app.commonFuntion({
+        path: `/v1/accounts/${id}`,
+        bodyParam: '',
+        authKey,
+        Method: 'Get',
+      });
+      const { data } = await response;
+      if (!response.error) {
+        return data;
+      } else {
+        const { error } = await response;
+        return error;
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const storeSlice = createSlice({
   name: 'store',
   initialState: {
@@ -244,6 +268,7 @@ export const storeSlice = createSlice({
     all_accounts: [],
     all_accounts_total_records: '',
     all_accounts_page: '',
+    my_account_details: null,
   },
   reducers: {
     clearStoreState: (state) => {
@@ -256,6 +281,9 @@ export const storeSlice = createSlice({
     setListingConfig: (state, { payload }) => {
       state.listing_configs = payload?.listing_configs;
       return state;
+    },
+    clearAccountDetails: (state) => {
+      state.my_account_details = null;
     },
   },
   extraReducers: {
@@ -464,7 +492,7 @@ export const storeSlice = createSlice({
         state.isAllAccountsFetching = false;
         state.isSuccess = true;
         state.errorMessage = '';
-        state.all_accounts =   payload?.accounts  ;
+        state.all_accounts = payload?.accounts;
         state.all_accounts_page = payload?.page;
         state.all_accounts_total_records = payload?.total_records;
       }
@@ -479,8 +507,33 @@ export const storeSlice = createSlice({
       state.isError = true;
       state.errorMessage = payload?.message;
     },
+    [accountDetails.fulfilled]: (state, { payload }) => {
+      if (payload.code) {
+        state.isFetching = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
+      } else {
+        state.isError = false;
+        state.isFetching = false;
+        state.isSuccess = true;
+        state.errorMessage = '';
+        state.my_account_details = payload?.account;
+      }
+    },
+    [accountDetails.pending]: (state) => {
+      state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    [accountDetails.rejected]: (state, { payload }) => {
+      state.isAllAccountsFetching = false;
+      state.isError = true;
+      state.errorMessage = payload?.message;
+    },
   },
 });
 
-export const { clearStoreState, setListingConfig } = storeSlice.actions;
+export const { clearStoreState, setListingConfig, clearAccountDetails } =
+  storeSlice.actions;
 export const storeSelector = (state) => state.store;
