@@ -1,41 +1,40 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Image from 'next/image';
-import tradly from "tradly"
+import tradly from 'tradly';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/dist/client/router';
 import { listingDetails } from '../../../store/feature/listingSlice';
 const StoreNameBox = ({ account }) => {
+  const { login, auth_key } = useSelector(authSelector);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-	const { login, auth_key } = useSelector(authSelector)
-	const dispatch = useDispatch()
-	const router = useRouter()
-
-	 const follow = (id, isFollow) => {
-     if (login) {
-       tradly.app
-         .followUnfollowAccounts({
-           id,
-           authKey: auth_key,
-           isFollowing: isFollow,
-         })
-         .then((res) => {
-           if (!res.error) {
+  const follow = (id, isFollow) => {
+    if (login) {
+      tradly.app
+        .followUnfollowAccounts({
+          id,
+          authKey: auth_key,
+          isFollowing: isFollow,
+        })
+        .then((res) => {
+          if (!res.error) {
             dispatch(
               listingDetails({
                 id: router?.query.id,
                 authKey: auth_key,
               })
             );
-           }
-         });
-     } else {
-       router.push('/sign-in');
-     }
-   };
-	return (
+          }
+        });
+    } else {
+      router.push('/sign-in');
+    }
+  };
+  return (
     <div className=" bg-white rounded  w-full  min-h-[81px] flex   justify-between items-center  p-[16px] shadow-c-sm">
       <div className="flex items-center">
         <div className="flex justify-start items-start w-[32px] h-[32px] rounded-full overflow-hidden relative">
@@ -46,7 +45,18 @@ const StoreNameBox = ({ account }) => {
             objectFit="cover"
           />
         </div>
-        <div className="ml-[10px] ">
+        <div
+          className="ml-[10px] "
+          onClick={() =>
+            router.push({
+              pathname: '/stores/[id]',
+              query: {
+                id: `${account?.id}-${account?.name.replace(/\s/g, '-')}`,
+                page: 1,
+              },
+            })
+          }
+        >
           <p className="text-base leading-4 text-[#121212] font-medium">
             {account?.name}
           </p>
@@ -60,7 +70,7 @@ const StoreNameBox = ({ account }) => {
               ? 'bg-primary text-white '
               : 'bg-transparent text-primary ',
           ].join(' ')}
-          onClick={() => follow(account.id,account.following)}
+          onClick={() => follow(account.id, account.following)}
         >
           {account.following ? 'Following' : 'Follow'}
         </button>
