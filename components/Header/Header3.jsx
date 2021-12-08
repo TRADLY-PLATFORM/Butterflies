@@ -57,10 +57,10 @@ const Header3 = () => {
             </div>
             <div className="   z-[100] ml-auto">
               <div className=" flex items-center justify-between">
-                <div className="  mr-2 ">
+                <div className="  ms:mr-2 ">
                   <StoreButton />
                 </div>
-                <div className=" mr-2  ">
+                <div className="  ms:mr-2  ">
                   <WishListButton />
                 </div>
                 <div>
@@ -126,10 +126,10 @@ const Header3 = () => {
               )}
             </div>
             <div className=" flex items-center justify-between">
-              <div className="  mr-2 ">
+              <div className="  ms:mr-2 ">
                 <StoreButton />
               </div>
-              <div className=" mr-2  ">
+              <div className=" ms:mr-2  ">
                 <WishListButton />
               </div>
               <div className="relative">

@@ -116,11 +116,11 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
         ) : (
           <div>
             <button
-              className="bg-primary text-sm text-white px-[10px] py-[6px] flex items-center rounded-md "
+              className=" w-[90px]  bg-primary text-sm text-white   py-[6px] flex items-center justify-center rounded-md "
               onClick={() => router.push('/sign-in')}
             >
-              <span> {sign_in_icon}</span>
-              <span className="ml-[6px]"> Log In</span>
+              <span className=" hidden  ms:block "> {sign_in_icon}</span>
+              <span className=" ms:ml-[6px]"> Log In</span>
             </button>
           </div>
         )}

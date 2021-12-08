@@ -203,7 +203,7 @@ const SignInForm = ({ general_configs }) => {
             </button>
           </Link>
         </div>
-        <div className=" mt-10 rounded-2xlflex justify-center items-center">
+        <div className=" mt-10 rounded-2xl flex justify-center items-center">
           <Link href={'/'} passHref>
             <button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl ">
               <svg
