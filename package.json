@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.3.0",
+    "@headlessui/react": "^1.4.2",
     "@reduxjs/toolkit": "^1.6.2",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.20.3",

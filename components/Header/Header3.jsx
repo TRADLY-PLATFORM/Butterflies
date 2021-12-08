@@ -9,6 +9,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import Drawer from './Drawer';
 import WishListButton from "../WishListButton/WishListButton"
 import { getThumbnailImage } from '../Shared/Constant/Constant';
+import HeaderProfile2 from '../HeaderProfileBox/HeaderProfile2';
 
 const Header3 = () => {
   const [logo, setLogo] = useState(null);
@@ -63,7 +64,7 @@ const Header3 = () => {
                   <WishListButton />
                 </div>
                 <div>
-                  <HeaderProfile
+                  <HeaderProfile2
                     showUserMenus={showUserMenus}
                     setShowUserMenus={setShowUserMenus}
                   />
@@ -132,7 +133,7 @@ const Header3 = () => {
                 <WishListButton />
               </div>
               <div className="relative">
-                <HeaderProfile
+                <HeaderProfile2
                   showUserMenus={showUserMenus}
                   setShowUserMenus={setShowUserMenus}
                   // dropdownRef={

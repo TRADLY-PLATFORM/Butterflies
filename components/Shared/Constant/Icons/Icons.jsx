@@ -72,3 +72,5 @@ export const locationWhiteMarker = (
 		/>
 	</svg>
 );
+
+

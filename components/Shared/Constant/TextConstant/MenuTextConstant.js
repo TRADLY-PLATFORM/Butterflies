@@ -1,9 +1,9 @@
 module.exports = {
   booking: (
-    <div className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4] group">
+    <div className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="  mr-5 text-[#6e686e] mt-[2px]"
+        className="  mr-3  sm:mr-5 text-[#6e686e] mt-[2px]"
         width="24"
         height="20"
         viewBox="0 0 20 14"
@@ -14,17 +14,17 @@ module.exports = {
           fill="#6e686e"
         />
       </svg>
-      <span className=" text-sm  text-[#222222]  font-semibold transition duration-500 group-hover:text-primary">
+      <span className=" text-sm  text-[#222222]  font-semibold transition duration-500 hover:text-primary">
         My Bookings
       </span>
     </div>
   ),
 
   order: (
-    <div className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4] group">
+    <div className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6  mr-5 text-[#6e686e] mt-[2px]"
+        className="h-6 w-6  mr-3  sm:mr-5 text-[#6e686e] mt-[2px]"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -36,7 +36,7 @@ module.exports = {
           d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
         />
       </svg>
-      <span className=" text-sm  text-[#222222]  font-semibold transition duration-500 group-hover:text-primary">
+      <span className=" text-sm  text-[#222222]  font-semibold transition duration-500 hover:text-primary">
         My Orders
       </span>
     </div>

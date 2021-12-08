@@ -15,7 +15,7 @@ const StoreButton = () => {
         href={login ? '/stores/my-store?page=1' : '/sign-in'}
         passHref={true}
       >
-        <div className="cursor-pointer w-[44px] h-[44px] px-[6px] flex justify-center items-center">
+        <div className="cursor-pointer w-[34px] h-[44px] px-[6px] flex justify-center items-center">
           <svg
             width="24"
             height="24"
