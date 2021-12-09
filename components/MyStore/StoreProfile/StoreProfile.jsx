@@ -47,7 +47,7 @@ const StoreProfile = ({ my_stores }) => {
             onClick={() =>
               router.push({
                 pathname: '/a/orders',
-                query: { store_id: my_stores[0].id },
+                query: { store_id: my_stores[0].id,page:1 },
               })
             }
             className="  w-[145px] h-[30px] flex justify-center items-center bg-primary rounded-md text-white"

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { useRouter } from "next/dist/client/router";
 import { route } from "next/dist/server/router";
 import React from "react";
@@ -6,42 +7,29 @@ import { useDispatch } from "react-redux";
 import { authSelector } from "../../../store/feature/authSlice";
 import { get_orders } from "../../../store/feature/orderSlice";
 import { options } from "../../Shared/Constant/Status";
+var slugify = require('slugify');
 
 const OrdersFilter = () => {
 	const dispatch = useDispatch();
 	const { auth_key } = useSelector(authSelector);
 	const router = useRouter();
 	const changeFilter = (e) => {
-		const separate = e.target.value.split("-")
- 		if (separate[0] === "0") {
-			dispatch(
-				get_orders({
-					authKey: auth_key,
-					bodyParam: {
-						page: 1,
-					},
-				})
+    const separate = e.target.value.split('-');
 
-				);
-				router.push({
-					pathname: "/orders",
-				});
-		} else {
-			dispatch(
-				get_orders({
-					authKey: auth_key,
-					bodyParam: {
-						page: 1,
-						order_status: separate[0],
-					},
-				})
-			);
-			router.push({
-				pathname: "/orders",
-				query: { status: separate[1] },
-			});
-		}
-	};
+    if (separate[0] === '0') {
+      router.push({
+        pathname: '/orders',
+        query: { page: router.query.page },
+      });
+    } else {
+      router.push({
+        query: {
+        order_status: slugify(`${separate[1]}`),
+          page: router.query.page,
+        },
+      });
+    }
+  };
 	return (
 		<div>
 			<label className="flex justify-center items-center ">
@@ -65,7 +53,11 @@ const OrdersFilter = () => {
 					{options?.map((item) => {
 						return (
               <option
-                selected={router.query.status === item.label?true:false}
+                selected={
+                  router.query.order_status === slugify(item.label)
+                    ? true
+                    : false
+                }
                 key={Math.random()}
                 value={`${item.id}-${item.value}`}
               >

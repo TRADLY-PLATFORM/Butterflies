@@ -91,7 +91,7 @@ const SideMenubar = () => {
 					</p>
 				</div>
 			</Link> */}
-      <Link href={login ? '/orders' : '/sign-in'} passHref={true}>
+      <Link href={login ? '/orders?page=1' : '/sign-in'} passHref={true}>
         <div
           className={[
             'w-full h-12 flex   items-center   pl-7 cursor-pointer  hover:bg-primary_light',

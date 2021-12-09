@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Router, useRouter } from 'next/dist/client/router';
 import { route } from 'next/dist/server/router';
 import React from 'react';
@@ -6,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { authSelector } from '../../../../store/feature/authSlice';
 import { get_orders } from '../../../../store/feature/store_orderSlice';
 import { options } from '../../../Shared/Constant/Status';
+var slugify = require('slugify');
 
 const OrdersFilter = () => {
   const dispatch = useDispatch();
@@ -14,38 +16,20 @@ const OrdersFilter = () => {
   const accountId = router.query.store_id;
 
   const changeFilter = (e) => {
-	  const separate = e.target.value.split('-');
-	  console.log('====================================');
-	  console.log(router.query.order_status);
-	  console.log('====================================');
+    const separate = e.target.value.split('-');
+
     if (separate[0] === '0') {
-      dispatch(
-        get_orders({
-          authKey: auth_key,
-          bodyParam: {
-            page: 1,
-            account_id: accountId,
-          },
-        })
-      );
       router.push({
         pathname: '/a/orders',
-        query: { store_id: accountId },
+        query: { store_id: accountId, page: router.query.page },
       });
     } else {
-      dispatch(
-        get_orders({
-          authKey: auth_key,
-          bodyParam: {
-            page: 1,
-            account_id: accountId,
-            order_status: separate[0],
-          },
-        })
-      );
       router.push({
-        // pathname: '/stores/orders',
-        query: { store_id: accountId, order_status: separate[1] },
+         query: {
+          store_id: accountId,
+          order_status: slugify(`${separate[1]}`),
+          page: router.query.page,
+        },
       });
     }
   };
@@ -66,13 +50,17 @@ const OrdersFilter = () => {
                     focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50
                   "
           onChange={(e) => changeFilter(e)}
-			  >
-				  <option hidden selected disabled>Filter by status</option>
+        >
+          <option hidden selected disabled>
+            Filter by status
+          </option>
           {options?.map((item) => {
             return (
               <option
                 selected={
-                  router.query.order_status === item.label ? true : false
+                  router.query.order_status === slugify(item.label)
+                    ? true
+                    : false
                 }
                 key={Math.random()}
                 value={`${item.id}-${item.value}`}

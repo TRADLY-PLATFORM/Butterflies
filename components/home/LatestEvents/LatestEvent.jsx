@@ -95,7 +95,7 @@ const LatestEvent = ({ products }) => {
                   className=" w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded mr-4 overflow-hidden cursor-pointer shadow-c-xsm relative"
                   onClick={() =>
                     router.push(
-                      `/l/${item.id}-${item.title.replace(/\W/g, '+')}`
+                      `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
                     )
                   }
                 >

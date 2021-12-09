@@ -27,7 +27,7 @@ const ItemsSummary = ({ order_details }) => {
            return (
             <Link
               key={Math.random()}
-              href={`/l/${item.listing.id}-${item.title.replace(/\W/g, '+')}`}
+              href={`/l/${item.listing.id}-${item.title.replace(/\W/g, '-')}`}
             >
               <div
                 className={[
