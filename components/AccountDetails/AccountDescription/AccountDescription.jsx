@@ -3,11 +3,11 @@ import React from 'react';
 
 const AccountDescription = ({ account_details }) => {
   const data = [
-    {
-      title: 'Description',
-      value: account_details?.description,
-      extra_style: true,
-    },
+    // {
+    //   title: 'Description',
+    //   value: account_details?.description,
+    //   extra_style: true,
+    // },
     {
       title: 'Categories',
       value: account_details?.categories[0].name,
