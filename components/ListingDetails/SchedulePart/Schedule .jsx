@@ -63,7 +63,7 @@ const Schedule = ({ schedules }) => {
               setIsScheduleOpen(false);
             }}
           >
-            <div className="relative w-screen xs:w-[450px] sm:[600px]">
+            <div className="relative w-screen xs:w-[450px] sm:w-[600px]">
               <button
                 className="absolute top  right-0 text-primary font-semibold text-xl mt-5 mr-5"
                 onClick={() => setIsScheduleOpen(false)}
