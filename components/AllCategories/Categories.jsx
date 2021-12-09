@@ -13,7 +13,7 @@ const Categories = ({ allCategories }) => (
           <Link
             key={Math.random()}
             href={{
-              pathname: '/category/[name]',
+              pathname: '/lc/[name]',
               query: {
                 id: item.id,
                 page: 1,

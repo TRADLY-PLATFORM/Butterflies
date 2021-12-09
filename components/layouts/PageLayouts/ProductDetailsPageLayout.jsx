@@ -36,7 +36,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     if (router?.query.id) {
       dispatch(
         listingDetails({
-          id: router?.query.id,
+          id: router?.query.id.split('-')[0],
           authKey: auth_key,
         })
       );
@@ -73,7 +73,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         if (!res.payload.code) {
           dispatch(
             listingDetails({
-              id: router?.query.id,
+              id: router?.query.id.split('-')[0],
               authKey: auth_key,
             })
           );

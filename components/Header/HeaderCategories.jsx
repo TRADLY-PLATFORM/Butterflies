@@ -71,7 +71,7 @@ const HeaderCategories = () => {
               key={Math.random()}
               href={{
                 pathname: `${
-                  item.name !== 'More' ? '/category/[name]' : '/category'
+                  item.name !== 'More' ? '/lc/[name]' : '/lc'
                 }`,
                 query,
               }}

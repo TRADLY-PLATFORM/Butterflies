@@ -102,7 +102,7 @@ export const edit_store_click = (
                     })
                   ).then((res) => {
                     if (!res.payload.code) {
-                      router.push('/stores/my-store?page=1');
+                      router.push('/a/my-store?page=1');
                       setEditStoreLoading(false);
                     } else {
                       setShowError(true);
@@ -165,7 +165,7 @@ export const edit_store_click = (
                               })
                             ).then((res) => {
                               if (!res.payload.code) {
-                                router.push('/stores/my-store?page=1');
+                                router.push('/a/my-store?page=1');
                                 setEditStoreLoading(false);
                               } else {
                                 setShowError(true);
@@ -209,7 +209,7 @@ export const edit_store_click = (
                   })
                 ).then((res) => {
                   if (!res.payload.code) {
-                    router.push('/stores/my-store?page=1');
+                    router.push('/a/my-store?page=1');
                     setEditStoreLoading(false);
                   } else {
                     setShowError(true);
@@ -259,7 +259,7 @@ export const edit_store_click = (
           })
         ).then((res) => {
           if (!res.payload.code) {
-            router.push('/stores/my-store?page=1');
+            router.push('/a/my-store?page=1');
             setEditStoreLoading(false);
           } else {
             setShowError(true);
@@ -321,7 +321,7 @@ export const edit_store_click = (
                     })
                   ).then((res) => {
                     if (!res.payload.code) {
-                      router.push('/stores/my-store?page=1');
+                      router.push('/a/my-store?page=1');
                       setEditStoreLoading(false);
                     } else {
                       setShowError(true);
@@ -362,7 +362,7 @@ export const edit_store_click = (
         })
       ).then((res) => {
         if (!res.payload.code) {
-          router.push('/stores/my-store?page=1');
+          router.push('/a/my-store?page=1');
           setEditStoreLoading(false);
         } else {
           setShowError(true);

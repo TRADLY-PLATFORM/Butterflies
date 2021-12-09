@@ -12,7 +12,9 @@ const ListingCard = ({ item, like, marketplace_type }) => {
     <div className="  relative">
       <div
         className=" w-full  min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
-        onClick={() => router.push(`/listing/${item.id}`)}
+        onClick={() =>
+          router.push(`/l/${item.id}-${item.title.replace(/\W/g, '+')}`)
+        }
       >
         <div className="   aspect-w-1 aspect-h-1 relative  mb-4 ">
           {item?.images?.length > 0 && (

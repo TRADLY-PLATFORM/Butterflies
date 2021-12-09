@@ -259,10 +259,10 @@ export const add_product_click = (
                             }
                             if (changeRoute) {
                               setAddProductLoading(false);
-                              router.push('/stores/my-store?page=1');
+                              router.push('/a/my-store?page=1');
                             } else {
                               setAddProductLoading(false);
-                              router.push('/stores/my-store?page=1');
+                              router.push('/a/my-store?page=1');
                             }
                           } else {
                             setShowError(true);
@@ -479,10 +479,10 @@ export const add_product_click = (
                                       }
                                       if (changeRoute) {
                                         setAddProductLoading(false);
-                                        router.push('/stores/my-store?page=1');
+                                        router.push('/a/my-store?page=1');
                                       } else {
                                         setAddProductLoading(false);
-                                        router.push('/stores/my-store?page=1');
+                                        router.push('/a/my-store?page=1');
                                       }
                                     } else {
                                       setShowError(true);
@@ -652,10 +652,10 @@ export const add_product_click = (
                           }
                           if (changeRoute) {
                             setAddProductLoading(false);
-                            router.push('/stores/my-store?page=1');
+                            router.push('/a/my-store?page=1');
                           } else {
                             setAddProductLoading(false);
-                            router.push('/stores/my-store?page=1');
+                            router.push('/a/my-store?page=1');
                           }
                         } else {
                           setShowError(true);
