@@ -8,8 +8,6 @@ import { useDispatch } from 'react-redux';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 
 const SignIn = (props) => {
-  console.log('===========ahsanullahsunsbd@gmail.com=========================');
-
   const router = useRouter();
   const dispatch = useDispatch();
   const { login } = useSelector(authSelector);

@@ -58,7 +58,6 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
 
   const { my_stores } = useSelector(storeSelector);
 
-  console.log(marketplace_type);
   const dispatch = useDispatch();
   const router = useRouter();
 

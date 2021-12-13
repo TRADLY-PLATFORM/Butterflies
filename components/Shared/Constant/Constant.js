@@ -56,9 +56,6 @@ export function convertTimeinto24Hrs(time) {
 }
 export function convertTimeinto212Hrs(time) {
   const number = moment(time, ['HH:mm']).format('hh:mm A');
-  console.log('====================================');
-  console.log(number);
-  console.log('====================================');
   return number;
 }
 

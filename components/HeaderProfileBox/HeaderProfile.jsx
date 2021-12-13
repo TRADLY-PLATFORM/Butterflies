@@ -18,7 +18,7 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
     setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
   }, [0]);
 
-  console.log(marketplace_type);
+
   const dispatch = useDispatch();
   const router = useRouter();
 

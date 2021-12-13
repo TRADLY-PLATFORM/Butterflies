@@ -33,9 +33,8 @@ const ScheduleSelect = ({
     scheduleData = scheduleArray[selectedDateIndex];
   }
   const { first_name } = useSelector(authSelector);
-  console.log('====================================');
-  console.log(scheduleData);
-  console.log('====================================');
+
+  
   return (
     <div className="w-full bg-[#FEFEFE] rounded-lg p-[31px] min-h-[200px]">
       <p className="text-primary text-xl leading-6 font-medium ">

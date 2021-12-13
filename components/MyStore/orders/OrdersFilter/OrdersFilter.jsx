@@ -15,9 +15,6 @@ const OrdersFilter = () => {
 
   const changeFilter = (e) => {
 	  const separate = e.target.value.split('-');
-	  console.log('====================================');
-	  console.log(router.query.order_status);
-	  console.log('====================================');
     if (separate[0] === '0') {
       dispatch(
         get_orders({

@@ -19,11 +19,8 @@ const OnBoardingImage = () => {
     const onboarding_configs = JSON.parse(
       localStorage.getItem('onboarding_configs')
     );
-    setSliderImage(onboarding_configs.intro_screens);
-  }, [0]);
-  console.log('====================================');
-  console.log(sliderImage);
-  console.log('====================================');
+     setSliderImage(onboarding_configs?.intro_screens);
+  }, [localStorage.getItem('onboarding_configs')]);
   return (
     <div className="  w-full h-full">
       <Swiper

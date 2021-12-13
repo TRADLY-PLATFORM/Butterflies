@@ -202,9 +202,6 @@ const EventCheckoutPageLayout = () => {
     setError_message('');
   };
 
-  console.log('====================================');
-  console.log(scheduleArray);
-  console.log('====================================');
 
   return (
     <>

@@ -15,9 +15,7 @@ import VariantsPart from '../../MyStore/AddProduct/Variants/VariantsPart';
 const AddListingSuccessPageLayout = () => {
   const { auth_key } = useSelector(authSelector);
   const { listing_configs } = useSelector(storeSelector);
-  console.log('====================================');
-  console.log(listing_configs);
-  console.log('====================================');
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (auth_key) {

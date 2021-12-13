@@ -35,9 +35,6 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
   });
 
   const addVariantClick = () => {
-    console.log('====================================');
-    console.log(variantsObject);
-    console.log('====================================');
     if (variantsArray === null) {
       setVariantsArray([variantsObject]);
     } else {
