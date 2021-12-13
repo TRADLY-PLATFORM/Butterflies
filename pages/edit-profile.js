@@ -11,7 +11,8 @@ import EditProfilePageLayout from '../components/layouts/PageLayouts/EditProfile
 
 const EditProfile = (props) => {
   const dispatch = useDispatch();
-  useEffect(() => {
+
+   useEffect(() => {
     dispatch(
       refreshPage({
         key: localStorage.getItem('refresh_key'),
@@ -36,6 +37,8 @@ const EditProfile = (props) => {
       dispatch(setGeneralConfig(props));
     }
   }, [localStorage.getItem('auth_key')]);
+
+  
   return (
     <MainLayout>
       <EditProfilePageLayout />

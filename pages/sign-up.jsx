@@ -1,13 +1,19 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import SignUpPageLayout from '../components/layouts/PageLayouts/SignUpPageLayout';
- import tradly from 'tradly';
+import tradly from 'tradly';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setGeneralConfig(props));
+    const general_configs = JSON.parse(localStorage.getItem('general_configs'));
+    if (props.general_configs !== null) {
+      dispatch(setGeneralConfig(props));
+    } else {
+      dispatch(setGeneralConfig({ general_configs: general_configs }));
+    }
   }, [dispatch]);
 
   return (
@@ -24,6 +30,6 @@ export async function getServerSideProps() {
     paramBody: 'general',
   });
   return {
-    props: { general_configs: response?.data?.configs||[] },
+    props: { general_configs: response?.data?.configs || null },
   };
 }
