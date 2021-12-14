@@ -23,7 +23,7 @@ const StoreOrdersPageLayout = () => {
         })
       );
     router.push({
-      pathname: '/stores/orders',
+      pathname: '/a/orders',
       query: { store_id: accountId },
     });
     }  

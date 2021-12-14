@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -8,6 +8,10 @@ import { storeSelector } from '../../../store/feature/storeSlice';
 const Attribute = ({ attributeData, setAttributeData }) => {
   const { attributes } = useSelector(storeSelector);
 
+ 
+  const { my_account_listing_details } = useSelector(storeSelector);
+
+ 
   // statte
   const [file, setFile] = useState(null);
 
@@ -88,8 +92,13 @@ const Attribute = ({ attributeData, setAttributeData }) => {
         }
       }
     } else if (attribute_field_type === 2 || attribute_field_type === 4) {
+       
       if (attributeData !== null) {
-        if (actionMeta.action !== 'remove-value' || 'clear') {
+        if (
+          !actionMeta.action === 'remove-value' ||
+          !actionMeta.action === 'clear'
+        ) {
+         
           const check = attributeData.find((attr) => attr.id === attribute_id);
           if (check === undefined) {
             if (attribute_field_type === 2) {
@@ -132,7 +141,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
             }
           }
         } else {
-          if (newValue.length) {
+          if (newValue?.length !== 0) {
             const findOut = attributeData.filter(
               (attr) => attr.id !== attribute_id
             );
@@ -184,6 +193,49 @@ const Attribute = ({ attributeData, setAttributeData }) => {
     }
   };
 
+  const multi_select_attributeValueReturn = (options, attrID) => {
+    for (let y = 0; y < attributeData?.length; y++) {
+      const elementy = attributeData[y];
+      if (elementy.id === attrID) {
+        let finding = [];
+        for (let i = 0; i < options.length; i++) {
+          const elementi = options[i];
+          for (let j = 0; j < elementy.values.length; j++) {
+            const elementj = elementy.values[j];
+            if (elementi.id === elementj) {
+              finding.push(elementi);
+              if (finding.length === elementy.values.length) {
+                
+                return finding;
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
+  const multi_value_attributeValueReturn = (attrID) => {
+    for (let y = 0; y < attributeData?.length; y++) {
+      const elementy = attributeData[y];
+      if (elementy.id === attrID) {
+        let finding = [];
+        for (let j = 0; j < elementy.values.length; j++) {
+          const elementj = elementy.values[j];
+          const changeElementj = {
+            label: elementj,
+            value: elementj,
+          };
+          finding.push(changeElementj);
+          if (finding.length === elementy.values.length) {
+             
+            return finding;
+          }
+        }
+      }
+    }
+  };
+
   return (
     <>
       {attributes?.map((attr) => {
@@ -214,17 +266,24 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                   </label>
                   <Select
                     className=" mt-3"
-                    onChange={(newValue, actionMeta) =>
+                    onChange={(newValue, actionMeta, e) => {
                       handleChange(
                         newValue,
                         actionMeta,
                         attr.id,
                         attr.field_type
-                      )
-                    }
+                      );
+                    }}
                     placeholder={'Select your' + ' ' + attr.name}
-                     
                     options={options}
+                    value={attributeData?.map((atData) => {
+                      if (atData.id === attr.id) {
+                        const finding = options.filter(
+                          (op) => op.id === atData.values[0]
+                        );
+                        return finding[0];
+                      }
+                    })}
                   />
                 </div>
               )}
@@ -244,16 +303,17 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                     isMulti
                     name="colors"
                     options={options}
-                    onChange={(newValue, actionMeta) =>
+                    onChange={(newValue, actionMeta) => {
                       handleChange(
                         newValue,
                         actionMeta,
                         attr.id,
                         attr.field_type
-                      )
-                    }
+                      );
+                    }}
                     className="basic-multi-select mt-3"
                     classNamePrefix="select"
+                    value={multi_select_attributeValueReturn(options, attr.id)}
                   />
                 </div>
               )}
@@ -271,14 +331,22 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                   <CreatableSelect
                     className="mt-3"
                     placeholder={'Type your' + ' ' + attr.name}
-                    onChange={(newValue, actionMeta) =>
+                    onChange={(newValue, actionMeta) => {
                       handleChange(
                         newValue,
                         actionMeta,
                         attr.id,
                         attr.field_type
-                      )
-                    }
+                      );
+                    }}
+                    value={attributeData?.map((atData) => {
+                      if (atData.id === attr.id) {
+                        return {
+                          label: atData.values[0],
+                          value: atData.values[0],
+                        };
+                      }
+                    })}
                   />
                 </div>
               )}
@@ -296,16 +364,17 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                   <CreatableSelect
                     placeholder={'Type your' + ' ' + attr.name}
                     isMulti
-                    onChange={(newValue, actionMeta) =>
+                    onChange={(newValue, actionMeta) => {
                       handleChange(
                         newValue,
                         actionMeta,
                         attr.id,
                         attr.field_type
-                      )
-                    }
+                      );
+                    }}
                     className="basic-multi-select mt-3"
                     classNamePrefix="select"
+                    value={multi_value_attributeValueReturn(attr.id)}
                   />
                 </div>
               )}

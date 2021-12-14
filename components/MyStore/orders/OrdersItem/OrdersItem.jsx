@@ -33,7 +33,7 @@ const OrdersItem = ({ orders, accountId }) => {
                 key={Math.random()}
                 onClick={() => {
                   router.push({
-                    pathname: `/stores/orders/${item.id}`,
+                    pathname: `/a/orders/${item.id}`,
                     query: { store_id: accountId },
                   });
                 }}
@@ -41,13 +41,15 @@ const OrdersItem = ({ orders, accountId }) => {
                 <div className=" grid  grid-cols-[60%,40%] xs:grid-cols-[40%,30%,30%]   c-lg:grid-cols-[40%,20%,20%,20%] items-center bg-white shadow-c-sm rounded-lg mb-3 py-3 px-2 cursor-pointer">
                   <div className=" flex   items-center ">
                     <div className=" w-10 h-10 relative ml-2  sm:ml-8  mr-2 sm:mr-8 rounded-md overflow-hidden">
-                      <Image
-                        src={getThumbnailImage(
-                          item.order_details[0].listing.images[0]
-                        )}
-                        layout="fill"
-                        objectFit="cover"
-                      />
+                      {item.order_details[0]?.listing?.images?.length > 0 && (
+                        <Image
+                          src={getThumbnailImage(
+                            item.order_details[0].listing.images[0]
+                          )}
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      )}
                     </div>
                     <div>
                       <p className=" text-lg font-semibold text-primary">

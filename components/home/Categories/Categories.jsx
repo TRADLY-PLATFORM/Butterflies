@@ -49,8 +49,8 @@ const Categories = ({ categories }) => {
 								pathname: `${
 									item.name !==
 									"All Categories"
-										? "/category/[name]"
-										: "/category"
+										? "/lc/[name]"
+										: "/lc"
 								}`,
 							  query,
 							}}

@@ -293,7 +293,7 @@ const PayoutScreen = ({ stripe_connect }) => {
     }
     if (stripe_connect?.errors?.length !== 0) {
       title = 'Stripe verification failed';
-      subTitle = `Verification failed due to “ ${stripe_connect?.errors.map(
+      subTitle = `Verification failed due to “ ${stripe_connect?.errors?.map(
         (error) => error.reason
       )}”. Go to your dashboard and update the relevant details.`;
       imageIcon = (

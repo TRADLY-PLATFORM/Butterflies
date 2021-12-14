@@ -11,41 +11,44 @@ import Listings from '../../Listings/Listings';
 import ReactPaginate from 'react-paginate';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import NewListings from '../../Listings/NewListings';
+import Filter from '../../Listings/Filter/Filter';
 
 const ListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
 
   const router = useRouter();
 
+  console.log(router);
+
   const dispatch = useDispatch();
-  const { auth_key ,first_name} = useSelector(authSelector);
+  const { auth_key, first_name } = useSelector(authSelector);
 
   useEffect(() => {
     dispatch(
       getAllListings({
-        prams: {
-          page: router.query.page,
-          per_page: 30,
-        },
+        prams: router.query,
         authKey: auth_key,
       })
     );
-  }, [auth_key, dispatch]);
+  }, [auth_key, dispatch, router]);
 
   const moreListings = (data) => {
-    dispatch(
-      getAllListings({
-        prams: {
-          page: Number(data.selected) + 1,
-          per_page: 30,
-        },
-        authKey: auth_key,
-      })
-    ).then((res) => {
-      if (!res.payload.code) {
-        router.push({ query: { page: res.payload.page } });
-      }
+    router.push({
+      query: { ...router.query, page: Number(data.selected) + 1 },
     });
+    // dispatch(
+    //   getAllListings({
+    //     prams: {
+    //       page: Number(data.selected) + 1,
+    //       per_page: 30,
+    //     },
+    //     authKey: auth_key,
+    //   })
+    // ).then((res) => {
+    //   if (!res.payload.code) {
+    //     router.push({ query: { page: Number(data.selected) + 1 } });
+    //   }
+    // });
   };
 
   const { listings, total_records, page, isFetching } =
@@ -62,6 +65,9 @@ const ListingsPageLayout = () => {
     <>
       {isFetching && <CustomLoading />}
       <div>
+        <div className=" mb-8 ">
+          <Filter />
+        </div>
         {listings === null || listings?.length > 0 ? (
           <div>
             <NewListings Products={listings} />
@@ -89,9 +95,6 @@ const ListingsPageLayout = () => {
                 </svg>
               </div>
               <div className="ml-5">
-                <strong className="font-bold">
-                  {first_name ? 'Hi' + '  ' + first_name : 'Hi Guess !'}, Oops!
-                </strong>
                 <span className="  ml-2">
                   No listings found under this page.
                 </span>
@@ -101,54 +104,56 @@ const ListingsPageLayout = () => {
         )}
       </div>
       <div className="mt-12   flex justify-center pb-12 ">
-        {listings !== null && <ReactPaginate
-          breakLabel="..."
-          nextLabel={
-            <svg
-              className="h-5 w-5"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          }
-          onPageChange={(data) => moreListings(data)}
-          pageRangeDisplayed={2}
-          pageCount={pageCount}
-          previousLabel={
-            <svg
-              className="h-5 w-5"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          }
-          renderOnZeroPageCount={null}
-          containerClassName=""
-          className="relative z-0 inline-flex flex-wrap justify-center rounded-md shadow-sm -space-x-px "
-          pageClassName="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center text-sm font-medium"
-          pageLinkClassName="px-4 py-2 border"
-          previousClassName="relative inline-flex items-center px-2 py-2   border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-          nextClassName="relative inline-flex items-center px-2 py-2   border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-          breakLinkClassName="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700"
-          activeLinkClassName="z-10 bg-primary  border-primary text-white relative inline-flex items-center px-4 py-2 border text-md font-semibold"
-          disabledLinkClassName=""
-          prevPageRel="2"
-          forcePage={page - 1}
-        />}
+        {listings !== null && (
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={
+              <svg
+                className="h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            }
+            onPageChange={(data) => moreListings(data)}
+            pageRangeDisplayed={2}
+            pageCount={pageCount}
+            previousLabel={
+              <svg
+                className="h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            }
+            renderOnZeroPageCount={null}
+            containerClassName=""
+            className="relative z-0 inline-flex flex-wrap justify-center rounded-md shadow-sm -space-x-px "
+            pageClassName="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center text-sm font-medium"
+            pageLinkClassName="px-4 py-2 border"
+            previousClassName="relative inline-flex items-center px-2 py-2   border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+            nextClassName="relative inline-flex items-center px-2 py-2   border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+            breakLinkClassName="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700"
+            activeLinkClassName="z-10 bg-primary  border-primary text-white relative inline-flex items-center px-4 py-2 border text-md font-semibold"
+            disabledLinkClassName=""
+            prevPageRel="2"
+            forcePage={page - 1}
+          />
+        )}
       </div>
     </>
   );

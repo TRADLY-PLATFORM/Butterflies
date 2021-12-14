@@ -32,7 +32,7 @@ const Payout = () => {
   }, [localStorage.getItem('auth_key')]);
   return (
     <MainLayout>
-      <PayoutPageLayout />
+       <PayoutPageLayout />
     </MainLayout>
   );
 };

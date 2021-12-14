@@ -24,7 +24,7 @@ export const listingLike = createAsyncThunk(
 );
 
 export const getSearchListings = createAsyncThunk(
-  'listing/getSearchListings',
+  'search/getSearchListings',
   async ({ prams, authKey }, thunkAPI) => {
     try {
       const response = await tradly.app.getListings({

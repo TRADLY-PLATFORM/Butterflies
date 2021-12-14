@@ -57,7 +57,7 @@ const StoresForFollow2 = ({ stores }) => {
         <h2 className=" text-2xl text-black font-semibold">{stores.title}</h2>
         <Link
           href={{
-            pathname: '/stores',
+            pathname: '/a',
             query: { page: 1 },
           }}
           passHref

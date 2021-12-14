@@ -10,7 +10,8 @@ import { useDispatch } from 'react-redux';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import ReactPaginate from 'react-paginate';
 import SearchListingsItem from '../../SearchItem/SearchListingsItem';
-
+import Filter from '../../SearchItem/Filter';
+  
 const SearchPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
   const[isDataLoading,setIsDataLoading]=useState()
@@ -23,23 +24,16 @@ const SearchPageLayout = () => {
   useEffect(() => {
     dispatch(
       getSearchListings({
-        prams: {
-          page: router.query.page,
-          per_page: 30,
-          search_key: router.query.key,
-        },
+        prams: router.query,
         authKey: auth_key,
       })
     );
   }, [auth_key, dispatch,router]);
 
     const moreListings = (data) => {
-      router.push(
-        {
-          query: { key: router.query.key, page: Number(data.selected) + 1 },
-        },
-        { shallow: true }
-      );
+     router.push({
+       query: { ...router.query, page: Number(data.selected) + 1 },
+     });
     // dispatch(
     //   getSearchListings({
     //     prams: {
@@ -78,6 +72,9 @@ const SearchPageLayout = () => {
     <>
       {isFetching && <CustomLoading />}
       <div>
+        <div className=" mb-8 ">
+          <Filter />
+        </div>
         {listings === null || listings?.length > 0 ? (
           <div>
             <SearchListingsItem Products={listings} />

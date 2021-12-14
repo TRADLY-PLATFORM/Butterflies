@@ -15,15 +15,21 @@ import * as EmailValidator from 'email-validator';
 import { useSelector } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/dist/client/router';
+import PhoneForm from './PhoneForm';
+import { isValidPhoneNumber } from 'react-phone-number-input';
+
 
 const SignInForm = ({ general_configs }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [number, setNumber] = useState(null);
+  const [dialcode, setDialCode] = useState(null);
   const [showError, setShowError] = useState(false);
   const [error_message, setError_message] = useState('');
   const dispatch = useDispatch();
   const router = useRouter();
 
+ 
   const { isFetching, isSuccess, errorMessage, isError } =
     useSelector(authSelector);
 
@@ -34,37 +40,73 @@ const SignInForm = ({ general_configs }) => {
   };
 
   const clickSignIn = () => {
-    if (email === null) {
-      setShowError(true);
-      setError_message('Email is required');
-      return false;
-    }
-    if (!EmailValidator.validate(email)) {
-      setShowError(true);
-      setError_message('Enter your valid email');
-      return false;
-    }
-
-    if (password === null) {
-      setShowError(true);
-      setError_message('Password is required');
-      return false;
-    }
-    const uUid = uuid();
-    const users = {
-      user: {
-        uuid: uUid,
-        email: email,
-        password: password,
-        type: 'customer',
-      },
-    };
-
-    dispatch(signIn({ prams: users })).then((res) => {
-      if (!res.payload.code) {
-        router.push('/');
+    if (general_configs?.auth_type === 1) {
+      if (email === null) {
+        setShowError(true);
+        setError_message('Mobile Number is required');
+        return false;
       }
-    });
+      if (!EmailValidator.validate(email)) {
+        setShowError(true);
+        setError_message('Enter your valid email');
+        return false;
+      }
+
+      if (password === null) {
+        setShowError(true);
+        setError_message('Password is required');
+        return false;
+      }
+      const uUid = uuid();
+      const users = {
+        user: {
+          uuid: uUid,
+          email: email,
+          password: password,
+          type: 'customer',
+        },
+      };
+
+      dispatch(signIn({ prams: users })).then((res) => {
+        if (!res.payload.code) {
+          router.push('/');
+        }
+      });
+    }
+    if (general_configs?.auth_type === 3) {
+      if (number === null) {
+        setShowError(true);
+        setError_message('Number is required');
+        return false;
+      }
+      if (!isValidPhoneNumber(`+${number}`)) {
+        setShowError(true);
+        setError_message('Enter your valid phone number');
+        return false;
+      }
+
+      if (password === null) {
+        setShowError(true);
+        setError_message('Password is required');
+        return false;
+      }
+      const uUid = uuid();
+      const users = {
+        user: {
+          uuid: uUid,
+          mobile: number.slice(dialcode.length),
+          password: password,
+          dial_code: dialcode,
+          type: 'customer',
+        },
+      };
+
+      dispatch(signIn({ prams: users })).then((res) => {
+        if (!res.payload.code) {
+          router.push('/');
+        }
+      });
+    }
   };
 
   return (
@@ -79,7 +121,7 @@ const SignInForm = ({ general_configs }) => {
           }}
         >
           <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-            <div className="w-ful  xs:w-[500px] mx-auto">
+            <div className="w-full  xs:w-[500px] mx-auto">
               <PopUp
                 message={error_message || errorMessage}
                 closePopUP={closePopUP}
@@ -96,9 +138,20 @@ const SignInForm = ({ general_configs }) => {
         Login to your account
       </p>
       <div className=" mt-24 px-[34px]  ">
-        <div>
-          <EmailForm setEmail={setEmail} setPassword={setPassword} />
-        </div>
+        {general_configs?.auth_type === 1 && (
+          <div>
+            <EmailForm setEmail={setEmail} setPassword={setPassword} />
+          </div>
+        )}
+        {general_configs?.auth_type === 3 && (
+          <div>
+            <PhoneForm
+              setNumber={setNumber}
+              setPassword={setPassword}
+              setDialCode={setDialCode}
+            />
+          </div>
+        )}
         <div className=" mt-12 flex flex-col justify-center items-center">
           {isFetching ? (
             <button
@@ -147,6 +200,27 @@ const SignInForm = ({ general_configs }) => {
             <button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl">
               Don't have an account?
               <span className="font-semibold ml-2">Sign up </span>
+            </button>
+          </Link>
+        </div>
+        <div className=" mt-10 rounded-2xl flex justify-center items-center">
+          <Link href={'/'} passHref>
+            <button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+              <span className="ml-2 mt-1"> Back to home</span>
             </button>
           </Link>
         </div>

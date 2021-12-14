@@ -99,13 +99,13 @@ const AddressBox = ({ order_details }) => {
           {address?.country ? (
             <>
               <div className=" flex justify-start items-center py-1  ">
-                <p className=" text-sm text-black font-semibold  ">City :</p>
+                <p className=" text-sm text-black font-semibold  w-1/6 ">City :</p>
                 <p className=" text-sm text-black font-semibold  ml-2  text-opacity-70">
                   {address.address_line_1}
                 </p>
               </div>
               <div className=" flex justify-start items-center py-1  ">
-                <p className=" text-sm text-black font-semibold  ">Country :</p>
+                <p className=" text-sm text-black font-semibold">Country :</p>
                 <p className=" text-sm text-black font-semibold  ml-2  text-opacity-70">
                   {address.country}
                 </p>

@@ -10,7 +10,7 @@ export const getServerSideProps = async (ctx) => {
   const categories = await response.data.categories;
 
   const fields = categories.map((category) => ({
-    loc: `${process.env.SITE_URL}/category/${category.name.replace(
+    loc: `${process.env.SITE_URL}/lc/${category.name.replace(
       /\s/g,
       '-'
     )}?id=${category.id}`,

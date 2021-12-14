@@ -52,8 +52,8 @@ const EditProductForm = () => {
     listing_categories,
     my_account_listing_details,
   } = useSelector(storeSelector);
-    const { genral_configs, marketplace_type, marketplace_module } =
-      useSelector(configsSelector);
+  const { genral_configs, marketplace_type, marketplace_module } =
+    useSelector(configsSelector);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -173,8 +173,13 @@ const EditProductForm = () => {
       setFiles(filesFilter);
       setFullFile(full_filesFilter);
     } else {
-      setImagePath([]);
-      setFullFile([]);
+      if (imagePath?.length === 1) {
+        setImagePath([]);
+        setFullFile([]);
+      } else {
+        const ImagePathFilter = imagePath.filter((image) => image.id !== id);
+        setImagePath(ImagePathFilter);
+      }
     }
   };
 
@@ -320,7 +325,7 @@ const EditProductForm = () => {
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-            rows="2"
+            rows="4"
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </label>
@@ -427,7 +432,9 @@ const EditProductForm = () => {
           )}
           {listing_configs.enable_stock && (
             <label className="block">
-              <span className="text-gray-700">{ stock_text(marketplace_type)}</span>
+              <span className="text-gray-700">
+                {stock_text(marketplace_type)}
+              </span>
               <input
                 value={quantity}
                 type="number"

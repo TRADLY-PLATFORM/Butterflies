@@ -7,8 +7,8 @@ import { storeSelector } from '../../../store/feature/storeSlice';
  
 const Attribute = ({ attributeData, setAttributeData }) => {
 
-    const{attributes}=useSelector(storeSelector)
-
+  const { attributes } = useSelector(storeSelector)
+ 
   // statte
   const [file, setFile] = useState(null);
 
@@ -90,7 +90,10 @@ const Attribute = ({ attributeData, setAttributeData }) => {
       }
     } else if (attribute_field_type === 2 || attribute_field_type === 4) {
       if (attributeData !== null) {
-        if (actionMeta.action !== 'remove-value' || 'clear') {
+        if (
+          !actionMeta.action === 'remove-value' ||
+          !actionMeta.action === 'clear'
+        ) {
           const check = attributeData.find((attr) => attr.id === attribute_id);
           if (check === undefined) {
             if (attribute_field_type === 2) {
@@ -133,7 +136,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
             }
           }
         } else {
-          if (newValue.length) {
+          if (newValue.length !== 0) {
             const findOut = attributeData.filter(
               (attr) => attr.id !== attribute_id
             );

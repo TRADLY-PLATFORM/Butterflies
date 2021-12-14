@@ -10,8 +10,13 @@ import { setGeneralConfig } from '../store/feature/configsSlice';
 const Index = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
+    const general_configs = JSON.parse(localStorage.getItem('general_configs'));
     dispatch(refreshPage({ key: localStorage.getItem('refresh_key') }));
-      dispatch(setGeneralConfig(props))
+    if (props.general_configs !== null) {
+      dispatch(setGeneralConfig(props));
+    } else {
+      dispatch(setGeneralConfig({ general_configs: general_configs }));
+    }
   }, [dispatch]);
 
   const pageTitle = props?.seo_text?.meta_title;
@@ -36,7 +41,7 @@ export async function getServerSideProps() {
   return {
     props: {
       seo_text: response?.data?.configs || null,
-      general_configs: response2?.data?.configs || [],
+      general_configs: response2?.data?.configs || null,
     },
   };
 }

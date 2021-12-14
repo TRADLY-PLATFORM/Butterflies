@@ -36,7 +36,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     if (router?.query.id) {
       dispatch(
         listingDetails({
-          id: router?.query.id,
+          id: router?.query.id.split('-')[0],
           authKey: auth_key,
         })
       );
@@ -73,7 +73,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         if (!res.payload.code) {
           dispatch(
             listingDetails({
-              id: router?.query.id,
+              id: router?.query.id.split('-')[0],
               authKey: auth_key,
             })
           );
@@ -145,7 +145,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           }}
         >
           <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-            <div className="w-ful  xs:w-[500px] mx-auto">
+            <div className="w-full  xs:w-[500px] mx-auto">
               <PopUp
                 message={error_message || errorMessage}
                 closePopUP={closePopUP}

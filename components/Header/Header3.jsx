@@ -7,6 +7,9 @@ import Image from 'next/image';
 import HeaderCategories from './HeaderCategories';
 import OutsideClickHandler from 'react-outside-click-handler';
 import Drawer from './Drawer';
+import WishListButton from "../WishListButton/WishListButton"
+import { getThumbnailImage } from '../Shared/Constant/Constant';
+import HeaderProfile2 from '../HeaderProfileBox/HeaderProfile2';
 
 const Header3 = () => {
   const [logo, setLogo] = useState(null);
@@ -42,7 +45,7 @@ const Header3 = () => {
                 <Link href="/" passHref={true}>
                   <div className=" flex items-center   relative cursor-pointer ">
                     <Image
-                      src={logo}
+                      src={getThumbnailImage(logo)}
                       height={44}
                       width={250}
                       objectFit="contain"
@@ -54,11 +57,14 @@ const Header3 = () => {
             </div>
             <div className="   z-[100] ml-auto">
               <div className=" flex items-center justify-between">
-                <div className="  mr-[12px]  lg:mr-8  xl:mr-9 ">
+                <div className="  ms:mr-2 ">
                   <StoreButton />
                 </div>
+                <div className="  ms:mr-2  ">
+                  <WishListButton />
+                </div>
                 <div>
-                  <HeaderProfile
+                  <HeaderProfile2
                     showUserMenus={showUserMenus}
                     setShowUserMenus={setShowUserMenus}
                   />
@@ -88,8 +94,8 @@ const Header3 = () => {
           ''
         )}
 
-        <div className="w-screen px-[35px]  ">
-          <div className="flex justify-between items-center py-[26px] ">
+        <div className="w-screen px-[16px] xs:px-[35px]  ">
+          <div className="flex justify-between items-center py-[26px]  relative">
             <div className="  flex items-center">
               <button className="outline-none" onClick={drawerOpen}>
                 <svg
@@ -120,11 +126,14 @@ const Header3 = () => {
               )}
             </div>
             <div className=" flex items-center justify-between">
-              <div className="  mr-[12px]  lg:mr-8  xl:mr-9 ">
+              <div className="  ms:mr-2 ">
                 <StoreButton />
               </div>
-              <div>
-                <HeaderProfile
+              <div className=" ms:mr-2  ">
+                <WishListButton />
+              </div>
+              <div className="relative">
+                <HeaderProfile2
                   showUserMenus={showUserMenus}
                   setShowUserMenus={setShowUserMenus}
                   // dropdownRef={
@@ -170,9 +179,7 @@ const Header3 = () => {
                 />
               </svg>
             </button>
-                      <div className="">
-                          {<Drawer/>}
-            </div>
+            <div className="">{<Drawer />}</div>
           </div>
         </OutsideClickHandler>
       </div>

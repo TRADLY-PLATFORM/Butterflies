@@ -202,9 +202,6 @@ const EventCheckoutPageLayout = () => {
     setError_message('');
   };
 
-  console.log('====================================');
-  console.log(scheduleArray);
-  console.log('====================================');
 
   return (
     <>
@@ -218,7 +215,7 @@ const EventCheckoutPageLayout = () => {
           }}
         >
           <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-            <div className="w-ful  xs:w-[500px] mx-auto">
+            <div className="w-full  xs:w-[500px] mx-auto">
               <PopUp
                 message={error_message || errorMessage}
                 closePopUP={closePopUP}

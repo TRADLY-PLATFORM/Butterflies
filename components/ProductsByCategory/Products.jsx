@@ -62,7 +62,9 @@ const Products = ({ Products }) => {
         <div key={Math.random()} className="   ms:mb-5  ms:mr-4 relative">
           <div
             className=" ms:w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
-            onClick={() => router.push(`/listing/${item.id}`)}
+            onClick={() =>
+              router.push(`/l/${item.id}-${item.title.replace(/\W/g, '+')}`)
+            }
           >
             <div className=" ms:w-[190px]  h-[190px] relative">
               <Image

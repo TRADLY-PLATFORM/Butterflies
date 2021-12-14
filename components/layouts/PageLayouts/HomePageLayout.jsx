@@ -9,6 +9,7 @@ import {
   homeSelector,
 } from '../../../store/feature/homeSlice';
 import Banner from '../../home/Banner/Banner';
+import Banner2 from '../../home/Banner/Bannner2';
 import Categories from '../../home/Categories/Categories';
 import LatestEvent from '../../home/LatestEvents/LatestEvent';
 import StoresForFollow from '../../home/Stores/StoresForFollow';
@@ -41,19 +42,20 @@ const HomePageLayout = () => {
     page_promo_banners,
   } = useSelector(homeSelector);
 
-  const { genral_configs, marketplace_type, marketplace_module } =
+  const { general_configs, marketplace_type, marketplace_module } =
     useSelector(configsSelector);
 
   return (
     <div className="">
-      {!page_promo_banners?.length > 0 && page_promo_banners?.length !== null && (
+      <div>
+        <Banner2 banners={promo_banners} />
+      </div>
+
+      {general_configs?.home_categories_enabled && (
         <div>
-          <Banner banners={promo_banners} />
+          <Categories categories={categories} />
         </div>
       )}
-      <div>
-        <Categories categories={categories} />
-      </div>
       {collections?.map((collection) => {
         const scope_type = collection.scope_type;
         if (scope_type === 1 && marketplace_module === 1) {
@@ -72,7 +74,7 @@ const HomePageLayout = () => {
         }
       })}
       <div>
-        <Banner banners={page_promo_banners} />
+        <Banner2 banners={page_promo_banners} />
       </div>
     </div>
   );

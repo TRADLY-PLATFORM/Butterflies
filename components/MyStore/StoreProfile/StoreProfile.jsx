@@ -36,7 +36,7 @@ const StoreProfile = ({ my_stores }) => {
             className="  w-[145px] h-[30px] flex justify-center items-center bg-primary rounded-md mb-2 text-white"
             onClick={() =>
               router.push({
-                pathname: '/stores/edit-store',
+                pathname: '/a/edit-store',
                 query: { id: my_stores[0].id },
               })
             }
@@ -46,7 +46,7 @@ const StoreProfile = ({ my_stores }) => {
           <button
             onClick={() =>
               router.push({
-                pathname: '/stores/orders',
+                pathname: '/a/orders',
                 query: { store_id: my_stores[0].id },
               })
             }

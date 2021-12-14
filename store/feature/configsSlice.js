@@ -10,6 +10,7 @@ export const configsSlice = createSlice({
   initialState: {
     general_configs: null,
     accounts_configs: null,
+    listings_configs: null,
     marketplace_type: null,
     marketplace_module:null,
   },
@@ -24,9 +25,14 @@ export const configsSlice = createSlice({
       state.accounts_configs = payload?.accounts_configs;
       return state;
     },
+    setListingConfig: (state, { payload }) => {
+      state.listings_configs = payload?.listings_configs;
+      return state;
+    },
   },
   extraReducers: {},
 });
 
-export const { setGeneralConfig, setAccountConfig } = configsSlice.actions;
+export const { setGeneralConfig, setAccountConfig, setListingConfig } =
+  configsSlice.actions;
 export const configsSelector = (state) => state.configs;

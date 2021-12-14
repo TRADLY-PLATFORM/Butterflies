@@ -55,9 +55,6 @@ const ScheduleForm = ({
     }
 
   }, [editScheduleData]);
-  console.log('====================================');
-  console.log(schedulesObject);
-  console.log('====================================');
 
   const saveTime = () => {
     let srttime = Date.parse(`1/1/1999 ${schedulesObject.start_time}`);

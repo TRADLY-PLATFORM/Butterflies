@@ -20,11 +20,11 @@ import favorite from '../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../assets/Images/Home/heartIcon@3x.png';
 import ListingCard from '../Shared/Cards/ListingCard';
 import { configsSelector } from '../../store/feature/configsSlice';
+import Filter from './Filter/Filter';
 
 const NewListings = ({ Products }) => {
-    const { login, auth_key } = useSelector(authSelector);
-       const { marketplace_type, marketplace_module } =
-         useSelector(configsSelector);
+  const { login, auth_key } = useSelector(authSelector);
+  const { marketplace_type, marketplace_module } = useSelector(configsSelector);
   // const { isSuccess } = useSelector(listingSelector);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -56,17 +56,20 @@ const NewListings = ({ Products }) => {
     }
   };
   return (
-    <div className="grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">
-      {Products?.map((item) => (
-        <div key={Math.random()} className=" relative">
-          <ListingCard
-            item={item}
-            like={like}
-            marketplace_type={marketplace_type}
-          />
-        </div>
-      ))}
-    </div>
+    <>
+   
+      <div className="grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">
+        {Products?.map((item) => (
+          <div key={Math.random()} className=" relative">
+            <ListingCard
+              item={item}
+              like={like}
+              marketplace_type={marketplace_type}
+            />
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

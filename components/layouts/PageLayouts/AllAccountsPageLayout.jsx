@@ -40,7 +40,7 @@ const AllAccountsPageLayout = () => {
       })
     ).then((res) => {
       if (!res.payload.code) {
-        router.push({ query: { page: res.payload.page } });
+        router.push({ query: { page: Number(data.selected) + 1 } });
       }
     });
   };
