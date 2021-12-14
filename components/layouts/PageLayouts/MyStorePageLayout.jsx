@@ -102,7 +102,7 @@ const MyStorePageLayout = () => {
                         className=" px-6 py-2 bg-primary rounded-md text-white text-base "
                         onClick={() =>
                           router.push({
-                            pathname: '/stores/add-product',
+                            pathname: '/a/add-product',
                             query: { account_id: my_stores[0].id },
                           })
                         }

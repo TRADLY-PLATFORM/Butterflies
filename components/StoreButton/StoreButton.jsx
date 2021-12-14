@@ -12,7 +12,7 @@ const StoreButton = () => {
     
     return (
       <Link
-        href={login ? '/stores/my-store?page=1' : '/sign-in'}
+        href={login ? '/a/my-store?page=1' : '/sign-in'}
         passHref={true}
       >
         <div className="cursor-pointer w-[34px] h-[44px] px-[6px] flex justify-center items-center">
@@ -23,7 +23,7 @@ const StoreButton = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             fill={
-              router.pathname === '/stores/my-store'
+              router.pathname === '/a/my-store'
                 ? 'var( --primary_color)'
                 : '#959393'
             }

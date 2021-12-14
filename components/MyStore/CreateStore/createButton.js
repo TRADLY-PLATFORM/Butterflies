@@ -98,7 +98,7 @@ export const create_store_click = (
                     })
                   ).then((res) => {
                     if (!res.payload.code) {
-                      router.push('/stores/my-store');
+                      router.push('/a/my-store?page=1');
                       setCreateStoreLoading(false);
                     } else {
                       setCreateStoreLoading(false);
@@ -159,7 +159,7 @@ export const create_store_click = (
                               })
                             ).then((res) => {
                               if (!res.payload.code) {
-                                router.push('/stores/my-store');
+                                router.push('/a/my-store?page=1');
                                 setCreateStoreLoading(false);
                               } else {
                                 setCreateStoreLoading(false);
@@ -203,7 +203,7 @@ export const create_store_click = (
                   })
                 ).then((res) => {
                   if (!res.payload.code) {
-                    router.push('/stores/my-store');
+                    router.push('/a/my-store?page=1');
                     setCreateStoreLoading(false);
                   } else {
                     setCreateStoreLoading(false);

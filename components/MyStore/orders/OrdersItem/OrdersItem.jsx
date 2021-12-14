@@ -33,7 +33,7 @@ const OrdersItem = ({ orders, accountId }) => {
                 key={Math.random()}
                 onClick={() => {
                   router.push({
-                    pathname: `/stores/orders/${item.id}`,
+                    pathname: `/a/orders/${item.id}`,
                     query: { store_id: accountId },
                   });
                 }}

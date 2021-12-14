@@ -150,7 +150,7 @@ export const account_menus = (Link, router, my_stores) => {
        Business Account
       </h1>
       <div className="w-[15px] h-[15px] bg-[#fff] absolute   right-0  transform rotate-45  -top-2  mr-4  md:mr-8 border-l border-t border-[rgba(250, 250, 250, 0.93)]  z-[50]" />
-      <Link href="/stores/my-store?page=1" passHref={true}>
+      <Link href="/a/my-store?page=1" passHref={true}>
         <div className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
           <div>{store_icon}</div>
           <span className="ml-3  sm:ml-5 text-sm  text-[#222222]  font-semibold  transition duration-500 hover:text-primary">
@@ -176,7 +176,7 @@ export const account_menus = (Link, router, my_stores) => {
         <p
           onClick={() =>
             router.push({
-              pathname: '/stores/orders',
+              pathname: '/a/orders',
               query: { store_id: my_stores[0].id },
             })
           }
@@ -215,7 +215,7 @@ export const account_menus = (Link, router, my_stores) => {
           <p
             onClick={() =>
               router.push({
-                pathname: '/stores/add-product',
+                pathname: '/a/add-product',
                 query: { account_id: my_stores[0].id },
               })
             }
