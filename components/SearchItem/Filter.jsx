@@ -9,11 +9,11 @@ import {
   check_icon,
   filter_icon,
   star_icon,
-} from '../../Shared/Constant/Icons/AllIcons';
+} from '../Shared/Constant/Icons/AllIcons';
 import tradly from 'tradly';
 import { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { priceRange } from '../../Shared/Constant/Constant';
+import { priceRange } from '../Shared/Constant/Constant';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 const Filter = () => {
@@ -207,12 +207,15 @@ const Filter = () => {
             </div>
             {/* Atttributes  */}
             <div className=" mt-3">
-            
+              <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
+                <span className=" cursor-pointer">All Attributes</span>
+                {attribute_value_id === undefined && <span>{check_icon}</span>}
+              </h4>
               {allAttributes?.map((item) => {
                 return (
                   <ul className="" key={Math.random()}>
                     <li
-                      className="text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  cursor-pointer"
+                      className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  cursor-pointer"
                       onClick={(e) => toggleChildren(e, item.id, item.values)}
                     >
                       <span>{item.name}</span>
@@ -367,6 +370,7 @@ const Filter = () => {
                 router.push({
                   query: {
                     page: router.query.page,
+                    search_key:router.query.search_key
                   },
                 })
               }
