@@ -98,3 +98,11 @@ export const findRepeatName = (value) => {
     return `Custom(${dayname.toString()})`;
   }
 };
+
+
+export const priceRange = [
+  { value: 'relevance', label: 'Relevance' },
+  { value: 'price_low_to_high', label: 'Price low to high' },
+  { value: 'price_high_to_low', label: 'Price high to low' },
+  { value: 'newest_first', label: 'Newest first' },
+];

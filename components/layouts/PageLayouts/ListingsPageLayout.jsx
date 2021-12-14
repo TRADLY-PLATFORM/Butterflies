@@ -11,11 +11,14 @@ import Listings from '../../Listings/Listings';
 import ReactPaginate from 'react-paginate';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import NewListings from '../../Listings/NewListings';
+import Filter from '../../Listings/Filter/Filter';
 
 const ListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
 
   const router = useRouter();
+
+  console.log(router);
 
   const dispatch = useDispatch();
   const { auth_key, first_name } = useSelector(authSelector);
@@ -23,29 +26,29 @@ const ListingsPageLayout = () => {
   useEffect(() => {
     dispatch(
       getAllListings({
-        prams: {
-          page: router.query.page,
-          per_page: 30,
-        },
+        prams: router.query,
         authKey: auth_key,
       })
     );
-  }, [auth_key, dispatch]);
+  }, [auth_key, dispatch, router]);
 
   const moreListings = (data) => {
-    dispatch(
-      getAllListings({
-        prams: {
-          page: Number(data.selected) + 1,
-          per_page: 30,
-        },
-        authKey: auth_key,
-      })
-    ).then((res) => {
-      if (!res.payload.code) {
-        router.push({ query: { page: Number(data.selected) + 1 } });
-      }
+    router.push({
+      query: { ...router.query, page: Number(data.selected) + 1 },
     });
+    // dispatch(
+    //   getAllListings({
+    //     prams: {
+    //       page: Number(data.selected) + 1,
+    //       per_page: 30,
+    //     },
+    //     authKey: auth_key,
+    //   })
+    // ).then((res) => {
+    //   if (!res.payload.code) {
+    //     router.push({ query: { page: Number(data.selected) + 1 } });
+    //   }
+    // });
   };
 
   const { listings, total_records, page, isFetching } =
@@ -62,6 +65,9 @@ const ListingsPageLayout = () => {
     <>
       {isFetching && <CustomLoading />}
       <div>
+        <div className=" mb-8 ">
+          <Filter />
+        </div>
         {listings === null || listings?.length > 0 ? (
           <div>
             <NewListings Products={listings} />
