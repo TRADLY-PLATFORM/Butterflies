@@ -90,12 +90,11 @@ Of course, no one template will serve all projects since your needs may be diffe
 
 ### Built With
 
-We have used the most powerful framework for this project. Which is much improved in terms of user experience.
 
 * [Next.js](https://nextjs.org/)
 * [React.js](https://reactjs.org/)
 * [Tailwind](https://tailwindcss.com/)
-* [Tradly SDK](https://www.npmjs.com/package/tradly)
+* [Tradly JS SDK](https://www.npmjs.com/package/tradly)
       
 <p align="right">(<a href="#top">back to top</a>)</p>
 
