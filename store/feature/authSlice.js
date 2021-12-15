@@ -210,9 +210,6 @@ export const authSlice = createSlice({
         // state.errorMessage = payload?.message;
       } else {
         const userDetails = JSON.parse(localStorage.getItem('user_details'));
-        console.log('====================================');
-        console.log(userDetails);
-        console.log('====================================');
         state.login = true;
         state.user_email = userDetails?.email;
         state.first_name = userDetails.first_name;

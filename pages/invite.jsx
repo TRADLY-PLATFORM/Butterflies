@@ -16,11 +16,17 @@ const Invite = (props) => {
       refreshPage({
         key: localStorage.getItem('refresh_key'),
       })
-      );
-        dispatch(setGeneralConfig(props));
+    );
+    
+    const general_configs = JSON.parse(localStorage.getItem('general_configs'));
+
+    if (props.general_configs !== null) {
+      dispatch(setGeneralConfig(props));
+    } else {
+      dispatch(setGeneralConfig({ general_configs: general_configs }));
+    }
   }, [dispatch]);
 
-  
   return (
     <MainLayout>
       <InvitePageLayout />
@@ -35,6 +41,6 @@ export async function getServerSideProps() {
     paramBody: 'general',
   });
   return {
-    props: { general_configs: response?.data?.configs || [] },
+    props: { general_configs: response?.data?.configs || null },
   };
 }

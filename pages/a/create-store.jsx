@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../components/layouts/MainLayouts/MainLayout';
 import CreateStorePageLayout from '../../components/layouts/PageLayouts/CreateStorePageLayout';
-import { refreshPage } from '../../store/feature/authSlice';
+import { authSelector, refreshPage } from '../../store/feature/authSlice';
 import tradly from 'tradly';
 import { setAccountConfig } from '../../store/feature/configsSlice';
+import { useRouter } from 'next/dist/client/router';
 
 const createStore = (props) => {
   const dispatch = useDispatch();
@@ -13,15 +14,20 @@ const createStore = (props) => {
       refreshPage({
         key: localStorage.getItem('refresh_key'),
       })
-	  );
-	  dispatch(setAccountConfig(props))
+    );
+    dispatch(setAccountConfig(props));
   }, [dispatch]);
 
-  return (
-    <MainLayout>
-      <CreateStorePageLayout />
-    </MainLayout>
-  );
+  const router = useRouter();
+  useEffect(() => {
+    if (!localStorage.getItem('login')) {
+      router.push('/');
+    }
+  }, [localStorage.getItem('login')]);
+
+  const { login } = useSelector(authSelector);
+
+  return <MainLayout>{login && <CreateStorePageLayout />}</MainLayout>;
 };
 
 export default createStore;
@@ -31,6 +37,6 @@ export async function getServerSideProps() {
     paramBody: 'accounts',
   });
   return {
-    props: { accounts_configs: response?.data?.configs||[] },
+    props: { accounts_configs: response?.data?.configs || [] },
   };
 }

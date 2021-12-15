@@ -16,8 +16,9 @@ const OrdersFilter = () => {
   const accountId = router.query.store_id;
 
   const changeFilter = (e) => {
-    const separate = e.target.value.split('-');
+     const separate = e.target.value.split('-');
 
+ 
     if (separate[0] === '0') {
       router.push({
         pathname: '/a/orders',

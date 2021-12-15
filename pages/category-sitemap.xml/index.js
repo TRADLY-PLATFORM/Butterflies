@@ -13,9 +13,9 @@ export const getServerSideProps = async (ctx) => {
     loc: `${process.env.SITE_URL}/lc/${category.name.replace(
       /\s/g,
       '-'
-    )}?id=${category.id}`,
+    )}?category_id=${category.id}&page=1`,
     lastmod: new Date().toISOString(),
-    changefreq: "daily",
+    changefreq: 'daily',
     priority: 0.7,
   }));
 

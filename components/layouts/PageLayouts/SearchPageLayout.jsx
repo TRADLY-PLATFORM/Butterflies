@@ -10,7 +10,8 @@ import { useDispatch } from 'react-redux';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import ReactPaginate from 'react-paginate';
 import SearchListingsItem from '../../SearchItem/SearchListingsItem';
-
+import Filter from '../../SearchItem/Filter';
+  
 const SearchPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
   const[isDataLoading,setIsDataLoading]=useState()
@@ -23,23 +24,16 @@ const SearchPageLayout = () => {
   useEffect(() => {
     dispatch(
       getSearchListings({
-        prams: {
-          page: router.query.page,
-          per_page: 30,
-          search_key: router.query.key,
-        },
+        prams: router.query,
         authKey: auth_key,
       })
     );
   }, [auth_key, dispatch,router]);
 
     const moreListings = (data) => {
-      router.push(
-        {
-          query: { key: router.query.key, page: Number(data.selected) + 1 },
-        },
-        { shallow: true }
-      );
+     router.push({
+       query: { ...router.query, page: Number(data.selected) + 1 },
+     });
     // dispatch(
     //   getSearchListings({
     //     prams: {
@@ -78,6 +72,9 @@ const SearchPageLayout = () => {
     <>
       {isFetching && <CustomLoading />}
       <div>
+        <div className=" mb-8 ">
+          <Filter />
+        </div>
         {listings === null || listings?.length > 0 ? (
           <div>
             <SearchListingsItem Products={listings} />
@@ -88,7 +85,7 @@ const SearchPageLayout = () => {
               className="w-full    md:w-5/6 bg-yellow-500    text-white px-4 py-3 rounded relative grid grid-cols-[5%,80%]"
               role="alert"
             >
-              <div className="flex items-center justify-center ">
+              <div className="flex items-center justify-center   w-6">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -105,7 +102,7 @@ const SearchPageLayout = () => {
                 </svg>
               </div>
               <div className="ml-5">
-                <span className="  ml-2">
+                <span className="   md:ml-2">
                   No listings found under this page.
                 </span>
               </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -8,16 +9,22 @@ import { useDispatch } from 'react-redux';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 
 const SignIn = (props) => {
-  console.log('===========ahsanullahsunsbd@gmail.com=========================');
-
   const router = useRouter();
   const dispatch = useDispatch();
   const { login } = useSelector(authSelector);
   useEffect(() => {
     if (login) {
       router.push('/');
+    } else {
+      const general_configs = JSON.parse(
+        localStorage.getItem('general_configs')
+      );
+      if (props.general_configs !== null) {
+        dispatch(setGeneralConfig(props));
+      } else {
+        dispatch(setGeneralConfig({ general_configs: general_configs }));
+      }
     }
-    dispatch(setGeneralConfig(props));
   }, [login, router]);
   return (
     <div>
@@ -33,6 +40,6 @@ export async function getServerSideProps() {
     paramBody: 'general',
   });
   return {
-    props: { general_configs: response?.data?.configs || [] },
+    props: { general_configs: response?.data?.configs || null },
   };
 }

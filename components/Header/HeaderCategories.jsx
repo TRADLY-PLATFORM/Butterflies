@@ -61,7 +61,7 @@ const HeaderCategories = () => {
             item.name !== 'More'
               ? {
                   name: item.name.replace(/\s/g, '-'),
-                  id: item.id,
+                  category_id: item.id,
                   page: 1,
                 }
               : '';

@@ -45,8 +45,6 @@ const HomePageLayout = () => {
   const { general_configs, marketplace_type, marketplace_module } =
     useSelector(configsSelector);
 
-  console.log(general_configs);
-
   return (
     <div className="">
       <div>

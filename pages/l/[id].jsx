@@ -14,7 +14,6 @@ import { setGeneralConfig, setListingConfig } from '../../store/feature/configsS
 function Details(props) {
   const [marketplace_type, setmarketplace_type] = useState(null);
 
-  console.log(props?.listings_configs);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
