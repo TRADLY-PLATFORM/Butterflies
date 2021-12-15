@@ -113,7 +113,7 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
                   </div>
                 </Link>
                 {marketplace_type !== null && (
-                  <Link href="/orders" passHref={true}>
+                  <Link href="/orders?page=1" passHref={true}>
                     {marketplace_type === 1 ? order : booking}
                   </Link>
                 )}

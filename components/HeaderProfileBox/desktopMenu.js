@@ -46,7 +46,7 @@ export const customer_menus = (
         </div>
       </Link>
       {marketplace_type !== null && (
-        <Link href="/orders" passHref={true}>
+        <Link href="/orders?page=1" passHref={true}>
           {marketplace_type === 1 ? order : booking}
         </Link>
       )}
@@ -177,7 +177,7 @@ export const account_menus = (Link, router, my_stores) => {
           onClick={() =>
             router.push({
               pathname: '/a/orders',
-              query: { store_id: my_stores[0].id },
+              query: { store_id: my_stores[0].id ,page:1},
             })
           }
           className=" text-sm text-left  text-[#222222]  font-semibold  transition duration-500 hover:text-primary"

@@ -25,6 +25,7 @@ const ItemsSummary = ({ order_details }) => {
       <div>
         {OrderDetails?.map((item, index) => {
            return (
+ 
              <Link
                key={Math.random()}
                href={`/l/${item?.listing?.id}-${item?.listing?.title?.replace(
@@ -76,7 +77,7 @@ const ItemsSummary = ({ order_details }) => {
                </div>
              </Link>
            );
-        })}
+         })}
       </div>
     </div>
   );

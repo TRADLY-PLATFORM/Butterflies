@@ -46,7 +46,7 @@ const ProfileMenus = () => {
 
       <div className={isAccountOpen ? 'hidden' : 'block'}>
         <div className=" border-b border-[#EBECEF] py-4">
-          <Link href="/orders" passHref={true}>
+          <Link href="/orders?page=1" passHref={true}>
             <button className=" text-base text-[#4F4F4F] font-medium">
               My Orders
             </button>
@@ -110,7 +110,7 @@ const ProfileMenus = () => {
             onClick={() =>
               router.push({
                 pathname: '/a/orders',
-                query: { store_id: my_stores[0].id },
+                query: { store_id: my_stores[0].id ,page:1},
               })
             }
             className=" text-base text-[#4F4F4F] font-medium"
