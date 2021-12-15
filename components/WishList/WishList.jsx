@@ -38,10 +38,7 @@ const WishList = ({ Products }) => {
         if (!res.payload.code) {
           dispatch(
             getWishListListings({
-              prams: {
-                page,
-                per_page: 30,
-              },
+              prams:router.query,
               authKey: auth_key,
             })
           );

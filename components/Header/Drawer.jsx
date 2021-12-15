@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/dist/client/router';
+import SearchBox from '../SearchBox/SearchBox';
 
 const Drawer = () => {
   const [categories, setCategories] = useState(null);
@@ -32,7 +33,7 @@ const Drawer = () => {
 
   return (
     <div>
-      <div className="    left-0 right-0    flex  justify-center     mb-2">
+      <div className="    left-0 right-0    flex-col  justify-center     mb-2">
         {logo && (
           <Link href="/" passHref={true}>
             <div className=" flex items-center   relative cursor-pointer py-4">
@@ -46,6 +47,10 @@ const Drawer = () => {
             </div>
           </Link>
         )}
+
+        <div className="pb-[10px] px-2">
+            <SearchBox />
+          </div>
       </div>
       <div>
         {categories?.map((item) => {
@@ -53,7 +58,7 @@ const Drawer = () => {
             item.name !== 'More'
               ? {
                   name: item.name.replace(/\s/g, '-'),
-                  id: item.id,
+                  category_id: item.id,
                   page: 1,
                 }
               : '';
@@ -61,9 +66,7 @@ const Drawer = () => {
             <div key={item.id}>
               <Link
                 href={{
-                  pathname: `${
-                    item.name !== 'More' ? '/lc/[name]' : '/lc'
-                  }`,
+                  pathname: `${item.name !== 'More' ? '/lc/[name]' : '/lc'}`,
                   query,
                 }}
                 passHref={true}

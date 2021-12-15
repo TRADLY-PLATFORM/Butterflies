@@ -15,7 +15,7 @@ const Categories = ({ allCategories }) => (
             href={{
               pathname: '/lc/[name]',
               query: {
-                id: item.id,
+                category_id: item.id,
                 page: 1,
                 name: item.name.replace(/\s/g, '-'),
               },

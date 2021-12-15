@@ -3,11 +3,15 @@ import { useRouter } from 'next/dist/client/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 
- import ReactPaginate from 'react-paginate';
+import ReactPaginate from 'react-paginate';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import NewListings from '../../Listings/NewListings';
-import { getWishListListings, wishSelector } from '../../../store/feature/wishSlice';
+import {
+  getWishListListings,
+  wishSelector,
+} from '../../../store/feature/wishSlice';
 import WishList from '../../WishList/WishList';
+import Filter from '../../Listings/Filter/Filter';
 
 const WishListPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -20,17 +24,16 @@ const WishListPageLayout = () => {
   useEffect(() => {
     dispatch(
       getWishListListings({
-        prams: {
-          page: router.query.page,
-          per_page: 30,
-        },
+        prams: router.query,
         authKey: auth_key,
       })
     );
-  }, [auth_key, dispatch,router]);
+  }, [auth_key, dispatch, router]);
 
   const moreListings = (data) => {
-      router.push({ query: { page: Number(data.selected) + 1 } });
+    router.push({
+      query: { ...router.query, page: Number(data.selected) + 1 },
+    });
     // dispatch(
     //   getAllListings({
     //     prams: {
@@ -60,6 +63,9 @@ const WishListPageLayout = () => {
     <>
       {isFetching && <CustomLoading />}
       <div>
+        {/* <div className=" mb-8 ">
+          <Filter />
+        </div> */}
         {listings === null || listings?.length > 0 ? (
           <div>
             <WishList Products={listings} />
@@ -70,7 +76,7 @@ const WishListPageLayout = () => {
               className="w-full    md:w-5/6 bg-yellow-500    text-white px-4 py-3 rounded relative grid grid-cols-[5%,80%]"
               role="alert"
             >
-              <div className="flex items-center justify-center ">
+              <div className="flex items-center justify-center w-6 ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -86,10 +92,7 @@ const WishListPageLayout = () => {
                   />
                 </svg>
               </div>
-              <div className="ml-5">
-                <strong className="font-bold">
-                  {first_name ? 'Hi' + '  ' + first_name : 'Hi Guess !'}, Oops!
-                </strong>
+              <div className=" md:ml-5">
                 <span className="  ml-2">
                   No listings found under this page.
                 </span>

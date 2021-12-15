@@ -42,11 +42,7 @@ const NewProducts = ({ Products }) => {
         if (!res.payload.code) {
           dispatch(
             categoryListings({
-              prams: {
-                page,
-                per_page: 30,
-                category_id: router.query.id,
-              },
+              prams:router.query,
               authKey: auth_key,
             })
           );

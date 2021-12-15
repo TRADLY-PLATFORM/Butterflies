@@ -95,7 +95,7 @@ const Header3 = () => {
         )}
 
         <div className="w-screen px-[16px] xs:px-[35px]  ">
-          <div className="flex justify-between items-center py-[26px]  relative">
+          <div className="flex justify-between items-center py-[16px]  relative">
             <div className="  flex items-center">
               <button className="outline-none" onClick={drawerOpen}>
                 <svg
@@ -143,9 +143,9 @@ const Header3 = () => {
               </div>
             </div>
           </div>
-          <div className="pb-[25px]">
+          {/* <div className="pb-[25px]">
             <SearchBox />
-          </div>
+          </div> */}
         </div>
         <OutsideClickHandler
           onOutsideClick={() => {

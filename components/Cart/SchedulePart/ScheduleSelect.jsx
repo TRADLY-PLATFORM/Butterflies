@@ -34,7 +34,6 @@ const ScheduleSelect = ({
   }
   const { first_name } = useSelector(authSelector);
 
-  
   return (
     <div className="w-full bg-[#FEFEFE] rounded-lg p-[31px] min-h-[200px]">
       <p className="text-primary text-xl leading-6 font-medium ">
@@ -67,8 +66,8 @@ const ScheduleSelect = ({
                   onClick={() => {
                     return (
                       setSelectedDateIndex(i),
-                        setSelectedDate(moment(dates[0]).format('YYYY-MM-DD')),
-                        setSelectedScheduleTimeIndex(null)
+                      setSelectedDate(moment(dates[0]).format('YYYY-MM-DD')),
+                      setSelectedScheduleTimeIndex(null)
                     );
                   }}
                 >
@@ -144,7 +143,7 @@ const ScheduleSelect = ({
                 className="   w-5/6 bg-yellow-500    text-white px-4 py-3 rounded relative grid grid-cols-[20%,80%]"
                 role="alert"
               >
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center w-6">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -161,9 +160,6 @@ const ScheduleSelect = ({
                   </svg>
                 </div>
                 <div>
-                  <strong className="font-bold">
-                    {first_name ? 'Oops!' + '  ' + first_name : 'Hi Guess !'}
-                  </strong>
                   <span className="  ml-2">No schedule available</span>
                 </div>
               </div>

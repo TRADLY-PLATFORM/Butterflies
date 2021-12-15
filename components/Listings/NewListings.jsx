@@ -42,10 +42,7 @@ const NewListings = ({ Products }) => {
         if (!res.payload.code) {
           dispatch(
             getAllListings({
-              prams: {
-                page,
-                per_page: 30,
-              },
+              prams:router.query,
               authKey: auth_key,
             })
           );
