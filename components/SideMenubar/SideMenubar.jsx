@@ -124,7 +124,7 @@ const SideMenubar = () => {
                 : ' text-secondary',
             ].join(' ')}
           >
-            Bookings
+            Orders
           </p>
         </div>
       </Link>
