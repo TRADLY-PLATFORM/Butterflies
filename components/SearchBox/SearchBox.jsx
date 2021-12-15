@@ -16,8 +16,8 @@ const router = useRouter()
     
 
   useEffect(() => {
-    if (router?.query?.key) {
-      setSearchKey(router.query.key)
+    if (router?.query?.search_key) {
+      setSearchKey(router?.query?.search_key);
     }
   },[0])
   
