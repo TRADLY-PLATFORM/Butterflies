@@ -15,7 +15,7 @@ module.exports = {
         />
       </svg>
       <span className=" text-sm  text-[#222222]  font-semibold transition duration-500 hover:text-primary">
-        My Bookings
+        My Orders
       </span>
     </div>
   ),

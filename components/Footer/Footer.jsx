@@ -5,10 +5,12 @@ import { getThumbnailImage } from '../Shared/Constant/Constant';
 import tradly from 'tradly';
 import { useRouter } from 'next/dist/client/router';
 import googleplayImage from '../../assets/Images/play-store-image.png';
+import { angle_down } from '../Shared/Constant/Icons/AllIcons';
 
 const Footer = () => {
   const [logo, setLogo] = useState(null);
-  const [categories, setCategories] = useState(null);
+  const [isSeeAllCategories, setIsSeeAllCategories] = useState(false);
+  const [allCategories, setAllCategories] = useState(null);
   const [general_configs, setGeneral_configs] = useState(null);
   const [tenants_data, setTenants_data] = useState(null);
 
@@ -20,7 +22,7 @@ const Footer = () => {
       .getCategory({ bodyParam: { parent: 0, type: 'listings' }, authKey: '' })
       .then((res) => {
         if (!res.error) {
-          setCategories(res.data.categories);
+          setAllCategories(res.data.categories);
         }
       });
     tradly.app
@@ -31,15 +33,14 @@ const Footer = () => {
         if (!res.error) {
           setGeneral_configs(res.data.configs);
         }
-      })
-    
+      });
+
     tradly.app
       .commonFuntion({
         path: `/v1/users/clients/tenants`,
         bodyParam: '',
         authKey: '',
-        Method:"GET"
-        
+        Method: 'GET',
       })
       .then((res) => {
         if (!res.error) {
@@ -82,6 +83,95 @@ const Footer = () => {
 
         <div>
           <p className=" text-base font-semibold pb-4">Categories</p>
+          {allCategories?.map((item, index, array) => {
+            if (array.length > 3) {
+              if (index < 3) {
+                return (
+                  <div className="mb-4 " key={Math.random()}>
+                    {' '}
+                    <button
+                      onClick={() =>
+                        router.push({
+                          pathname: `/lc/[name]`,
+                          query: {
+                            name: item.name.replace(/\s/g, '-'),
+                            category_id: item.id,
+                            page: 1,
+                          },
+                        })
+                      }
+                      className={[
+                        '  text-[#4F4F4F]    cursor-pointer transition duration-300 hover:text-primary  text-left',
+                        router?.query?.name === item.name.replace(/\s/g, '-')
+                          ? 'text-primary'
+                          : '',
+                      ].join(' ')}
+                    >
+                      {item.name.length > 20
+                        ? item.name.substring(0, 19) + '.'
+                        : item.name}
+                    </button>
+                  </div>
+                );
+              }
+              if (index === 3) {
+                return (
+                  <div className="mb-4 " key={Math.random()}>
+                    <button
+                      className=" text-xs text-primary font-semibold py-[7px]  flex justify-between items-center  cursor-pointer "
+                      onClick={() => setIsSeeAllCategories(!isSeeAllCategories)}
+                    >
+                      <span className="mr-3 text-left">See all categories</span>
+                      <span
+                        className={isSeeAllCategories && 'transform rotate-180'}
+                      >
+                        {angle_down}
+                      </span>
+                    </button>
+                  </div>
+                );
+              }
+            }
+          })}
+
+          {isSeeAllCategories &&
+            allCategories?.map((item, index, array) => {
+              if (array.length > 4) {
+                if (index > 4) {
+                  return (
+                    <div className="mb-4 " key={Math.random()}>
+                      {' '}
+                      <button
+                        onClick={() =>
+                          router.push({
+                            pathname: `/lc/[name]`,
+                            query: {
+                              name: item.name.replace(/\s/g, '-'),
+                              category_id: item.id,
+                              page: 1,
+                            },
+                          })
+                        }
+                        className={[
+                          '  text-[#4F4F4F]    cursor-pointer transition duration-300 hover:text-primary text-left',
+                          router?.query?.name === item.name.replace(/\s/g, '-')
+                            ? 'text-primary'
+                            : '',
+                        ].join(' ')}
+                      >
+                        {item.name.length > 20
+                          ? item.name.substring(0, 19) + '.'
+                          : item.name}
+                      </button>
+                    </div>
+                  );
+                }
+              }
+            })}
+        </div>
+
+        {/* <div>
+          <p className=" text-base font-semibold pb-4">Categories</p>
           {categories?.map((item) => {
             return (
               <div className="mb-4 " key={Math.random()}>
@@ -110,7 +200,7 @@ const Footer = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
         <div>
           <p className=" text-base font-semibold pb-4">Links</p>
           <div className="     pb-4">
@@ -138,18 +228,19 @@ const Footer = () => {
             </button>
           </div>
 
-          <div className="   pb-4">
-            <button
-              onClick={() => window.open('/sitemap.xml')}
-              className=" text-base text-[#4F4F4F] font-medium"
-            >
-              Sitemap
-            </button>
-          </div>
+          {/* <div className="   pb-4">
+            
+          </div> */}
         </div>
       </div>
-      <div className="py-2">
-        <p className=" text-xs text-secondary">© All rights reserved</p>
+      <div className="py-2 flex items-center">
+        <p className=" text-xs text-secondary mr-4">© All rights reserved</p>
+        <button
+          onClick={() => window.open('/sitemap.xml')}
+          className=" text-xs text-[#4F4F4F] font-medium"
+        >
+          Sitemap
+        </button>
       </div>
     </>
   );

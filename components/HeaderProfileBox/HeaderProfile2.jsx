@@ -34,7 +34,7 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
       })
       .then((res) => {
         if (!res.error) {
-          setGeneral_configs(res.data.configs);
+          setGeneral_configs(res?.data?.configs);
         }
       });
   }, [0]);
