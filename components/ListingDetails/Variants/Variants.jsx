@@ -49,7 +49,13 @@ const Variants = ({
                   <span className=" ml-2">{item.offer_price.amount} </span>
                 </p>
                 <p className=" flex items-center  text-xs ">
-                  <span className=" line-through text-secondary font-normal">
+                  <span
+                    className={
+                      item.offer_percent != 0
+                        ? ' line-through text-secondary font-normal'
+                        : '  text-secondary font-normal'
+                    }
+                  >
                     {item.list_price.formatted}
                   </span>
                   <span className=" font-medium ml-2">

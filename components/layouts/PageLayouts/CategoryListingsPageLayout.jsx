@@ -13,6 +13,7 @@ import Products from '../../ProductsByCategory/Products';
 import Head from 'next/head';
 import ReactPaginate from 'react-paginate';
 import NewProducts from '../../ProductsByCategory/NewProducts';
+import Filter from '../../ProductsByCategory/Filter';
 
 const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
   const [pageCount, setPageCount] = useState(0);
@@ -22,42 +23,41 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
   const dispatch = useDispatch();
   const { auth_key, first_name } = useSelector(authSelector);
   useEffect(() => {
-    if (router.query.id) {
-      dispatch(
-        categoryListings({
-          prams: {
-            page: router.query.page,
-            per_page: 30,
-            category_id: router.query.id,
-          },
-          authKey: auth_key,
-        })
-      );
-    }
-  }, [router.query.id, auth_key, dispatch]);
-
-  const moreListings = (data) => {
     dispatch(
       categoryListings({
-        prams: {
-          page: Number(data.selected) + 1,
-          per_page: 30,
-          category_id: router.query.id,
-        },
+        prams: router.query,
         authKey: auth_key,
       })
-    ).then((res) => {
-      if (!res.payload.code) {
-        router.push({
-          query: {
-            id: router.query.id,
-            name: router.query.name,
-            page: Number(data.selected) + 1,
-          },
-        });
-      }
+    );
+  }, [router.query, auth_key, dispatch]);
+
+  const moreListings = (data) => {
+    router.push({
+      query: { ...router.query, page: Number(data.selected) + 1 },
     });
   };
+  // const moreListings = (data) => {
+  //   dispatch(
+  //     categoryListings({
+  //       prams: {
+  //         page: Number(data.selected) + 1,
+  //         per_page: 30,
+  //         category_id: router.query.id,
+  //       },
+  //       authKey: auth_key,
+  //     })
+  //   ).then((res) => {
+  //     if (!res.payload.code) {
+  //       router.push({
+  //         query: {
+  //           id: router.query.id,
+  //           name: router.query.name,
+  //           page: Number(data.selected) + 1,
+  //         },
+  //       });
+  //     }
+  //   });
+  // };
 
   // seo title
   const seoTitle = (text) => {
@@ -108,6 +108,9 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           key="title"
         />
       </Head>
+      <div className=" mb-8 ">
+        <Filter />
+      </div>
       {category_listings === null || category_listings?.length > 0 ? (
         <div>
           <NewProducts Products={category_listings} />
@@ -118,7 +121,7 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
             className="w-full    md:w-5/6 bg-yellow-500    text-white px-4 py-3 rounded relative grid grid-cols-[5%,80%]"
             role="alert"
           >
-            <div className="flex items-center justify-center ">
+            <div className="flex items-center justify-center w-6 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -135,7 +138,7 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
               </svg>
             </div>
             <div className="ml-5">
-              <span className="  ml-2">
+              <span className="   md:ml-2">
                 No listings found under this category.
               </span>
             </div>

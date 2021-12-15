@@ -37,7 +37,7 @@ const Categories = ({ categories }) => {
             item.name !== 'All Categories'
               ? {
                   name: item.name.replace(/\s/g, '-'),
-                  id: item.id,
+                  category_id: item.id,
                   page: 1,
                 }
               : '';

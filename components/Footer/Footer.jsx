@@ -91,7 +91,7 @@ const Footer = () => {
                       pathname: `/lc/[name]`,
                       query: {
                         name: item.name.replace(/\s/g, '-'),
-                        id: item.id,
+                        category_id: item.id,
                         page: 1,
                       },
                     })

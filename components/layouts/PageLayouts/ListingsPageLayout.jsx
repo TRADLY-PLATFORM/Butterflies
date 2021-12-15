@@ -78,7 +78,7 @@ const ListingsPageLayout = () => {
               className="w-full    md:w-5/6 bg-yellow-500    text-white px-4 py-3 rounded relative grid grid-cols-[5%,80%]"
               role="alert"
             >
-              <div className="flex items-center justify-center ">
+              <div className="flex items-center justify-center w-6 ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -95,7 +95,7 @@ const ListingsPageLayout = () => {
                 </svg>
               </div>
               <div className="ml-5">
-                <span className="  ml-2">
+                <span className="   md:ml-2">
                   No listings found under this page.
                 </span>
               </div>

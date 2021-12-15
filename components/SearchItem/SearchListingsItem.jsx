@@ -35,11 +35,7 @@ const SearchListingsItem = ({ Products }) => {
         if (!res.payload.code) {
           dispatch(
             getSearchListings({
-              prams: {
-                page,
-                per_page: 30,
-                search_key: router.query.key,
-              },
+              prams: router.query,
               authKey: auth_key,
             })
           );

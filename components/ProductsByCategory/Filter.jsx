@@ -9,11 +9,11 @@ import {
   check_icon,
   filter_icon,
   star_icon,
-} from '../../Shared/Constant/Icons/AllIcons';
+} from '../Shared/Constant/Icons/AllIcons';
 import tradly from 'tradly';
 import { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { priceRange } from '../../Shared/Constant/Constant';
+import { priceRange } from '../Shared/Constant/Constant';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 const Filter = () => {
@@ -33,13 +33,7 @@ const Filter = () => {
   const [selectedAtValues, setSelectedAtValues] = useState([]);
 
   useEffect(() => {
-    tradly.app
-      .getCategory({ bodyParam: { parent: 0, type: 'listings' }, authKey: '' })
-      .then((res) => {
-        if (!res.error) {
-          setAllCategories(res.data.categories);
-        }
-      });
+     
 
     tradly.app.getAttribute({ bodyParam: { type: 'listings' } }).then((res) => {
       if (!res.error) {
@@ -69,35 +63,7 @@ const Filter = () => {
     );
   };
 
-  const filter_by_category = (id) => {
-    const check = selectedCategories?.find((ct) => ct == id);
-    if (check === undefined) {
-      setSelectedCategories([...selectedCategories, id]);
-      router.push({
-        query: {
-          ...router.query,
-          category_id: [...selectedCategories, id].toString(''),
-        },
-      });
-    } else {
-      const filter = selectedCategories?.filter((ct) => ct != id);
-      setSelectedCategories(filter);
-      if (filter.length > 0) {
-        router.push({
-          query: {
-            ...router.query,
-            category_id: [...filter].toString(''),
-          },
-        });
-      } else {
-        const queries = { ...router.query };
-        delete queries.category_id;
-        router.push({
-          query: { ...queries },
-        });
-      }
-    }
-  };
+  
 
   const filter_by_attribute_value = (id) => {
     const check = selectedAtValues?.find((at) => at == id);
@@ -193,87 +159,6 @@ const Filter = () => {
               isFilterOpen ? 'w-full h-full block pl-6 pr-[15px]  ' : ' hidden'
             }
           >
-            {/* Categories Part */}
-            <div>
-              <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
-                <span className=" cursor-pointer">All Categories</span>
-                {category_id === undefined && <span>{check_icon}</span>}
-              </h4>
-              {allCategories?.map((item, index, array) => {
-                if (array.length > 4) {
-                  if (index < 4) {
-                    return (
-                      <p
-                        className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center  "
-                        key={Math.random()}
-                        // onClick={() => filter_by_category(item.id)}
-                      >
-                        <span className=" ">{item.name}</span>
-                        <input
-                          className=" form-check-input appearance-none h-3 w-3 border border-gray-300 rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-primary checked:hover:bg-primary  checked:focus:ring-primary checked:focus:bg-primary  transition duration-200   align-top bg-no-repeat bg-center bg-contain   mr-2 cursor-pointer"
-                          type="checkbox"
-                          checked={
-                            selectedCategories?.includes(`${item.id}`)
-                              ? true
-                              : false
-                          }
-                          onChange={() => filter_by_category(item.id)}
-                        />
-                        {/* {selectedCategories?.includes(`${item.id}`) && (
-                          
-                        )} */}
-                      </p>
-                    );
-                  }
-                  if (index === 4) {
-                    return (
-                      <button
-                        className=" text-xs text-primary font-semibold py-[7px]  flex justify-between items-center  cursor-pointer w-full"
-                        onClick={() =>
-                          setIsSeeAllCategories(!isSeeAllCategories)
-                        }
-                      >
-                        <span>See all categories</span>
-                        <span
-                          className={
-                            isSeeAllCategories && 'transform rotate-180'
-                          }
-                        >
-                          {angle_down}
-                        </span>
-                      </button>
-                    );
-                  }
-                }
-              })}
-
-              {isSeeAllCategories &&
-                allCategories?.map((item, index, array) => {
-                  if (array.length > 4) {
-                    if (index > 4) {
-                      return (
-                        <p
-                          className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center  "
-                          key={Math.random()}
-                          // onClick={() => filter_by_category(item.id)}
-                        >
-                          <span className=" ">{item.name}</span>
-                          <input
-                            className=" form-check-input appearance-none h-3 w-3 border border-gray-300 rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-primary checked:hover:bg-primary  checked:focus:ring-primary checked:focus:bg-primary  transition duration-200   align-top bg-no-repeat bg-center bg-contain   mr-2 cursor-pointer"
-                            type="checkbox"
-                            checked={
-                              selectedCategories?.includes(`${item.id}`)
-                                ? true
-                                : false
-                            }
-                            onChange={() => filter_by_category(item.id)}
-                          />
-                        </p>
-                      );
-                    }
-                  }
-                })}
-            </div>
 
             {/* Price Range */}
             <div className=" mt-3">
@@ -425,13 +310,17 @@ const Filter = () => {
             </div>
             <button
               className=" text-xm font font-medium text-red-600 cursor-pointer pb-[30%]"
-              onClick={() =>
-                {router.push({
+              onClick={() => {
+                router.push({
                   query: {
+                    name:router.query.name,
+                    category_id: router.query.category_id,
                     page: router.query.page,
                   },
-                }),setSelectedAtValues([]),setSelectedCategories([])}
-              }
+                }),
+                  setSelectedAtValues([]),
+                  setSelectedCategories([]);
+              }}
             >
               Reset Filter
             </button>
