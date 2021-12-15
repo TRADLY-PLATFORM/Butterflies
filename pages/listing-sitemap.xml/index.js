@@ -34,7 +34,10 @@ export const getServerSideProps = async (ctx) => {
  
 
   fields = all_listings.map((listing) => ({
-    loc: `${process.env.SITE_URL}/l/${listing.id}`,
+    loc: `${process.env.SITE_URL}/l/${listing.id}-${item.title.replace(
+      /\W/g,
+      '-'
+    )}`,
     lastmod: new Date().toISOString(),
     changefreq: 'daily',
     priority: 0.7,

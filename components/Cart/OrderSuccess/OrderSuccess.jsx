@@ -24,7 +24,7 @@ const OrderSuccess = () => {
 						Back To Home
 					</button>
 				</Link>
-				<Link href="/orders" passHref={true}>
+				<Link href="/orders?page=1" passHref={true}>
 					<button className="bg-primary mt-8 px-4 py-2 rounded text-base text-white font-medium ">
 						Go To Orders
 					</button>

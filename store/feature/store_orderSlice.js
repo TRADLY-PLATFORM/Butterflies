@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import tradly from "tradly";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import tradly from 'tradly';
 
 export const get_orders = createAsyncThunk(
   'store_order/get_orders',
@@ -65,18 +65,18 @@ export const changeOrderStatus = createAsyncThunk(
   }
 );
 
- 
-
 export const store_orderSlice = createSlice({
   name: 'store_order',
   initialState: {
     isFetching: false,
-    isChangeStatusFetching:false,
+    isChangeStatusFetching: false,
     isSuccess: false,
     isError: false,
     errorMessage: '',
     orders: null,
     order_details: null,
+    total_records: '',
+    page: '',
   },
   reducers: {
     clearOrderState: (state) => {
@@ -107,6 +107,8 @@ export const store_orderSlice = createSlice({
         state.isFetching = false;
         state.isSuccess = true;
         state.orders = payload?.orders;
+        state.total_records = payload?.total_records;
+        state.page = payload?.page;
       }
     },
     [get_orders.pending]: (state) => {
