@@ -22,7 +22,7 @@ import { useDispatch } from 'react-redux';
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState(null);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [total_records, setTotal_records] = useState(0);
 
   const { auth_key, login, user_details } = useSelector(authSelector);
@@ -32,7 +32,7 @@ const Notifications = () => {
   useEffect(() => {
     tradly.app
       .commonFuntion({
-        path: `/v1/activities?page=${page + 1}`,
+        path: `/v1/activities?page=${page}`,
         Method: 'GET',
         authKey: auth_key,
       })
@@ -56,20 +56,15 @@ const Notifications = () => {
         })
       );
     }
-  }, [auth_key, router]);
+  }, [auth_key, router, dispatch]);
 
   const { my_stores } = useSelector(storeSelector);
 
-  const order_link = (refId, acID) => {
-    console.log(refId);
-    tradly.app.getOrders({
-      authKey: auth_key,
-      bodyParam: {
-        page: 1,
-        account_id: acID,
-        order_id: Number(refId),
-      },
-    });
+  const account_order_link = (refId, acID) => {
+    router.push(`/a/orders/${refId}?store_id=${acID}`);
+  };
+  const order_link = (refId) => {
+    router.push(`/orders/${refId}`);
   };
 
   const fetch_more = () => {
@@ -193,9 +188,12 @@ const Notifications = () => {
                           <div
                             key={Math.random()}
                             className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                            //   onClick={() =>
-                            //     order_link(nt?.reference_id, my_stores[0].id)
-                            //   }
+                            onClick={() =>
+                              account_order_link(
+                                nt?.reference_id,
+                                my_stores[0].id
+                              )
+                            }
                           >
                             <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  flex justify-center  ">
                               <p>{order_icon}</p>
@@ -223,9 +221,7 @@ const Notifications = () => {
                           <div
                             key={Math.random()}
                             className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                            //   onClick={() =>
-                            //     order_link(nt?.reference_id, my_stores[0].id)
-                            //   }
+                            onClick={() => order_link(nt?.reference_id)}
                           >
                             <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  flex justify-center  ">
                               <p>{order_icon}</p>

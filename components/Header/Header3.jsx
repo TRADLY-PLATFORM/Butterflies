@@ -133,7 +133,7 @@ const Header3 = () => {
                 </Link>
               )}
             </div>
-            <div className=" flex items-center justify-between">
+             <div className=" flex items-center justify-between">
               {login && (
                 <div className="  ms:mr-2 ">
                   <Notifications />
