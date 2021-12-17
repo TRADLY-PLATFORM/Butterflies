@@ -19,6 +19,7 @@ import {
   order_icon,
 } from '../Shared/Constant/Icons/AllIcons';
 import { useDispatch } from 'react-redux';
+import Link from 'next/link';
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState(null);
@@ -110,72 +111,80 @@ const Notifications = () => {
                   {notifications?.map((nt, index) => {
                     if (nt.type == 1) {
                       return (
-                        <div
-                          key={Math.random()}
-                          className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                          onClick={() => router.push('a/my-store?page=1')}
-                        >
-                          <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden ">
-                            {nt?.account?.images.length > 0 && (
-                              <Image
-                                src={nt.account.images[0]}
-                                layout="fill"
-                                objectFit="cover"
-                              />
-                            )}
-                          </div>
-                          <div>
-                            <h2 className=" text-base font-semibold text-[#050505]">
-                              {account_follow_notification_text(
-                                nt?.user?.first_name
+                        <Link href={'a/my-store?page=1'}>
+                          <a
+                            key={Math.random()}
+                            className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
+                            // onClick={() => router.push('a/my-store?page=1')}
+                          >
+                            <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden ">
+                              {nt?.account?.images.length > 0 && (
+                                <Image
+                                  src={nt.account.images[0]}
+                                  layout="fill"
+                                  objectFit="cover"
+                                />
                               )}
-                            </h2>
-                            <p className="text-sm font-medium text-primary mt-1">
-                              {changeDateFormat(
-                                nt.created_at,
-                                'DD-MM-YYYY, h:mm:ss a'
-                              )}
-                            </p>
-                          </div>
-                        </div>
+                            </div>
+                            <div>
+                              <h2 className=" text-base font-semibold text-[#050505]">
+                                {account_follow_notification_text(
+                                  nt?.user?.first_name
+                                )}
+                              </h2>
+                              <p className="text-sm font-medium text-primary mt-1">
+                                {changeDateFormat(
+                                  nt.created_at,
+                                  'DD-MM-YYYY, h:mm:ss a'
+                                )}
+                              </p>
+                            </div>
+                          </a>
+                        </Link>
                       );
                     }
                     if (nt.type == 2) {
                       return (
-                        <div
-                          key={Math.random()}
-                          className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                          onClick={() =>
-                            router.push(
-                              `/l/${
-                                nt?.listing?.id
-                              }-${nt?.listing?.title.replace(/\W/g, '+')}`
-                            )
-                          }
+                        <Link
+                          href={`/l/${
+                            nt?.listing?.id
+                          }-${nt?.listing?.title.replace(/\W/g, '+')}`}
                         >
-                          <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden ">
-                            {nt?.listing?.images.length > 0 && (
-                              <Image
-                                src={nt.listing.images[0]}
-                                layout="fill"
-                                objectFit="cover"
-                              />
-                            )}
-                          </div>
-                          <div>
-                            <h2 className=" text-base font-semibold text-[#050505]">
-                              {listing_like_notification_text(
-                                nt?.user?.first_name
+                          <a
+                            key={Math.random()}
+                            className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
+                            // onClick={() =>
+                            //   router.push(
+                            //     `/l/${
+                            //       nt?.listing?.id
+                            //     }-${nt?.listing?.title.replace(/\W/g, '+')}`
+                            //   )
+                            // }
+                          >
+                            <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden ">
+                              {nt?.listing?.images.length > 0 && (
+                                <Image
+                                  src={nt.listing.images[0]}
+                                  layout="fill"
+                                  objectFit="cover"
+                                />
                               )}
-                            </h2>
-                            <p className="text-sm font-medium text-primary mt-1">
-                              {changeDateFormat(
-                                nt.created_at,
-                                'DD-MM-YYYY, h:mm:ss a'
-                              )}
-                            </p>
-                          </div>
-                        </div>
+                            </div>
+                            <div>
+                              <h2 className=" text-base font-semibold text-[#050505]">
+                                {listing_like_notification_text(
+                                  nt?.user?.first_name
+                                )}
+                              </h2>
+                              <p className="text-sm font-medium text-primary mt-1">
+                                {changeDateFormat(
+                                  nt.created_at,
+                                  'DD-MM-YYYY, h:mm:ss a'
+                                )}
+                              </p>
+                            </div>
+                          </a>
+                        </Link>
                       );
                     }
 
@@ -185,61 +194,67 @@ const Notifications = () => {
                         nt?.metadata.account_id == my_stores[0].id
                       ) {
                         return (
-                          <div
-                            key={Math.random()}
-                            className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                            onClick={() =>
-                              account_order_link(
-                                nt?.reference_id,
-                                my_stores[0].id
-                              )
-                            }
+                          <Link
+                            href={`/a/orders/${nt?.reference_id}?store_id=${my_stores[0].id}`}
                           >
-                            <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  flex justify-center  ">
-                              <p>{order_icon}</p>
-                            </div>
-                            <div>
-                              <h2 className=" text-base font-semibold text-[#050505]">
-                                {account_order_notification_text(
-                                  nt?.metadata?.order_status
-                                )}
-                              </h2>
-                              <p className="text-sm font-medium text-primary mt-1">
-                                {changeDateFormat(
-                                  nt.created_at,
-                                  'DD-MM-YYYY, h:mm:ss a'
-                                )}
-                              </p>
-                            </div>
-                          </div>
+                            <a
+                              key={Math.random()}
+                              className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
+                              // onClick={() =>
+                              //   account_order_link(
+                              //     nt?.reference_id,
+                              //     my_stores[0].id
+                              //   )
+                              // }
+                            >
+                              <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  flex justify-center  ">
+                                <p>{order_icon}</p>
+                              </div>
+                              <div>
+                                <h2 className=" text-base font-semibold text-[#050505]">
+                                  {account_order_notification_text(
+                                    nt?.metadata?.order_status
+                                  )}
+                                </h2>
+                                <p className="text-sm font-medium text-primary mt-1">
+                                  {changeDateFormat(
+                                    nt.created_at,
+                                    'DD-MM-YYYY, h:mm:ss a'
+                                  )}
+                                </p>
+                              </div>
+                            </a>
+                          </Link>
                         );
                       } else if (
                         my_stores?.length == 0 ||
                         nt?.metadata.account_id != my_stores[0].id
                       ) {
                         return (
-                          <div
-                            key={Math.random()}
-                            className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                            onClick={() => order_link(nt?.reference_id)}
-                          >
-                            <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  flex justify-center  ">
-                              <p>{order_icon}</p>
-                            </div>
-                            <div>
-                              <h2 className=" text-base font-semibold text-[#050505]">
-                                {order_notification_text(
-                                  nt?.metadata?.order_status
-                                )}
-                              </h2>
-                              <p className="text-sm font-medium text-primary mt-1">
-                                {changeDateFormat(
-                                  nt.created_at,
-                                  'DD-MM-YYYY, h:mm:ss a'
-                                )}
-                              </p>
-                            </div>
-                          </div>
+                          <Link href={`/orders/${nt?.reference_id}`}>
+                            <a
+                              key={Math.random()}
+                              className="  px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
+                              // onClick={() => order_link(nt?.reference_id)}
+                            >
+                              <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  flex justify-center  ">
+                                <p>{order_icon}</p>
+                              </div>
+                              <div>
+                                <h2 className=" text-base font-semibold text-[#050505]">
+                                  {order_notification_text(
+                                    nt?.metadata?.order_status
+                                  )}
+                                </h2>
+                                <p className="text-sm font-medium text-primary mt-1">
+                                  {changeDateFormat(
+                                    nt.created_at,
+                                    'DD-MM-YYYY, h:mm:ss a'
+                                  )}
+                                </p>
+                              </div>
+                            </a>
+                          </Link>
                         );
                       }
                     }

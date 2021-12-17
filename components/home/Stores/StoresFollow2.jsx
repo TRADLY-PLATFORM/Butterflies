@@ -62,9 +62,9 @@ const StoresForFollow2 = ({ stores }) => {
           }}
           passHref
         >
-          <p className="text-base text-primary font-semibold cursor-pointer">
+          <a className=" block text-base text-primary font-semibold cursor-pointer">
             View All
-          </p>
+          </a>
         </Link>
       </div>
       <div className=" mt-4 flex  justify-start ">

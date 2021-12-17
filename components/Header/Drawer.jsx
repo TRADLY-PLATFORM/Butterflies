@@ -36,7 +36,7 @@ const Drawer = () => {
       <div className="    left-0 right-0    flex-col  justify-center     mb-2">
         {logo && (
           <Link href="/" passHref={true}>
-            <div className=" flex items-center   relative cursor-pointer py-4">
+            <a className=" block flex items-center   relative cursor-pointer py-4">
               <Image
                 src={logo}
                 height={44}
@@ -44,7 +44,7 @@ const Drawer = () => {
                 objectFit="contain"
                 alt="logo"
               />
-            </div>
+            </a>
           </Link>
         )}
 

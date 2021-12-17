@@ -32,7 +32,7 @@ const OrdersItem = ({ orders }) => {
                 href={`/orders/${item.id}`}
                 passHref={true}
               >
-                <div className=" grid  grid-cols-[60%,40%] xs:grid-cols-[40%,30%,30%]   c-lg:grid-cols-[40%,20%,20%,20%] items-center bg-white shadow-c-sm rounded-lg mb-3 py-3 px-2 cursor-pointer">
+                <a className=" grid  grid-cols-[60%,40%] xs:grid-cols-[40%,30%,30%]   c-lg:grid-cols-[40%,20%,20%,20%] items-center bg-white shadow-c-sm rounded-lg mb-3 py-3 px-2 cursor-pointer">
                   <div className=" flex   items-center ">
                     <div className=" w-10 h-10 relative ml-2  sm:ml-8  mr-2 sm:mr-8 rounded-md overflow-hidden">
                       {item?.order_details[0]?.listing?.images?.length > 0 && (
@@ -84,7 +84,7 @@ const OrdersItem = ({ orders }) => {
                       {orderStatus(item.order_status)}
                     </button>
                   </div>
-                </div>
+                </a>
               </Link>
             );
           })}

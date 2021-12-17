@@ -25,7 +25,7 @@ export const customer_menus = (
       <div className="w-[15px] h-[15px] bg-[#fff] absolute   right-0  transform rotate-45  -top-2  mr-4  md:mr-8 border-l border-t border-[rgba(250, 250, 250, 0.93)]  z-[50]" />
 
       <Link href="/edit-profile" passHref={true}>
-        <div className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
+        <a className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 mr-3  sm:mr-5 text-[#6e686e]"
@@ -43,7 +43,7 @@ export const customer_menus = (
           <span className=" text-sm  text-[#222222]  font-semibold  transition duration-500 hover:text-primary">
             Profile
           </span>
-        </div>
+        </a>
       </Link>
       {marketplace_type !== null && (
         <Link href="/orders?page=1" passHref={true}>
@@ -109,9 +109,9 @@ export const customer_menus = (
         <div className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group ">
           {invite_friend}
           <Link href="/invite" passHref={true}>
-            <p className=" text-sm  text-[#222222]  font-semibold  transition duration-500 hover:text-primary ml-3  sm:ml-5">
+            <a className=" block text-sm  text-[#222222]  font-semibold  transition duration-500 hover:text-primary ml-3  sm:ml-5">
               Invite Friend
-            </p>
+            </a>
           </Link>
         </div>
       )}
@@ -147,16 +147,16 @@ export const account_menus = (Link, router, my_stores) => {
   return (
     <div>
       <h1 className=" text-base  text-primary font-semibold  transition duration-500 px-[10px] sm:px-[25px] mb-1">
-       Business Account
+        Business Account
       </h1>
       <div className="w-[15px] h-[15px] bg-[#fff] absolute   right-0  transform rotate-45  -top-2  mr-4  md:mr-8 border-l border-t border-[rgba(250, 250, 250, 0.93)]  z-[50]" />
       <Link href="/a/my-store?page=1" passHref={true}>
-        <div className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
+        <a className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
           <div>{store_icon}</div>
           <span className="ml-3  sm:ml-5 text-sm  text-[#222222]  font-semibold  transition duration-500 hover:text-primary">
             Account
           </span>
-        </div>
+        </a>
       </Link>
       <div className=" flex sm:items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
         <svg
@@ -173,17 +173,24 @@ export const account_menus = (Link, router, my_stores) => {
             d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
           />
         </svg>
-        <p
-          onClick={() =>
-            router.push({
-              pathname: '/a/orders',
-              query: { store_id: my_stores[0].id ,page:1},
-            })
-          }
-          className=" text-sm text-left  text-[#222222]  font-semibold  transition duration-500 hover:text-primary"
+        <Link
+          href={{
+            pathname: '/a/orders',
+            query: { store_id: my_stores[0].id, page: 1 },
+          }}
         >
-          My Account Orders
-        </p>
+          <a
+            // onClick={() =>
+            //   router.push({
+            //     pathname: '/a/orders',
+            //     query: { store_id: my_stores[0].id, page: 1 },
+            //   })
+            // }
+            className=" block text-sm text-left  text-[#222222]  font-semibold  transition duration-500 hover:text-primary"
+          >
+            My Account Orders
+          </a>
+        </Link>
       </div>
 
       {my_stores?.length > 0 && (
@@ -203,27 +210,36 @@ export const account_menus = (Link, router, my_stores) => {
             />
           </svg>
           <Link href="/payout" passHref={true}>
-            <p className=" text-sm  text-[#222222]  font-semibold  transition duration-500 hover:text-primary">
+            <a className=" text-sm  text-[#222222]  font-semibold  transition duration-500 hover:text-primary">
               Payments
-            </p>
+            </a>
           </Link>
         </div>
       )}
       {my_stores?.length > 0 && (
-        <div className=" flex  sm:items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
-          <div>{plus_icon}</div>
-          <p
-            onClick={() =>
-              router.push({
-                pathname: '/a/add-product',
-                query: { account_id: my_stores[0].id },
-              })
-            }
-            className="ml-3  sm:ml-5 text-sm  text-left text-[#222222]  font-semibold  transition duration-500 hover:text-primary"
-          >
-            Add New Listing
-          </p>
-        </div>
+        <Link
+          href={{
+            pathname: '/a/add-product',
+            query: { account_id: my_stores[0].id },
+          }}
+        >
+          <a>
+            <div className=" flex  sm:items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
+              <div>{plus_icon}</div>
+              <p
+                // onClick={() =>
+                //   router.push({
+                //     pathname: '/a/add-product',
+                //     query: { account_id: my_stores[0].id },
+                //   })
+                // }
+                className="ml-3  sm:ml-5 text-sm  text-left text-[#222222]  font-semibold  transition duration-500 hover:text-primary"
+              >
+                Add New Listing
+              </p>
+            </div>
+          </a>
+        </Link>
       )}
     </div>
   );

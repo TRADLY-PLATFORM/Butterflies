@@ -5,16 +5,18 @@ import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
 import { changeDateFormat, getThumbnailImage } from '../Constant/Constant';
 import { useRouter } from 'next/dist/client/router';
+import Link from "next/link"
 
 const ListingCard = ({ item, like, marketplace_type }) => {
   const router = useRouter();
   return (
     <div className="  relative">
-      <div
-        className=" w-full  min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
-        onClick={() =>
-          router.push(`/l/${item.id}-${item.title.replace(/\W/g, '-')}`)
-        }
+      <Link href={`/l/${item.id}-${item.title.replace(/\W/g, '-')}`}>
+        <a
+        className=" block w-full  min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
+        // onClick={() =>
+        //   router.push(`/l/${item.id}-${item.title.replace(/\W/g, '-')}`)
+        // }
       >
         <div className="   aspect-w-1 aspect-h-1 relative  mb-4 ">
           {item?.images?.length > 0 && (
@@ -41,7 +43,9 @@ const ListingCard = ({ item, like, marketplace_type }) => {
             {item.list_price.formatted}
           </p>
         </div>
-      </div>
+      </a>
+       </Link>
+      
 
       <div
         className=" h-[40px] w-[40px]  absolute right-0 top-0 cursor-pointer  [z-100]  "
