@@ -22,7 +22,7 @@ const Categories = ({ allCategories }) => (
             }}
             passHref
           >
-            <div className=" sm:mr-4  sm:mb-6  bg-[#ffffff] rounded-xl  py-4 flex flex-col  justify-between items-center border border-transparent  shadow-c-sm hover:border-primary hover:bg-primary_light  w-[144px] h-[144px] md:w-[100px]  md:h-[100px]  cursor-pointer">
+            <a className=" block sm:mr-4  sm:mb-6  bg-[#ffffff] rounded-xl  py-4 flex flex-col  justify-between items-center border border-transparent  shadow-c-sm hover:border-primary hover:bg-primary_light  w-[144px] h-[144px] md:w-[100px]  md:h-[100px]  cursor-pointer">
               <div className=" w-[46px] h-[46px] md:w-[32px] md:h-[32px] relative">
                 <Image
                   src={
@@ -43,7 +43,7 @@ const Categories = ({ allCategories }) => (
                   ? item.name.substring(0, 10)
                   : item.name}
               </p>
-            </div>
+            </a>
           </Link>
         ))}
       </div>

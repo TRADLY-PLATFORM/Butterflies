@@ -236,6 +236,7 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.errorMessage = '';
         state.verifyId = payload.verify_id;
+          localStorage.setItem('new_user_verify_id', payload.verify_id);
       }
     },
     [signUp.pending]: (state) => {

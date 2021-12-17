@@ -54,31 +54,35 @@ const Footer = () => {
         <div className=" col-span-2 md:col-span-1">
           {logo && (
             <Link href="/" passHref={true}>
-              <div className="w-[180px] h-[50px] relative">
+              <a className=" block w-[180px] h-[50px] relative">
                 <Image
                   src={getThumbnailImage(logo)}
                   layout="fill"
                   objectFit="contain"
                   alt="logo"
                 />
-              </div>
+              </a>
             </Link>
           )}
 
-          <div className="mt-4 ml-3">
-            <button
-              onClick={() => window.open(general_configs?.app_download_link)}
-              className=" text-base text-[#4F4F4F] font-medium rounded-lg overflow-hidden"
-            >
-              <Image
-                src={googleplayImage}
-                width={180}
-                height={50}
-                objectFit="cover"
-                alt="logo"
-              />
-            </button>
-          </div>
+          {general_configs?.app_download_link && (
+            <Link href={general_configs?.app_download_link}>
+              <a className=" block mt-4 ml-3" target="_blank">
+                <button
+                  // onClick={() => window.open(general_configs?.app_download_link)}
+                  className=" text-base text-[#4F4F4F] font-medium rounded-lg overflow-hidden"
+                >
+                  <Image
+                    src={googleplayImage}
+                    width={180}
+                    height={50}
+                    objectFit="cover"
+                    alt="logo"
+                  />
+                </button>
+              </a>
+            </Link>
+          )}
         </div>
 
         <div>
@@ -89,28 +93,42 @@ const Footer = () => {
                 return (
                   <div className="mb-4 " key={Math.random()}>
                     {' '}
-                    <button
-                      onClick={() =>
-                        router.push({
-                          pathname: `/lc/[name]`,
-                          query: {
-                            name: item.name.replace(/\s/g, '-'),
-                            category_id: item.id,
-                            page: 1,
-                          },
-                        })
-                      }
-                      className={[
-                        '  text-[#4F4F4F]    cursor-pointer transition duration-300 hover:text-primary  text-left',
-                        router?.query?.name === item.name.replace(/\s/g, '-')
-                          ? 'text-primary'
-                          : '',
-                      ].join(' ')}
+                    <Link
+                      href={{
+                        pathname: `/lc/[name]`,
+                        query: {
+                          name: item.name.replace(/\s/g, '-'),
+                          category_id: item.id,
+                          page: 1,
+                        },
+                      }}
                     >
-                      {item.name.length > 20
-                        ? item.name.substring(0, 19) + '.'
-                        : item.name}
-                    </button>
+                      <a>
+                        <button
+                          // onClick={() =>
+                          //   router.push({
+                          //     pathname: `/lc/[name]`,
+                          //     query: {
+                          //       name: item.name.replace(/\s/g, '-'),
+                          //       category_id: item.id,
+                          //       page: 1,
+                          //     },
+                          //   })
+                          // }
+                          className={[
+                            '  text-[#4F4F4F]    cursor-pointer transition duration-300 hover:text-primary  text-left',
+                            router?.query?.name ===
+                            item.name.replace(/\s/g, '-')
+                              ? 'text-primary'
+                              : '',
+                          ].join(' ')}
+                        >
+                          {item.name.length > 20
+                            ? item.name.substring(0, 19) + '.'
+                            : item.name}
+                        </button>
+                      </a>
+                    </Link>
                   </div>
                 );
               }
@@ -141,28 +159,42 @@ const Footer = () => {
                   return (
                     <div className="mb-4 " key={Math.random()}>
                       {' '}
-                      <button
-                        onClick={() =>
-                          router.push({
-                            pathname: `/lc/[name]`,
-                            query: {
-                              name: item.name.replace(/\s/g, '-'),
-                              category_id: item.id,
-                              page: 1,
-                            },
-                          })
-                        }
-                        className={[
-                          '  text-[#4F4F4F]    cursor-pointer transition duration-300 hover:text-primary text-left',
-                          router?.query?.name === item.name.replace(/\s/g, '-')
-                            ? 'text-primary'
-                            : '',
-                        ].join(' ')}
+                      <Link
+                        href={{
+                          pathname: `/lc/[name]`,
+                          query: {
+                            name: item.name.replace(/\s/g, '-'),
+                            category_id: item.id,
+                            page: 1,
+                          },
+                        }}
                       >
-                        {item.name.length > 20
-                          ? item.name.substring(0, 19) + '.'
-                          : item.name}
-                      </button>
+                        <a>
+                          <button
+                            // onClick={() =>
+                            //   router.push({
+                            //     pathname: `/lc/[name]`,
+                            //     query: {
+                            //       name: item.name.replace(/\s/g, '-'),
+                            //       category_id: item.id,
+                            //       page: 1,
+                            //     },
+                            //   })
+                            // }
+                            className={[
+                              '  text-[#4F4F4F]    cursor-pointer transition duration-300 hover:text-primary text-left',
+                              router?.query?.name ===
+                              item.name.replace(/\s/g, '-')
+                                ? 'text-primary'
+                                : '',
+                            ].join(' ')}
+                          >
+                            {item.name.length > 20
+                              ? item.name.substring(0, 19) + '.'
+                              : item.name}
+                          </button>
+                        </a>
+                      </Link>
                     </div>
                   );
                 }
@@ -203,30 +235,36 @@ const Footer = () => {
         </div> */}
         <div>
           <p className=" text-base font-semibold pb-4">Links</p>
-          <div className="     pb-4">
-            <button
-              onClick={() => window.open(general_configs?.terms_url)}
-              className=" text-base text-[#4F4F4F] font-medium  text-left"
-            >
-              Terms & Conditions
-            </button>
-          </div>
-          <div className="    pb-4">
-            <button
-              onClick={() => window.open(general_configs?.privacy_policy_url)}
-              className=" text-base text-[#4F4F4F] font-medium"
-            >
-              Privacy Policy
-            </button>
-          </div>
-          <div className="    pb-4">
-            <button
-              onClick={() => window.open(general_configs?.support_url)}
-              className=" text-base text-[#4F4F4F] font-medium"
-            >
-              Support
-            </button>
-          </div>
+          {general_configs?.terms_url&&<Link href={general_configs?.terms_url}>
+            <a className=" block    pb-4" target="_blank">
+              <button
+                // onClick={() => window.open(general_configs?.terms_url)}
+                className=" text-base text-[#4F4F4F] font-medium  text-left"
+              >
+                Terms & Conditions
+              </button>
+            </a>
+          </Link>}
+          {general_configs?.privacy_policy_url&&<Link href={general_configs?.privacy_policy_url}>
+            <a className=" block    pb-4" target="_blank">
+              <button
+                // onClick={() => window.open(general_configs?.privacy_policy_url)}
+                className=" text-base text-[#4F4F4F] font-medium"
+              >
+                Privacy Policy
+              </button>
+            </a>
+          </Link>}
+          {general_configs?.support_url&&<Link href={general_configs?.support_url}>
+            <a className=" block    pb-4" target="_blank">
+              <button
+                // onClick={() => window.open(general_configs?.support_url)}
+                className=" text-base text-[#4F4F4F] font-medium"
+              >
+                Support
+              </button>
+            </a>
+          </Link>}
 
           {/* <div className="   pb-4">
             
@@ -235,12 +273,11 @@ const Footer = () => {
       </div>
       <div className="py-2 flex items-center">
         <p className=" text-xs text-secondary mr-4">© All rights reserved</p>
-        <button
-          onClick={() => window.open('/sitemap.xml')}
-          className=" text-xs text-[#4F4F4F] font-medium"
-        >
-          Sitemap
-        </button>
+        <Link href={'/sitemap.xml'}>
+          <a className=" text-xs text-[#4F4F4F] font-medium" target="_blank">
+            Sitemap
+          </a>
+        </Link>
       </div>
     </>
   );

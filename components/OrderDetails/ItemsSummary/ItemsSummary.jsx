@@ -33,9 +33,9 @@ const ItemsSummary = ({ order_details }) => {
                 '+'
               )}`}
              >
-              <div
+              <a
                 className={[
-                  ' grid  grid-cols-[50%,20%,30%]   md:grid-cols-[40%,20%,20%,20%] items-center py-3  cursor-pointer',
+                  '  grid  grid-cols-[50%,20%,30%]   md:grid-cols-[40%,20%,20%,20%] items-center py-3  cursor-pointer',
                   index !== OrderDetails.length - 1 &&
                     'border-b-2 border-gray-400 border-opacity-20',
                 ].join(' ')}
@@ -74,7 +74,7 @@ const ItemsSummary = ({ order_details }) => {
                     <span className=" ml-1">{item.list_price.amount}</span>
                   </p>
                 </div>
-              </div>
+              </a>
             </Link>
           );
         })}

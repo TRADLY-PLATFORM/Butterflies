@@ -41,12 +41,12 @@ const Header3 = () => {
         ) : (
           ''
         )}
-        <div className="  min-h-[70px] px-[25px] 2xl:px-[10%]  shadow-c-sm   bg-white top-0    overflow-x-hidden relative">
+        <div className="   min-h-[70px] px-[25px] 2xl:px-[10%]  shadow-c-sm   bg-white top-0    overflow-x-hidden relative">
           <div className="flex pt-[24px]  w-full">
             <div className="  absolute left-0 right-0    flex  justify-center     ">
               {logo && (
                 <Link href="/" passHref={true}>
-                  <div className=" flex items-center   relative cursor-pointer ">
+                  <a className=" flex items-center   relative cursor-pointer ">
                     <Image
                       src={getThumbnailImage(logo)}
                       height={44}
@@ -54,7 +54,7 @@ const Header3 = () => {
                       objectFit="contain"
                       alt="logo"
                     />
-                  </div>
+                  </a>
                 </Link>
               )}
             </div>
@@ -123,17 +123,19 @@ const Header3 = () => {
               </button>
               {logo && (
                 <Link href="/" passHref={true}>
-                  <Image
-                    src={logo}
-                    height={44}
-                    width={150}
-                    objectFit="contain"
-                    alt="logo"
-                  />
+                  <a>
+                    <Image
+                      src={logo}
+                      height={44}
+                      width={150}
+                      objectFit="contain"
+                      alt="logo"
+                    />
+                  </a>
                 </Link>
               )}
             </div>
-             <div className=" flex items-center justify-between">
+            <div className=" flex items-center justify-between">
               {login && (
                 <div className="  ms:mr-2 ">
                   <Notifications />

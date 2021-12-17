@@ -89,6 +89,7 @@ const SignUpForm = ({ general_configs }) => {
     };
     dispatch(signUp({ prams: users })).then((res) => {
       if (!res.payload.code) {
+        localStorage.setItem('new_user_register_data', JSON.stringify(users));
         router.push('/verification');
       }
     })
