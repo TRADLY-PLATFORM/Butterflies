@@ -30,3 +30,9 @@ const DescriptionPart = ({ description }) => {
 };
 
 export default DescriptionPart;
+
+
+
+
+
+

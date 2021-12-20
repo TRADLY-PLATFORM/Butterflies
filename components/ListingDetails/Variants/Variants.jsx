@@ -23,12 +23,12 @@ const Variants = ({
               key={item.id}
               className={
                 selectedVariant !== item.id
-                  ? 'w-full h-[90px] relative rounded-md overflow-hidden  flex items-center my-4 shadow-c-sm  border border-transparent cursor-pointer'
-                  : 'w-full h-[90px] relative rounded-md overflow-hidden  flex items-center my-4 shadow-c-sm cursor-pointer transition duration-700  border border-seceondary  ring ring-primary ring-offset-1'
+                  ? 'w-full min-h-[90px] relative rounded-md overflow-hidden  flex items-center my-4 shadow-c-sm  border border-transparent cursor-pointer'
+                  : 'w-full min-h-[90px] relative rounded-md overflow-hidden  flex items-center my-4 shadow-c-sm cursor-pointer transition duration-700  border border-seceondary  ring ring-primary ring-offset-1'
               }
               onClick={() => setSelectedVariant(item.id)}
             >
-              <div className="h-full w-[90px] relative">
+              <div className="h-[90px] w-[90px] relative">
                 {item.images.length > 0 ? (
                   <Image src={item.images[0]} layout="fill" />
                 ) : (

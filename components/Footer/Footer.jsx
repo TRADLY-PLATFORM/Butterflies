@@ -6,14 +6,22 @@ import tradly from 'tradly';
 import { useRouter } from 'next/dist/client/router';
 import googleplayImage from '../../assets/Images/play-store-image.png';
 import { angle_down } from '../Shared/Constant/Icons/AllIcons';
+import {
+  facebook_icon,
+  snapchat_icon,
+  telegram_icon,
+  twitter_icon,
+  whatsapp_icon,
+  youtube_icon,
+} from '../Shared/Constant/Icons/socialIcons';
 
 const Footer = () => {
   const [logo, setLogo] = useState(null);
   const [isSeeAllCategories, setIsSeeAllCategories] = useState(false);
   const [allCategories, setAllCategories] = useState(null);
   const [general_configs, setGeneral_configs] = useState(null);
-  const [tenants_data, setTenants_data] = useState(null);
-
+  const [social_configs, setSocial_configs] = useState({});
+ 
   const router = useRouter();
 
   useEffect(() => {
@@ -25,6 +33,7 @@ const Footer = () => {
           setAllCategories(res.data.categories);
         }
       });
+
     tradly.app
       .getConfigList({
         paramBody: 'general',
@@ -36,17 +45,16 @@ const Footer = () => {
       });
 
     tradly.app
-      .commonFuntion({
-        path: `/v1/users/clients/tenants`,
-        bodyParam: '',
-        authKey: '',
-        Method: 'GET',
+      .getConfigList({
+        paramBody: 'social',
       })
       .then((res) => {
         if (!res.error) {
-          setTenants_data(res.data.tenants);
+          setSocial_configs(res.data.configs);
         }
       });
+
+     
   }, [0]);
   return (
     <>
@@ -82,6 +90,46 @@ const Footer = () => {
                 </button>
               </a>
             </Link>
+          )}
+
+          {Object.keys(social_configs)?.length > 0 && (
+            <div className="mt-4 ml-3">
+              <h2 className="text-base font-semibold pb-4">
+                Follow us on social media
+              </h2>
+              <div className="flex items-center gap-3">
+                {social_configs?.facebook_pageurl && (
+                  <Link href={social_configs?.facebook_pageurl}>
+                    <a target="_blank">{facebook_icon}</a>
+                  </Link>
+                )}
+                {social_configs?.youtube_channelurl && (
+                  <Link href={social_configs?.youtube_channelurl}>
+                    <a target="_blank">{youtube_icon}</a>
+                  </Link>
+                )}
+                {social_configs?.twitter_handleurl && (
+                  <Link href={social_configs?.twitter_handleurl}>
+                    <a target="_blank">{twitter_icon}</a>
+                  </Link>
+                )}
+                {social_configs?.snapchat && (
+                  <Link href={social_configs?.snapchat}>
+                    <a target="_blank">{snapchat_icon}</a>
+                  </Link>
+                )}
+                {social_configs?.telegram_url && (
+                  <Link href={social_configs?.telegram_url}>
+                    <a target="_blank">{telegram_icon}</a>
+                  </Link>
+                )}
+                {social_configs?.whatsapp_number && (
+                  <Link href={social_configs?.whatsapp_number}>
+                    <a target="_blank">{whatsapp_icon}</a>
+                  </Link>
+                )}
+              </div>
+            </div>
           )}
         </div>
 
@@ -235,36 +283,42 @@ const Footer = () => {
         </div> */}
         <div>
           <p className=" text-base font-semibold pb-4">Links</p>
-          {general_configs?.terms_url&&<Link href={general_configs?.terms_url}>
-            <a className=" block    pb-4" target="_blank">
-              <button
-                // onClick={() => window.open(general_configs?.terms_url)}
-                className=" text-base text-[#4F4F4F] font-medium  text-left"
-              >
-                Terms & Conditions
-              </button>
-            </a>
-          </Link>}
-          {general_configs?.privacy_policy_url&&<Link href={general_configs?.privacy_policy_url}>
-            <a className=" block    pb-4" target="_blank">
-              <button
-                // onClick={() => window.open(general_configs?.privacy_policy_url)}
-                className=" text-base text-[#4F4F4F] font-medium"
-              >
-                Privacy Policy
-              </button>
-            </a>
-          </Link>}
-          {general_configs?.support_url&&<Link href={general_configs?.support_url}>
-            <a className=" block    pb-4" target="_blank">
-              <button
-                // onClick={() => window.open(general_configs?.support_url)}
-                className=" text-base text-[#4F4F4F] font-medium"
-              >
-                Support
-              </button>
-            </a>
-          </Link>}
+          {general_configs?.terms_url && (
+            <Link href={general_configs?.terms_url}>
+              <a className=" block    pb-4" target="_blank">
+                <button
+                  // onClick={() => window.open(general_configs?.terms_url)}
+                  className=" text-base text-[#4F4F4F] font-medium  text-left"
+                >
+                  Terms & Conditions
+                </button>
+              </a>
+            </Link>
+          )}
+          {general_configs?.privacy_policy_url && (
+            <Link href={general_configs?.privacy_policy_url}>
+              <a className=" block    pb-4" target="_blank">
+                <button
+                  // onClick={() => window.open(general_configs?.privacy_policy_url)}
+                  className=" text-base text-[#4F4F4F] font-medium"
+                >
+                  Privacy Policy
+                </button>
+              </a>
+            </Link>
+          )}
+          {general_configs?.support_url && (
+            <Link href={general_configs?.support_url}>
+              <a className=" block    pb-4" target="_blank">
+                <button
+                  // onClick={() => window.open(general_configs?.support_url)}
+                  className=" text-base text-[#4F4F4F] font-medium"
+                >
+                  Support
+                </button>
+              </a>
+            </Link>
+          )}
 
           {/* <div className="   pb-4">
             
