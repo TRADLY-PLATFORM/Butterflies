@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 import Head from 'next/head';
 import { useDispatch } from 'react-redux';
+import TagManager from 'react-gtm-module';
 
 function MyApp({ Component, pageProps }) {
   const [start, setStart] = useState(false);
@@ -53,11 +54,25 @@ function MyApp({ Component, pageProps }) {
               'marketplace_module',
               res.data.configs.sub_type
             );
-           
+
             localStorage.setItem(
               'general_configs',
               JSON.stringify(res.data.configs)
             );
+            setStart(true);
+          } else {
+            setStart(false);
+          }
+        }
+      });
+    tradly.app
+      .getConfigList({
+        paramBody: 'extensions',
+      })
+      .then((res) => {
+        if (typeof window !== 'undefined') {
+          if (!res.error) {
+            TagManager.initialize({ gtmId: res.data.configs.gtm });
             setStart(true);
           } else {
             setStart(false);
