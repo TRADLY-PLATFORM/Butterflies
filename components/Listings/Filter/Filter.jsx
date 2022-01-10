@@ -13,10 +13,26 @@ import {
 import tradly from 'tradly';
 import { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { priceRange } from '../../Shared/Constant/Constant';
+import {
+  convertTimeinto12Hrs,
+  getDatesArray2,
+  priceRange,
+} from '../../Shared/Constant/Constant';
 import OutsideClickHandler from 'react-outside-click-handler';
+import {
+  getDatesArray,
+  getTimeDifference,
+} from '../../Shared/Constant/Constant';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+import moment from 'moment';
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 const Filter = () => {
+  const [marketplace_type, setMarketplace_type] = useState();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSeeAllCategories, setIsSeeAllCategories] = useState(false);
   const [allCategories, setAllCategories] = useState(null);
@@ -31,6 +47,14 @@ const Filter = () => {
 
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedAtValues, setSelectedAtValues] = useState([]);
+
+  const start_at = router?.query?.start_at;
+  const end_at = router?.query?.end_at;
+  const [range_value, setRange_value] = useState([1]);
+  const [changed_value, setChanged_value] = useState(['00:00:00', '23:59:59']);
+  const [is_value_changed, setIs_value_changed] = useState(false);
+
+  let dates = getDatesArray2();
 
   useEffect(() => {
     tradly.app
@@ -54,6 +78,16 @@ const Filter = () => {
       setSelectedAtValues(attribute_value_id.split(','));
     }
   }, [router.query]);
+
+  useEffect(() => {
+    setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    if (start_at !== undefined) {
+      setChanged_value([
+        start_at.split('T')[1].replace('Z', ''),
+        end_at.split('T')[1].replace('Z', ''),
+      ]);
+    }
+  }, [0]);
 
   const toggleChildren = (e, id, children) => {
     e.stopPropagation();
@@ -161,6 +195,57 @@ const Filter = () => {
       });
     }
   };
+  const filter_by_date = (sdate, edate) => {
+    console.log(sdate, edate);
+    if (sdate == start_at) {
+      const queries = { ...router.query };
+      delete queries.start_at;
+      delete queries.end_at;
+      router.push({
+        query: { ...queries },
+      });
+    } else {
+      router.push({
+        query: {
+          ...router.query,
+          start_at: sdate,
+          end_at: edate,
+        },
+      });
+    }
+  };
+
+  const change_time = () => {
+    if (start_at == undefined) {
+      router.push({
+        query: {
+          ...router.query,
+          start_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
+            changed_value[0]
+          }Z`,
+          end_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
+            changed_value[1]
+          }Z`,
+        },
+      });
+    } else {
+      router.push({
+        query: {
+          ...router.query,
+          start_at: `${start_at.split('T')[0]}T${changed_value[0]}Z`,
+          end_at: `${end_at.split('T')[0]}T${changed_value[1]}Z`,
+        },
+      });
+    }
+    setIs_value_changed(false);
+  };
+
+  const onSliderChange = (value) => {
+    const value1 = Number(value[0]) < 10 ? `0${value[0]}` : value[0];
+    const value2 = Number(value[1]) < 10 ? `0${value[0]}` : value[1];
+    setChanged_value([`${value1}:00:00`, `${value2}:59:59`]);
+    setIs_value_changed(true);
+  };
 
   return (
     <div className=" relative   h-[56px]">
@@ -193,6 +278,104 @@ const Filter = () => {
               isFilterOpen ? 'w-full h-full block pl-6 pr-[15px]  ' : ' hidden'
             }
           >
+            {/* Dates Array */}
+            {marketplace_type === 2 && (
+              <div className="mb-3">
+                <Swiper
+                  slidesPerView="auto"
+                  slidesPerGroup={1}
+                  spaceBetween={16}
+                  loop={false}
+                  navigation={false}
+                >
+                  {dates?.map((date, i) => {
+                    return (
+                      <SwiperSlide
+                        className=""
+                        key={date}
+                        style={{
+                          width: '70px',
+                          minHeight: '30px',
+                        }}
+                      >
+                        {i == 0 ? (
+                          <button
+                            className={[
+                              ' w-full h-[30px] flex items-center justify-center cursor-pointer   border border-primary rounded-2xl transition duration-700 hover:bg-primary hover:text-white mr-1  text-sm',
+                              start_at == undefined && 'bg-primary text-white',
+                            ].join(' ')}
+                            id={date}
+                            onClick={() => {
+                              const queries = { ...router.query };
+                              delete queries.start_at;
+                              delete queries.end_at;
+                              router.push({
+                                query: { ...queries },
+                              });
+                            }}
+                          >
+                            All
+                          </button>
+                        ) : (
+                          <button
+                            className={[
+                              ' w-full h-[30px] flex items-center justify-center cursor-pointer   border border-primary rounded-2xl transition duration-700 hover:bg-primary hover:text-white mr-1  text-sm',
+                              start_at?.split('T')[0] ==
+                                `${moment(date).format('YYYY-MM-DD')}` &&
+                                'bg-primary text-white',
+                            ].join(' ')}
+                            id={date}
+                            onClick={() => {
+                              filter_by_date(
+                                `${moment(date).format('YYYY-MM-DD')}T${
+                                  changed_value[0]
+                                }Z`,
+                                `${moment(date).format('YYYY-MM-DD')}T${
+                                  changed_value[1]
+                                }Z`
+                              );
+                            }}
+                          >
+                            {i == 1 ? 'Today' : moment(date).format('ddd D')}
+                          </button>
+                        )}
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </div>
+            )}
+
+            {/* Time picker */}
+            {marketplace_type === 2 && (
+              <div className="pr-2 mb-3">
+                <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
+                  <span className=" cursor-pointer">Time</span>
+                </h4>
+                <Range
+                  className="text-primary"
+                  allowCross={false}
+                  max={23}
+                  defaultValue={[0, 23]}
+                  onChange={onSliderChange}
+                />
+                <div className="flex justify-between items-center  mt-3">
+                  <p className=" block text-gray-500  text-xs">
+                    {convertTimeinto12Hrs(changed_value[0])} -{' '}
+                    {convertTimeinto12Hrs(changed_value[1])}
+                  </p>
+                  {is_value_changed && (
+                    <button
+                      className="px-2 py-1 bg-primary rounded-md text-white text-sm"
+                      onClick={() => change_time()}
+                    >
+                      Done
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Categories Part */}
             <div>
               <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
@@ -425,13 +608,15 @@ const Filter = () => {
             </div>
             <button
               className=" text-xm font font-medium text-red-600 cursor-pointer pb-[30%]"
-              onClick={() =>
-                {router.push({
+              onClick={() => {
+                router.push({
                   query: {
                     page: router.query.page,
                   },
-                }),setSelectedAtValues([]),setSelectedCategories([])}
-              }
+                }),
+                  setSelectedAtValues([]),
+                  setSelectedCategories([]);
+              }}
             >
               Reset Filter
             </button>
