@@ -36,12 +36,23 @@ const ListListingCard = ({ item, like, marketplace_type }) => {
               <p className=" mt-2   text-[12px] leading-3 text-gray-900  font-bold flex items-center ">
                 {time_icon}
                 <span className="ml-[6px]">
-                  {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
+                  {changeDateFormat(item.start_at, 'hh:mm a')}
+                </span>
+                <span className="ml-[6px]">to</span>
+                <span className="ml-[6px]">
+                  {changeDateFormat(item.end_at, 'hh:mm a')}
                 </span>
               </p>
             )}
             <p className="mt-4  text-sm ms:text-base xmd:text-lg leading-[15px] font-semibold text-primary">
-              {item.title.length > 30 ? item.title : item.title}
+              <span className="hidden md:block">
+                {item.title.length > 30 ? item.title : item.title}
+              </span>
+              <span className=" md:hidden">
+                {item.title.length > 20
+                  ? item.title.substring(0, 18) + '..'
+                  : item.title}
+              </span>
             </p>
             <p className=" mt-2 flex justify-start items-center ">
               <svg
@@ -61,8 +72,11 @@ const ListListingCard = ({ item, like, marketplace_type }) => {
               <span className="  text-[#4F4F4F] font-medium text-base ml-[6px] ">
                 {item.rating_data.rating_average}
               </span>
+              <span className=" border-l border-[#959393]   text-[#4F4F4F] font-medium text-base ml-[4px] pl-[4px] ">
+                {item.rating_data.rating_average} ratings
+              </span>
             </p>
-            <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-4">
+            <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-3">
               {item.list_price.formatted}
             </p>
           </div>
@@ -70,7 +84,7 @@ const ListListingCard = ({ item, like, marketplace_type }) => {
       </Link>
 
       <div
-        className=" h-[40px] w-[40px]  absolute right-0 top-0 cursor-pointer  [z-100] mt-2 mr-2  "
+        className=" h-[40px] w-[40px]  absolute right-0 top-0 cursor-pointer  [z-100]  mt-5 md:mt-2 mr-2  "
         onClick={() => like(item.id, item.liked)}
       >
         {item.liked ? (

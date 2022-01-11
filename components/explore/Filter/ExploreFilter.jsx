@@ -222,7 +222,7 @@ const ExploreFilter = () => {
           start_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
             changed_value[0]
           }Z`,
-          end_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
+          end_at: `${moment(new Date()).add(1, 'days').format('YYYY-MM-DD')}T${
             changed_value[1]
           }Z`,
         },
@@ -251,7 +251,9 @@ const ExploreFilter = () => {
       <button
         className={[
           ' bg-[#FEFEFE] rounded-lg  shadow-c-sm  md:w-[245px]  h-[56px]  flex items-center px-4  z-30  cursor-pointer  ',
-          isFilterOpen ? ' w-[245px] fixed  ' : 'relative w-[106px] md:w-[245px]',
+          isFilterOpen
+            ? ' w-[245px] fixed  '
+            : 'relative w-[106px] md:w-[245px]',
         ].join(' ')}
         onClick={() => setIsFilterOpen(!isFilterOpen)}
       >
@@ -329,9 +331,9 @@ const ExploreFilter = () => {
                                 `${moment(date).format('YYYY-MM-DD')}T${
                                   changed_value[0]
                                 }Z`,
-                                `${moment(date).format('YYYY-MM-DD')}T${
-                                  changed_value[1]
-                                }Z`
+                                `${moment(date)
+                                  .add(1, 'days')
+                                  .format('YYYY-MM-DD')}T${changed_value[1]}Z`
                               );
                             }}
                           >

@@ -223,7 +223,7 @@ const Filter = () => {
           start_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
             changed_value[0]
           }Z`,
-          end_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
+          end_at: `${moment(new Date()).add(1, 'days').format('YYYY-MM-DD')}T${
             changed_value[1]
           }Z`,
         },
@@ -330,9 +330,9 @@ const Filter = () => {
                                 `${moment(date).format('YYYY-MM-DD')}T${
                                   changed_value[0]
                                 }Z`,
-                                `${moment(date).format('YYYY-MM-DD')}T${
-                                  changed_value[1]
-                                }Z`
+                                `${moment(date)
+                                  .add(1, 'days')
+                                  .format('YYYY-MM-DD')}T${changed_value[1]}Z`
                               );
                             }}
                           >

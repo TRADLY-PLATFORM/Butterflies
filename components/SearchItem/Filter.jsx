@@ -44,17 +44,14 @@ const Filter = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedAtValues, setSelectedAtValues] = useState([]);
 
-      const [marketplace_type, setMarketplace_type] = useState();
-      const start_at = router?.query?.start_at;
-      const end_at = router?.query?.end_at;
-      const [range_value, setRange_value] = useState([1]);
-      const [changed_value, setChanged_value] = useState([
-        '00:00:00',
-        '23:59:59',
-      ]);
-      const [is_value_changed, setIs_value_changed] = useState(false);
+  const [marketplace_type, setMarketplace_type] = useState();
+  const start_at = router?.query?.start_at;
+  const end_at = router?.query?.end_at;
+  const [range_value, setRange_value] = useState([1]);
+  const [changed_value, setChanged_value] = useState(['00:00:00', '23:59:59']);
+  const [is_value_changed, setIs_value_changed] = useState(false);
 
-      let dates = getDatesArray2();
+  let dates = getDatesArray2();
 
   useEffect(() => {
     tradly.app
@@ -79,16 +76,15 @@ const Filter = () => {
     }
   }, [router.query]);
 
-useEffect(() => {
-  setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
-  if (start_at !== undefined) {
-    setChanged_value([
-      start_at.split('T')[1].replace('Z', ''),
-      end_at.split('T')[1].replace('Z', ''),
-    ]);
-  }
-}, [0]);
-
+  useEffect(() => {
+    setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    if (start_at !== undefined) {
+      setChanged_value([
+        start_at.split('T')[1].replace('Z', ''),
+        end_at.split('T')[1].replace('Z', ''),
+      ]);
+    }
+  }, [0]);
 
   const toggleChildren = (e, id, children) => {
     e.stopPropagation();
@@ -225,7 +221,7 @@ useEffect(() => {
           start_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
             changed_value[0]
           }Z`,
-          end_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
+          end_at: `${moment(new Date()).add(1, 'days').format('YYYY-MM-DD')}T${
             changed_value[1]
           }Z`,
         },
@@ -248,7 +244,6 @@ useEffect(() => {
     setChanged_value([`${value1}:00:00`, `${value2}:59:59`]);
     setIs_value_changed(true);
   };
-
 
   return (
     <div className=" relative   h-[56px]">
@@ -333,9 +328,9 @@ useEffect(() => {
                                 `${moment(date).format('YYYY-MM-DD')}T${
                                   changed_value[0]
                                 }Z`,
-                                `${moment(date).format('YYYY-MM-DD')}T${
-                                  changed_value[1]
-                                }Z`
+                                `${moment(date)
+                                  .add(1, 'days')
+                                  .format('YYYY-MM-DD')}T${changed_value[1]}Z`
                               );
                             }}
                           >

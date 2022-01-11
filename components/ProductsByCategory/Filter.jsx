@@ -19,7 +19,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import {
   convertTimeinto12Hrs,
   getDatesArray2,
- } from '../Shared/Constant/Constant';
+} from '../Shared/Constant/Constant';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
@@ -44,8 +44,7 @@ const Filter = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedAtValues, setSelectedAtValues] = useState([]);
 
-
-    const [marketplace_type, setMarketplace_type] = useState();
+  const [marketplace_type, setMarketplace_type] = useState();
   const start_at = router?.query?.start_at;
   const end_at = router?.query?.end_at;
   const [range_value, setRange_value] = useState([1]);
@@ -69,18 +68,15 @@ const Filter = () => {
     }
   }, [router.query]);
 
-
-    useEffect(() => {
-      setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
-      if (start_at !== undefined) {
-        setChanged_value([
-          start_at.split('T')[1].replace('Z', ''),
-          end_at.split('T')[1].replace('Z', ''),
-        ]);
-      }
-    }, [0]);
-
-
+  useEffect(() => {
+    setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    if (start_at !== undefined) {
+      setChanged_value([
+        start_at.split('T')[1].replace('Z', ''),
+        end_at.split('T')[1].replace('Z', ''),
+      ]);
+    }
+  }, [0]);
 
   const toggleChildren = (e, id, children) => {
     e.stopPropagation();
@@ -187,7 +183,7 @@ const Filter = () => {
           start_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
             changed_value[0]
           }Z`,
-          end_at: `${moment(new Date()).format('YYYY-MM-DD')}T${
+          end_at: `${moment(new Date()).add(1, 'days').format('YYYY-MM-DD')}T${
             changed_value[1]
           }Z`,
         },
@@ -210,7 +206,6 @@ const Filter = () => {
     setChanged_value([`${value1}:00:00`, `${value2}:59:59`]);
     setIs_value_changed(true);
   };
-
 
   return (
     <div className=" relative   h-[56px]">
@@ -295,9 +290,9 @@ const Filter = () => {
                                 `${moment(date).format('YYYY-MM-DD')}T${
                                   changed_value[0]
                                 }Z`,
-                                `${moment(date).format('YYYY-MM-DD')}T${
-                                  changed_value[1]
-                                }Z`
+                                `${moment(date)
+                                  .add(1, 'days')
+                                  .format('YYYY-MM-DD')}T${changed_value[1]}Z`
                               );
                             }}
                           >
