@@ -10,21 +10,31 @@ import {
 import Listings from '../../Listings/Listings';
 import ReactPaginate from 'react-paginate';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
- import NewListings from '../../explore/NewListings';
+import NewListings from '../../explore/NewListings';
 import ListingsView from '../../explore/ListingsView';
 import ExploreFilter from '../../explore/Filter/ExploreFilter';
 import ListListingCard from '../../Shared/Cards/ListListingCard';
 import ListListings from '../../explore/ListListings';
-   
+  import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { Marker } from '@react-google-maps/api';
+import { InfoWindow } from '@react-google-maps/api';
+import MarkerListing from '../../explore/Map View/Marker';
+import { configsSelector } from '../../../store/feature/configsSlice';
+
+
+
 const ExplorePageLayout = () => {
-    const [pageCount, setPageCount] = useState(0);
-    const [selected_type, setSelected_type] = useState('gallery_view');
+  const [pageCount, setPageCount] = useState(0);
+  const [selected_type, setSelected_type] = useState('gallery_view');
+  const [selected_marker, setSelected_marker] = useState(null);
+  console.log(selected_marker);
 
   const router = useRouter();
 
- 
   const dispatch = useDispatch();
   const { auth_key, first_name } = useSelector(authSelector);
+
+  const{general_configs} =useSelector(configsSelector)
 
   useEffect(() => {
     dispatch(
@@ -39,11 +49,17 @@ const ExplorePageLayout = () => {
     router.push({
       query: { ...router.query, page: Number(data.selected) + 1 },
     });
-     
   };
 
   const { listings, total_records, page, isFetching } =
     useSelector(listingSelector);
+
+    useEffect(()=> {
+        if (listings && listings.length > 0) {
+        setSelected_marker(listings[0].coordinates.latitude);
+    }
+},[listings])
+
 
   useEffect(() => {
     const totalpage = Math.ceil(total_records / 30);
@@ -51,6 +67,11 @@ const ExplorePageLayout = () => {
       setPageCount(totalpage);
     }
   }, [total_records]);
+
+  const containerStyle = {
+    width: '100%',
+    height: '100%',
+  };
 
   return (
     <>
@@ -70,6 +91,62 @@ const ExplorePageLayout = () => {
             )}
             {selected_type == 'list_view' && (
               <ListListings Products={listings} />
+            )}
+            {selected_type == 'map_view' && general_configs && (
+              <LoadScript
+                googleMapsApiKey={general_configs?.google_map_api_key}
+                loadingElement={CustomLoading}
+              >
+                <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[500px]  lg:overflow-hidden">
+                  <div className=" order-last lg:order-first  lg:max-h-[490px] lg:overflow-auto">
+                    <ListListings Products={listings} />
+                  </div>
+                  <div className="  h-[500px] lg:col-span-2 pt-3">
+                    <GoogleMap
+                      mapContainerStyle={containerStyle}
+                      center={{
+                        lat: listings[0].coordinates.latitude,
+                        lng: listings[0].coordinates.longitude,
+                      }}
+                      zoom={10}
+                    >
+                      {listings?.map((item) => {
+                        return (
+                          item.coordinates && (
+                            <>
+                              <Marker
+                                key={item.id}
+                                position={{
+                                  lat: item.coordinates.latitude,
+                                  lng: item.coordinates.longitude,
+                                }}
+                                clickable
+                                onClick={() =>
+                                  setSelected_marker(item.coordinates.latitude)
+                                }
+                              />
+                              {Number(selected_marker) ==
+                                Number(item.coordinates.latitude) && (
+                                <InfoWindow
+                                  position={{
+                                    lat: item.coordinates.latitude,
+                                    lng: item.coordinates.longitude,
+                                  }}
+                                  onCloseClick={() => setSelected_marker(null)}
+                                >
+                                  <div className=" p-0">
+                                    <MarkerListing item={item} />
+                                  </div>
+                                </InfoWindow>
+                              )}
+                            </>
+                          )
+                        );
+                      })}
+                    </GoogleMap>
+                  </div>
+                </div>
+              </LoadScript>
             )}
           </div>
         ) : (
