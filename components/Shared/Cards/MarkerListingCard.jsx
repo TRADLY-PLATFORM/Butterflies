@@ -82,7 +82,7 @@ const MarkerListingCard = ({ item, like, marketplace_type, map_card }) => {
       <div
         className={[
           ' h-[40px] w-[40px]  absolute    top-0 cursor-pointer  [z-100]     mr-2  ',
-          map_card ? '' : 'right-0 mt-5',
+          map_card ? ' md:right-0  md:mt-5' : 'right-0 mt-5',
         ].join(' ')}
         onClick={() => like(item.id, item.liked)}
       >
