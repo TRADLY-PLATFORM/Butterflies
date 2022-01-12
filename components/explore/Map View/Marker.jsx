@@ -51,11 +51,12 @@ const MarkerListing = ({ item }) => {
     }
   };
   return (
-    <div  className="">
+    <div  className=" relative ">
       <MarkerListingCard
         item={item}
         like={like}
         marketplace_type={marketplace_type}
+        map_card={true}
       />
     </div>
   );

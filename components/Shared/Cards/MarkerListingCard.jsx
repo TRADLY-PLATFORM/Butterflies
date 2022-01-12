@@ -8,8 +8,7 @@ import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { time_icon } from '../Constant/Icons/AllIcons';
 
-const MarkerListingCard = ({ item, like, marketplace_type }) => {
-  console.log(marketplace_type);
+const MarkerListingCard = ({ item, like, marketplace_type, map_card }) => {
   const router = useRouter();
   return (
     <div className="  relative">
@@ -81,7 +80,10 @@ const MarkerListingCard = ({ item, like, marketplace_type }) => {
       </Link>
 
       <div
-        className=" h-[40px] w-[40px]  absolute right-0 top-0 cursor-pointer  [z-100]  mt-5   mr-2  "
+        className={[
+          ' h-[40px] w-[40px]  absolute    top-0 cursor-pointer  [z-100]     mr-2  ',
+          map_card ? '' : 'right-0 mt-5',
+        ].join(' ')}
         onClick={() => like(item.id, item.liked)}
       >
         {item.liked ? (

@@ -194,8 +194,7 @@ const Filter = () => {
   };
 
   const filter_by_date = (sdate, edate) => {
-    console.log(sdate, edate);
-    if (sdate == start_at) {
+     if (sdate == start_at) {
       const queries = { ...router.query };
       delete queries.start_at;
       delete queries.end_at;

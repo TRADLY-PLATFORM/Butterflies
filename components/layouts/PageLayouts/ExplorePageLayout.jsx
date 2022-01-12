@@ -27,7 +27,6 @@ const ExplorePageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
   const [selected_type, setSelected_type] = useState('gallery_view');
   const [selected_marker, setSelected_marker] = useState(null);
-  console.log(selected_marker);
 
   const router = useRouter();
 
@@ -73,6 +72,8 @@ const ExplorePageLayout = () => {
     height: '100%',
   };
 
+  console.log(general_configs?.google_map_api_key);
+
   return (
     <>
       {isFetching && <CustomLoading />}
@@ -99,7 +100,7 @@ const ExplorePageLayout = () => {
               >
                 <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[500px]  lg:overflow-hidden">
                   <div className=" order-last lg:order-first  lg:max-h-[490px] lg:overflow-auto">
-                    <ListListings Products={listings} />
+                    <ListListings Products={listings} map_view={true} />
                   </div>
                   <div className="  h-[500px] lg:col-span-2 pt-3">
                     <GoogleMap
@@ -134,7 +135,7 @@ const ExplorePageLayout = () => {
                                   }}
                                   onCloseClick={() => setSelected_marker(null)}
                                 >
-                                  <div className=" p-0">
+                                  <div className=" max-w-[350px] p-0 relative">
                                     <MarkerListing item={item} />
                                   </div>
                                 </InfoWindow>

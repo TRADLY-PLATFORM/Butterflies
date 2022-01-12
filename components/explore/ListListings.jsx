@@ -22,8 +22,9 @@ import ListingCard from '../Shared/Cards/ListingCard';
 import { configsSelector } from '../../store/feature/configsSlice';
 import ExploreFilter from './Filter/ExploreFilter';
 import ListListingCard from '../Shared/Cards/ListListingCard';
+import MarkerListingCard from '../Shared/Cards/MarkerListingCard';
 
-const ListListings = ({ Products }) => {
+const ListListings = ({ Products ,map_view}) => {
   const { login, auth_key } = useSelector(authSelector);
   const { marketplace_type, marketplace_module } = useSelector(configsSelector);
   // const { isSuccess } = useSelector(listingSelector);
@@ -58,11 +59,19 @@ const ListListings = ({ Products }) => {
       <div className="">
         {Products?.map((item) => (
           <div key={Math.random()} className=" relative my-3">
-            <ListListingCard
-              item={item}
-              like={like}
-              marketplace_type={marketplace_type}
-            />
+            {!map_view ? (
+              <ListListingCard
+                item={item}
+                like={like}
+                marketplace_type={marketplace_type}
+              />
+            ) : (
+              <MarkerListingCard
+                item={item}
+                like={like}
+                marketplace_type={marketplace_type}
+              />
+            )}
           </div>
         ))}
       </div>

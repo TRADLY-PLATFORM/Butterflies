@@ -9,8 +9,7 @@ import Link from 'next/link';
 import { time_icon } from '../Constant/Icons/AllIcons';
 
 const ListListingCard = ({ item, like, marketplace_type }) => {
-  console.log(marketplace_type);
-  const router = useRouter();
+   const router = useRouter();
   return (
     <div className="  relative">
       <Link href={`/l/${item.id}-${item.title.replace(/\W/g, '-')}`}>
