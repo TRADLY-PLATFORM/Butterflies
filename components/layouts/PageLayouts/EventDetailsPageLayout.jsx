@@ -162,7 +162,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
               <ImagePart images={listing_details?.images} />
             </div>
             {listing_details?.description !== '' && (
-              <div className="mt-6">
+              <div className="mt-6 hidden md:block">
                 <DescriptionPart description={listing_details?.description} />
               </div>
             )}
@@ -188,7 +188,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                 />
               </div>
             )}
-            <div className="mt-6">
+            <div className=" fixed bottom-0 w-full left-0 right-0 bg-white sm:relative sm:bg-transparent z-30 md:mt-6">
               <EventButtons
                 listing_details={listing_details}
                 selectedVariant={selectedVariant}
@@ -211,6 +211,11 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                   <AttributeDetails attributes={listing_details?.attributes} />
                 </div>
               )}
+            {listing_details?.description !== '' && (
+              <div className="mt-6 md:hidden">
+                <DescriptionPart description={listing_details?.description} />
+              </div>
+            )}
 
             {/* <div className="mt-6">
 							<StoreNameBox

@@ -7,6 +7,8 @@ import { changeDateFormat, getThumbnailImage } from '../Constant/Constant';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { time_icon } from '../Constant/Icons/AllIcons';
+import moment from 'moment';
+
 
 const ListListingCard = ({ item, like, marketplace_type }) => {
    const router = useRouter();
@@ -33,13 +35,19 @@ const ListListingCard = ({ item, like, marketplace_type }) => {
           <div className="mt-2 pl-2">
             {marketplace_type == 2 && (
               <p className=" mt-2   text-[12px] leading-3 text-gray-900  font-bold flex items-center ">
-                {time_icon}
+                { item.schedules &&time_icon}
                 <span className="ml-[6px]">
-                  {changeDateFormat(item.start_at, 'hh:mm a')}
+                  {item.schedules &&
+                    moment(item.schedules[0].start_time, 'HH:mm').format(
+                      'hh:mm a'
+                    )}
                 </span>
-                <span className="ml-[6px]">to</span>
+                {item.schedules && <span className="ml-[6px]">to</span>}
                 <span className="ml-[6px]">
-                  {changeDateFormat(item.end_at, 'hh:mm a')}
+                  {item.schedules &&
+                    moment(item.schedules[0].end_time, 'HH:mm').format(
+                      'hh:mm a'
+                    )}
                 </span>
               </p>
             )}

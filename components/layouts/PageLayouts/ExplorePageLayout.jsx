@@ -15,25 +15,25 @@ import ListingsView from '../../explore/ListingsView';
 import ExploreFilter from '../../explore/Filter/ExploreFilter';
 import ListListingCard from '../../Shared/Cards/ListListingCard';
 import ListListings from '../../explore/ListListings';
-  import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import { Marker } from '@react-google-maps/api';
 import { InfoWindow } from '@react-google-maps/api';
 import MarkerListing from '../../explore/Map View/Marker';
 import { configsSelector } from '../../../store/feature/configsSlice';
-
-
+import moment from 'moment';
 
 const ExplorePageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
   const [selected_type, setSelected_type] = useState('gallery_view');
   const [selected_marker, setSelected_marker] = useState(null);
+  const [coordinates_listings, setCoordinates_listings] = useState(null);
 
   const router = useRouter();
 
   const dispatch = useDispatch();
   const { auth_key, first_name } = useSelector(authSelector);
 
-  const{general_configs} =useSelector(configsSelector)
+  const { general_configs, marketplace_type } = useSelector(configsSelector);
 
   useEffect(() => {
     dispatch(
@@ -53,12 +53,19 @@ const ExplorePageLayout = () => {
   const { listings, total_records, page, isFetching } =
     useSelector(listingSelector);
 
-    useEffect(()=> {
-        if (listings && listings.length > 0) {
-        setSelected_marker(listings[0].coordinates.latitude);
+  useEffect(() => {
+    if (listings && listings.length > 0) {
+      setCoordinates_listings(
+        listings.filter((listing) => listing.coordinates?.latitude != undefined)
+      );
     }
-},[listings])
+  }, [listings]);
 
+  useEffect(() => {
+    if (listings && coordinates_listings?.length > 0) {
+      setSelected_marker(coordinates_listings[0].coordinates.latitude);
+    }
+  }, [coordinates_listings]);
 
   useEffect(() => {
     const totalpage = Math.ceil(total_records / 30);
@@ -72,13 +79,25 @@ const ExplorePageLayout = () => {
     height: '100%',
   };
 
-  console.log(general_configs?.google_map_api_key);
+  const opened_list_view = () => {
+    if (marketplace_type == 2 && !router?.query?.start_at) {
+      router.push({
+        query: {
+          ...router.query,
+          start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
+          end_at: `${moment(new Date())
+            .add(1, 'days')
+            .format('YYYY-MM-DD')}T23:59:59Z`,
+        },
+      });
+    }
+  };
 
   return (
     <>
       {isFetching && <CustomLoading />}
       <div>
-        <div className=" mb-8 flex items-center justify-between">
+        <div className=" mb-4 flex items-center justify-between">
           <ExploreFilter />
           <ListingsView
             selected_type={selected_type}
@@ -91,62 +110,74 @@ const ExplorePageLayout = () => {
               <NewListings Products={listings} />
             )}
             {selected_type == 'list_view' && (
-              <ListListings Products={listings} />
+              <>
+                {!router?.query?.start_at && opened_list_view()}
+                <ListListings Products={listings} />
+              </>
             )}
             {selected_type == 'map_view' && general_configs && (
               <LoadScript
                 googleMapsApiKey={general_configs?.google_map_api_key}
                 loadingElement={CustomLoading}
               >
-                <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[500px]  lg:overflow-hidden">
-                  <div className=" order-last lg:order-first  lg:max-h-[490px] lg:overflow-auto">
-                    <ListListings Products={listings} map_view={true} />
+                {!router?.query?.start_at && opened_list_view()}
+                {router?.query?.start_at && (
+                  <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[75vh]     lg:overflow-hidden">
+                    <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto ">
+                      <ListListings Products={listings} map_view={true} />
+                    </div>
+                    {router?.query?.start_at && (
+                      <div className="  h-[100%] lg:col-span-2 pt-3">
+                        <GoogleMap
+                          mapContainerStyle={containerStyle}
+                          center={{
+                            lat: coordinates_listings[0]?.coordinates?.latitude,
+                            lng: coordinates_listings[0]?.coordinates?.longitude,
+                          }}
+                          zoom={10}
+                        >
+                          {coordinates_listings?.map((item) => {
+                            return (
+                              item?.coordinates?.latitude && (
+                                <>
+                                  <Marker
+                                    key={item.id}
+                                    position={{
+                                      lat: item?.coordinates?.latitude,
+                                      lng: item?.coordinates?.longitude,
+                                    }}
+                                    clickable
+                                    onClick={() =>
+                                      setSelected_marker(
+                                        item?.coordinates?.latitude
+                                      )
+                                    }
+                                  />
+                                  {Number(selected_marker) ==
+                                    Number(item.coordinates.latitude) && (
+                                    <InfoWindow
+                                      position={{
+                                        lat: item.coordinates.latitude,
+                                        lng: item.coordinates.longitude,
+                                      }}
+                                      onCloseClick={() =>
+                                        setSelected_marker(null)
+                                      }
+                                    >
+                                      <div className=" max-w-[350px] p-0 relative">
+                                        <MarkerListing item={item} />
+                                      </div>
+                                    </InfoWindow>
+                                  )}
+                                </>
+                              )
+                            );
+                          })}
+                        </GoogleMap>
+                      </div>
+                    )}
                   </div>
-                  <div className="  h-[500px] lg:col-span-2 pt-3">
-                    <GoogleMap
-                      mapContainerStyle={containerStyle}
-                      center={{
-                        lat: listings[0].coordinates.latitude,
-                        lng: listings[0].coordinates.longitude,
-                      }}
-                      zoom={10}
-                    >
-                      {listings?.map((item) => {
-                        return (
-                          item.coordinates && (
-                            <>
-                              <Marker
-                                key={item.id}
-                                position={{
-                                  lat: item.coordinates.latitude,
-                                  lng: item.coordinates.longitude,
-                                }}
-                                clickable
-                                onClick={() =>
-                                  setSelected_marker(item.coordinates.latitude)
-                                }
-                              />
-                              {Number(selected_marker) ==
-                                Number(item.coordinates.latitude) && (
-                                <InfoWindow
-                                  position={{
-                                    lat: item.coordinates.latitude,
-                                    lng: item.coordinates.longitude,
-                                  }}
-                                  onCloseClick={() => setSelected_marker(null)}
-                                >
-                                  <div className=" max-w-[350px] p-0 relative">
-                                    <MarkerListing item={item} />
-                                  </div>
-                                </InfoWindow>
-                              )}
-                            </>
-                          )
-                        );
-                      })}
-                    </GoogleMap>
-                  </div>
-                </div>
+                )}
               </LoadScript>
             )}
           </div>
