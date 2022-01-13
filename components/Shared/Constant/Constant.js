@@ -25,6 +25,21 @@ export function getDatesArray() {
   return dateArray;
 }
 
+export function getDatesArray2() {
+  let startDate = new Date();
+  var stopDate = new Date();
+  stopDate.setDate(stopDate.getDate() + 30);
+  var dateArray = ["All"];
+  var currentDate = startDate;
+
+  for (let index = 0; index < 30; index++) {
+    dateArray.push(new Date(currentDate));
+    currentDate = startDate.setDate(startDate.getDate() + 1);
+  }
+
+  return dateArray;
+}
+
 export function getTimeDifference(sTime, etime) {
   var mm = moment.utc(moment(etime, 'HH:mm').diff(moment(sTime, 'HH:mm')));
   var d = moment.duration(mm);
@@ -54,7 +69,7 @@ export function convertTimeinto24Hrs(time) {
   const number = moment(time, ['h:mm A']).format('HH:mm');
   return number;
 }
-export function convertTimeinto212Hrs(time) {
+export function convertTimeinto12Hrs(time) {
   const number = moment(time, ['HH:mm']).format('hh:mm A');
   return number;
 }

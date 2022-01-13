@@ -18,7 +18,9 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.3.0",
+    "@googlemaps/react-wrapper": "^1.1.20",
     "@headlessui/react": "^1.4.2",
+    "@react-google-maps/api": "^2.7.0",
     "@reduxjs/toolkit": "^1.6.2",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.20.3",
@@ -31,6 +33,7 @@
     "moment": "^2.29.1",
     "next": "latest",
     "next-sitemap": "^1.6.203",
+    "rc-slider": "^9.7.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.18.1",

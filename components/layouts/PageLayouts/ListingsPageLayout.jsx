@@ -18,8 +18,7 @@ const ListingsPageLayout = () => {
 
   const router = useRouter();
 
-  console.log(router);
-
+ 
   const dispatch = useDispatch();
   const { auth_key, first_name } = useSelector(authSelector);
 

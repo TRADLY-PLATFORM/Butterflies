@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import {
-  convertTimeinto212Hrs,
+  convertTimeinto12Hrs,
   convertTimeinto24Hrs,
   findRepeatId,
   repeatArray,
