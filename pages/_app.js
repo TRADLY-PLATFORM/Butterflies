@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
-import 'tailwindcss/tailwind.css';
-import store from '../store/store';
+import '../styles/globals.scss';
+ import store from '../store/store';
 import tradly from 'tradly';
 import { Provider } from 'react-redux';
-import '../styles/globals.css';
 import { useEffect, useState } from 'react';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 import Head from 'next/head';
