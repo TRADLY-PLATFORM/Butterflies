@@ -4,6 +4,8 @@
 				"storage.googleapis.com",
 				"tradly-paas-sandbox.s3.amazonaws.com",
 				"tradly-paas.s3.amazonaws.com",
+				"media.tradly.app",
+				"media-sandbox.tradly.app"
 			],
 		},
 		env: {
