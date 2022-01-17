@@ -9,17 +9,20 @@ import {
   check_icon,
   filter_icon,
   star_icon,
-} from '../Shared/Constant/Icons/AllIcons';
+} from '../../Shared/Constant/Icons/AllIcons';
 import tradly from 'tradly';
 import { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { priceRange } from '../Shared/Constant/Constant';
-import OutsideClickHandler from 'react-outside-click-handler';
-
 import {
   convertTimeinto12Hrs,
   getDatesArray2,
-} from '../Shared/Constant/Constant';
+  priceRange,
+} from '../../Shared/Constant/Constant';
+import OutsideClickHandler from 'react-outside-click-handler';
+import {
+  getDatesArray,
+  getTimeDifference,
+} from '../../Shared/Constant/Constant';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
@@ -28,7 +31,8 @@ import moment from 'moment';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-const Filter = () => {
+const ExploreFilter = () => {
+  const [marketplace_type, setMarketplace_type] = useState();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSeeAllCategories, setIsSeeAllCategories] = useState(false);
   const [allCategories, setAllCategories] = useState(null);
@@ -44,7 +48,6 @@ const Filter = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedAtValues, setSelectedAtValues] = useState([]);
 
-  const [marketplace_type, setMarketplace_type] = useState();
   const start_at = router?.query?.start_at;
   const end_at = router?.query?.end_at;
   const [range_value, setRange_value] = useState([1]);
@@ -192,9 +195,8 @@ const Filter = () => {
       });
     }
   };
-
   const filter_by_date = (sdate, edate) => {
-     if (sdate == start_at) {
+    if (sdate == start_at) {
       const queries = { ...router.query };
       delete queries.start_at;
       delete queries.end_at;
@@ -248,8 +250,10 @@ const Filter = () => {
     <div className=" relative   h-[56px]">
       <button
         className={[
-          ' bg-[#FEFEFE] rounded-lg  shadow-c-sm  w-[245px] h-[56px]  flex items-center px-4  z-30  cursor-pointer  ',
-          isFilterOpen ? 'fixed' : 'relative ',
+          ' bg-[#FEFEFE] rounded-lg  shadow-c-sm  md:w-[245px]  h-[56px]  flex items-center px-4  z-30  cursor-pointer  ',
+          isFilterOpen
+            ? ' w-[245px] fixed  '
+            : 'relative w-[106px] md:w-[245px]',
         ].join(' ')}
         onClick={() => setIsFilterOpen(!isFilterOpen)}
       >
@@ -372,6 +376,7 @@ const Filter = () => {
                 </div>
               </div>
             )}
+
             {/* Categories Part */}
             <div>
               <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
@@ -608,7 +613,6 @@ const Filter = () => {
                 router.push({
                   query: {
                     page: router.query.page,
-                    search_key: router.query.search_key,
                   },
                 }),
                   setSelectedAtValues([]),
@@ -624,4 +628,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default ExploreFilter;

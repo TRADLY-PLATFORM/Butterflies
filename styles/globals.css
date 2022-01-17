@@ -167,3 +167,13 @@ input[type="number"] {
     background-color: #f1ecec !important;
     color: var( --primary_color) !important;
 }
+
+.rc-slider-track{
+background-color:var( --primary_color) !important;
+}
+.rc-slider-handle{
+border-color: var( --primary_color) !important;
+}
+.rc-slider-handle:focus{
+border-color: var( --primary_color) !important;
+}

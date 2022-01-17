@@ -118,7 +118,7 @@ const SignUpForm = ({ general_configs }) => {
       )}
 
       <h2 className=" px-[34px]  md:px-24  text-center text-white text-[30px] md:text-[40px] font-semibold mb-4">
-        Welcome to Tradly Event
+        {general_configs?.registration_title}
       </h2>
       <p className=" px-[34px]  md:px-24  text-center text-white text-xl  font-semibold ">
         Create your account

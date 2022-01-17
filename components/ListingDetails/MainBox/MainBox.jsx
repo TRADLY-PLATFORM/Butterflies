@@ -19,7 +19,7 @@ const MainBox = ({ listing_details, rating_data, like }) => {
             {constant.stock_text(marketplace_type, listing_details.stock)}
           </p>
         )}
-        <h2 className=" mt-[9px] text-[30px] text-primary font-medium ">
+        <h2 className=" mt-[9px] text-[20px] md:text-[30px] text-primary font-medium ">
           {listing_details.title}
         </h2>
         <p className=" mt-1 flex items-center flex-wrap">
