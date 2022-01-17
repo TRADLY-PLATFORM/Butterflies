@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import OnboardingImage from '../../images/onboarding-image.jpg';
 import OnboardingDecoration from '../../images/auth-decoration.png';
 import { camera_icon } from '../../Constant/AllIcons';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/dist/client/router';
+import { add_social_configs } from '../../api/api';
 
 function Onboarding3() {
+  const { register, handleSubmit } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const onSubmit = (data) => {
+    add_social_configs(data, router, setIsLoading);
+  };
   return (
     <main className="bg-white">
       <div className="relative grid  md:grid-cols-2">
@@ -19,50 +29,60 @@ function Onboarding3() {
                 {/* Logo */}
                 <Link href="/">
                   <a className="block">
-                    <svg width="32" height="32" viewBox="0 0 32 32">
+                    <svg
+                      width="50"
+                      height="50"
+                      viewBox="0 0 126 126"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M63 0C97.7939 0 126 28.2061 126 63C126 97.7939 97.7939 126 63 126C28.2061 126 0 97.7939 0 63C0 28.2061 28.2061 0 63 0Z"
+                        fill="url(#paint0_linear)"
+                      />
+                      <path
+                        opacity="0.5"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M63 119C93.9279 119 119 93.9279 119 63C119 32.0721 93.9279 7 63 7C32.0721 7 7 32.0721 7 63C7 93.9279 32.0721 119 63 119Z"
+                        stroke="white"
+                        strokeWidth="1.4"
+                      />
+                      <path
+                        opacity="0.5"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M63 105C86.196 105 105 86.196 105 63C105 39.804 86.196 21 63 21C39.804 21 21 39.804 21 63C21 86.196 39.804 105 63 105Z"
+                        stroke="white"
+                        strokeWidth="1.4"
+                      />
+                      <path
+                        d="M108.282 44.2442C105.799 38.2551 102.162 32.8652 97.6482 28.3518C88.7809 19.4845 76.5309 14 63 14C49.469 14 37.219 19.4845 28.3517 28.3518C23.8383 32.8652 20.2012 38.2551 17.7178 44.2442"
+                        stroke="white"
+                        strokeWidth="15.4"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M63.0001 14.0001V111.222"
+                        stroke="white"
+                        strokeWidth="15.4"
+                        strokeLinecap="round"
+                      />
                       <defs>
                         <linearGradient
-                          x1="28.538%"
-                          y1="20.229%"
-                          x2="100%"
-                          y2="108.156%"
-                          id="logo-a"
+                          id="paint0_linear"
+                          x1="126"
+                          y1="0"
+                          x2="126"
+                          y2="126"
+                          gradientUnits="userSpaceOnUse"
                         >
-                          <stop
-                            stopColor="#A5B4FC"
-                            stopOpacity="0"
-                            offset="0%"
-                          />
-                          <stop stopColor="#A5B4FC" offset="100%" />
-                        </linearGradient>
-                        <linearGradient
-                          x1="88.638%"
-                          y1="29.267%"
-                          x2="22.42%"
-                          y2="100%"
-                          id="logo-b"
-                        >
-                          <stop
-                            stopColor="#38BDF8"
-                            stopOpacity="0"
-                            offset="0%"
-                          />
-                          <stop stopColor="#38BDF8" offset="100%" />
+                          <stop stopColor="#2BDBC0" />
+                          <stop offset="1" stopColor="#13B58C" />
                         </linearGradient>
                       </defs>
-                      <rect fill="#6366F1" width="32" height="32" rx="16" />
-                      <path
-                        d="M18.277.16C26.035 1.267 32 7.938 32 16c0 8.837-7.163 16-16 16a15.937 15.937 0 01-10.426-3.863L18.277.161z"
-                        fill="#4F46E5"
-                      />
-                      <path
-                        d="M7.404 2.503l18.339 26.19A15.93 15.93 0 0116 32C7.163 32 0 24.837 0 16 0 10.327 2.952 5.344 7.404 2.503z"
-                        fill="url(#logo-a)"
-                      />
-                      <path
-                        d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z"
-                        fill="url(#logo-b)"
-                      />
                     </svg>
                   </a>
                 </Link>
@@ -78,21 +98,21 @@ function Onboarding3() {
                     ></div>
                     <ul className="relative flex justify-between w-full">
                       <li>
-                        <Link href="/onboarding-01">
+                        <Link href="/themes/onboarding">
                           <a className=" flex items-center justify-center w-6 h-6 bg-indigo-500 rounded-full text-xs font-semibold  text-white">
                             1
                           </a>
                         </Link>
                       </li>
                       <li>
-                        <Link href="/onboarding-02">
+                        <Link href="/themes/onboarding2">
                           <a className=" flex items-center justify-center w-6 h-6 bg-indigo-500 rounded-full text-xs font-semibold  text-white">
                             2
                           </a>
                         </Link>
                       </li>
                       <li>
-                        <Link href="/onboarding-03">
+                        <Link href="/onboarding3">
                           <a className=" flex items-center justify-center w-6 h-6 bg-indigo-500 rounded-full text-xs font-semibold  text-white">
                             3
                           </a>
@@ -111,7 +131,7 @@ function Onboarding3() {
                 </h1>
                 {/* htmlForm */}
 
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="space-y-4 mb-8">
                     {/*facebook_pageurl
 
@@ -121,13 +141,14 @@ function Onboarding3() {
                         className="block text-sm font-medium mb-1"
                         htmlFor="company-name"
                       >
-                        Facebook  
+                        Facebook
                         <span className="text-red-500">*</span>
                       </label>
                       <input
-                        id="company-name"
+                        id="facebook_pageurl"
                         className="form-input w-full"
                         type="text"
+                        {...register('facebook_pageurl')}
                       />
                     </div>
                     <div>
@@ -135,17 +156,17 @@ function Onboarding3() {
                         className="block text-sm font-medium mb-1"
                         htmlFor="company-name"
                       >
-                        Youtube  
+                        Youtube
                         <span className="text-red-500">*</span>
                       </label>
                       <input
-                        id="company-name"
+                        id="youtube_channelurl"
                         className="form-input w-full"
                         type="text"
+                        {...register('youtube_channelurl')}
                       />
                     </div>
-                     
-                     
+
                     {/* Twitter
                      */}
                     <div>
@@ -156,9 +177,10 @@ function Onboarding3() {
                         Twitter
                       </label>
                       <input
-                        id="street"
+                        id="twitter_handleurl"
                         className="form-input w-full"
                         type="text"
+                        {...register('twitter_handleurl')}
                       />
                     </div>
                     {/* Whats App */}
@@ -170,9 +192,10 @@ function Onboarding3() {
                         Whats App
                       </label>
                       <input
-                        id="street"
+                        id="whatsapp_number"
                         className="form-input w-full"
                         type="text"
+                        {...register('whatsapp_number')}
                       />
                     </div>
                     {/*Telegram
@@ -182,26 +205,49 @@ function Onboarding3() {
                         className="block text-sm font-medium mb-1"
                         htmlFor="street"
                       >
-                      Telegram
+                        Telegram
                       </label>
                       <input
-                        id="street"
+                        id="telegram_url"
                         className="form-input w-full"
                         type="text"
+                        {...register('telegram_url')}
                       />
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
-                    <Link href="/onboarding-02">
+                    <Link href="/onboarding2">
                       <a className=" btn text-sm underline hover:no-underline">
                         Back
                       </a>
                     </Link>
-                    <Link href="/onboarding-04">
-                      <a className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto">
+                    <button type="submit">
+                      <a className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto flex items-center">
+                        {isLoading && (
+                          <svg
+                            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                        )}
                         Next Step
                       </a>
-                    </Link>
+                    </button>
                   </div>
                 </form>
               </div>
