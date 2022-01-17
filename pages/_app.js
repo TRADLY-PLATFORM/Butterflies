@@ -8,10 +8,11 @@ import { useEffect, useState } from 'react';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 import Head from 'next/head';
 import { useDispatch } from 'react-redux';
+import TagManager from 'react-gtm-module';
 
 function MyApp({ Component, pageProps }) {
   const [start, setStart] = useState(false);
-  const [logo, setLogo] = useState(false);
+  const [favicon, setFavicon] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
 
   tradly.init.config({
@@ -26,17 +27,13 @@ function MyApp({ Component, pageProps }) {
       })
       .then((res) => {
         if (typeof window !== 'undefined') {
-          const favicon = document.getElementById('favicon');
-
-          setLogo(res?.data?.configs?.splash_image);
-          localStorage.setItem('logo', res?.data?.configs?.splash_image);
+          let root = document.documentElement;
+          const color = res.data.configs.app_color_primary;
+          root.style.setProperty('--primary_color', color);
           localStorage.setItem(
             'onboarding_configs',
             JSON.stringify(res.data.configs)
           );
-          let root = document.documentElement;
-          const color = res.data.configs.app_color_primary;
-          root.style.setProperty('--primary_color', color);
 
           setStart(true);
         }
@@ -53,11 +50,32 @@ function MyApp({ Component, pageProps }) {
               'marketplace_module',
               res.data.configs.sub_type
             );
-           
+
+            const favicon = document.getElementById('favicon');
+
+            setFavicon(res?.data?.configs?.web_icon);
+            localStorage.setItem('logo', res?.data?.configs?.web_logo);
+
             localStorage.setItem(
               'general_configs',
               JSON.stringify(res.data.configs)
             );
+            setStart(true);
+          } else {
+            setStart(false);
+          }
+        }
+      });
+    tradly.app
+      .getConfigList({
+        paramBody: 'extensions',
+      })
+      .then((res) => {
+        if (typeof window !== 'undefined') {
+          if (!res.error) {
+            if (res.data.configs.gtm) {
+              TagManager.initialize({ gtmId: `GTM-${res.data.configs.gtm}` });
+            }
             setStart(true);
           } else {
             setStart(false);
@@ -70,7 +88,7 @@ function MyApp({ Component, pageProps }) {
     start && (
       <>
         <Head>
-          <link rel="icon" href={logo} />
+          <link rel="icon" href={favicon} />
         </Head>
         <Provider store={store}>
           <Component {...pageProps} />
