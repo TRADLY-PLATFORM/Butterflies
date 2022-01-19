@@ -105,7 +105,7 @@ export const add_seo_configs = async (data, router, setIsLoadingSeo) => {
     if (element[1].length > 0) {
       configs.push({
         key: element[0],
-        key_group: 'general',
+        key_group: 'seo',
         secured: false,
         value: element[1],
       });
@@ -147,7 +147,7 @@ export const add_social_configs = async (data, router, setIsLoading) => {
     if (element[1].length > 0) {
       configs.push({
         key: element[0],
-        key_group: 'general',
+        key_group: 'social',
         secured: false,
         value: element[1],
       });

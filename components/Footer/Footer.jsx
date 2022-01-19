@@ -193,6 +193,48 @@ const Footer = () => {
                 );
               }
             }
+            else {
+              return (
+                <div className="mb-4 " key={Math.random()}>
+                  {' '}
+                  <Link
+                    href={{
+                      pathname: `/lc/[name]`,
+                      query: {
+                        name: item.name.replace(/\s/g, '-'),
+                        category_id: item.id,
+                        page: 1,
+                      },
+                    }}
+                  >
+                    <a>
+                      <button
+                        // onClick={() =>
+                        //   router.push({
+                        //     pathname: `/lc/[name]`,
+                        //     query: {
+                        //       name: item.name.replace(/\s/g, '-'),
+                        //       category_id: item.id,
+                        //       page: 1,
+                        //     },
+                        //   })
+                        // }
+                        className={[
+                          '  text-[#4F4F4F]    cursor-pointer transition duration-300 hover:text-primary  text-left',
+                          router?.query?.name === item.name.replace(/\s/g, '-')
+                            ? 'text-primary'
+                            : '',
+                        ].join(' ')}
+                      >
+                        {item.name.length > 20
+                          ? item.name.substring(0, 19) + '.'
+                          : item.name}
+                      </button>
+                    </a>
+                  </Link>
+                </div>
+              );
+            }
           })}
 
           {isSeeAllCategories &&

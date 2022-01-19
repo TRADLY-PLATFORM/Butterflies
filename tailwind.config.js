@@ -9,6 +9,9 @@ module.exports = {
     './themes/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: false, // or 'media' or 'class'
+  corePlugins: {
+    blur: false,
+  },
   theme: {
     extend: {
       fontSize: {

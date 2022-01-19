@@ -7,6 +7,7 @@ import MainLayout from '../../components/layouts/MainLayouts/MainLayout';
 import EditProductPageLayout from '../../components/layouts/PageLayouts/EditProductPageLayout';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
 import { useRouter } from 'next/dist/client/router';
+import { edit_listing_page } from '../../themes/Theme1';
 
 const EditProduct = (props) => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const EditProduct = (props) => {
 
   const { login } = useSelector(authSelector);
 
-  return <MainLayout>{login && <EditProductPageLayout />}</MainLayout>;
+  return login && edit_listing_page();
 };
 
 export default EditProduct;
