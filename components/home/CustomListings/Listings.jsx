@@ -69,13 +69,13 @@ const Listings = ({ products }) => {
           </a>
         </Link>
       </div>
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-2 gap-5 mt-5">
         {products?.listings?.map((item, index) => {
           return (
               <Link href={`/l/${item.id}-${item.title.replace(/\W/g, '-')}`} key={index}>
               <a className="  w-full   px-4  mb-1 flex  items-center justify-start border border-transparent hover:border-gray-300  rounded-lg p-4 cursor-pointer">
                 <img
-                  src={item.images[0]}
+                  src={getThumbnailImage(item.images[0])}
                   alt="image"
                   className=" w-16 h-16 "
                 />
@@ -85,15 +85,8 @@ const Listings = ({ products }) => {
                       ? item.title.substring(0, 18) + '..'
                       : item.title}
                   </h4>
-                  <p className="mb-0 text-second text-sm truncate">
-                    <p className=" mt-1 flex items-center flex-wrap">
-                      <span className="text-[10px] leading-4 font-medium text-gray-500">
-                        {item.list_price.currency}
-                      </span>
-                      <span className="text-[14px] leading-4 font-medium text-gray-600 ml-1">
-                        {item.list_price.amount}
-                      </span>
-                    </p>
+                  <p className="mb-0 text-second text-sm truncate text-primary">
+                    By {item.account.name }
                   </p>
                 </div>
               </a>

@@ -63,6 +63,8 @@ const {
   default: AccountDetailsPageLayout,
 } = require('../components/layouts/PageLayouts/AccountDetailsPageLayout');
 const { default: CustomAccountDetailsPageLayout } = require('../components/layouts/PageLayouts/CustomAccountDetailsPageLayout');
+const { default: EditProfilePageLayout } = require('../components/layouts/PageLayouts/EditProfilePageLayout');
+const { default: SearchPageLayout } = require('../components/layouts/PageLayouts/SearchPageLayout');
 
 // Here In all condition first switch case for marketplace type and second switch case for marketplace module;
 
@@ -333,6 +335,54 @@ module.exports = {
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CustomEditProductPageLayout />
+          </CustomLayout>
+        );
+        break;
+      default:
+        return <Error_Page />;
+        break;
+    }
+  },
+  //Edit Profile Page
+  edit_profile_page: (pageTitle, pageDescription) => {
+    switch (Number(TYPE_CONSTANT.MARKETPLACE_TYPE)) {
+      case 1:
+      case 2:
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <EditProfilePageLayout />
+          </MainLayout>
+        );
+        break;
+
+      case -1:
+        return (
+          <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <EditProfilePageLayout />
+          </CustomLayout>
+        );
+        break;
+      default:
+        return <Error_Page />;
+        break;
+    }
+  },
+  //Search Page
+  search_page:(pageTitle, pageDescription) => {
+    switch (Number(TYPE_CONSTANT.MARKETPLACE_TYPE)) {
+      case 1:
+      case 2:
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+          <SearchPageLayout/>
+          </MainLayout>
+        );
+        break;
+
+      case -1:
+        return (
+          <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <SearchPageLayout />
           </CustomLayout>
         );
         break;

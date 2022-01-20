@@ -6,6 +6,7 @@ import { refreshPage } from '../../store/feature/authSlice';
 import tradly from 'tradly';
 import { clearSearch } from '../../store/feature/search';
 import SearchPageLayout from '../../components/layouts/PageLayouts/SearchPageLayout';
+import { search_page } from '../../themes/Theme1';
 
 const Search = (props) => {
   const dispatch = useDispatch();
@@ -20,9 +21,7 @@ const Search = (props) => {
   const pageTitle = props?.seo_text?.meta_title;
   const pageDescription = props?.seo_text?.meta_description;
   return (
-    <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
-      <SearchPageLayout />
-    </MainLayout>
+    search_page(pageTitle, pageDescription)
   );
 };
 

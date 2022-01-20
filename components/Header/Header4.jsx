@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { getThumbnailImage } from '../Shared/Constant/Constant';
 import tradly from 'tradly';
 import HeaderProfile from '../HeaderProfileBox/HeaderProfile3';
+import StoreButton from '../StoreButton/StoreButton';
+import SearchBox from '../SearchBox/SearchBox';
 
 function Header4() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -160,7 +162,9 @@ function Header4() {
 
             {/* Desktop sign in links */}
             {login ? (
-              <ul className="flex flex-grow justify-end flex-wrap items-center">
+              <ul className="flex flex-grow justify-end flex-wrap items-center gap-3">
+                <SearchBox/>
+                <StoreButton/>
                 <HeaderProfile />
               </ul>
             ) : (
