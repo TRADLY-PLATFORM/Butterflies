@@ -73,7 +73,7 @@ const CustomHomePageLayout = ({ pageTitle, pageDescription }) => {
             )}
           </div>
         </div>
-        <div className="grid grid-cols-4  mt-14">
+        <div className="grid  md:grid-cols-4  mt-14">
           <div>
             <ul className="pt-5">
               <li className="py-2">

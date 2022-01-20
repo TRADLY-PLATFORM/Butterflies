@@ -26,7 +26,7 @@ const CustomStoreProfile = ({ my_stores }) => {
             <p className=" font-semibold text-base text-black">
               {my_stores[0].name}
             </p>
-            <p className=" text-secondary text-sm">
+            <p className=" text-default_gray text-sm">
               @{my_stores[0].user.first_name}
             </p>
           </div>
@@ -43,7 +43,6 @@ const CustomStoreProfile = ({ my_stores }) => {
           >
             Edit Account{' '}
           </button>
-           
         </div>
       </div>
     </div>

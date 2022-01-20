@@ -8,6 +8,7 @@ import tradly from 'tradly';
 import HeaderProfile from '../HeaderProfileBox/HeaderProfile3';
 import StoreButton from '../StoreButton/StoreButton';
 import SearchBox from '../SearchBox/SearchBox';
+import CustomSearchBox from '../SearchBox/CustomSearchBox';
 
 function Header4() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -78,7 +79,7 @@ function Header4() {
       }`}
     >
       <div className=" relative max-w-6xl mx-auto px-5 sm:px-6">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-16  ">
           {/* Site branding */}
           <div className="flex-shrink-0 mr-4">
             {/* Logo */}
@@ -114,11 +115,11 @@ function Header4() {
                   passHref
                 >
                   <a className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
-                    All Products
+                    All Listings
                   </a>
                 </Link>
               </li>
-              <li>
+              <li className='hidden lg:block'>
                 <Link
                   href={{
                     pathname: '/l',
@@ -128,6 +129,19 @@ function Header4() {
                 >
                   <a className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
                     Newest
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={{
+                    pathname: '/a',
+                    query: { page: 1 },
+                  }}
+                  passHref
+                >
+                  <a className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
+                    All Partners
                   </a>
                 </Link>
               </li>
@@ -163,8 +177,8 @@ function Header4() {
             {/* Desktop sign in links */}
             {login ? (
               <ul className="flex flex-grow justify-end flex-wrap items-center gap-3">
-                <SearchBox/>
-                <StoreButton/>
+                <SearchBox />
+                <StoreButton />
                 <HeaderProfile />
               </ul>
             ) : (
@@ -198,7 +212,13 @@ function Header4() {
           </nav>
 
           {/* Mobile menu */}
-          <div className="flex md:hidden">
+          <div className="flex md:hidden gap-3">
+            <ul>
+              <CustomSearchBox />
+            </ul>
+            <ul>
+              <HeaderProfile />
+            </ul>
             {/* Hamburger button */}
             <button
               ref={trigger}
@@ -243,7 +263,7 @@ function Header4() {
                       passHref
                     >
                       <a className="flex text-gray-800 hover:text-primary py-2">
-                        All Products
+                        All Listings
                       </a>
                     </Link>
                   </li>
@@ -257,6 +277,19 @@ function Header4() {
                     >
                       <a className="flex text-gray-800 hover:text-primary py-2">
                         Newest
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={{
+                        pathname: '/a',
+                        query: { page: 1 },
+                      }}
+                      passHref
+                    >
+                      <a className="flex text-gray-800 hover:text-primary py-2">
+                        All Partners
                       </a>
                     </Link>
                   </li>
@@ -290,9 +323,7 @@ function Header4() {
                       })}
                     </ul>
                   </li>
-                  {login ? (
-                    <HeaderProfile />
-                  ) : (
+                  {!login && (
                     <>
                       <li>
                         <Link href="/sign-in">

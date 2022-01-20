@@ -225,7 +225,7 @@ const AddCustomProductForm = () => {
                 </button>
               </div>
               {listing_configs?.listing_pictures_count && (
-                <p className=" text-sm mt-2 font-normal text-secondary">
+                <p className=" text-sm mt-2 font-normal text-default_gray">
                   Max. {listing_configs?.listing_pictures_count}
                 </p>
               )}

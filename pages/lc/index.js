@@ -5,6 +5,7 @@ import MainLayout from "../../components/layouts/MainLayouts/MainLayout";
 import CategoriesPageLayout from "../../components/layouts/PageLayouts/CategoriesPageLayout";
 import { refreshPage } from "../../store/feature/authSlice";
 import tradly from "tradly";
+import { all_listing_categories_page } from "../../themes/Theme1";
 
 const Categories = (props) => {
 	const dispatch = useDispatch();
@@ -20,12 +21,7 @@ const Categories = (props) => {
 	const pageDescription = props?.seo_text?.meta_description;
 
 	return (
-		<MainLayout
-			pageTitle={pageTitle}
-			pageDescription={pageDescription}
-		>
-			<CategoriesPageLayout />
-		</MainLayout>
+		all_listing_categories_page(pageTitle, pageDescription)
 	);
 };
 

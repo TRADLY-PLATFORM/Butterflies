@@ -43,7 +43,7 @@ const Variants = ({
                 )}
                 <p className="text-black font-semibold">{item.title}</p>
                 <p className=" flex items-center  ">
-                  <span className=" text-secondary font-normal  text-xs">
+                  <span className=" text-default_gray font-normal  text-xs">
                     {item.offer_price.currency}{' '}
                   </span>
                   <span className=" ml-2">{item.offer_price.amount} </span>
@@ -52,8 +52,8 @@ const Variants = ({
                   <span
                     className={
                       item.offer_percent != 0
-                        ? ' line-through text-secondary font-normal'
-                        : '  text-secondary font-normal'
+                        ? ' line-through text-default_gray font-normal'
+                        : '  text-default_gray font-normal'
                     }
                   >
                     {item.list_price.formatted}

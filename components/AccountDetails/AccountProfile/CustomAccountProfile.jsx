@@ -72,7 +72,7 @@ const CustomAccountProfile = ({
             <p className=" font-semibold text-base text-black">
               {account_details.name}
             </p>
-            <p className=" text-secondary text-sm">
+            <p className=" text-default_gray text-sm">
               @{account_details.user.first_name}
             </p>
           </div>

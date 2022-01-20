@@ -62,9 +62,22 @@ const {
 const {
   default: AccountDetailsPageLayout,
 } = require('../components/layouts/PageLayouts/AccountDetailsPageLayout');
-const { default: CustomAccountDetailsPageLayout } = require('../components/layouts/PageLayouts/CustomAccountDetailsPageLayout');
-const { default: EditProfilePageLayout } = require('../components/layouts/PageLayouts/EditProfilePageLayout');
-const { default: SearchPageLayout } = require('../components/layouts/PageLayouts/SearchPageLayout');
+const {
+  default: CustomAccountDetailsPageLayout,
+} = require('../components/layouts/PageLayouts/CustomAccountDetailsPageLayout');
+const {
+  default: EditProfilePageLayout,
+} = require('../components/layouts/PageLayouts/EditProfilePageLayout');
+const {
+  default: SearchPageLayout,
+} = require('../components/layouts/PageLayouts/SearchPageLayout');
+const {
+  default: CustomListingsPageLayout,
+} = require('../components/layouts/PageLayouts/CustomListingPageLayout');
+const {
+  default: CategoryListingsPageLayout,
+} = require('../components/layouts/PageLayouts/CategoryListingsPageLayout');
+const { default: CategoriesPageLayout } = require('../components/layouts/PageLayouts/CategoriesPageLayout');
 
 // Here In all condition first switch case for marketplace type and second switch case for marketplace module;
 
@@ -96,6 +109,31 @@ module.exports = {
         return <Error_Page />;
     }
   },
+  //Listing Categories Page:
+  all_listing_categories_page: (pageTitle, pageDescription) => {
+    switch (Number(TYPE_CONSTANT.MARKETPLACE_TYPE)) {
+      case 1:
+      case 2:
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <CategoriesPageLayout />
+          </MainLayout>
+        );
+        break;
+
+      case -1:
+        return (
+          <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <CategoriesPageLayout />
+          </CustomLayout>
+        );
+        break;
+
+      default:
+        return <Error_Page />;
+        break;
+    }
+  },
 
   // All Listing Page:
   all_listings_page: (pageTitle, pageDescription) => {
@@ -117,7 +155,38 @@ module.exports = {
       case -1:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
-            <ListingsPageLayout />
+            <CustomListingsPageLayout />
+          </CustomLayout>
+        );
+        break;
+
+      default:
+        return <Error_Page />;
+        break;
+    }
+  },
+  // Category Listing Page:
+  category_listings_page: (pageTitle, pageDescription) => {
+    switch (Number(TYPE_CONSTANT.MARKETPLACE_TYPE)) {
+      case 1:
+      case 2:
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <CategoryListingsPageLayout
+              pageTitle={pageTitle}
+              pageDescription={pageDescription}
+            />
+          </MainLayout>
+        );
+        break;
+
+      case -1:
+        return (
+          <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <CategoryListingsPageLayout
+              pageTitle={pageTitle}
+              pageDescription={pageDescription}
+            />
           </CustomLayout>
         );
         break;
@@ -368,13 +437,13 @@ module.exports = {
     }
   },
   //Search Page
-  search_page:(pageTitle, pageDescription) => {
+  search_page: (pageTitle, pageDescription) => {
     switch (Number(TYPE_CONSTANT.MARKETPLACE_TYPE)) {
       case 1:
       case 2:
         return (
           <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
-          <SearchPageLayout/>
+            <SearchPageLayout />
           </MainLayout>
         );
         break;

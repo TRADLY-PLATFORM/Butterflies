@@ -7,6 +7,7 @@ import { refreshPage } from "../../store/feature/authSlice";
 import CategoryListingsPageLayout from "../../components/layouts/PageLayouts/CategoryListingsPageLayout";
 import tradly from "tradly";
 import { clearCategoryListings } from "../../store/feature/categorySlice";
+import { category_listings_page } from "../../themes/Theme1";
 
 const CategoryListings = (props) => {
 	const dispatch = useDispatch();
@@ -22,14 +23,7 @@ const CategoryListings = (props) => {
 
 	const pageTitle = props?.seo_text?.meta_listing_category_title;
 	const pageDescription = props?.seo_text?.meta_listing_description;
-	return (
-		<MainLayout>
-			<CategoryListingsPageLayout
-				pageTitle={pageTitle}
-				pageDescription={pageDescription}
-			/>
-		</MainLayout>
-	);
+	return category_listings_page(pageTitle, pageDescription);
 };
 
 export default CategoryListings;

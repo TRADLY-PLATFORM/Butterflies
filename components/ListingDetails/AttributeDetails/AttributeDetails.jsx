@@ -14,7 +14,7 @@ const AttributeDetails = ({ attributes }) => {
               <p className="ml-2  text-base font-medium text-black">
                 {attr.name}
               </p>
-              <p className="text-base font-medium text-secondary">
+              <p className="text-base font-medium text-default_gray">
                 {attr.values
                   .map((item) => {
                     if (attr.field_type === 1 || attr.field_type === 2) {

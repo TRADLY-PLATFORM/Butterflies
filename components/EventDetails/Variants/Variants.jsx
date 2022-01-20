@@ -30,13 +30,13 @@ const Variants = ({ variants, setSelectedVariant, selectedVariant }) => {
                 </p>
                 <p className="text-black font-semibold">{item.title}</p>
                 <p className=" flex items-center  ">
-                  <span className=" text-secondary font-normal  text-xs">
+                  <span className=" text-default_gray font-normal  text-xs">
                     {item.offer_price.currency}{' '}
                   </span>
                   <span className=" ml-2">{item.offer_price.amount} </span>
                 </p>
                 <p className=" flex items-center  text-xs ">
-                  <span className=" line-through text-secondary font-normal">
+                  <span className=" line-through text-default_gray font-normal">
                     {item.list_price.formatted}
                   </span>
                   <span className=" font-medium ml-2">

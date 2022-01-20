@@ -194,7 +194,7 @@ const Filter = () => {
   };
 
   const filter_by_date = (sdate, edate) => {
-     if (sdate == start_at) {
+    if (sdate == start_at) {
       const queries = { ...router.query };
       delete queries.start_at;
       delete queries.end_at;
@@ -454,10 +454,10 @@ const Filter = () => {
                 })}
             </div>
 
-            {/* Price Range */}
+            {/* Sort */}
             <div className=" mt-3">
               <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
-                <span className=" cursor-pointer">Price Range</span>
+                <span className=" cursor-pointer">Sort</span>
                 {sort === undefined && <span>{check_icon}</span>}
               </h4>
               {priceRange?.map((item) => {

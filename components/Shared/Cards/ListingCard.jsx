@@ -43,7 +43,11 @@ const ListingCard = ({ item, like }) => {
             </p>
             <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-1">
               {marketplace_type == -1
-                ? `By ${item.account.name}`
+                ? `By ${
+                    item.account.name.length > 20
+                      ? item.account.name.substring(0, 18) + '..'
+                      : item.account.name
+                  }`
                 : item.list_price.formatted}
             </p>
           </div>

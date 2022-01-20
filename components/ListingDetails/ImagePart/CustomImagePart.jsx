@@ -34,7 +34,7 @@ const CustomImagePart = ({ images }) => {
                 key={i}
                 className="  w-full aspect-w-1 aspect-h-1 relative bg-white"
               >
-                <div className=" aspect-w-1 aspect-h-1relative  ">
+                <div className=" aspect-w-1 aspect-h-1relative rounded-lg shadow-c-xsm overflow-hidden  ">
                   <Image
                     src={image}
                     alt="details image"

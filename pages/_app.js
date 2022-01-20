@@ -32,8 +32,10 @@ function MyApp({ Component, pageProps }) {
         if (typeof window !== 'undefined') {
           if (!res.error) {
             let root = document.documentElement;
-            const color = res.data.configs.app_color_primary;
-            root.style.setProperty('--primary_color', color);
+            const primary_color = res.data.configs.app_color_primary;
+            const secondary_color = res.data.configs.app_color_secondary;
+            root.style.setProperty('--primary_color', primary_color);
+            root.style.setProperty('--secondary_color', secondary_color);
             localStorage.setItem(
               'onboarding_configs',
               JSON.stringify(res.data.configs)

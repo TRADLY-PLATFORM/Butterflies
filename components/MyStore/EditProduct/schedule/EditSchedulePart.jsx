@@ -12,8 +12,15 @@ import {
 } from '../../../Shared/Constant/Constant';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../../store/feature/authSlice';
-import { myAccountListingDetails, storeSelector } from '../../../../store/feature/storeSlice';
-import { addNewSchedule, changeSchedule, deleteSchedule } from './scheduleButton';
+import {
+  myAccountListingDetails,
+  storeSelector,
+} from '../../../../store/feature/storeSlice';
+import {
+  addNewSchedule,
+  changeSchedule,
+  deleteSchedule,
+} from './scheduleButton';
 import PopUp from '../../../Shared/PopUp/PopUp';
 import { useRouter } from 'next/dist/client/router';
 import ScheduleSuccess from './scheduleSuccess/scheduleSuccess';
@@ -21,31 +28,30 @@ import { useDispatch } from 'react-redux';
 import AddScheduleForm from './AddScheduleForm';
 
 const EditSchedulePart = () => {
-  const [schedulesArray, setSchedulesArray] = useState(null)
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [schedulesArray, setSchedulesArray] = useState(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  
-const [showError, setShowError] = useState(false);
-const [error_message, setError_message] = useState('');
-  
+  const [showError, setShowError] = useState(false);
+  const [error_message, setError_message] = useState('');
+
   const [isEditSchedule, setIsEditSchedule] = useState(false);
   const [editScheduleData, setEditScheduleData] = useState(null);
   const [editScheduleIndex, setEditScheduleIndex] = useState(null);
   const [editScheduleLoading, setEditScheduleLoading] = useState(false);
 
   const router = useRouter();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const accountId = router.query.account_id;
   const productId = router.query.product_id;
 
-   const {
-     listing_configs,
-     isError,
-     errorMessage,
-     currencies,
-     listing_categories,
-     my_account_listing_details,
-   } = useSelector(storeSelector);
+  const {
+    listing_configs,
+    isError,
+    errorMessage,
+    currencies,
+    listing_categories,
+    my_account_listing_details,
+  } = useSelector(storeSelector);
 
   const [isScheduleFormOpen, setIsScheduleFormOpen] = useState(false);
   const { auth_key } = useSelector(authSelector);
@@ -59,55 +65,51 @@ const [error_message, setError_message] = useState('');
     active: true,
   });
   const changeSelectedSchedule = () => {
-        changeSchedule(
-          schedulesObject,
-          setSchedulesObject,
-          setError_message,
-          setShowError,
-          setEditScheduleLoading,
-          setEditScheduleData,
-          setIsEditSchedule,
-          schedulesArray,
-          editScheduleIndex,
-          productId,
-          auth_key,
-          setShowSuccessMessage,
-          setEditScheduleIndex,
-          setIsScheduleFormOpen
-        );
-  
+    changeSchedule(
+      schedulesObject,
+      setSchedulesObject,
+      setError_message,
+      setShowError,
+      setEditScheduleLoading,
+      setEditScheduleData,
+      setIsEditSchedule,
+      schedulesArray,
+      editScheduleIndex,
+      productId,
+      auth_key,
+      setShowSuccessMessage,
+      setEditScheduleIndex,
+      setIsScheduleFormOpen
+    );
   };
 
   const addSchedule = () => {
-        addNewSchedule(
-          schedulesObject,
-          setSchedulesObject,
-          setError_message,
-          setShowError,
-          setEditScheduleLoading,
-          setEditScheduleData,
-          setIsEditSchedule,
-          schedulesArray,
-          editScheduleIndex,
-          productId,
-          auth_key,
-          setShowSuccessMessage,
-          setEditScheduleIndex,
-          setIsScheduleFormOpen
-        );
-  
+    addNewSchedule(
+      schedulesObject,
+      setSchedulesObject,
+      setError_message,
+      setShowError,
+      setEditScheduleLoading,
+      setEditScheduleData,
+      setIsEditSchedule,
+      schedulesArray,
+      editScheduleIndex,
+      productId,
+      auth_key,
+      setShowSuccessMessage,
+      setEditScheduleIndex,
+      setIsScheduleFormOpen
+    );
   };
 
-   const closePopUP = () => {
-     setShowError(false);
-     setError_message('');
-   };
+  const closePopUP = () => {
+    setShowError(false);
+    setError_message('');
+  };
 
-  
   useEffect(() => {
     setSchedulesArray(my_account_listing_details?.schedules);
   }, [my_account_listing_details]);
-
 
   return (
     <>
@@ -176,7 +178,7 @@ const [error_message, setError_message] = useState('');
                     <p className="text-base leading-4  text-gray-700 font-medium">
                       {moment(item.start_date).format('dddd, MMM  YY')}
                     </p>
-                    <p className=" text-xs leading-4 font-medium text-secondary mt-[3px] ">
+                    <p className=" text-xs leading-4 font-medium text-default_gray mt-[3px] ">
                       {item.start_time} - {item.end_time}
                     </p>
                     <p className="text-gray-700 mt-1   ">

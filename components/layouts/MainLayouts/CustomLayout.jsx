@@ -4,6 +4,7 @@ import Header2 from '../../Header/Header2';
 import Head from 'next/head';
 import Header4 from '../../Header/Header4';
 import Footer from '../../Footer/Footer';
+import CustomFooter from '../../Footer/CustomFooter';
 
 const CustomLayout = ({ children, pageTitle, pageDescription }) => {
   const [showUserMenus, setShowUserMenus] = useState(false);
@@ -19,8 +20,8 @@ const CustomLayout = ({ children, pageTitle, pageDescription }) => {
         <div className="mt-10  min-h-screen  overflow-x-hidden max-w-6xl mx-auto px-4 sm:px-6">
           <div>{children}</div>
         </div>
-        <div className="bg-wite min-h-[200px]  left-0 bottom-0 max-w-6xl mx-auto px-4 sm:px-6 ">
-          <Footer />
+        <div className=" mt-16 md:mt-20 bg-wite min-h-[200px]  left-0 bottom-0 max-w-6xl mx-auto px-4 sm:px-6  ">
+          <CustomFooter />
         </div>
       </div>
     </>

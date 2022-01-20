@@ -15,7 +15,7 @@ import {
   youtube_icon,
 } from '../Shared/Constant/Icons/socialIcons';
 
-const Footer = () => {
+const CustomFooter = () => {
   const [logo, setLogo] = useState(null);
   const [isSeeAllCategories, setIsSeeAllCategories] = useState(false);
   const [allCategories, setAllCategories] = useState(null);
@@ -56,7 +56,7 @@ const Footer = () => {
   }, [0]);
   return (
     <>
-      <div className="w-full h-full py-4 grid grid-cols-2 md:grid-cols-3 gap-10  border-b border-[rgba(216, 216, 216, 0.5)]">
+      <div className="w-full h-full py-4 grid grid-cols-2 md:grid-cols-3 gap-10  border-b border-t border-[rgba(216, 216, 216, 0.5)] pt-16  ">
         <div className=" col-span-2 md:col-span-1">
           {logo && (
             <Link href="/" passHref={true}>
@@ -239,7 +239,7 @@ const Footer = () => {
           {isSeeAllCategories &&
             allCategories?.map((item, index, array) => {
               if (array.length > 4) {
-                if (index + 1 > 4) {
+                if (index+1 > 4) {
                   return (
                     <div className="mb-4 " key={Math.random()}>
                       {' '}
@@ -377,4 +377,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default CustomFooter;

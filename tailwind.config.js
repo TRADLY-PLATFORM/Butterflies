@@ -34,8 +34,9 @@ module.exports = {
       },
       colors: {
         primary: 'var( --primary_color)',
+        secondary: 'var( --secondary_color)',
         primary_light: '#DFFBF4',
-        secondary: '#959393',
+        default_gray: '#959393',
       },
       borderRadius: {
         'c-48': '48px',
