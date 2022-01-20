@@ -33,7 +33,7 @@
 
 </div>
 
-## Deploy on Vercel, Netlify
+## Deploy on Vercel,  Netlify
 
 [Deploy with Vercel](https://vercel.com/new/clone?repository-url=https://github.com/TRADLY-PLATFORM/Butterflies&project-name=%7Btenant_name%7D&repository-name=%7Btenant_name%7D&demo-title=DemoStorefront&demo-description=Tradly%20starter%20kit%20to%20launch%20your%20marketplace%20&demo-url=https://sneakershub.vercel.app&demo-image=https://user-images.githubusercontent.com/61427976/133940948-09361d1c-08b3-43e3-b588-ac1dd3ff3e0c.png&envLink=https://portal.tradly.app/docs/vercel&integration-ids=oac_ZjlyX04ie0YNeck9UjeAMfba&redirect-url=https://superadmin.sandbox.tradly.app&developer-id=oac_ZjlyX04ie0YNeck9UjeAMfba)
 
