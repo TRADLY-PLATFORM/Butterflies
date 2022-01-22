@@ -49,12 +49,11 @@ const CustomHomePageLayout = ({ pageTitle, pageDescription }) => {
       <div className=" ">
         <div className="grid md:grid-cols-2 items-center">
           <div className="flex flex-col gap-4">
-            <h2 className="text-[32px] text-black font-bold">
-              Introducing Tradly Apps, a new type of integration
+            <h2 className="text-[32px] text-black font-bold pr-4">
+              Introducing Partner Ecosystem, A Growth Driver.
             </h2>
             <p className=" mt-2 text-[16px] text-black font-normal w-5/6">
-              Use the apps you love, right in Tradly. Explore available
-              in-product apps below!
+              Bring your partners, vendors, app providers and service provider under single ecosystem. 
             </p>
             <Link href="#">
               <a className=" mt-2 text-[16px]   text-primary font-bold">
@@ -76,8 +75,8 @@ const CustomHomePageLayout = ({ pageTitle, pageDescription }) => {
         <div className="grid  md:grid-cols-4  mt-14">
           <div>
             <ul className="pt-5">
-              <li className="py-2">
-                <button className="text-sm block text-left w-full   text-primary">
+              <li className="pb-2">
+                <button className="text-2xl block text-left w-full   text-primary">
                   All Categories
                 </button>
               </li>
@@ -109,7 +108,7 @@ const CustomHomePageLayout = ({ pageTitle, pageDescription }) => {
           <div className="col-span-3 pt-5">
             {collections?.map((collection) => {
               const scope_type = collection.scope_type;
-               
+
               if (scope_type === 4) {
                 return (
                   <div key={Math.random()}>

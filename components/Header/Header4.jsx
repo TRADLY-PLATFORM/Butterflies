@@ -105,7 +105,7 @@ function Header4() {
           {/* Desktop navigation */}
           <nav className="hidden md:flex md:flex-grow">
             {/* Desktop menu links */}
-            <ul className="flex flex-grow justify-end flex-wrap items-center">
+            <ul className="text-base font-semibold flex flex-grow justify-end flex-wrap items-center">
               <li>
                 <Link
                   href={{
@@ -119,7 +119,7 @@ function Header4() {
                   </a>
                 </Link>
               </li>
-              <li className='hidden lg:block'>
+              <li className="hidden lg:block">
                 <Link
                   href={{
                     pathname: '/l',

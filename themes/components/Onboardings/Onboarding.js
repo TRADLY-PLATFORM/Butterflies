@@ -46,38 +46,38 @@ function Onboarding2() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M63 0C97.7939 0 126 28.2061 126 63C126 97.7939 97.7939 126 63 126C28.2061 126 0 97.7939 0 63C0 28.2061 28.2061 0 63 0Z"
                         fill="url(#paint0_linear)"
                       />
                       <path
                         opacity="0.5"
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M63 119C93.9279 119 119 93.9279 119 63C119 32.0721 93.9279 7 63 7C32.0721 7 7 32.0721 7 63C7 93.9279 32.0721 119 63 119Z"
                         stroke="white"
-                        stroke-width="1.4"
+                        strokeWidth="1.4"
                       />
                       <path
                         opacity="0.5"
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M63 105C86.196 105 105 86.196 105 63C105 39.804 86.196 21 63 21C39.804 21 21 39.804 21 63C21 86.196 39.804 105 63 105Z"
                         stroke="white"
-                        stroke-width="1.4"
+                        strokeWidth="1.4"
                       />
                       <path
                         d="M108.282 44.2442C105.799 38.2551 102.162 32.8652 97.6482 28.3518C88.7809 19.4845 76.5309 14 63 14C49.469 14 37.219 19.4845 28.3517 28.3518C23.8383 32.8652 20.2012 38.2551 17.7178 44.2442"
                         stroke="white"
-                        stroke-width="15.4"
-                        stroke-linecap="round"
+                        strokeWidth="15.4"
+                        strokeLinecap="round"
                       />
                       <path
                         d="M63.0001 14.0001V111.222"
                         stroke="white"
-                        stroke-width="15.4"
-                        stroke-linecap="round"
+                        strokeWidth="15.4"
+                        strokeLinecap="round"
                       />
                       <defs>
                         <linearGradient
@@ -88,8 +88,8 @@ function Onboarding2() {
                           y2="126"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#2BDBC0" />
-                          <stop offset="1" stop-color="#13B58C" />
+                          <stop stopColor="#2BDBC0" />
+                          <stop offset="1" stopColor="#13B58C" />
                         </linearGradient>
                       </defs>
                     </svg>

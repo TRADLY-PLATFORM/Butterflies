@@ -90,7 +90,7 @@ const CustomFooter = () => {
           {Object.keys(social_configs)?.length > 0 && (
             <div className="mt-4 ml-3">
               <h2 className="text-base font-semibold pb-4">
-                Follow us on social media
+                Follow us on Social Media
               </h2>
               <div className="flex items-center gap-3">
                 {social_configs?.facebook_pageurl && (
