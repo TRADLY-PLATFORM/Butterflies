@@ -129,7 +129,7 @@ const CustomFooter = () => {
         </div>
 
         <div>
-          <p className=" text-base font-semibold pb-4">Categories</p>
+          <p className=" text-lg font-semibold pb-4">Categories</p>
           {allCategories?.map((item, index, array) => {
             if (array.length > 3) {
               if (index < 3) {
@@ -239,7 +239,7 @@ const CustomFooter = () => {
           {isSeeAllCategories &&
             allCategories?.map((item, index, array) => {
               if (array.length > 4) {
-                if (index+1 > 4) {
+                if (index + 1 > 4) {
                   return (
                     <div className="mb-4 " key={Math.random()}>
                       {' '}
@@ -318,7 +318,7 @@ const CustomFooter = () => {
           })}
         </div> */}
         <div>
-          <p className=" text-base font-semibold pb-4">Links</p>
+          <p className=" text-lg font-semibold pb-4">Links</p>
           {general_configs?.terms_url && (
             <Link href={general_configs?.terms_url}>
               <a className=" block    pb-4" target="_blank">
@@ -361,17 +361,26 @@ const CustomFooter = () => {
           </div> */}
         </div>
       </div>
-      <div className="py-2 flex items-center">
-        <p className=" text-sm text-default_gray mr-4">
-          {`© ${new Date().getFullYear()} ${
-            general_configs?.website_name
-          }. All rights reserved.`}
-        </p>
-        <Link href={'/sitemap.xml'}>
-          <a className=" text-xs text-[#4F4F4F] font-medium" target="_blank">
-            Sitemap
-          </a>
-        </Link>
+      <div className="py-2 flex flex-wrap items-center justify-between ">
+        <div className=" flex items-center">
+          <p className=" text-sm text-default_gray mr-4">
+            {`© ${new Date().getFullYear()} ${
+              general_configs?.website_name
+            }. All rights reserved.`}
+          </p>
+          <Link href={'/sitemap.xml'}>
+            <a className=" text-xs text-[#4F4F4F] font-medium" target="_blank">
+              Sitemap
+            </a>
+          </Link>
+        </div>
+        <div>
+          <Link href={'https://tradly.app/'}>
+            <a className=" text-xs text-[#4F4F4F] font-medium" target="_blank">
+              Built with Tradly API
+            </a>
+          </Link>
+        </div>
       </div>
     </>
   );

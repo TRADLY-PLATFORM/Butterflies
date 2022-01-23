@@ -44,13 +44,14 @@ export const edit_store_click = (
     setEditStoreLoading(false);
 
     return false;
-  } else if (category === null) {
-    setShowError(true);
-    setError_message('Select one category');
-    setEditStoreLoading(false);
-
-    return false;
   }
+  // else if (category === null) {
+  //   setShowError(true);
+  //   setError_message('Select one category');
+  //   setEditStoreLoading(false);
+
+  //   return false;
+  // }
 
   if (files !== null) {
     tradly.app
@@ -93,6 +94,9 @@ export const edit_store_click = (
                   };
                   if (accounts_configs.account_address_enabled) {
                     storesData['coordinates'] = coordinates;
+                  }
+                  if (category !== null) {
+                    storesData['category_id'] = [category];
                   }
                   dispatch(
                     postStore({
@@ -145,7 +149,7 @@ export const edit_store_click = (
                             ];
                             const storesData = {
                               name: name,
-                              category_id: [category],
+
                               description: description,
                               web_address: '',
                               images: [ImagePath],
@@ -153,6 +157,9 @@ export const edit_store_click = (
                               attributes: attributeUpdate,
                               type: 'accounts',
                             };
+                            if (category !== null) {
+                              storesData['category_id'] = [category];
+                            }
                             if (accounts_configs.account_address_enabled) {
                               storesData['coordinates'] = coordinates;
                             }
@@ -191,7 +198,7 @@ export const edit_store_click = (
               } else {
                 const storesData = {
                   name: name,
-                  category_id: [category],
+
                   description: description,
                   web_address: '',
                   images: [ImagePath],
@@ -200,7 +207,9 @@ export const edit_store_click = (
                 if (accounts_configs.account_address_enabled) {
                   storesData['coordinates'] = coordinates;
                 }
-
+                if (category !== null) {
+                  storesData['category_id'] = [category];
+                }
                 dispatch(
                   postStore({
                     id: accountId,
@@ -235,12 +244,12 @@ export const edit_store_click = (
         setError_message(error.response.data.error.message);
       });
   } else {
-    if (attributeData !== null  && attributeData?.length !== 0) {
+    if (attributeData !== null && attributeData?.length !== 0) {
       const check = attributeData.find((attr) => attr.uploadFile);
       if (check === undefined) {
         const storesData = {
           name: name,
-          category_id: [category],
+
           description: description,
           web_address: '',
           images: [imagePath.path],
@@ -250,7 +259,9 @@ export const edit_store_click = (
         if (accounts_configs.account_address_enabled) {
           storesData['coordinates'] = coordinates;
         }
-
+        if (category !== null) {
+          storesData['category_id'] = [category];
+        }
         dispatch(
           postStore({
             id: accountId,
@@ -302,7 +313,7 @@ export const edit_store_click = (
                   ];
                   const storesData = {
                     name: name,
-                    category_id: [category],
+
                     description: description,
                     web_address: '',
                     images: [imagePath.path],
@@ -312,7 +323,9 @@ export const edit_store_click = (
                   if (accounts_configs.account_address_enabled) {
                     storesData['coordinates'] = coordinates;
                   }
-
+                  if (category !== null) {
+                    storesData['category_id'] = [category];
+                  }
                   dispatch(
                     postStore({
                       id: accountId,
@@ -345,7 +358,7 @@ export const edit_store_click = (
     } else {
       const storesData = {
         name: name,
-        category_id: [category],
+
         description: description,
         web_address: '',
         images: [imagePath.path],
@@ -353,6 +366,9 @@ export const edit_store_click = (
       };
       if (accounts_configs.account_address_enabled) {
         storesData['coordinates'] = coordinates;
+      }
+      if (category !== null) {
+        storesData['category_id'] = [category];
       }
       dispatch(
         postStore({

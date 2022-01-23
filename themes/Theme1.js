@@ -98,7 +98,7 @@ module.exports = {
             <HomePageLayout />
           </MainLayout>
         );
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CustomHomePageLayout />
@@ -121,7 +121,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CategoriesPageLayout />
@@ -152,7 +152,7 @@ module.exports = {
           </MainLayout>
         );
         break;
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CustomListingsPageLayout />
@@ -180,7 +180,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CategoryListingsPageLayout
@@ -223,7 +223,7 @@ module.exports = {
           </div>
         );
         break;
-      case -1:
+      case 3:
         return (
           <CustomLayout>
             <CustomProductDetailsPageLayout
@@ -256,7 +256,7 @@ module.exports = {
           </CustomLayout>
         );
         break;
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <AllAccountsPageLayout />
@@ -280,7 +280,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CustomAccountDetailsPageLayout />
@@ -304,7 +304,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CustomMyStorePageLayout />
@@ -328,7 +328,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CustomCreateStorePageLayout />
@@ -352,7 +352,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CustomEditStorePageLayout />
@@ -376,7 +376,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <AddCustomListingPageLayout />
@@ -400,7 +400,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CustomEditProductPageLayout />
@@ -424,7 +424,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <EditProfilePageLayout />
@@ -448,7 +448,7 @@ module.exports = {
         );
         break;
 
-      case -1:
+      case 3:
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <SearchPageLayout />

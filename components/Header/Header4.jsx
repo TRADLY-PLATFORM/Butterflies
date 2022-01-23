@@ -141,7 +141,7 @@ function Header4() {
                   passHref
                 >
                   <a className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
-                    All Partners
+                    All accounts
                   </a>
                 </Link>
               </li>
@@ -289,7 +289,7 @@ function Header4() {
                       passHref
                     >
                       <a className="flex text-gray-800 hover:text-primary py-2">
-                        All Partners
+                        All accounts
                       </a>
                     </Link>
                   </li>

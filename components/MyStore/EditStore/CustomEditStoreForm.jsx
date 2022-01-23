@@ -54,17 +54,18 @@ const CustomEditStoreForm = ({
       longitude: my_account_details?.coordinates?.longitude,
     });
     setAddressSearchKey(my_account_details?.location?.formatted_address);
-    setCategory(my_account_details.categories[0].id);
+    setCategory(my_account_details?.categories[0]?.id);
 
-    dispatch(
-      accountAttribute({
-        prams: {
-          category_id: my_account_details.categories[0].id,
-          type: 'accounts',
-        },
-        authKey: auth_key,
-      })
-    );
+    my_account_details?.categories[0]?.id &&
+      dispatch(
+        accountAttribute({
+          prams: {
+            category_id: my_account_details?.categories[0]?.id,
+            type: 'accounts',
+          },
+          authKey: auth_key,
+        })
+      );
 
     if (my_account_details.attributes.length > 0) {
       setAttributeData(
