@@ -6,7 +6,8 @@ import HomePageLayout from '../components/layouts/PageLayouts/HomePageLayout';
 import { refreshPage } from '../store/feature/authSlice';
 import tradly from 'tradly';
 import { setGeneralConfig } from '../store/feature/configsSlice';
-
+import { home_page } from '../themes/Theme1';
+  
 const Index = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,11 +23,7 @@ const Index = (props) => {
   const pageTitle = props?.seo_text?.meta_title;
   const pageDescription = props?.seo_text?.meta_description;
 
-  return (
-    <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
-      <HomePageLayout />
-    </MainLayout>
-  );
+  return home_page(pageTitle, pageDescription);
 };
 
 export default Index;

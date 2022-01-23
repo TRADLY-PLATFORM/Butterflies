@@ -8,6 +8,7 @@ import { myStore } from '../store/feature/storeSlice';
 import tradly from 'tradly';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 import EditProfilePageLayout from '../components/layouts/PageLayouts/EditProfilePageLayout';
+import { edit_profile_page } from '../themes/Theme1';
 
 const EditProfile = (props) => {
   const dispatch = useDispatch();
@@ -39,11 +40,7 @@ const EditProfile = (props) => {
   }, [localStorage.getItem('auth_key')]);
 
   
-  return (
-    <MainLayout>
-      <EditProfilePageLayout />
-    </MainLayout>
-  );
+  return edit_profile_page();
 };
 
 export default EditProfile;

@@ -459,10 +459,10 @@ const ExploreFilter = () => {
                 })}
             </div>
 
-            {/* Price Range */}
+            {/* Sort */}
             <div className=" mt-3">
               <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
-                <span className=" cursor-pointer">Price Range</span>
+                <span className=" cursor-pointer">Sort</span>
                 {sort === undefined && <span>{check_icon}</span>}
               </h4>
               {priceRange?.map((item) => {

@@ -18,11 +18,11 @@ import CustomLoading from '../../Shared/Loading/CustomLoading';
 import { configsSelector } from '../../../store/feature/configsSlice';
 
 const StoreListings = ({ my_store_listings, my_stores }) => {
-  const [marketplace_type, setMarketplace_type ] = useState(null);
+  const [marketplace_type, setMarketplace_type] = useState(null);
 
   useEffect(() => {
     setMarketplace_type(localStorage.getItem('marketplace_type'));
-  },[0])
+  }, [0]);
 
   const [showWarning, setShowWarning] = useState(false);
   const [warning_message, setWarning_message] = useState('');
@@ -77,7 +77,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
             className=" w-full  min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
             onClick={() => {
               if (item.active) {
-                 router.push(`/l/${item.id}-${item.title.replace(/\W/g, '-')}`);
+                router.push(`/l/${item.id}-${item.title.replace(/\W/g, '-')}`);
               } else {
                 setShowWarning(true);
                 setWarning_message('Product is under review.');
@@ -104,7 +104,9 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
                   : item.title}
               </p>
               <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-1">
-                {item.list_price.formatted}
+                {marketplace_type == -1
+                  ? `By ${item.account.name}`
+                  : item.list_price.formatted}
               </p>
             </div>
             {/* <div className=" pl-2 mt-4 mb-[14px] flex items-center">

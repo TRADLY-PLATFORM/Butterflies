@@ -8,10 +8,12 @@ import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { time_icon } from '../Constant/Icons/AllIcons';
 import moment from 'moment';
+import { TYPE_CONSTANT } from '../../../constant/Web_constant';
 
 
-const ListListingCard = ({ item, like, marketplace_type }) => {
-   const router = useRouter();
+const ListListingCard = ({ item, like }) => {
+  const router = useRouter();
+  const marketplace_type = TYPE_CONSTANT.MARKETPLACE_TYPE;
   return (
     <div className="  relative">
       <Link href={`/l/${item.id}-${item.title.replace(/\W/g, '-')}`}>
@@ -35,7 +37,7 @@ const ListListingCard = ({ item, like, marketplace_type }) => {
           <div className="mt-2 pl-2">
             {marketplace_type == 2 && (
               <p className=" mt-2   text-[12px] leading-3 text-gray-900  font-bold flex items-center ">
-                { item.schedules &&time_icon}
+                {item.schedules && time_icon}
                 <span className="ml-[6px]">
                   {item.schedules &&
                     moment(item.schedules[0].start_time, 'HH:mm').format(
@@ -56,8 +58,8 @@ const ListListingCard = ({ item, like, marketplace_type }) => {
                 {item.title.length > 30 ? item.title : item.title}
               </span>
               <span className=" md:hidden">
-                {item.title.length > 20
-                  ? item.title.substring(0, 18) + '..'
+                {item.title.length > 30
+                  ? item.title.substring(0, 30) + '..'
                   : item.title}
               </span>
             </p>
@@ -84,7 +86,13 @@ const ListListingCard = ({ item, like, marketplace_type }) => {
               </span>
             </p>
             <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-3">
-              {item.list_price.formatted}
+              {marketplace_type == -1
+                ? `By ${
+                    item.account.name.length > 20
+                      ? item.account.name.substring(0, 18) + '..'
+                      : item.account.name
+                  }`
+                : item.list_price.formatted}
             </p>
           </div>
         </a>

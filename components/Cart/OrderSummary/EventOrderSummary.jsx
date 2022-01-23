@@ -44,10 +44,10 @@ const EventOrderSummary = ({ listing_details, quantity }) => {
               </p>
             </div>
             <div>
-              <p className=" text-base  font-medium text-secondary ">
+              <p className=" text-base  font-medium text-default_gray ">
                 {listing_details.location.country}
               </p>
-              <p className=" text-base  font-medium text-secondary ">
+              <p className=" text-base  font-medium text-default_gray ">
                 <span>Quantity :</span> <span>{quantity}</span>{' '}
               </p>
             </div>
@@ -68,10 +68,10 @@ const EventOrderSummary = ({ listing_details, quantity }) => {
         </div>
       </div>
       <div className="mt-8">
-        <p className="text-base leading-6 font-semibold text-secondary flex justify-between items-center mb-2">
+        <p className="text-base leading-6 font-semibold text-default_gray flex justify-between items-center mb-2">
           <span>Total</span>{' '}
           <span className=" flex flex-wrap items-center">
-            <span className="text-sm leading-6 font-medium text-secondary mr-2">
+            <span className="text-sm leading-6 font-medium text-default_gray mr-2">
               {!variant_id
                 ? listing_details.list_price.currency
                 : selecte_varient_details[0].list_price?.currency}
@@ -87,7 +87,7 @@ const EventOrderSummary = ({ listing_details, quantity }) => {
             </span>
           </span>
         </p>
-        <p className="text-base leading-6 font-semibold text-secondary flex justify-between items-center mb-2">
+        <p className="text-base leading-6 font-semibold text-default_gray flex justify-between items-center mb-2">
           <span>Offer Percent</span>{' '}
           <span className=" flex flex-wrap items-center">
             <span className="text-base leading-6 font-semibold text-gray-600">
@@ -101,7 +101,7 @@ const EventOrderSummary = ({ listing_details, quantity }) => {
         <p className="text-xl leading-6 font-semibold text-black flex justify-between items-center">
           <span>Subtotal</span>{' '}
           <span className=" flex flex-wrap items-center">
-            <span className="text-sm leading-6 font-medium text-secondary mr-2">
+            <span className="text-sm leading-6 font-medium text-default_gray mr-2">
               {!variant_id
                 ? listing_details.offer_price?.currency
                 : selecte_varient_details[0].offer_price?.currency}

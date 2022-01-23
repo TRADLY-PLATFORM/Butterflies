@@ -192,13 +192,54 @@ const Footer = () => {
                   </div>
                 );
               }
+            } else {
+              return (
+                <div className="mb-4 " key={Math.random()}>
+                  {' '}
+                  <Link
+                    href={{
+                      pathname: `/lc/[name]`,
+                      query: {
+                        name: item.name.replace(/\s/g, '-'),
+                        category_id: item.id,
+                        page: 1,
+                      },
+                    }}
+                  >
+                    <a>
+                      <button
+                        // onClick={() =>
+                        //   router.push({
+                        //     pathname: `/lc/[name]`,
+                        //     query: {
+                        //       name: item.name.replace(/\s/g, '-'),
+                        //       category_id: item.id,
+                        //       page: 1,
+                        //     },
+                        //   })
+                        // }
+                        className={[
+                          '  text-[#4F4F4F]    cursor-pointer transition duration-300 hover:text-primary  text-left',
+                          router?.query?.name === item.name.replace(/\s/g, '-')
+                            ? 'text-primary'
+                            : '',
+                        ].join(' ')}
+                      >
+                        {item.name.length > 20
+                          ? item.name.substring(0, 19) + '.'
+                          : item.name}
+                      </button>
+                    </a>
+                  </Link>
+                </div>
+              );
             }
           })}
 
           {isSeeAllCategories &&
             allCategories?.map((item, index, array) => {
               if (array.length > 4) {
-                if (index > 4) {
+                if (index + 1 > 4) {
                   return (
                     <div className="mb-4 " key={Math.random()}>
                       {' '}
@@ -321,7 +362,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="py-2 flex items-center">
-        <p className=" text-sm text-secondary mr-4">
+        <p className=" text-sm text-default_gray mr-4">
           {`© ${new Date().getFullYear()} ${
             general_configs?.website_name
           }. All rights reserved.`}

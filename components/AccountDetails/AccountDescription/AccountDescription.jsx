@@ -10,7 +10,9 @@ const AccountDescription = ({ account_details }) => {
     // },
     {
       title: 'Categories',
-      value: account_details?.categories[0].name,
+      value: account_details?.categories[0]?.name
+        ? account_details?.categories[0]?.name
+        : 'N/A',
       extra_style: true,
     },
     {
@@ -39,11 +41,31 @@ const AccountDescription = ({ account_details }) => {
                 : 'flex  items-start',
             ].join(' ')}
           >
-            <p className={[" text-gray-900 text-base font-semibold flex items-center"].join(' ')}>
-              <p className={item.extra_style?" w-[100px]  xs:w-[200px]":" w-[130px] xs:w-[200px]"}>{item.title}</p>
+            <p
+              className={[
+                ' text-gray-900 text-base font-semibold flex items-center',
+              ].join(' ')}
+            >
+              <p
+                className={
+                  item.extra_style
+                    ? ' w-[100px]  xs:w-[200px]'
+                    : ' w-[130px] xs:w-[200px]'
+                }
+              >
+                {item.title}
+              </p>
               <span className="">:</span>
             </p>
-            <p className={item.extra_style?" mt-2 ml-8 px-2 xs:ml-4 xs:mt-0  xs:px-0":" text-base ml-4"}>{item.value}</p>
+            <p
+              className={
+                item.extra_style
+                  ? ' mt-2 ml-8 px-2 xs:ml-4 xs:mt-0  xs:px-0'
+                  : ' text-base ml-4'
+              }
+            >
+              {item.value}
+            </p>
           </div>
         );
       })}

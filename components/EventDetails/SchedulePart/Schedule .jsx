@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { changeDateFormat, findRepeatName } from '../../Shared/Constant/Constant';
+import {
+  changeDateFormat,
+  findRepeatName,
+} from '../../Shared/Constant/Constant';
 import moment from 'moment';
 
 const Schedule = ({ schedules }) => {
@@ -25,7 +28,7 @@ const Schedule = ({ schedules }) => {
           <p className="text-base leading-4 text-[#121212] font-medium">
             {moment(schedules[0].start_date).format('dddd, MMM  YY')}
           </p>
-          <p className=" text-xs leading-4 font-medium text-secondary mt-[2px] ">
+          <p className=" text-xs leading-4 font-medium text-default_gray mt-[2px] ">
             {schedules[0].start_time} - {schedules[0].end_time}
           </p>
           <p>{findRepeatName(schedules[0].repeat_days)}</p>

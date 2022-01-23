@@ -20,8 +20,8 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
 
   const { currencies } = useSelector(storeSelector);
 
-   const { genral_configs, marketplace_type, marketplace_module } =
-     useSelector(configsSelector);
+  const { genral_configs, marketplace_type, marketplace_module } =
+    useSelector(configsSelector);
 
   const [variantsObject, setVariantsObject] = useState({
     variant_type: null,
@@ -127,7 +127,7 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
                     </p>
                     <p className="text-black font-semibold">{item.title}</p>
                     <p className=" flex items-center  ">
-                      <span className=" text-secondary font-normal  text-xs">
+                      <span className=" text-default_gray font-normal  text-xs">
                         {currency
                           ? currencies.map((item) => {
                               if (item.id === currency) {
@@ -251,7 +251,7 @@ export default VariantsPart;
           <div>
             <p className=" text-primary font-semibold text-base">Test</p>
             <p className=" text-black font-semibold text-base">$1000</p>
-            <p className=" text-secondary font-normal text-sm">Available</p>
+            <p className=" text-default_gray font-normal text-sm">Available</p>
           </div>
           <div className=" flex justify-around items-center">
             <button className="bg-white text-black">

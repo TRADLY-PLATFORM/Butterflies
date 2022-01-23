@@ -42,12 +42,13 @@ export const create_store_click = (
     setError_message('Address is required');
     setCreateStoreLoading(false);
     return false;
-  } else if (category === null) {
-    setShowError(true);
-    setError_message('Select one category');
-    setCreateStoreLoading(false);
-    return false;
   }
+  // else if (category === null) {
+  //   setShowError(true);
+  //   setError_message('Select one category');
+  //   setCreateStoreLoading(false);
+  //   return false;
+  // }
 
   tradly.app
     .generateS3ImageURL({
@@ -80,7 +81,7 @@ export const create_store_click = (
                 if (check === undefined) {
                   let storesData = {
                     name: name,
-                    category_id: [category],
+
                     description: description,
                     web_address: '',
                     images: [ImagePath],
@@ -89,6 +90,9 @@ export const create_store_click = (
                   };
                   if (accounts_configs.account_address_enabled) {
                     storesData['coordinates'] = coordinates;
+                  }
+                  if (category !== null) {
+                    storesData['category_id'] = [category];
                   }
                   dispatch(
                     postStore({
@@ -141,7 +145,7 @@ export const create_store_click = (
                             ];
                             let storesData = {
                               name: name,
-                              category_id: [category],
+
                               description: description,
                               web_address: '',
                               images: [ImagePath],
@@ -150,6 +154,9 @@ export const create_store_click = (
                             };
                             if (accounts_configs.account_address_enabled) {
                               storesData['coordinates'] = coordinates;
+                            }
+                            if (category !== null) {
+                              storesData['category_id'] = [category];
                             }
                             dispatch(
                               postStore({
@@ -185,7 +192,7 @@ export const create_store_click = (
               } else {
                 let storesData = {
                   name: name,
-                  category_id: [category],
+
                   description: description,
                   web_address: '',
                   images: [ImagePath],
@@ -194,7 +201,9 @@ export const create_store_click = (
                 if (accounts_configs.account_address_enabled) {
                   storesData['coordinates'] = coordinates;
                 }
-
+                if (category !== null) {
+                  storesData['category_id'] = [category];
+                }
                 dispatch(
                   postStore({
                     id: '',

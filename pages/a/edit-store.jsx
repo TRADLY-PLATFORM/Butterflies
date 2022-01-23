@@ -7,6 +7,7 @@ import { setAccountConfig } from '../../store/feature/configsSlice';
 import tradly from 'tradly';
 import { clearAccountDetails } from '../../store/feature/storeSlice';
 import { useRouter } from 'next/dist/client/router';
+import { edit_store_page } from '../../themes/Theme1';
 
 const EditStore = (props) => {
   const dispatch = useDispatch();
@@ -29,11 +30,7 @@ const EditStore = (props) => {
 
   const { login } = useSelector(authSelector);
 
-  return (
-    <div>
-      <MainLayout>{login && <EditStorePageLayout />}</MainLayout>
-    </div>
-  );
+  return login && edit_store_page();
 };
 
 export default EditStore;

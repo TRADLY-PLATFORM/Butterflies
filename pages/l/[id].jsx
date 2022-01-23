@@ -9,7 +9,11 @@ import { refreshPage } from '../../store/feature/authSlice';
 import tradly from 'tradly';
 import { clearListingDetails } from '../../store/feature/listingSlice';
 import ProductDetailsPageLayout from '../../components/layouts/PageLayouts/ProductDetailsPageLayout';
-import { setGeneralConfig, setListingConfig } from '../../store/feature/configsSlice';
+import {
+  setGeneralConfig,
+  setListingConfig,
+} from '../../store/feature/configsSlice';
+import { listing_details_page } from '../../themes/Theme1';
 
 function Details(props) {
   const [marketplace_type, setmarketplace_type] = useState(null);
@@ -30,8 +34,6 @@ function Details(props) {
   const pageTitle = props?.seo_text?.meta_listing_title;
   const pageDescription = props?.seo_text?.meta_listing_description;
 
- 
-
   const selectLayout = () => {
     if (marketplace_type === 1) {
       return (
@@ -40,7 +42,7 @@ function Details(props) {
           pageDescription={pageDescription}
         />
       );
-    } else {
+    } else if (marketplace_type === 2) {
       return (
         <EventDetailsPageLayout
           pageTitle={pageTitle}
@@ -50,16 +52,7 @@ function Details(props) {
     }
   };
 
-  return (
-    marketplace_type && (
-      <>
-         
-        <div className="  ">
-          <MainLayout>{selectLayout()}</MainLayout>
-        </div>
-      </>
-    )
-  );
+  return listing_details_page(pageTitle, pageDescription);
 }
 
 export default Details;
