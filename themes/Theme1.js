@@ -106,7 +106,11 @@ module.exports = {
         );
 
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <HomePageLayout />
+          </MainLayout>
+        );
     }
   },
   //Listing Categories Page:
@@ -130,7 +134,11 @@ module.exports = {
         break;
 
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <CategoriesPageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -161,7 +169,11 @@ module.exports = {
         break;
 
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <ListingsPageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -192,7 +204,14 @@ module.exports = {
         break;
 
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <CategoryListingsPageLayout
+              pageTitle={pageTitle}
+              pageDescription={pageDescription}
+            />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -235,7 +254,14 @@ module.exports = {
         break;
 
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout>
+            <ProductDetailsPageLayout
+              pageTitle={pageTitle}
+              pageDescription={pageDescription}
+            />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -264,7 +290,11 @@ module.exports = {
         );
         break;
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <AllAccountsPageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -288,7 +318,11 @@ module.exports = {
         );
         break;
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <AccountDetailsPageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -312,7 +346,11 @@ module.exports = {
         );
         break;
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <MyStorePageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -336,7 +374,11 @@ module.exports = {
         );
         break;
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <CreateStorePageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -360,7 +402,11 @@ module.exports = {
         );
         break;
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <EditStorePageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -384,7 +430,11 @@ module.exports = {
         );
         break;
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <AddEventPageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -408,7 +458,11 @@ module.exports = {
         );
         break;
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <EditProductPageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -432,7 +486,11 @@ module.exports = {
         );
         break;
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <EditProfilePageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
@@ -456,7 +514,11 @@ module.exports = {
         );
         break;
       default:
-        return <Error_Page />;
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <SearchPageLayout />
+          </MainLayout>
+        );
         break;
     }
   },
