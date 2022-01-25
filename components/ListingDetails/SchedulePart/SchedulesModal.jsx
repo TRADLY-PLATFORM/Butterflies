@@ -106,7 +106,7 @@ const SchedulesModal = ({
                         {item.start_time} to {item.end_time}
                       </p>
                       <p className=" flex items-center  ">
-                        <span className=" text-secondary font-normal  text-xs">
+                        <span className=" text-default_gray font-normal  text-xs">
                           {getTimeDifference(item.start_time, item.end_time)}{' '}
                           mins
                         </span>

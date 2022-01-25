@@ -50,7 +50,7 @@ const ProductSideMenubar = () => {
           <p
             className={[
               ' text-sm font-semibold   ml-5',
-              router.pathname === '/' ? 'text-primary' : ' text-secondary',
+              router.pathname === '/' ? 'text-primary' : ' text-default_gray',
             ].join(' ')}
           >
             Home
@@ -84,7 +84,7 @@ const ProductSideMenubar = () => {
 							" text-sm font-semibold   ml-5",
 							router.pathname === "/explore"
 								? "text-primary"
-								: " text-secondary",
+								: " text-default_gray",
 						].join(" ")}
 					>
 						Explore
@@ -125,7 +125,7 @@ const ProductSideMenubar = () => {
               router.pathname === '/orders' ||
               router.pathname === '/orders/[id]'
                 ? 'text-primary'
-                : ' text-secondary',
+                : ' text-default_gray',
             ].join(' ')}
           >
             Orders
@@ -159,7 +159,7 @@ const ProductSideMenubar = () => {
 							" text-sm font-semibold   ml-5",
 							router.pathname === "/history"
 								? "text-primary"
-								: " text-secondary",
+								: " text-default_gray",
 						].join(" ")}
 					>
 						History
@@ -193,7 +193,7 @@ const ProductSideMenubar = () => {
 							" text-sm font-semibold   ml-5",
 							router.pathname === "/settings"
 								? "text-primary"
-								: " text-secondary",
+								: " text-default_gray",
 						].join(" ")}
 					>
 						Settings

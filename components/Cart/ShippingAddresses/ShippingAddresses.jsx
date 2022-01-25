@@ -16,7 +16,7 @@ const ShippingAddresses = ({
             className={
               selectShippingAddress?.id === location.id
                 ? '  mb-3  w-full  min-h-[81px] flex   justify-between  p-[16px] border   transition-all duration-1000	    border-transparent bg-primary text-white rounded-md cursor-pointer  ring-2 ring-primary ring-offset-2  '
-                : ' bg-white    w-full  min-h-[81px] flex   justify-between  p-[16px] text-secondary border  border-transparent  hover:border-primary rounded-md cursor-pointer mb-3 '
+                : ' bg-white    w-full  min-h-[81px] flex   justify-between  p-[16px] text-default_gray border  border-transparent  hover:border-primary rounded-md cursor-pointer mb-3 '
             }
           >
             <div className="flex">

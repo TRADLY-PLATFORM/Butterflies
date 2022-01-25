@@ -177,3 +177,15 @@ border-color: var( --primary_color) !important;
 .rc-slider-handle:focus{
 border-color: var( --primary_color) !important;
 }
+
+
+@tailwind base;
+@tailwind components;
+
+@import 'additional-styles/utility-patterns.scss';
+@import 'additional-styles/range-slider.scss';
+@import 'additional-styles/toggle-switch.scss';
+// @import 'additional-styles/flatpickr.scss';
+// @import 'additional-styles/theme.scss'; 
+
+@tailwind utilities;

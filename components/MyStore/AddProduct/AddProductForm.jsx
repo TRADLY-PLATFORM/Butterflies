@@ -224,7 +224,7 @@ const AddProductForm = () => {
                   Add Image
                 </button>
               </div>
-              <p className=" text-sm mt-2 font-normal text-secondary">
+              <p className=" text-sm mt-2 font-normal text-default_gray">
                 Max. {listing_configs?.listing_pictures_count} photos per
                 Listing
               </p>
@@ -416,7 +416,7 @@ const AddProductForm = () => {
               />
             </div>
           </div>
-          {variantsType?.length > 0 && marketplace_type ===2 &&(
+          {variantsType?.length > 0 && marketplace_type === 2 && (
             <>
               <h3 className=" font-semibold mt-9 text-[#121212] text-xl mb-4">
                 Variants

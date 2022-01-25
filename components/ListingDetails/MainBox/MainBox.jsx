@@ -23,7 +23,7 @@ const MainBox = ({ listing_details, rating_data, like }) => {
           {listing_details.title}
         </h2>
         <p className=" mt-1 flex items-center flex-wrap">
-          <span className="text-secondary text-base font-medium">
+          <span className="text-default_gray text-base font-medium">
             {listing_details.list_price.currency}
           </span>
           <span className=" text-black text-xl font-medium ml-[8px]">
@@ -48,7 +48,7 @@ const MainBox = ({ listing_details, rating_data, like }) => {
           <span className=" text-[#4F4F4F] font-medium text-base ml-[6px] ">
             {rating_data.rating_average}
           </span>
-          <span className=" text-secondary  text-xs font-medium ml-[6px]">
+          <span className=" text-default_gray  text-xs font-medium ml-[6px]">
             {rating_data.rating_count} Ratings
           </span>
         </p>

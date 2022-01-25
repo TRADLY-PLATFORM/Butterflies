@@ -49,8 +49,8 @@ const Drawer = () => {
         )}
 
         <div className="pb-[10px] px-2">
-            <SearchBox />
-          </div>
+          <SearchBox />
+        </div>
       </div>
       <div>
         {categories?.map((item) => {
@@ -82,7 +82,7 @@ const Drawer = () => {
                       ' text-sm font-semibold   ml-5 ',
                       router?.query?.name === item.name.replace(/\s/g, '-')
                         ? 'text-primary'
-                        : ' text-secondary',
+                        : ' text-default_gray',
                     ].join(' ')}
                   >
                     {item.name}

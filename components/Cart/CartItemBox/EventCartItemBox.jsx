@@ -99,8 +99,8 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
               ? listing_details.title
               : selecte_varient_details[0].title}
           </p>
-          <p className=" mt-[11px] text-secondary text-xs font-medium flex flex-wrap items-center">
-            <span className=" text-xs leading-6 font-medium text-secondary mr-2">
+          <p className=" mt-[11px] text-default_gray text-xs font-medium flex flex-wrap items-center">
+            <span className=" text-xs leading-6 font-medium text-default_gray mr-2">
               {!variant_id
                 ? listing_details.offer_price.currency
                 : selecte_varient_details[0].offer_price.currency}

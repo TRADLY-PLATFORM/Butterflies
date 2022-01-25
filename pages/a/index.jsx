@@ -7,6 +7,7 @@ import tradly from 'tradly';
 import AllAccountsPageLayout from '../../components/layouts/PageLayouts/AllAccountsPageLayout';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
 import DefaultErrorPage from 'next/error';
+import { all_accounts_page } from '../../themes/Theme1';
 
 const Stores = (props) => {
   const [marketplace_module, setmarketplace_module] = useState(null);
@@ -25,16 +26,7 @@ const Stores = (props) => {
   const pageTitle = props?.seo_text?.meta_title;
   const pageDescription = props?.seo_text?.meta_description;
 
-  return (
-    marketplace_module &&
-    (marketplace_module === 1 ? (
-      <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
-        <AllAccountsPageLayout />
-      </MainLayout>
-    ) : (
-      <DefaultErrorPage statusCode={404} />
-    ))
-  );
+  return all_accounts_page(pageTitle, pageDescription);
 };
 
 export default Stores;

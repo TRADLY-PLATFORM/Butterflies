@@ -8,6 +8,8 @@ import tradly from 'tradly';
 import { clearListings } from '../store/feature/listingSlice';
 import ExplorePageLayout from '../components/layouts/PageLayouts/ExplorePageLayout';
 import { setGeneralConfig } from '../store/feature/configsSlice';
+import DefaultErrorPage from 'next/error';
+
 
 const explore = (props) => {
   const dispatch = useDispatch();
@@ -22,10 +24,12 @@ const explore = (props) => {
   }, [dispatch]);
   const pageTitle = props?.seo_text?.meta_title;
   const pageDescription = props?.seo_text?.meta_description;
-  return (
+  return props.general_configs?.type == 2 ? (
     <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
       <ExplorePageLayout />
     </MainLayout>
+  ) : (
+    <DefaultErrorPage statusCode={404} />
   );
 };
 

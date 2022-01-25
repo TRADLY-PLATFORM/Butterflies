@@ -70,10 +70,10 @@ const AccountProfile = ({
           </div>
           <div className=" flex flex-col items-start">
             <p className=" font-semibold text-base text-black">
-              {account_details.name}
+              {account_details?.name}
             </p>
-            <p className=" text-secondary text-sm">
-              @{account_details.user.first_name}
+            <p className=" text-default_gray text-sm">
+              @{account_details?.user?.first_name}
             </p>
           </div>
         </div>
@@ -86,10 +86,10 @@ const AccountProfile = ({
                 : 'text-primary   bg-transparent',
             ].join(' ')}
             onClick={() =>
-              follow(account_details.id, account_details.following)
+              follow(account_details?.id, account_details?.following)
             }
           >
-            {account_details.following ? 'Following' : 'Follow'}
+            {account_details?.following ? 'Following' : 'Follow'}
           </button>
         </div>
       </div>

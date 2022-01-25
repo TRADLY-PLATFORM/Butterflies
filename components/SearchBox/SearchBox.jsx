@@ -21,7 +21,8 @@ const router = useRouter()
     }
   },[0])
   
-    return (
+  return (
+      
       <div className=" h-12  md:w-[200px] xl:w-[270px]    rounded-[8px]  bg-[rgba(250, 250, 250, 0.93)] shadow-c-sm  flex items-center overflow-hidden border border-[rgba(34,34,34,.2] ">
         <svg
           width="21"

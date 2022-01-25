@@ -292,7 +292,7 @@ const EditProductForm = () => {
               </button>
             )}
           </div>
-          <p className=" text-sm mt-2 font-normal text-secondary">
+          <p className=" text-sm mt-2 font-normal text-default_gray">
             Max. {listing_configs?.listing_pictures_count} photos per listing
           </p>
         </div>

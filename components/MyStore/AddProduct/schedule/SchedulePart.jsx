@@ -59,7 +59,7 @@ const SchedulePart = ({ schedulesArray, setSchedulesArray }) => {
               return (
                 <div
                   key={index}
-                  className="border border-secondary border-opacity-70 rounded  px-2 py-3 flex  m-2"
+                  className="border border-default_gray border-opacity-70 rounded  px-2 py-3 flex  m-2"
                 >
                   <div>
                     <svg
@@ -81,7 +81,7 @@ const SchedulePart = ({ schedulesArray, setSchedulesArray }) => {
                     <p className="text-base leading-4 text-[#121212] font-medium">
                       {moment(item.start_date).format('dddd, MMM  YY')}
                     </p>
-                    <p className=" text-xs leading-4 font-medium text-secondary mt-[2px] ">
+                    <p className=" text-xs leading-4 font-medium text-default_gray mt-[2px] ">
                       {item.start_time} - {item.end_time}
                     </p>
                     <p>{findRepeatName(item.repeat_days)}</p>

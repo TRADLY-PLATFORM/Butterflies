@@ -21,7 +21,7 @@ const Footer = () => {
   const [allCategories, setAllCategories] = useState(null);
   const [general_configs, setGeneral_configs] = useState(null);
   const [social_configs, setSocial_configs] = useState({});
- 
+
   const router = useRouter();
 
   useEffect(() => {
@@ -53,8 +53,6 @@ const Footer = () => {
           setSocial_configs(res.data.configs);
         }
       });
-
-     
   }, [0]);
   return (
     <>
@@ -73,13 +71,10 @@ const Footer = () => {
             </Link>
           )}
 
-          {general_configs?.app_download_link && (
-            <Link href={general_configs?.app_download_link}>
+          {general_configs?.android_app_download_link && (
+            <Link href={general_configs?.android_app_download_link}>
               <a className=" block mt-4 ml-3" target="_blank">
-                <button
-                  // onClick={() => window.open(general_configs?.app_download_link)}
-                  className=" text-base text-[#4F4F4F] font-medium rounded-lg overflow-hidden"
-                >
+                <button className=" text-base text-[#4F4F4F] font-medium rounded-lg overflow-hidden">
                   <Image
                     src={googleplayImage}
                     width={180}
@@ -197,13 +192,54 @@ const Footer = () => {
                   </div>
                 );
               }
+            } else {
+              return (
+                <div className="mb-4 " key={Math.random()}>
+                  {' '}
+                  <Link
+                    href={{
+                      pathname: `/lc/[name]`,
+                      query: {
+                        name: item.name.replace(/\s/g, '-'),
+                        category_id: item.id,
+                        page: 1,
+                      },
+                    }}
+                  >
+                    <a>
+                      <button
+                        // onClick={() =>
+                        //   router.push({
+                        //     pathname: `/lc/[name]`,
+                        //     query: {
+                        //       name: item.name.replace(/\s/g, '-'),
+                        //       category_id: item.id,
+                        //       page: 1,
+                        //     },
+                        //   })
+                        // }
+                        className={[
+                          '  text-[#4F4F4F]    cursor-pointer transition duration-300 hover:text-primary  text-left',
+                          router?.query?.name === item.name.replace(/\s/g, '-')
+                            ? 'text-primary'
+                            : '',
+                        ].join(' ')}
+                      >
+                        {item.name.length > 20
+                          ? item.name.substring(0, 19) + '.'
+                          : item.name}
+                      </button>
+                    </a>
+                  </Link>
+                </div>
+              );
             }
           })}
 
           {isSeeAllCategories &&
             allCategories?.map((item, index, array) => {
               if (array.length > 4) {
-                if (index > 4) {
+                if (index + 1 > 4) {
                   return (
                     <div className="mb-4 " key={Math.random()}>
                       {' '}
@@ -326,7 +362,11 @@ const Footer = () => {
         </div>
       </div>
       <div className="py-2 flex items-center">
-        <p className=" text-xs text-secondary mr-4">© All rights reserved</p>
+        <p className=" text-sm text-default_gray mr-4">
+          {`© ${new Date().getFullYear()} ${
+            general_configs?.website_name
+          }. All rights reserved.`}
+        </p>
         <Link href={'/sitemap.xml'}>
           <a className=" text-xs text-[#4F4F4F] font-medium" target="_blank">
             Sitemap
