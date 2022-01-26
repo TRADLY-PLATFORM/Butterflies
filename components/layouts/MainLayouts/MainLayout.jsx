@@ -26,10 +26,10 @@ const MainLayout = ({ children, pageTitle, pageDescription }) => {
       </div>
 
       <div className=" md:hidden">
-        <div className="  sticky top-0 z-50  bg-white  ">
+        <div className="  sticky top-0 z-50  bg-white w-screen ">
           <Header3 />
         </div>
-        <div className="  min-h-screen bg-[#f6f9ff] pt-[24px] px-[16px] pb-10">
+        <div className="w-screen min-h-screen bg-[#f6f9ff] pt-[24px] px-[16px] pb-10">
           {children}
         </div>
         <div className="bg-wite min-h-[200px]  left-0 bottom-0 px-[16px] xs:px-[35px] ">

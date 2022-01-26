@@ -140,7 +140,7 @@ const EventButtons = ({ listing_details, selectedVariant }) => {
             />
           </svg>
         )}
-        <span className="   text-xl text-white font-semibold ml-7 ">
+        <span className=" text-xl text-white font-semibold ml-7 ">
           Book Now
         </span>
       </button>
