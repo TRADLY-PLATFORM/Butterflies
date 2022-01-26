@@ -108,7 +108,7 @@ function MyApp({ Component, pageProps }) {
   }, [is_onboarding, is_general, isExtension]);
 
   return (
-    start && (
+   (
       <>
         <Head>
           <link rel="icon" href={favicon} />
