@@ -9,6 +9,7 @@ import Head from 'next/head';
 import { useDispatch } from 'react-redux';
 import TagManager from 'react-gtm-module';
 import { TYPE_CONSTANT } from '../constant/Web_constant';
+import Loading from '../components/Shared/Loading/Loading';
 
 function MyApp({ Component, pageProps }) {
   const [is_onboarding, setIs_onboarding] = useState(false);
@@ -111,6 +112,7 @@ function MyApp({ Component, pageProps }) {
           <link rel="icon" href={favicon} />
         </Head>
         <Provider store={store}>
+          <Loading loading={loading} />
           <Component {...pageProps} />
         </Provider>
       </>
