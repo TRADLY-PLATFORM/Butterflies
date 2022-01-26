@@ -207,378 +207,300 @@ const Filter = () => {
   };
 
   return (
-    <div className=" w-full overflow-hidden relative flex items-center gap-3">
-      <div className=" relative   h-[56px]">
-        <button
-          className={[
-            ' bg-[#FEFEFE] rounded-lg  shadow-c-sm  w-[245px] h-[56px]  flex items-center px-4  z-30  cursor-pointer  ',
-            isFilterOpen ? 'fixed' : 'relative ',
-          ].join(' ')}
-          onClick={() => setIsFilterOpen(!isFilterOpen)}
-        >
-          <span>{filter_icon}</span>
-          <p className=" text-primary font-medium text-base ml-3">Filter</p>
-        </button>
+    <div className=" relative   h-[56px]">
+      <button
+        className={[
+          ' bg-[#FEFEFE] rounded-lg  shadow-c-sm  w-[245px] h-[56px]  flex items-center px-4  z-30  cursor-pointer  ',
+          isFilterOpen ? 'fixed' : 'relative ',
+        ].join(' ')}
+        onClick={() => setIsFilterOpen(!isFilterOpen)}
+      >
+        <span>{filter_icon}</span>
+        <p className=" text-primary font-medium text-base ml-3">Filter</p>
+      </button>
 
-        <OutsideClickHandler
-          onOutsideClick={() => {
-            isFilterOpen && setIsFilterOpen(false);
-          }}
-        >
-          <div
-            className={[
-              'bg-[#FEFEFE] w-[245px] shadow-c-sm rounded-lg fixed  z-20  ',
-              isFilterOpen
-                ? ' transition duration-1000 h-[78%] mt-[10px] pt-[60px] pb-7 overflow-auto scrollbar  scrollbar-thin   scrollbar-track-gray-100  scrollbar-thumb-gray-300   '
-                : 'h-0',
-            ].join(' ')}
-          >
-            <div
-              className={
-                isFilterOpen
-                  ? 'w-full h-full block pl-6 pr-[15px]  '
-                  : ' hidden'
-              }
-            >
-              {/* Dates Array */}
-              {marketplace_type === 2 && (
-                <div className=" md:hidden mb-3">
-                  <Swiper
-                    slidesPerView="auto"
-                    slidesPerGroup={1}
-                    spaceBetween={16}
-                    loop={false}
-                    navigation={false}
-                  >
-                    {dates?.map((date, i) => {
-                      return (
-                        <SwiperSlide
-                          className=""
-                          key={date}
-                          style={{
-                            width: '70px',
-                            minHeight: '30px',
-                          }}
-                        >
-                          {i == 0 ? (
-                            <button
-                              className={[
-                                ' w-full h-[30px] flex items-center justify-center cursor-pointer   border border-primary rounded-2xl transition duration-700 hover:bg-primary hover:text-white mr-1  text-sm',
-                                start_at == undefined &&
-                                  'bg-primary text-white',
-                              ].join(' ')}
-                              id={date}
-                              onClick={() => {
-                                const queries = { ...router.query };
-                                delete queries.start_at;
-                                delete queries.end_at;
-                                router.push({
-                                  query: { ...queries },
-                                });
-                              }}
-                            >
-                              All
-                            </button>
-                          ) : (
-                            <button
-                              className={[
-                                ' w-full h-[30px] flex items-center justify-center cursor-pointer   border border-primary rounded-2xl transition duration-700 hover:bg-primary hover:text-white mr-1  text-sm',
-                                start_at?.split('T')[0] ==
-                                  `${moment(date).format('YYYY-MM-DD')}` &&
-                                  'bg-primary text-white',
-                              ].join(' ')}
-                              id={date}
-                              onClick={() => {
-                                filter_by_date(
-                                  `${moment(date).format('YYYY-MM-DD')}T${
-                                    changed_value[0]
-                                  }Z`,
-                                  `${moment(date)
-                                    .add(1, 'days')
-                                    .format('YYYY-MM-DD')}T${changed_value[1]}Z`
-                                );
-                              }}
-                            >
-                              {i == 1 ? 'Today' : moment(date).format('ddd D')}
-                            </button>
-                          )}
-                        </SwiperSlide>
-                      );
-                    })}
-                  </Swiper>
-                </div>
-              )}
-
-              {/* Time picker */}
-              {marketplace_type === 2 && (
-                <div className="pr-2 mb-3">
-                  <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
-                    <span className=" cursor-pointer">Time</span>
-                  </h4>
-                  <Range
-                    className="text-primary"
-                    allowCross={false}
-                    max={23}
-                    defaultValue={[0, 23]}
-                    onChange={onSliderChange}
-                  />
-                  <div className="flex justify-between items-center  mt-3">
-                    <p className=" block text-gray-500  text-xs">
-                      {convertTimeinto12Hrs(changed_value[0])} -{' '}
-                      {convertTimeinto12Hrs(changed_value[1])}
-                    </p>
-                    {is_value_changed && (
-                      <button
-                        className="px-2 py-1 bg-primary rounded-md text-white text-sm"
-                        onClick={() => change_time()}
-                      >
-                        Done
-                      </button>
-                    )}
-                  </div>
-                </div>
-              )}
-              {/* Sort */}
-              <div className=" mt-3">
-                <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
-                  <span className=" cursor-pointer">Sort</span>
-                  {sort === undefined && <span>{check_icon}</span>}
-                </h4>
-                {priceRange?.map((item) => {
-                  return (
-                    <p
-                      className="  text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center cursor-pointer"
-                      key={Math.random()}
-                      onClick={() => filter_by_price_rang(item.value)}
-                    >
-                      <span className=" ">{item.label}</span>
-                      {sort === item.value && (
-                        <span className="mr-2">{check_icon}</span>
-                      )}
-                    </p>
-                  );
-                })}
-              </div>
-              {/* Atttributes  */}
-              <div className=" mt-3">
-                {allAttributes?.map((item) => {
-                  return (
-                    <ul className="" key={Math.random()}>
-                      <li
-                        className="text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  cursor-pointer"
-                        onClick={(e) => toggleChildren(e, item.id, item.values)}
-                      >
-                        <span>{item.name}</span>
-                        {
-                          <span
-                            className={
-                              activeParent.includes(item.id)
-                                ? 'transform rotate-180'
-                                : ''
-                            }
-                          >
-                            {angle_down}
-                          </span>
-                        }
-                      </li>
-                      {item?.values?.length > 0 &&
-                        item?.values?.map((vl) => {
-                          return (
-                            <li
-                              className={
-                                activeParent.includes(item.id)
-                                  ? 'text-[12px] pl-3 text-[#4F4F4F] font-semibold py-[7px]    flex justify-between items-center   transition duration-500  ease-in-out'
-                                  : 'hidden'
-                              }
-                              key={Math.random()}
-                              // onClick={() =>
-                              //   router.push({
-                              //     query: {
-                              //       ...router.query,
-                              //       attribute_value_id: vl.id,
-                              //     },
-                              //   })
-                              // }
-                            >
-                              <span className=" ">{vl.name}</span>
-                              <input
-                                className=" form-check-input appearance-none h-3 w-3 border border-gray-300 rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-primary checked:hover:bg-primary  checked:focus:ring-primary checked:focus:bg-primary  transition duration-200   align-top bg-no-repeat bg-center bg-contain   mr-2 cursor-pointer"
-                                type="checkbox"
-                                checked={
-                                  selectedAtValues?.includes(`${vl.id}`)
-                                    ? true
-                                    : false
-                                }
-                                onChange={() =>
-                                  filter_by_attribute_value(vl.id)
-                                }
-                              />
-                            </li>
-                          );
-                        })}
-                    </ul>
-                  );
-                })}
-              </div>
-              {/* Ratings Range */}
-              <div className=" mt-3  pb-[30px]">
-                <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
-                  <span className=" cursor-pointer">Ratings</span>
-                  {rating === undefined && <span>{check_icon}</span>}
-                </h4>
-
-                <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
-                  <button
-                    className=" cursor-pointer flex items-center"
-                    onClick={() => filter_by_rating(5)}
-                  >
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                  </button>
-
-                  {rating == 5 && <span className="mr-2">{check_icon}</span>}
-                </p>
-                <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
-                  <button
-                    className=" cursor-pointer flex items-center"
-                    onClick={() => filter_by_rating(4)}
-                  >
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                  </button>
-
-                  {rating == 4 && <span className="mr-2"> {check_icon}</span>}
-                </p>
-                <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
-                  <button
-                    className=" cursor-pointer flex items-center"
-                    onClick={() => filter_by_rating(3)}
-                  >
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                  </button>
-
-                  {rating == 3 && <span className="mr-2">{check_icon}</span>}
-                </p>
-                <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
-                  <button
-                    className=" cursor-pointer flex items-center"
-                    onClick={() => filter_by_rating(2)}
-                  >
-                    <span>{star_icon}</span>
-                    <span>{star_icon}</span>
-                  </button>
-
-                  {rating == 2 && <span className="mr-2">{check_icon}</span>}
-                </p>
-                <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
-                  <button
-                    className=" cursor-pointer flex items-center"
-                    onClick={() => filter_by_rating(1)}
-                  >
-                    <span>{star_icon}</span>
-                  </button>
-
-                  {rating == 1 && <span className="mr-2">{check_icon}</span>}
-                </p>
-              </div>
-              <button
-                className=" text-xm font font-medium text-red-600 cursor-pointer pb-[30%]"
-                onClick={() => {
-                  router.push({
-                    query: {
-                      name: router.query.name,
-                      category_id: router.query.category_id,
-                      page: router.query.page,
-                    },
-                  }),
-                    setSelectedAtValues([]),
-                    setSelectedCategories([]);
-                }}
-              >
-                Reset Filter
-              </button>
-            </div>
-          </div>
-        </OutsideClickHandler>
-      </div>
-      {marketplace_type === 2 && (
+      <OutsideClickHandler
+        onOutsideClick={() => {
+          isFilterOpen && setIsFilterOpen(false);
+        }}
+      >
         <div
           className={[
-            '  hidden md:block w-full  pr-72',
-            isFilterOpen && 'ml-[245px]',
+            'bg-[#FEFEFE] w-[245px] shadow-c-sm rounded-lg fixed  z-20  ',
+            isFilterOpen
+              ? ' transition duration-1000 h-[78%] mt-[10px] pt-[60px] pb-7 overflow-auto scrollbar  scrollbar-thin   scrollbar-track-gray-100  scrollbar-thumb-gray-300   '
+              : 'h-0',
           ].join(' ')}
         >
-          <Swiper
-            slidesPerView="auto"
-            slidesPerGroup={1}
-            spaceBetween={16}
-            loop={false}
-            navigation={false}
+          <div
+            className={
+              isFilterOpen ? 'w-full h-full block pl-6 pr-[15px]  ' : ' hidden'
+            }
           >
-            {dates?.map((date, i) => {
-              return (
-                <SwiperSlide
-                  className=""
-                  key={date}
-                  style={{
-                    width: '70px',
-                    minHeight: '30px',
-                  }}
+            {/* Dates Array */}
+            {marketplace_type === 2 && (
+              <div className="mb-3">
+                <Swiper
+                  slidesPerView="auto"
+                  slidesPerGroup={1}
+                  spaceBetween={16}
+                  loop={false}
+                  navigation={false}
                 >
-                  {i == 0 ? (
+                  {dates?.map((date, i) => {
+                    return (
+                      <SwiperSlide
+                        className=""
+                        key={date}
+                        style={{
+                          width: '70px',
+                          minHeight: '30px',
+                        }}
+                      >
+                        {i == 0 ? (
+                          <button
+                            className={[
+                              ' w-full h-[30px] flex items-center justify-center cursor-pointer   border border-primary rounded-2xl transition duration-700 hover:bg-primary hover:text-white mr-1  text-sm',
+                              start_at == undefined && 'bg-primary text-white',
+                            ].join(' ')}
+                            id={date}
+                            onClick={() => {
+                              const queries = { ...router.query };
+                              delete queries.start_at;
+                              delete queries.end_at;
+                              router.push({
+                                query: { ...queries },
+                              });
+                            }}
+                          >
+                            All
+                          </button>
+                        ) : (
+                          <button
+                            className={[
+                              ' w-full h-[30px] flex items-center justify-center cursor-pointer   border border-primary rounded-2xl transition duration-700 hover:bg-primary hover:text-white mr-1  text-sm',
+                              start_at?.split('T')[0] ==
+                                `${moment(date).format('YYYY-MM-DD')}` &&
+                                'bg-primary text-white',
+                            ].join(' ')}
+                            id={date}
+                            onClick={() => {
+                              filter_by_date(
+                                `${moment(date).format('YYYY-MM-DD')}T${
+                                  changed_value[0]
+                                }Z`,
+                                `${moment(date)
+                                  .add(1, 'days')
+                                  .format('YYYY-MM-DD')}T${changed_value[1]}Z`
+                              );
+                            }}
+                          >
+                            {i == 1 ? 'Today' : moment(date).format('ddd D')}
+                          </button>
+                        )}
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </div>
+            )}
+
+            {/* Time picker */}
+            {marketplace_type === 2 && (
+              <div className="pr-2 mb-3">
+                <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
+                  <span className=" cursor-pointer">Time</span>
+                </h4>
+                <Range
+                  className="text-primary"
+                  allowCross={false}
+                  max={23}
+                  defaultValue={[0, 23]}
+                  onChange={onSliderChange}
+                />
+                <div className="flex justify-between items-center  mt-3">
+                  <p className=" block text-gray-500  text-xs">
+                    {convertTimeinto12Hrs(changed_value[0])} -{' '}
+                    {convertTimeinto12Hrs(changed_value[1])}
+                  </p>
+                  {is_value_changed && (
                     <button
-                      className={[
-                        ' w-full h-[30px] flex items-center justify-center cursor-pointer   border border-primary rounded-2xl transition duration-700 hover:bg-primary hover:text-white mr-1  text-sm',
-                        start_at == undefined && 'bg-primary text-white',
-                      ].join(' ')}
-                      id={date}
-                      onClick={() => {
-                        const queries = { ...router.query };
-                        delete queries.start_at;
-                        delete queries.end_at;
-                        router.push({
-                          query: { ...queries },
-                        });
-                      }}
+                      className="px-2 py-1 bg-primary rounded-md text-white text-sm"
+                      onClick={() => change_time()}
                     >
-                      All
-                    </button>
-                  ) : (
-                    <button
-                      className={[
-                        ' w-full h-[30px] flex items-center justify-center cursor-pointer   border border-primary rounded-2xl transition duration-700 hover:bg-primary hover:text-white mr-1  text-sm',
-                        start_at?.split('T')[0] ==
-                          `${moment(date).format('YYYY-MM-DD')}` &&
-                          'bg-primary text-white',
-                      ].join(' ')}
-                      id={date}
-                      onClick={() => {
-                        filter_by_date(
-                          `${moment(date).format('YYYY-MM-DD')}T${
-                            changed_value[0]
-                          }Z`,
-                          `${moment(date)
-                            .add(1, 'days')
-                            .format('YYYY-MM-DD')}T${changed_value[1]}Z`
-                        );
-                      }}
-                    >
-                      {i == 1 ? 'Today' : moment(date).format('ddd D')}
+                      Done
                     </button>
                   )}
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+                </div>
+              </div>
+            )}
+            {/* Sort */}
+            <div className=" mt-3">
+              <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
+                <span className=" cursor-pointer">Sort</span>
+                {sort === undefined && <span>{check_icon}</span>}
+              </h4>
+              {priceRange?.map((item) => {
+                return (
+                  <p
+                    className="  text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center cursor-pointer"
+                    key={Math.random()}
+                    onClick={() => filter_by_price_rang(item.value)}
+                  >
+                    <span className=" ">{item.label}</span>
+                    {sort === item.value && (
+                      <span className="mr-2">{check_icon}</span>
+                    )}
+                  </p>
+                );
+              })}
+            </div>
+            {/* Atttributes  */}
+            <div className=" mt-3">
+              {allAttributes?.map((item) => {
+                return (
+                  <ul className="" key={Math.random()}>
+                    <li
+                      className="text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  cursor-pointer"
+                      onClick={(e) => toggleChildren(e, item.id, item.values)}
+                    >
+                      <span>{item.name}</span>
+                      {
+                        <span
+                          className={
+                            activeParent.includes(item.id)
+                              ? 'transform rotate-180'
+                              : ''
+                          }
+                        >
+                          {angle_down}
+                        </span>
+                      }
+                    </li>
+                    {item?.values?.length > 0 &&
+                      item?.values?.map((vl) => {
+                        return (
+                          <li
+                            className={
+                              activeParent.includes(item.id)
+                                ? 'text-[12px] pl-3 text-[#4F4F4F] font-semibold py-[7px]    flex justify-between items-center   transition duration-500  ease-in-out'
+                                : 'hidden'
+                            }
+                            key={Math.random()}
+                            // onClick={() =>
+                            //   router.push({
+                            //     query: {
+                            //       ...router.query,
+                            //       attribute_value_id: vl.id,
+                            //     },
+                            //   })
+                            // }
+                          >
+                            <span className=" ">{vl.name}</span>
+                            <input
+                              className=" form-check-input appearance-none h-3 w-3 border border-gray-300 rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-primary checked:hover:bg-primary  checked:focus:ring-primary checked:focus:bg-primary  transition duration-200   align-top bg-no-repeat bg-center bg-contain   mr-2 cursor-pointer"
+                              type="checkbox"
+                              checked={
+                                selectedAtValues?.includes(`${vl.id}`)
+                                  ? true
+                                  : false
+                              }
+                              onChange={() => filter_by_attribute_value(vl.id)}
+                            />
+                          </li>
+                        );
+                      })}
+                  </ul>
+                );
+              })}
+            </div>
+            {/* Ratings Range */}
+            <div className=" mt-3  pb-[30px]">
+              <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
+                <span className=" cursor-pointer">Ratings</span>
+                {rating === undefined && <span>{check_icon}</span>}
+              </h4>
+
+              <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
+                <button
+                  className=" cursor-pointer flex items-center"
+                  onClick={() => filter_by_rating(5)}
+                >
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                </button>
+
+                {rating == 5 && <span className="mr-2">{check_icon}</span>}
+              </p>
+              <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
+                <button
+                  className=" cursor-pointer flex items-center"
+                  onClick={() => filter_by_rating(4)}
+                >
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                </button>
+
+                {rating == 4 && <span className="mr-2"> {check_icon}</span>}
+              </p>
+              <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
+                <button
+                  className=" cursor-pointer flex items-center"
+                  onClick={() => filter_by_rating(3)}
+                >
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                </button>
+
+                {rating == 3 && <span className="mr-2">{check_icon}</span>}
+              </p>
+              <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
+                <button
+                  className=" cursor-pointer flex items-center"
+                  onClick={() => filter_by_rating(2)}
+                >
+                  <span>{star_icon}</span>
+                  <span>{star_icon}</span>
+                </button>
+
+                {rating == 2 && <span className="mr-2">{check_icon}</span>}
+              </p>
+              <p className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center ">
+                <button
+                  className=" cursor-pointer flex items-center"
+                  onClick={() => filter_by_rating(1)}
+                >
+                  <span>{star_icon}</span>
+                </button>
+
+                {rating == 1 && <span className="mr-2">{check_icon}</span>}
+              </p>
+            </div>
+            <button
+              className=" text-xm font font-medium text-red-600 cursor-pointer pb-[30%]"
+              onClick={() => {
+                router.push({
+                  query: {
+                    name: router.query.name,
+                    category_id: router.query.category_id,
+                    page: router.query.page,
+                  },
+                }),
+                  setSelectedAtValues([]),
+                  setSelectedCategories([]);
+              }}
+            >
+              Reset Filter
+            </button>
+          </div>
         </div>
-      )}
+      </OutsideClickHandler>
     </div>
   );
 };
