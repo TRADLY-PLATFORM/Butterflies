@@ -9,12 +9,6 @@ import Head from 'next/head';
 import { useDispatch } from 'react-redux';
 import TagManager from 'react-gtm-module';
 import { TYPE_CONSTANT } from '../constant/Web_constant';
-import Router, { useRouter } from 'next/router';
-import Loading from '../components/Shared/Loading/Loading';
-
-// Router.events.on('routeChangeStart', () =>  <Loading/>);
-// Router.events.on('routeChangeComplete', () => console.log('finish'));
-// Router.events.on('routeChangeError', () => console.log('finish'));
 
 function MyApp({ Component, pageProps }) {
   const [is_onboarding, setIs_onboarding] = useState(false);
@@ -23,20 +17,6 @@ function MyApp({ Component, pageProps }) {
   const [start, setStart] = useState(false);
   const [favicon, setFavicon] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
-  const router = useRouter();
-
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const handleStart = (url) => {
-      url !== router.pathname ? setLoading(true) : setLoading(false);
-    };
-    const handleComplete = (url) => setLoading(false);
-
-    router.events.on('routeChangeStart', handleStart);
-    router.events.on('routeChangeComplete', handleComplete);
-    router.events.on('routeChangeError', handleComplete);
-  }, [router]);
 
   tradly.init.config({
     token: process.env.API_KEY,
@@ -115,6 +95,9 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (is_onboarding && is_general && isExtension) {
+      console.log('====================================');
+      console.log(is_onboarding, is_general, isExtension);
+      console.log('====================================');
       setStart(true);
     } else {
       setStart(false);
@@ -128,7 +111,6 @@ function MyApp({ Component, pageProps }) {
           <link rel="icon" href={favicon} />
         </Head>
         <Provider store={store}>
-          <Loading loading={loading} />
           <Component {...pageProps} />
         </Provider>
       </>
