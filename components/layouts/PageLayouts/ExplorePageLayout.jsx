@@ -123,7 +123,7 @@ const ExplorePageLayout = () => {
                 {!router?.query?.start_at && opened_list_view()}
                 {router?.query?.start_at && (
                   <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[75vh]     lg:overflow-hidden">
-                    <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto ">
+                    <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto  md:pb-96">
                       <ListListings Products={listings} map_view={true} />
                     </div>
                     {router?.query?.start_at && (
