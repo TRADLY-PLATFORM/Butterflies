@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     axios.get('/api/configs/onboarding').then((res) => {
+      console.log(res);
       if (typeof window !== 'undefined') {
         if (!res.error) {
           let root = document.documentElement;
@@ -45,6 +46,7 @@ function MyApp({ Component, pageProps }) {
       }
     });
     axios.get('/api/configs/general').then((res) => {
+        console.log(res);
       if (typeof window !== 'undefined') {
         if (!res.error) {
           localStorage.setItem('marketplace_type', res.data.configs.type);
@@ -66,6 +68,7 @@ function MyApp({ Component, pageProps }) {
       }
     });
     axios.get('/api/configs/extensions').then((res) => {
+        console.log(res);
       if (typeof window !== 'undefined') {
         if (!res.error) {
           if (res.data.configs.gtm) {
@@ -78,7 +81,8 @@ function MyApp({ Component, pageProps }) {
       }
     });
     axios.get('/api/configs/seo').then((res) => {
-      const { configs } = res.data;
+        console.log(res);
+      const { configs } = res?.data;
       TYPE_CONSTANT.META_TITLE = configs?.meta_title || '';
       TYPE_CONSTANT.META_DESCRIPTIONS = configs?.meta_description || '';
       TYPE_CONSTANT.META_ACCOUNT_TITLE = configs?.meta_account_title || '';
