@@ -129,7 +129,6 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <Provider store={store}>
           <Loading loading={loading} />
-
           <Component {...pageProps} />
         </Provider>
       </>
