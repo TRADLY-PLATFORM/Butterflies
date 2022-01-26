@@ -1,5 +1,4 @@
-import api from '../../../pages/api/api';
-import { postStore } from '../../../store/feature/storeSlice';
+ import { postStore } from '../../../store/feature/storeSlice';
 import tradly from 'tradly';
 
 export const edit_store_click = (

@@ -7,8 +7,9 @@ import { refreshPage } from '../../store/feature/authSlice';
 import tradly from 'tradly';
 import { clearListings } from '../../store/feature/listingSlice';
 import { all_listings_page } from '../../themes/Theme1';
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
   
-const AllListings = (props) => {
+const AllListings = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearListings());
@@ -18,18 +19,11 @@ const AllListings = (props) => {
       })
     );
   }, [dispatch]);
-  const pageTitle = props?.seo_text?.meta_title;
-  const pageDescription = props?.seo_text?.meta_description;
+  const pageTitle = TYPE_CONSTANT.META_TITLE;
+  const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
   return all_listings_page(pageTitle, pageDescription);
 };
 
 export default AllListings;
 
-export async function getServerSideProps() {
-  const response = await tradly.app.getConfigList({
-    paramBody: 'seo',
-  });
-  return {
-    props: { seo_text: response?.data?.configs || null },
-  };
-}
+ 

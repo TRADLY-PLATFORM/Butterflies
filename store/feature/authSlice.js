@@ -2,6 +2,9 @@
 /* eslint-disable no-else-return */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import tradly from 'tradly';
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
+import Cookies from 'js-cookie';
+
 
 export const signIn = createAsyncThunk(
   'auth/signIn',
@@ -102,7 +105,7 @@ export const verifyUserEmail = createAsyncThunk(
 export const updateUserInfo = createAsyncThunk(
   'auth/updateUserInfo',
 
-  async ({ userId,auth_key }, thunkAPI) => {
+  async ({ userId, auth_key }, thunkAPI) => {
     try {
       const response = await tradly.app.commonFuntion({
         path: `/v1/users/${userId}`,
@@ -154,10 +157,12 @@ export const authSlice = createSlice({
       state.first_name = '';
       state.last_name = '';
       state.auth_key = '';
+      TYPE_CONSTANT.AUTH_KEY = '';
       state.refresh_key = '';
       state.profile_pic = '';
       state.user_details = '';
       localStorage.clear();
+      Cookies.remove('auth_key', { path: '' });
       payload.router.push('/').then(() => {
         window.location.reload();
       });
@@ -183,9 +188,11 @@ export const authSlice = createSlice({
         state.last_name = payload?.user.last_name;
         state.profile_pic = payload?.user?.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;
+        TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = payload?.user;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
+        Cookies.set('auth_key', payload?.user?.key.auth_key);
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
         localStorage.setItem('expiration_time', expirationDate);
@@ -216,9 +223,11 @@ export const authSlice = createSlice({
         state.last_name = userDetails.last_name;
         state.profile_pic = userDetails.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;
+        TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = userDetails;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
+        Cookies.set('auth_key', payload?.user?.key.auth_key);
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('login', true);
       }
@@ -236,7 +245,7 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.errorMessage = '';
         state.verifyId = payload.verify_id;
-          localStorage.setItem('new_user_verify_id', payload.verify_id);
+        localStorage.setItem('new_user_verify_id', payload.verify_id);
       }
     },
     [signUp.pending]: (state) => {
@@ -267,9 +276,11 @@ export const authSlice = createSlice({
         state.last_name = payload?.user.last_name;
         state.profile_pic = payload?.user?.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;
+        TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = payload?.user;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
+        Cookies.set('auth_key', payload?.user?.key.auth_key);
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
         localStorage.setItem('expiration_time', expirationDate);
@@ -321,7 +332,7 @@ export const authSlice = createSlice({
         state.user_email = payload?.user.email;
         state.first_name = payload?.user.first_name;
         state.last_name = payload?.user.last_name;
-         state.profile_pic = payload?.user?.profile_pic;
+        state.profile_pic = payload?.user?.profile_pic;
         state.user_details = payload?.user;
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
       }
