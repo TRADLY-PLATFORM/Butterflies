@@ -277,9 +277,9 @@ module.exports = {
         break;
       case 2:
         return (
-          <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <AllAccountsPageLayout />
-          </CustomLayout>
+          </MainLayout>
         );
         break;
       case 3:
