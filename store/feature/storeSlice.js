@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-else-return */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import tradly from 'tradly';
 
 export const myStore = createAsyncThunk(
@@ -204,10 +205,7 @@ export const get_all_accounts = createAsyncThunk(
 
   async ({ bodyParam, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getAccounts({
-        bodyParam,
-        authKey,
-      });
+      const response = await axios.get('/api/a', { params: bodyParam });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -226,12 +224,7 @@ export const accountDetails = createAsyncThunk(
 
   async ({ id, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.commonFuntion({
-        path: `/v1/accounts/${id}`,
-        bodyParam: '',
-        authKey,
-        Method: 'Get',
-      });
+      const response = await axios.get(`/api/a/${id}`);
       const { data } = await response;
       if (!response.error) {
         return data;
