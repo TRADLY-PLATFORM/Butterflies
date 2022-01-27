@@ -17,11 +17,16 @@ function MyApp({ Component, pageProps }) {
   const [isExtension, setIsExtension] = useState(false);
   const [start, setStart] = useState(false);
   const [favicon, setFavicon] = useState(false);
+  const [connected, setConnected] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
 
   tradly.init.config({
     token: process.env.API_KEY,
     environment: process.env.ENVIRONMENT,
+  });
+
+  axios.get('/api').then((res) => {
+    setConnected(true);
   });
 
   useEffect(() => {
@@ -46,7 +51,7 @@ function MyApp({ Component, pageProps }) {
       }
     });
     axios.get('/api/configs/general').then((res) => {
-        console.log(res);
+      console.log(res);
       if (typeof window !== 'undefined') {
         if (!res.error) {
           localStorage.setItem('marketplace_type', res.data.configs.type);
@@ -68,7 +73,7 @@ function MyApp({ Component, pageProps }) {
       }
     });
     axios.get('/api/configs/extensions').then((res) => {
-        console.log(res);
+      console.log(res);
       if (typeof window !== 'undefined') {
         if (!res.error) {
           if (res.data.configs.gtm) {
@@ -81,7 +86,7 @@ function MyApp({ Component, pageProps }) {
       }
     });
     axios.get('/api/configs/seo').then((res) => {
-        console.log(res);
+      console.log(res);
       const { configs } = res?.data;
       TYPE_CONSTANT.META_TITLE = configs?.meta_title || '';
       TYPE_CONSTANT.META_DESCRIPTIONS = configs?.meta_description || '';
@@ -94,7 +99,7 @@ function MyApp({ Component, pageProps }) {
       TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION =
         configs?.meta_listing_category_description || '';
     });
-  }, []);
+  }, [connected]);
 
   useEffect(() => {
     if (is_onboarding && is_general && isExtension) {
@@ -122,12 +127,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-
-export async function getServerSideProps() {
-  const response = tradly.app.getConfigList({
-    paramBody: 'onboarding',
-  });
-  return {
-    props: { onboarding: response?.data?.configs },
-  };
-}

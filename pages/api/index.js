@@ -1,8 +1,9 @@
 import tradly from 'tradly';
 
 export default async function handler(req, res) {
-    const response = await tradly.app.getConfigList({
-    paramBody: "general",
+  const response = tradly.init.config({
+    token: process.env.API_KEY,
+    environment: process.env.ENVIRONMENT,
   });
-  res.send(response.data);
+  res.status(200).json({ status_text: 'connected' });
 }
