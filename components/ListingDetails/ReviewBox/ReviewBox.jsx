@@ -14,24 +14,69 @@ import {
 import ReactMarkdown from 'react-markdown';
 import ShowMoreText from 'react-show-more-text';
 import tradly from 'tradly';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
+import axios from 'axios';
+import {
+  getListingReviews,
+  listingDetails,
+} from '../../../store/feature/listingSlice';
+import { useRouter } from 'next/dist/client/router';
 
-const ReviewBox = ({ rating_data, reviews }) => {
+const ReviewBox = ({ rating_data, reviews, review_page }) => {
   const { auth_key } = useSelector(authSelector);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  var base_url =
+    process.env.ENVIRONMENT == 'development'
+      ? 'https://api.dev.tradly.app'
+      : 'https://api.tradly.app';
+
+  var header = {};
 
   const helpful_review = (id, status) => {
-    // tradly.app.commonFuntion({ path: `/v1/reviews/${id}/like`, bodyParam: "", authKey: auth_key, Method: "PATCH" });
-    
-    tradly.app.likeReview({
-      authKey: auth_key,
+    axios({
+      url: `${base_url}/v1/reviews/${id}/like`,
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'x-agent': 1,
+        Authorization: `Bearer ${process.env.API_KEY}`,
+        'x-auth-key': auth_key,
+      },
       data: {
         review: {
           status: status == 0 ? 1 : 0,
         },
       },
-      id,
-    });
+    }).then((res) => {
+      if (res.data.status) {
+        dispatch(
+          listingDetails({
+            id: router?.query.id.split('-')[0],
+            authKey: auth_key,
+          })
+        );
+        dispatch(
+          getListingReviews({
+            authKey: auth_key,
+            params: {
+              type: 'listings',
+              id: router?.query.id.split('-')[0],
+              page: review_page,
+              per_page: 30,
+            },
+          })
+        );
+      }
+    })
+    .catch((error)=>{
+      console.log('====================================');
+      console.log(error);
+      console.log('====================================');
+    })
   };
 
   return (
@@ -102,25 +147,30 @@ const ReviewBox = ({ rating_data, reviews }) => {
                   );
                 })}
               </div>
-              {/* <div className=" mt-2 px-2 flex items-center justify-end gap-3">
-                <button onClick={()=>helpful_review(item.id, item.like_status)}>
+              <div className=" mt-2 px-2 flex items-center justify-end gap-3">
+                <button
+                  onClick={() => helpful_review(item.id, item.like_status)}
+                >
                   <svg
                     width="13"
                     height="13"
                     viewBox="0 0 13 13"
-                    fill="none"
+                    fill={
+                      item.like_status == 0
+                        ? '#9B9B9B'
+                        : 'var( --primary_color)'
+                    }
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M0 12.7612H2.36364V5.10458H0V12.7612ZM13 5.74244C13 5.04059 12.4682 4.46634 11.8182 4.46634H8.08956L8.65093 1.55046L8.66865 1.34628C8.66865 1.08468 8.5682 0.842225 8.40865 0.669952L7.78229 0L3.89411 4.20474C3.67547 4.43444 3.54547 4.75347 3.54547 5.10439V11.4849C3.54547 12.1867 4.07729 12.761 4.72729 12.761H10.0455C10.5359 12.761 10.9555 12.442 11.1327 11.9826L12.9173 7.48432C12.9705 7.33757 13 7.18443 13 7.01854V5.79987L12.9941 5.79349L13 5.74244Z"
-                      fill="#9B9B9B"
                     />
                   </svg>
                 </button>
                 <span className="text-sm text-[#9B9B9B]">{item.likes}</span>
-              </div> */}
+              </div>
             </div>
           );
         })}
