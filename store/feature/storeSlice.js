@@ -9,10 +9,7 @@ export const myStore = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getAccounts({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/a/my_account', { params: prams });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -31,10 +28,7 @@ export const getAddressSearch = createAsyncThunk(
 
   async ({ searchKey, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.searchAddress({
-        searchKey,
-        authKey,
-      });
+      const response = await axios.get(`/api/address/${searchKey}`);
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -53,10 +47,7 @@ export const categories = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getCategory({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/categories', { params: prams });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -74,10 +65,7 @@ export const listingCategories = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getCategory({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/categories', { params: prams });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -96,10 +84,7 @@ export const accountAttribute = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getAttribute({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/attribute', { params: prams });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -118,11 +103,7 @@ export const postStore = createAsyncThunk(
 
   async ({ id, prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.postAccounts({
-        id,
-        authKey,
-        data: prams,
-      });
+      const response = await axios.post('/api/a/my_account', { id, prams });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -141,10 +122,7 @@ export const myAccountListings = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getListings({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/l', { params: prams });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -162,10 +140,7 @@ export const myAccountListingDetails = createAsyncThunk(
 
   async ({ id, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getListingDetail({
-        id,
-        authKey,
-      });
+      const response = await axios.get(`/api/l/${id}`);
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -184,9 +159,7 @@ export const currencies = createAsyncThunk(
 
   async ({ authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getCurrency({
-        authKey,
-      });
+      const response = await axios.get('/api/currencies');
       const { data } = await response;
       if (!response.error) {
         return data;

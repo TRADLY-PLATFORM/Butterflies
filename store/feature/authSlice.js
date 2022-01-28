@@ -4,14 +4,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import tradly from 'tradly';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import Cookies from 'js-cookie';
-
+import axios from 'axios';
 
 export const signIn = createAsyncThunk(
   'auth/signIn',
 
   async ({ prams }, thunkAPI) => {
     try {
-      const response = await tradly.user.login({ data: prams });
+      const response = await axios.post('/api/auth/sign_in', { prams });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -24,12 +24,13 @@ export const signIn = createAsyncThunk(
     }
   }
 );
+
 export const refreshPage = createAsyncThunk(
   'auth/refreshPage',
 
   async ({ key }, thunkAPI) => {
     try {
-      const response = await tradly.init.refreshAPI(key);
+      const response = await axios.post('/api/auth/refresh', { key });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -48,9 +49,7 @@ export const signUp = createAsyncThunk(
 
   async ({ prams }, thunkAPI) => {
     try {
-      const response = await tradly.user.register({
-        data: prams,
-      });
+      const response = await axios.post('/api/auth/sign_up', { prams });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -69,7 +68,7 @@ export const verifyUser = createAsyncThunk(
 
   async ({ prams }, thunkAPI) => {
     try {
-      const response = await tradly.user.verify({ data: prams });
+      const response = await axios.post('/api/auth/verify_user', { prams });
       const { data } = await response;
       if (!response.error) {
         return data;
@@ -88,7 +87,7 @@ export const verifyUserEmail = createAsyncThunk(
 
   async ({ prams }, thunkAPI) => {
     try {
-      const response = await tradly.user.forgotPassword({ data: prams });
+      const response = await axios.post('/api/auth/forgot_password', { prams });
       const { data } = await response;
       if (!response.error) {
         return data;

@@ -1,5 +1,6 @@
- import { postStore } from '../../../store/feature/storeSlice';
+import { postStore } from '../../../store/feature/storeSlice';
 import tradly from 'tradly';
+import axios from 'axios';
 
 export const edit_store_click = (
   files,
@@ -53,9 +54,8 @@ export const edit_store_click = (
   // }
 
   if (files !== null) {
-    tradly.app
-      .generateS3ImageURL({
-        authKey: auth_key,
+    axios
+      .post('/api/generateS3ImageURL', {
         data: {
           files: [
             {
@@ -114,9 +114,8 @@ export const edit_store_click = (
                     }
                   });
                 } else {
-                  tradly.app
-                    .generateS3ImageURL({
-                      authKey: auth_key,
+                  axios
+                    .post('/api/generateS3ImageURL', {
                       data: {
                         files: [
                           {
@@ -278,9 +277,8 @@ export const edit_store_click = (
           }
         });
       } else {
-        tradly.app
-          .generateS3ImageURL({
-            authKey: auth_key,
+        axios
+          .post('/api/generateS3ImageURL', {
             data: {
               files: [
                 {

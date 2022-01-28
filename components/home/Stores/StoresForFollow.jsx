@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import tradly from "tradly"
+import tradly from 'tradly';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -25,33 +25,27 @@ import { homeCollections } from '../../../store/feature/homeSlice';
 import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
 import AccountCard from '../../Shared/Cards/AccountCard';
+import axios from 'axios';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
 const StoresForFollow = ({ stores }) => {
+  const { login, auth_key } = useSelector(authSelector);
+  // const { isSuccess } = useSelector(listingSelector);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-    	const { login, auth_key } = useSelector(authSelector);
-      // const { isSuccess } = useSelector(listingSelector);
-      const dispatch = useDispatch();
-      const router = useRouter();
-
-      const follow = (id, isFollow) => {
-        if (login) {
-          tradly.app.followUnfollowAccounts({
-            id,
-            authKey: auth_key,
-            isFollowing: isFollow,
-          }) 
-          .then((res) => {
-            if (!res.code) {
-              dispatch(homeCollections({ authKey: auth_key }));
-            }
-          });
-        } else {
-          router.push('/sign-in');
+  const follow = (id, isFollow) => {
+    if (login) {
+      axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
+        if (!res.code) {
+          dispatch(homeCollections({ authKey: auth_key }));
         }
-      };
-
+      });
+    } else {
+      router.push('/sign-in');
+    }
+  };
 
   return (
     <div className="mt-10">
@@ -64,7 +58,7 @@ const StoresForFollow = ({ stores }) => {
           }}
           passHref
         >
-          <a  className=" block text-base text-primary font-semibold cursor-pointer">
+          <a className=" block text-base text-primary font-semibold cursor-pointer">
             View All
           </a>
         </Link>
@@ -87,7 +81,7 @@ const StoresForFollow = ({ stores }) => {
                 minHeight: '270px',
               }}
             >
-              <AccountCard item={item} follow={follow}/>
+              <AccountCard item={item} follow={follow} />
             </SwiperSlide>
           ))}
         </Swiper>

@@ -31,10 +31,9 @@ const AccountDetailsPageLayout = () => {
 
   useEffect(() => {
     if (account_details?.id) {
-      tradly.app
-        .getListings({
-          bodyParam: { page: 1, per_page: 30, account_id: account_details.id },
-          authKey: auth_key,
+      axios
+        .get('/api/l', {
+          params: { page: 1, per_page: 30, account_id: account_details.id },
         })
         .then((res) => {
           if (!res.error) {

@@ -14,6 +14,7 @@ import {
   whatsapp_icon,
   youtube_icon,
 } from '../Shared/Constant/Icons/socialIcons';
+import axios from 'axios';
 
 const Footer = () => {
   const [logo, setLogo] = useState(null);
@@ -26,33 +27,25 @@ const Footer = () => {
 
   useEffect(() => {
     setLogo(localStorage.getItem('logo'));
-    tradly.app
-      .getCategory({ bodyParam: { parent: 0, type: 'listings' }, authKey: '' })
+    axios
+      .get('/api/categories', { params: { parent: 0, type: 'listings' } })
       .then((res) => {
         if (!res.error) {
           setAllCategories(res.data.categories);
         }
       });
 
-    tradly.app
-      .getConfigList({
-        paramBody: 'general',
-      })
-      .then((res) => {
-        if (!res.error) {
-          setGeneral_configs(res.data.configs);
-        }
-      });
+    axios.get('/api/configs/general').then((res) => {
+      if (!res.error) {
+        setGeneral_configs(res.data.configs);
+      }
+    });
 
-    tradly.app
-      .getConfigList({
-        paramBody: 'social',
-      })
-      .then((res) => {
-        if (!res.error) {
-          setSocial_configs(res.data.configs);
-        }
-      });
+    axios.get('/api/configs/social').then((res) => {
+      if (!res.error) {
+        setSocial_configs(res.data.configs);
+      }
+    });
   }, [0]);
   return (
     <>

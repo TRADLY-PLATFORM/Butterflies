@@ -11,12 +11,13 @@ import { useSelector } from 'react-redux';
 import { authSelector } from '../../../../store/feature/authSlice';
 import { useDispatch } from 'react-redux';
 import CustomLoading from '../../../Shared/Loading/CustomLoading';
+import axios from 'axios';
 
 const AddressBox = ({ order_details }) => {
   const router = useRouter();
   const { auth_key } = useSelector(authSelector);
   const dispatch = useDispatch();
-  const[isLoading,setIsLoading]=useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const [showShippingAddressForm, setShowShippingAddressForm] = useState(false);
   const { register, handleSubmit } = useForm();
@@ -24,41 +25,41 @@ const AddressBox = ({ order_details }) => {
   const onSubmit = (data) => {
     setIsLoading(true);
     const id = '';
-    tradly.app
-      .addEditAddress({
+
+    axios
+      .post('/api/address/save_address', {
         id,
-        data: {
+        addressData: {
           address: { ...data, type: 'pickup' },
         },
-        authKey: auth_key,
       })
       .then((res) => {
         if (!res.error) {
-          tradly.app.updateOrderDetail({
-            authKey: auth_key,
-            id: order_details.id,
-            data: {
-              operation: 'update_pickup_address',
-              order: { pickup_address_id: res.data.address.id },
-            },
-          }).then((res) => {
-            if (!res.error) {
-              dispatch(
-                get_order_details({
-                  authKey: auth_key,
-                  id: order_details.id,
-                  bodyParam: { account_id: router.query.store_id },
-                })
-              );
-              setShowShippingAddressForm(false);
-               setIsLoading(false);
-            } else {
-               setIsLoading(false);
-            }
-          })
-          
+          axios
+            .post('/api/orders/update_order', {
+              id: order_details.id,
+              data: {
+                operation: 'update_pickup_address',
+                order: { pickup_address_id: res.data.address.id },
+              },
+            })
+            .then((res) => {
+              if (!res.error) {
+                dispatch(
+                  get_order_details({
+                    authKey: auth_key,
+                    id: order_details.id,
+                    bodyParam: { account_id: router.query.store_id },
+                  })
+                );
+                setShowShippingAddressForm(false);
+                setIsLoading(false);
+              } else {
+                setIsLoading(false);
+              }
+            });
         } else {
-           setIsLoading(false);
+          setIsLoading(false);
         }
       });
   };
@@ -72,7 +73,7 @@ const AddressBox = ({ order_details }) => {
   }
   return (
     <>
-      {isLoading&&<CustomLoading/>}
+      {isLoading && <CustomLoading />}
       {showShippingAddressForm && (
         <Modal>
           <OutsideClickHandler
@@ -99,7 +100,9 @@ const AddressBox = ({ order_details }) => {
           {address?.country ? (
             <>
               <div className=" flex justify-start items-center py-1  ">
-                <p className=" text-sm text-black font-semibold  w-1/6 ">City :</p>
+                <p className=" text-sm text-black font-semibold  w-1/6 ">
+                  City :
+                </p>
                 <p className=" text-sm text-black font-semibold  ml-2  text-opacity-70">
                   {address.address_line_1}
                 </p>

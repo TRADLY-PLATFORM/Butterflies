@@ -1,30 +1,31 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import tradly from "tradly"
- 
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import tradly from 'tradly';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css";
-import "swiper/components/navigation/navigation.min.css";
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/components/navigation/navigation.min.css';
 
 // import Swiper core and required modules
-import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
+import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
+import axios from 'axios';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const Banner = ({ banners }) => {
-	const[appPromoBanners,setAppsPromoBanners]=useState(null)
-	useEffect(() => {
-		tradly.app.getPromoBanner({ authKey: '', bodyParam: { medium: "app" } }).then((res) => {
-			 if(!res.error){
-				 setAppsPromoBanners(res.data.promo_banners);
-			 }
-		 })
-	 },[])
-	return (
+  const [appPromoBanners, setAppsPromoBanners] = useState(null);
+  useEffect(() => {
+    axios.get(`/api/banners`, { params: { medium: 'app' } }).then((res) => {
+      if (!res.error) {
+        setAppsPromoBanners(res.data.promo_banners);
+      }
+    });
+  }, []);
+  return (
     <>
       <div className=" hidden md:block w-full   h-auto mb-9 mx-auto">
         <Swiper
@@ -93,7 +94,5 @@ const Banner = ({ banners }) => {
 };
 
 export default Banner;
-
-
 
 // w-full h-[200px] md:h-[400px]  relative rounded-lg overflow-hidden

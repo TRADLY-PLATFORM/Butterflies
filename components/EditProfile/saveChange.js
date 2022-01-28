@@ -1,3 +1,4 @@
+import axios from 'axios';
 import tradly from 'tradly';
 import { updateUserInfo } from '../../store/feature/authSlice';
 
@@ -33,9 +34,8 @@ export const saveChange = (
   }
 
   if (files !== null) {
-    tradly.app
-      .generateS3ImageURL({
-        authKey: auth_key,
+    axios
+      .post('/api/generateS3ImageURL', {
         data: {
           files: [
             {
@@ -64,19 +64,16 @@ export const saveChange = (
                 profile_pic: ImagePath,
               },
             };
-            tradly.app
-              .updateUserInfo({
-                id: userId,
-                data: userData,
-                authKey: auth_key,
-              })
+
+            axios
+              .post('/api/user/update_user', { id, userData })
               .then((res) => {
                 if (!res.error) {
                   dispatch(updateUserInfo({ userId, auth_key })).then((res) => {
                     if (!res.payload.code) {
                       setLoading(false);
-                      setShowSuccess(true)
-                      setSuccess_message('Your profile updated successfully')
+                      setShowSuccess(true);
+                      setSuccess_message('Your profile updated successfully');
                     } else {
                       setShowError(true);
                       setError_message(response.payload.message);
@@ -100,26 +97,20 @@ export const saveChange = (
         profile_pic: imagePath.path,
       },
     };
-    tradly.app
-      .updateUserInfo({
-        id: userId,
-        data: userData,
-        authKey: auth_key,
-      })
-      .then((res) => {
-        if (!res.error) {
-          dispatch(updateUserInfo({ userId, auth_key })).then((res) => {
-            if (!res.payload.code) {
-              setLoading(false);
-               setShowSuccess(true);
-               setSuccess_message('Your profile updated successfully');
-            } else {
-              setShowError(true);
-              setError_message(response.payload.message);
-              setLoading(false);
-            }
-          });
-        }
-      });
+    axios.post('/api/user/update_user', { id, userData }).then((res) => {
+      if (!res.error) {
+        dispatch(updateUserInfo({ userId, auth_key })).then((res) => {
+          if (!res.payload.code) {
+            setLoading(false);
+            setShowSuccess(true);
+            setSuccess_message('Your profile updated successfully');
+          } else {
+            setShowError(true);
+            setError_message(response.payload.message);
+            setLoading(false);
+          }
+        });
+      }
+    });
   }
 };

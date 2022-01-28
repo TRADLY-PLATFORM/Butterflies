@@ -12,19 +12,18 @@ import 'swiper/components/navigation/navigation.min.css';
 
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
+import axios from 'axios';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const Banner2 = ({ banners }) => {
   const [appPromoBanners, setAppsPromoBanners] = useState(null);
   useEffect(() => {
-    tradly.app
-      .getPromoBanner({ authKey: '', bodyParam: { medium: 'app' } })
-      .then((res) => {
-        if (!res.error) {
-          setAppsPromoBanners(res.data.promo_banners);
-        }
-      });
+    axios.get(`/api/banners`, { params: { medium: 'app' } }).then((res) => {
+      if (!res.error) {
+        setAppsPromoBanners(res.data.promo_banners);
+      }
+    });
   }, []);
   return (
     <>

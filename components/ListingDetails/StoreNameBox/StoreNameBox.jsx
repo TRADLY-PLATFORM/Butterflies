@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/dist/client/router';
 import { listingDetails } from '../../../store/feature/listingSlice';
 import Link from 'next/link';
+import axios from 'axios';
 
 const StoreNameBox = ({ account }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -16,22 +17,16 @@ const StoreNameBox = ({ account }) => {
 
   const follow = (id, isFollow) => {
     if (login) {
-      tradly.app
-        .followUnfollowAccounts({
-          id,
-          authKey: auth_key,
-          isFollowing: isFollow,
-        })
-        .then((res) => {
-          if (!res.error) {
-            dispatch(
-              listingDetails({
-                id: router?.query.id.split('-')[0],
-                authKey: auth_key,
-              })
-            );
-          }
-        });
+      axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
+        if (!res.error) {
+          dispatch(
+            listingDetails({
+              id: router?.query.id.split('-')[0],
+              authKey: auth_key,
+            })
+          );
+        }
+      });
     } else {
       router.push('/sign-in');
     }

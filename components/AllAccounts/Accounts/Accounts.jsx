@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import Image from "next/image"
+import Image from 'next/image';
 import { getThumbnailImage } from '../../Shared/Constant/Constant';
-import demoImage from "../../../assets/Images/store/avatar1.png"
-import tradly from "tradly"
+import demoImage from '../../../assets/Images/store/avatar1.png';
+import tradly from 'tradly';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import {
@@ -12,34 +12,32 @@ import {
 } from '../../../store/feature/storeSlice';
 import { useRouter } from 'next/dist/client/router';
 import AccountCard from '../../Shared/Cards/AccountCard';
-
+import axios from 'axios';
 
 const Accounts = ({ accounts }) => {
   const { login, auth_key } = useSelector(authSelector);
-  const router = useRouter()
-    const dispatch=useDispatch()
-    const follow = (id, isFollow) => {
-      if (login) {
-        tradly.app
-          .followUnfollowAccounts({
-            id,
-            authKey: auth_key,
-            isFollowing: isFollow,
-          })
-          .then((res) => {
-            if (!res.code) {
-             dispatch(
-               get_all_accounts({
-                 bodyParam: { page: router.query.page, type: 'accounts', per_page: 30 },
-                 authKey: auth_key,
-               })
-             );
-            }
-          });
-      } else {
-        router.push('/sign-in');
-      }
-    };
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const follow = (id, isFollow) => {
+    if (login) {
+      axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
+        if (!res.code) {
+          dispatch(
+            get_all_accounts({
+              bodyParam: {
+                page: router.query.page,
+                type: 'accounts',
+                per_page: 30,
+              },
+              authKey: auth_key,
+            })
+          );
+        }
+      });
+    } else {
+      router.push('/sign-in');
+    }
+  };
 
   return (
     <div className="  grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-center">

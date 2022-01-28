@@ -11,6 +11,8 @@ import {
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import { useRouter } from 'next/dist/client/router';
+import axios from 'axios';
+
 
 const Accounts2 = ({ accounts }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -18,13 +20,8 @@ const Accounts2 = ({ accounts }) => {
   const dispatch = useDispatch();
   const follow = (id, isFollow) => {
     if (login) {
-      tradly.app
-        .followUnfollowAccounts({
-          id,
-          authKey: auth_key,
-          isFollowing: isFollow,
-        })
-        .then((res) => {
+       
+        axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
           if (!res.code) {
             dispatch(
               get_all_accounts({

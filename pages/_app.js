@@ -20,11 +20,7 @@ function MyApp({ Component, pageProps }) {
   const [connected, setConnected] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
 
-  tradly.init.config({
-    token: process.env.API_KEY,
-    environment: process.env.ENVIRONMENT,
-  });
-
+ 
   axios.get('/api').then((res) => {
     setConnected(true);
   });
@@ -98,6 +94,9 @@ function MyApp({ Component, pageProps }) {
         configs?.meta_listing_category_title || '';
       TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION =
         configs?.meta_listing_category_description || '';
+    });
+    axios.get('/api/configs/payment').then((res) => {
+      TYPE_CONSTANT.PAYMENT_CONFIGS = res?.configs || '';
     });
   }, [connected]);
 

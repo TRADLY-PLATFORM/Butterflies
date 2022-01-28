@@ -16,6 +16,7 @@ import {
 import Warning from '../../Shared/PopUp/Warning';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import { configsSelector } from '../../../store/feature/configsSlice';
+import axios from 'axios';
 
 const StoreListings = ({ my_store_listings, my_stores }) => {
   const [marketplace_type, setMarketplace_type] = useState(null);
@@ -34,7 +35,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
 
   const deleteListing = (id) => {
     setIsloading(true);
-    tradly.app.deleteListing({ id, authKey: auth_key }).then((res) => {
+    axios.post('/api/l/delete_listing', { id }).then((res) => {
       if (!res.error) {
         dispatch(
           myAccountListings({
