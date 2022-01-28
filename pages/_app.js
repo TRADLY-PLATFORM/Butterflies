@@ -20,7 +20,6 @@ function MyApp({ Component, pageProps }) {
   const [connected, setConnected] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
 
- 
   axios.get('/api').then((res) => {
     setConnected(true);
   });
@@ -31,8 +30,8 @@ function MyApp({ Component, pageProps }) {
       if (typeof window !== 'undefined') {
         if (!res.error) {
           let root = document.documentElement;
-          const primary_color = res.data.configs.app_color_primary;
-          const secondary_color = res.data.configs.app_color_secondary;
+          const primary_color = res.data.configs?.app_color_primary;
+          const secondary_color = res.data.configs?.app_color_secondary;
           root.style.setProperty('--primary_color', primary_color);
           root.style.setProperty('--secondary_color', secondary_color);
           localStorage.setItem(
@@ -50,10 +49,13 @@ function MyApp({ Component, pageProps }) {
       console.log(res);
       if (typeof window !== 'undefined') {
         if (!res.error) {
-          localStorage.setItem('marketplace_type', res.data.configs.type);
-          localStorage.setItem('marketplace_module', res.data.configs.sub_type);
-          TYPE_CONSTANT.MARKETPLACE_TYPE = res.data.configs.type;
-          TYPE_CONSTANT.MARKETPLACE_MODULE = res.data.configs.sub_type;
+          localStorage.setItem('marketplace_type', res.data.configs?.type);
+          localStorage.setItem(
+            'marketplace_module',
+            res.data.configs?.sub_type
+          );
+          TYPE_CONSTANT.MARKETPLACE_TYPE = res.data.configs?.type;
+          TYPE_CONSTANT.MARKETPLACE_MODULE = res.data.configs?.sub_type;
 
           setFavicon(res?.data?.configs?.web_icon);
           localStorage.setItem('logo', res?.data?.configs?.web_logo);
@@ -72,8 +74,8 @@ function MyApp({ Component, pageProps }) {
       console.log(res);
       if (typeof window !== 'undefined') {
         if (!res.error) {
-          if (res.data.configs.gtm) {
-            TagManager.initialize({ gtmId: `GTM-${res.data.configs.gtm}` });
+          if (res.data.configs?.gtm) {
+            TagManager.initialize({ gtmId: `GTM-${res.data.configs?.gtm}` });
           }
           setIsExtension(true);
         } else {

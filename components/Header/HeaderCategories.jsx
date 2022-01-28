@@ -22,7 +22,7 @@ const HeaderCategories = () => {
       .then((res) => {
         if (!res.error) {
           const response = res?.data?.categories;
-          if (response.length > 0) {
+          if (response?.length > 0) {
             if (response.length < 9) {
               setCategories(response);
             } else {

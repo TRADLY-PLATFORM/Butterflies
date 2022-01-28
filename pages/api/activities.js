@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const response = await tradly.app.commonFuntion({
     path: `/v1/activities?page=${req.query.page}`,
     Method: 'GET',
-    authKey: auth_key,
+    authKey: auth_key ? auth_key : '',
   });
   res.send(response.data);
 }

@@ -2,9 +2,9 @@ import tradly from 'tradly';
 
 export default async function handler(req, res) {
   const { auth_key } = req.cookies;
-  const response =  await tradly.app.getListings({
+  const response = await tradly.app.getListings({
     bodyParam: req.query,
-    authKey:auth_key,
+    authKey: auth_key ? auth_key : '',
   });
   res.send(response.data);
 }

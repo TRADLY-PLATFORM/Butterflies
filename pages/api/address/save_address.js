@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const response = await tradly.app.addEditAddress({
       id: req.body.id,
       data: req.body.addressData,
-      authKey: auth_key,
+      authKey: auth_key ? auth_key : '',
     });
     res.send(response.data);
   }

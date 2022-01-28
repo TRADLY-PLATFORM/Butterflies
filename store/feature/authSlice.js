@@ -31,11 +31,12 @@ export const refreshPage = createAsyncThunk(
   async ({ key }, thunkAPI) => {
     try {
       const response = await axios.post('/api/auth/refresh', { key });
+
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -110,7 +111,7 @@ export const updateUserInfo = createAsyncThunk(
         path: `/v1/users/${userId}`,
         bodyParam: '',
         Method: 'GET',
-        authKey: auth_key,
+        authKey: auth_key ? auth_key : '',
       });
       const { data } = await response;
       if (!response.error) {
@@ -218,7 +219,7 @@ export const authSlice = createSlice({
         const userDetails = JSON.parse(localStorage.getItem('user_details'));
         state.login = true;
         state.user_email = userDetails?.email;
-        state.first_name = userDetails.first_name;
+        state.first_name = userDetails?.first_name;
         state.last_name = userDetails.last_name;
         state.profile_pic = userDetails.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;

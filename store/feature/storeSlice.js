@@ -84,7 +84,7 @@ export const accountAttribute = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await axios.get('/api/attribute', { params: prams });
+      const response = await axios.get('/api/attributes', { params: prams });
       const { data } = await response;
       if (!response.error) {
         return data;
