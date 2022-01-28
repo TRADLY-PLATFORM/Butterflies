@@ -8,6 +8,7 @@ const ItemsSummary = ({
   order_details,
   selected_product,
   setSelected_product,
+  setSelected_product_review_status,
 }) => {
   const OrderDetails = order_details?.order_details;
   return (
@@ -20,12 +21,13 @@ const ItemsSummary = ({
                 className={[
                   'flex    items-center my-3 w-full  cursor-pointer bg-white rounded-2xl overflow-hidden border border-transparent',
                   selected_product === item.listing.id
-                    ? 'cursor-pointer transition duration-700  border border-seceondary  ring ring-primary ring-offset-1'
+                    ? 'cursor-pointer transition duration-700  border border-seceondary  ring ring-primary  '
                     : '',
                 ].join(' ')}
                 onClick={() => {
                   selected_product !== item.listing.id &&
                     setSelected_product(item.listing.id);
+                  setSelected_product_review_status(item.listing.review_status);
                 }}
               >
                 <div
@@ -35,9 +37,9 @@ const ItemsSummary = ({
                   {item?.listing?.images?.length > 0 && (
                     <Image
                       src={getThumbnailImage(item?.listing.images[0])}
-                      width={150}
-                      height={150}
-                      objectFit="contain"
+                      width={100}
+                      height={100}
+                      objectFit="cover"
                     />
                   )}
                 </div>

@@ -18,12 +18,15 @@ import SuccessPopUp from '../../Shared/PopUp/Success';
 import ItemsSummary from '../../AddReview/ItemsSummary/ItemsSummary';
 import ReviewBox from '../../AddReview/ReviewBox/ReviewBox';
 import { add_review } from '../../AddReview/send_review';
+import Review_status from '../../AddReview/ReviewBox/review_status';
 
 const AddReviewPageLayout = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const [selected_product, setSelected_product] = useState(null);
+  const [selected_product_review_status, setSelected_product_review_status] =
+    useState(false);
   const [rating_value, setRating_value] = useState(5);
   const [rating_title, setRating_title] = useState('Excellent Service');
   const [rating_description, setRating_description] = useState(null);
@@ -36,7 +39,7 @@ const AddReviewPageLayout = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [success_message, setSuccess_message] = useState('');
 
-  const[isLoading,setIsLoading]=useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const { auth_key } = useSelector(authSelector);
 
@@ -49,6 +52,9 @@ const AddReviewPageLayout = () => {
 
   useEffect(() => {
     setSelected_product(order_details?.order_details[0].listing.id);
+    setSelected_product_review_status(
+      order_details?.order_details[0].listing.review_status
+    );
   }, [order_details]);
 
   const closePopUP = () => {
@@ -63,7 +69,7 @@ const AddReviewPageLayout = () => {
     if (selected_product === null) {
       setShowError(true);
       setError_message('Select  one product');
-      return false
+      return false;
     }
     add_review(
       selected_product,
@@ -126,26 +132,33 @@ const AddReviewPageLayout = () => {
               order_details={order_details}
               selected_product={selected_product}
               setSelected_product={setSelected_product}
+              setSelected_product_review_status={
+                setSelected_product_review_status
+              }
             />
           </div>
         </div>
         <div className="    xl:ml-10">
-          <ReviewBox
-            rating_value={rating_value}
-            setRating_value={setRating_value}
-            rating_title={rating_title}
-            setRating_title={setRating_title}
-            rating_description={rating_description}
-            setRating_description={setRating_description}
-            imagePath={imagePath}
-            setImagePath={setImagePath}
-            files={files}
-            setFiles={setFiles}
-            fullFile={fullFile}
-            setFullFile={setFullFile}
-            send_review={send_review}
-            isLoading={isLoading}
-          />
+          {selected_product_review_status ? (
+            <Review_status />
+          ) : (
+            <ReviewBox
+              rating_value={rating_value}
+              setRating_value={setRating_value}
+              rating_title={rating_title}
+              setRating_title={setRating_title}
+              rating_description={rating_description}
+              setRating_description={setRating_description}
+              imagePath={imagePath}
+              setImagePath={setImagePath}
+              files={files}
+              setFiles={setFiles}
+              fullFile={fullFile}
+              setFullFile={setFullFile}
+              send_review={send_review}
+              isLoading={isLoading}
+            />
+          )}
         </div>
       </div>
     </div>

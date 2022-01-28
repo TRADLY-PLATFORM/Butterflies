@@ -12,11 +12,11 @@ const RatingBox = ({ rating_data }) => {
         <p className=" text-black  font-semibold text-6xl  my-3">
           {rating_data.rating_average}
         </p>
-        <p className=" text-secondary font-normal text-xs  ">
+        <p className=" text-default_gray font-normal text-sm  ">
           {rating_data.rating_count} ratings
         </p>
       </div>
-      <div className='mt-5 lg:mt-0'>
+      <div className="mt-5 lg:mt-0">
         {/* rating 1 */}
         <div className="flex items-center gap-3">
           <p className="flex justify-end items-center gap-1 w-20">

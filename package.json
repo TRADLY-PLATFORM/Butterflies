@@ -49,6 +49,7 @@
     "react-phone-number-input": "^3.1.41",
     "react-redux": "^7.2.6",
     "react-select": "^5.2.1",
+    "react-show-more-text": "^1.5.2",
     "react-time-picker": "^4.4.4",
     "sass": "^1.43.4",
     "scss": "^0.2.4",
