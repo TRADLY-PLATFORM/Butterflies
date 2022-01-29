@@ -150,6 +150,8 @@ const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
     height: '100%',
   };
 
+
+  
   return (
     <>
       {isFetching && <CustomLoading />}
