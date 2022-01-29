@@ -10,10 +10,12 @@ export const callStripeConnect = createAsyncThunk(
     try {
       const response = await axios.post('/api/payment/stripe_connect', { id });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -28,10 +30,12 @@ export const callExpressLogin = createAsyncThunk(
         sendData,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

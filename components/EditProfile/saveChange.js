@@ -1,6 +1,6 @@
 import axios from 'axios';
 import tradly from 'tradly';
-import { updateUserInfo } from '../../store/feature/authSlice';
+import { UserInfo } from '../../store/feature/authSlice';
 
 export const saveChange = (
   firstName,
@@ -46,7 +46,7 @@ export const saveChange = (
         },
       })
       .then((response) => {
-        if (!response.error) {
+        if (!response.data.error) {
           const fileURL = response.data.result[0];
           const path = fileURL.signedUrl;
           const ImagePath = fileURL.fileUri;
@@ -68,8 +68,8 @@ export const saveChange = (
             axios
               .post('/api/user/update_user', { id, userData })
               .then((res) => {
-                if (!res.error) {
-                  dispatch(updateUserInfo({ userId, auth_key })).then((res) => {
+                if (!res.data.error) {
+                  dispatch(UserInfo({ userId, auth_key })).then((res) => {
                     if (!res.payload.code) {
                       setLoading(false);
                       setShowSuccess(true);
@@ -85,7 +85,7 @@ export const saveChange = (
           });
         } else {
           setShowError(true);
-          setError_message(response.error.message);
+          setError_message(response.data.error.message);
           setLoading(false);
         }
       });
@@ -98,8 +98,8 @@ export const saveChange = (
       },
     };
     axios.post('/api/user/update_user', { id, userData }).then((res) => {
-      if (!res.error) {
-        dispatch(updateUserInfo({ userId, auth_key })).then((res) => {
+      if (!res.data.error) {
+        dispatch(UserInfo({ userId, auth_key })).then((res) => {
           if (!res.payload.code) {
             setLoading(false);
             setShowSuccess(true);

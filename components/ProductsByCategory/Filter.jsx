@@ -58,7 +58,7 @@ const Filter = () => {
     axios
       .get('/api/attributes', { params: { type: 'listings' } })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setAllAttributes(res.data.attributes);
         }
       });

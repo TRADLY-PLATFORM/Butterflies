@@ -91,7 +91,7 @@ export const add_product_click = (
       },
     })
     .then((response) => {
-      if (!response.error) {
+      if (!response.data.error) {
         // dispatch(SetFiles(response.data.data.result[0]));
         const responseFiles = response.data.result;
 
@@ -145,7 +145,7 @@ export const add_product_click = (
                           data: { listing: listingData },
                         })
                         .then((res) => {
-                          if (!res.error) {
+                          if (!res.data.error) {
                             let changeRoute = false;
                             const listingId = res.data.listing.id;
                             if (
@@ -158,13 +158,13 @@ export const add_product_click = (
                                   data: { schedules: schedulesArray },
                                 })
                                 .then((res) => {
-                                  if (!res.error) {
+                                  if (!res.data.error) {
                                     // setAddProductLoading(false);
                                     // router.push('/stores/my-store');
                                     changeRoute = true;
                                   } else {
                                     setShowError(true);
-                                    setError_message(res?.error?.message);
+                                    setError_message(res?.data?.error?.message);
                                     setAddProductLoading(false);
                                   }
                                 });
@@ -189,7 +189,7 @@ export const add_product_click = (
                                     },
                                   })
                                   .then((response) => {
-                                    if (!response.error) {
+                                    if (!response.data.error) {
                                       const fileURL = response.data.result[0];
                                       const path = fileURL.signedUrl;
                                       const variant_ImagePath = fileURL.fileUri;
@@ -226,7 +226,7 @@ export const add_product_click = (
                                             },
                                           })
                                           .then((res) => {
-                                            if (!res.error) {
+                                            if (!res.data.error) {
                                               isLoopFinish = isLoopFinish + 1;
 
                                               if (
@@ -237,7 +237,7 @@ export const add_product_click = (
                                               } else {
                                                 setShowError(true);
                                                 setError_message(
-                                                  response?.error?.message
+                                                  response?.data?.error?.message
                                                 );
                                                 setAddProductLoading(false);
                                               }
@@ -247,7 +247,7 @@ export const add_product_click = (
                                     } else {
                                       setShowError(true);
                                       setError_message(
-                                        response?.error?.message
+                                        response?.data?.error?.message
                                       );
                                       setAddProductLoading(false);
                                     }
@@ -263,7 +263,7 @@ export const add_product_click = (
                             }
                           } else {
                             setShowError(true);
-                            setError_message(res?.error?.message);
+                            setError_message(res?.data?.error?.message);
                             setAddProductLoading(false);
                           }
                         })
@@ -287,7 +287,7 @@ export const add_product_click = (
                           },
                         })
                         .then((response) => {
-                          if (!response.error) {
+                          if (!response.data.error) {
                             const fileURL = response.data.result[0];
                             const path = fileURL.signedUrl;
                             const ImagePath2 = fileURL.fileUri;
@@ -343,7 +343,7 @@ export const add_product_click = (
                                     data: { listing: listingData },
                                   })
                                   .then((res) => {
-                                    if (!res.error) {
+                                    if (!res.data.error) {
                                       let changeRoute = false;
                                       const listingId = res.data.listing.id;
                                       if (
@@ -361,14 +361,14 @@ export const add_product_click = (
                                             }
                                           )
                                           .then((res) => {
-                                            if (!res.error) {
+                                            if (!res.data.error) {
                                               // setAddProductLoading(false);
                                               // router.push('/stores/my-store');
                                               changeRoute = true;
                                             } else {
                                               setShowError(true);
                                               setError_message(
-                                                res?.error?.message
+                                                res?.data?.error?.message
                                               );
                                               setAddProductLoading(false);
                                             }
@@ -398,7 +398,7 @@ export const add_product_click = (
                                               },
                                             })
                                             .then((response) => {
-                                              if (!response.error) {
+                                              if (!response.data.error) {
                                                 const fileURL =
                                                   response.data.result[0];
                                                 const path = fileURL.signedUrl;
@@ -446,7 +446,7 @@ export const add_product_click = (
                                                       }
                                                     )
                                                     .then((res) => {
-                                                      if (!res.error) {
+                                                      if (!res.data.error) {
                                                         isLoopFinish =
                                                           isLoopFinish + 1;
 
@@ -460,7 +460,7 @@ export const add_product_click = (
                                                       } else {
                                                         setShowError(true);
                                                         setError_message(
-                                                          res?.error?.message
+                                                          res?.data?.error?.message
                                                         );
                                                         setAddProductLoading(
                                                           false
@@ -471,7 +471,7 @@ export const add_product_click = (
                                               } else {
                                                 setShowError(true);
                                                 setError_message(
-                                                  response?.error?.message
+                                                  response?.data?.error?.message
                                                 );
                                                 setAddProductLoading(false);
                                               }
@@ -487,7 +487,9 @@ export const add_product_click = (
                                       }
                                     } else {
                                       setShowError(true);
-                                      setError_message(res?.error?.message);
+                                      setError_message(
+                                        res?.data.error?.message
+                                      );
                                       setAddProductLoading(false);
                                     }
                                   })
@@ -505,7 +507,7 @@ export const add_product_click = (
                               });
                           } else {
                             setShowError(true);
-                            setError_message(response?.error?.message);
+                            setError_message(response?.data?.error?.message);
                             setAddProductLoading(false);
                           }
                         });
@@ -541,7 +543,7 @@ export const add_product_click = (
                         data: { listing: listingData },
                       })
                       .then((res) => {
-                        if (!res.error) {
+                        if (!res.data.error) {
                           let changeRoute = false;
                           const listingId = res.data.listing.id;
                           if (
@@ -554,7 +556,7 @@ export const add_product_click = (
                                 data: { schedules: schedulesArray },
                               })
                               .then((res) => {
-                                if (!res.error) {
+                                if (!res.data.error) {
                                   // setAddProductLoading(false);
                                   // router.push('/stores/my-store');
                                   changeRoute = true;
@@ -585,7 +587,7 @@ export const add_product_click = (
                                   },
                                 })
                                 .then((response) => {
-                                  if (!response.error) {
+                                  if (!response.data.error) {
                                     const fileURL = response.data.result[0];
                                     const path = fileURL.signedUrl;
                                     const variant_ImagePath = fileURL.fileUri;
@@ -622,7 +624,7 @@ export const add_product_click = (
                                             },
                                           })
                                           .then((res) => {
-                                            if (!res.error) {
+                                            if (!res.data.error) {
                                               isLoopFinish = isLoopFinish + 1;
 
                                               if (
@@ -634,7 +636,7 @@ export const add_product_click = (
                                             } else {
                                               setShowError(true);
                                               setError_message(
-                                                res?.error?.message
+                                                res?.data?.error?.message
                                               );
                                               setAddProductLoading(false);
                                             }
@@ -642,7 +644,7 @@ export const add_product_click = (
                                     });
                                   } else {
                                     setShowError(true);
-                                    setError_message(response?.error?.message);
+                                    setError_message(response?.data?.error?.message);
                                     setAddProductLoading(false);
                                   }
                                 });
@@ -663,7 +665,7 @@ export const add_product_click = (
                       })
                       .catch((error) => {
                         setShowError(true);
-                        setError_message(error?.response?.error?.message);
+                        setError_message(error?.response?.data?.error?.message);
                         setAddProductLoading(false);
                       });
                   }
@@ -672,19 +674,19 @@ export const add_product_click = (
             })
             .catch((error) => {
               setShowError(true);
-              setError_message(response?.error?.message);
+              setError_message(response?.data?.error?.message);
               setAddProductLoading(false);
             });
         }
       } else {
         setShowError(true);
-        setError_message(response?.error?.message);
+        setError_message(response?.data?.error?.message);
         setAddProductLoading(false);
       }
     })
     .catch((error) => {
       setShowError(true);
-      setError_message(response?.error?.message);
+      setError_message(response?.data?.error?.message);
       setAddProductLoading(false);
     });
 };

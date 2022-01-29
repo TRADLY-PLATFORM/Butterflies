@@ -13,10 +13,10 @@ export const signIn = createAsyncThunk(
     try {
       const response = await axios.post('/api/auth/sign_in', { prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -52,10 +52,10 @@ export const signUp = createAsyncThunk(
     try {
       const response = await axios.post('/api/auth/sign_up', { prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -70,11 +70,12 @@ export const verifyUser = createAsyncThunk(
   async ({ prams }, thunkAPI) => {
     try {
       const response = await axios.post('/api/auth/verify_user', { prams });
+ 
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -90,10 +91,10 @@ export const verifyUserEmail = createAsyncThunk(
     try {
       const response = await axios.post('/api/auth/forgot_password', { prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -102,22 +103,19 @@ export const verifyUserEmail = createAsyncThunk(
   }
 );
 
-export const updateUserInfo = createAsyncThunk(
-  'auth/updateUserInfo',
+export const UserInfo = createAsyncThunk(
+  'auth/UserInfo',
 
   async ({ userId, auth_key }, thunkAPI) => {
     try {
-      const response = await tradly.app.commonFuntion({
-        path: `/v1/users/${userId}`,
-        bodyParam: '',
-        Method: 'GET',
-        authKey: auth_key ? auth_key : '',
+      const response = await axios.get('/api/user/user_info', {
+        params: { userID: userId },
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -192,7 +190,7 @@ export const authSlice = createSlice({
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = payload?.user;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
-        Cookies.set('auth_key', payload?.user?.key.auth_key);
+        Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
         localStorage.setItem('expiration_time', expirationDate);
@@ -227,7 +225,7 @@ export const authSlice = createSlice({
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = userDetails;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
-        Cookies.set('auth_key', payload?.user?.key.auth_key);
+        Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('login', true);
       }
@@ -280,7 +278,7 @@ export const authSlice = createSlice({
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = payload?.user;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
-        Cookies.set('auth_key', payload?.user?.key.auth_key);
+        Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
         localStorage.setItem('expiration_time', expirationDate);
@@ -319,7 +317,7 @@ export const authSlice = createSlice({
       state.isError = true;
       state.errorMessage = payload?.message;
     },
-    [updateUserInfo.fulfilled]: (state, { payload }) => {
+    [UserInfo.fulfilled]: (state, { payload }) => {
       if (payload.code) {
         state.isFetching = false;
         state.isError = true;

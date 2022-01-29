@@ -31,7 +31,7 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
     setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
     axios.get('/api/configs/general')
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setGeneral_configs(res?.data?.configs);
         }
       });

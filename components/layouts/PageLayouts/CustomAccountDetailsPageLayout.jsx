@@ -24,7 +24,7 @@ const CustomAccountDetailsPageLayout = () => {
 
   useEffect(() => {
     axios.get(`/api/a/${router.query.id.split('-')[0]}`).then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         setAccount_details(res.data.account);
       }
     });
@@ -37,7 +37,7 @@ const CustomAccountDetailsPageLayout = () => {
           params: { page: 1, per_page: 30, account_id: account_details.id },
         })
         .then((res) => {
-          if (!res.error) {
+          if (!res.data.error) {
             setListings(res.data.listings);
             setPage(res.data.page);
             setTotal_records(res.data.total_records);

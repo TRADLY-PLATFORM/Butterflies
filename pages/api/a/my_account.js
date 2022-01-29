@@ -7,7 +7,11 @@ export default async function handler(req, res) {
       bodyParam: req.query,
       authKey: auth_key ? auth_key : '',
     });
-    res.send(response.data);
+    if (!response.error) {
+      res.send(response.data);
+    } else {
+      res.send(response);
+    }
   } else if (req.method === 'POST') {
     const { auth_key } = req.cookies;
     const response = await tradly.app.postAccounts({
@@ -15,6 +19,10 @@ export default async function handler(req, res) {
       authKey: auth_key ? auth_key : '',
       data: req.body.prams,
     });
-    res.send(response.data);
+    if (!response.error) {
+      res.send(response.data);
+    } else {
+      res.send(response);
+    }
   }
 }

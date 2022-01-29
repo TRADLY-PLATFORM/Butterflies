@@ -29,7 +29,7 @@ export const editVariantButton = (
         },
       })
       .then((response) => {
-        if (!response.error) {
+        if (!response.data.error) {
           const fileURL = response.data.result[0];
           const path = fileURL.signedUrl;
           const variant_ImagePath = fileURL.fileUri;
@@ -65,7 +65,7 @@ export const editVariantButton = (
                 },
               })
               .then((res) => {
-                if (!res.error) {
+                if (!res.data.error) {
                   setShowVariantForm(false);
                   setIsEditVariant(false);
                   setEditVariantData(null);
@@ -73,7 +73,7 @@ export const editVariantButton = (
                   setEditVariantLoading(false);
                 } else {
                   setShowError(true);
-                  setError_message(res?.error?.message);
+                  setError_message(res?.data?.error?.message);
                   setEditVariantLoading(false);
                   // setAddProductLoading(false);
                 }
@@ -81,7 +81,7 @@ export const editVariantButton = (
           });
         } else {
           setShowError(true);
-          setError_message(response?.error?.message);
+          setError_message(response?.data?.error?.message);
           setEditVariantLoading(false);
 
           // setAddProductLoading(false);
@@ -113,7 +113,7 @@ export const editVariantButton = (
         },
       })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setShowVariantForm(false);
           setIsEditVariant(false);
           setEditVariantData(null);
@@ -121,7 +121,7 @@ export const editVariantButton = (
           setEditVariantLoading(false);
         } else {
           setShowError(true);
-          setError_message(res?.error?.message);
+          setError_message(res?.data?.error?.message);
           setEditVariantLoading(false);
 
           // setAddProductLoading(false);
@@ -134,7 +134,7 @@ export const deleteVariant = (variantID, productId, auth_key, dispatch) => {
   axios
     .post('/api/variant/delete_variant', { variantID, productId })
     .then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         dispatch(myAccountListingDetails({ id: productId, authKey: auth_key }));
       }
     });
@@ -167,7 +167,7 @@ export const addNewVariant = (
       },
     })
     .then((response) => {
-      if (!response.error) {
+      if (!response.data.error) {
         const fileURL = response.data.result[0];
         const path = fileURL.signedUrl;
         const variant_ImagePath = fileURL.fileUri;
@@ -203,7 +203,7 @@ export const addNewVariant = (
               },
             })
             .then((res) => {
-              if (!res.error) {
+              if (!res.data.error) {
                 setShowVariantForm(false);
                 setIsEditVariant(false);
                 setEditVariantData(null);
@@ -211,7 +211,7 @@ export const addNewVariant = (
                 setAddVariantLoading(false);
               } else {
                 setShowError(true);
-                setError_message(res?.error?.message);
+                setError_message(res?.data?.error?.message);
                 setAddVariantLoading(false);
                 // setAddProductLoading(false);
               }
@@ -219,7 +219,7 @@ export const addNewVariant = (
         });
       } else {
         setShowError(true);
-        setError_message(response?.error?.message);
+        setError_message(response?.data?.error?.message);
         setAddVariantLoading(false);
 
         // setAddProductLoading(false);

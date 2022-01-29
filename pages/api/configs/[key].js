@@ -1,3 +1,4 @@
+import axios from 'axios';
 import tradly from 'tradly';
 
 export default async function handler(req, res) {
@@ -5,6 +6,11 @@ export default async function handler(req, res) {
 
   const response = await tradly.app.getConfigList({
     paramBody: key,
+    authKey:''
   });
-  res.send(response.data);
+  if (!response.error) {
+    res.send(response.data);
+  } else {
+    res.send(response);
+  }
 }

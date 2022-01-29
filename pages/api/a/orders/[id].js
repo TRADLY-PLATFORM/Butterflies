@@ -7,5 +7,9 @@ export default async function handler(req, res) {
     id: req.query.id,
     bodyParam: req.query.body_params,
   });
-  res.send(response.data);
+  if (!response.error) {
+    res.send(response.data);
+  } else {
+    res.send(response);
+  }
 }

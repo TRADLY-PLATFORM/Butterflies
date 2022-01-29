@@ -31,19 +31,19 @@ const CustomFooter = () => {
     axios
       .get('/api/categories', { params: { parent: 0, type: 'listings' } })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setAllCategories(res.data.categories);
         }
       });
 
     axios.get('/api/configs/general').then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         setGeneral_configs(res.data.configs);
       }
     });
 
     axios.get('/api/configs/social').then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         setSocial_configs(res.data.configs);
       }
     });

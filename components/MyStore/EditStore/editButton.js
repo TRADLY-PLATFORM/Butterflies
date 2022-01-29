@@ -66,7 +66,7 @@ export const edit_store_click = (
         },
       })
       .then((response) => {
-        if (!response.error) {
+        if (!response.data.error) {
           const fileURL = response.data.result[0];
           const path = fileURL.signedUrl;
           const ImagePath = fileURL.fileUri;
@@ -126,7 +126,7 @@ export const edit_store_click = (
                       },
                     })
                     .then((response) => {
-                      if (!response.error) {
+                      if (!response.data.error) {
                         const fileURL = response.data.result[0];
                         const path = fileURL.signedUrl;
                         const ImagePath2 = fileURL.fileUri;
@@ -188,7 +188,7 @@ export const edit_store_click = (
                           });
                       } else {
                         setShowError(true);
-                        setError_message(response.error.message);
+                        setError_message(response.data.error.message);
                         setEditStoreLoading(false);
                       }
                     });
@@ -233,7 +233,7 @@ export const edit_store_click = (
             });
         } else {
           setShowError(true);
-          setError_message(response.error.message);
+          setError_message(response.data.error.message);
           setEditStoreLoading(false);
         }
       })
@@ -289,7 +289,7 @@ export const edit_store_click = (
             },
           })
           .then((response) => {
-            if (!response.error) {
+            if (!response.data.error) {
               const fileURL = response.data.result[0];
               const path = fileURL.signedUrl;
               const ImagePath = fileURL.fileUri;
@@ -347,7 +347,7 @@ export const edit_store_click = (
                 });
             } else {
               setShowError(true);
-              setError_message(response.error.message);
+              setError_message(response.data.error.message);
               setEditStoreLoading(false);
             }
           });

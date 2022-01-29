@@ -10,10 +10,12 @@ export const get_orders = createAsyncThunk(
     try {
       const response = await axios.get('/api/a/orders', { params: bodyParam });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -29,10 +31,12 @@ export const get_order_details = createAsyncThunk(
         params: { body_params: bodyParam },
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -49,10 +53,12 @@ export const changeOrderStatus = createAsyncThunk(
         sendData,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

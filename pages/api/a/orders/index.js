@@ -6,5 +6,9 @@ export default async function handler(req, res) {
     authKey: auth_key ? auth_key : '',
     bodyParam: req.query,
   });
-  res.send(response.data);
+  if (!response.error) {
+    res.send(response.data);
+  } else {
+    res.send(response);
+  }
 }

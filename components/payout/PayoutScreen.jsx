@@ -24,7 +24,7 @@ const PayoutScreen = ({ stripe_connect }) => {
           data: { account_id: my_stores[0].id },
         })
         .then((res) => {
-          if (!res.error) {
+          if (!res.data.error) {
             window.open(res.data.account_link);
           }
         });

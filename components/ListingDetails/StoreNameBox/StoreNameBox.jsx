@@ -18,7 +18,7 @@ const StoreNameBox = ({ account }) => {
   const follow = (id, isFollow) => {
     if (login) {
       axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           dispatch(
             listingDetails({
               id: router?.query.id.split('-')[0],

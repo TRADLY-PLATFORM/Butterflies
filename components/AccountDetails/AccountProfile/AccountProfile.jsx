@@ -24,7 +24,7 @@ const AccountProfile = ({
       axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
         if (!res.code) {
           axios.get(`/api/a/${router.query.id.split('-')[0]}`).then((res) => {
-            if (!res.error) {
+            if (!res.data.error) {
               setAccount_details(res.data.account);
               setIsDataLoading(false);
             } else {

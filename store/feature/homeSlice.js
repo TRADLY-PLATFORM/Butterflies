@@ -10,10 +10,12 @@ export const homeCollections = createAsyncThunk(
     try {
       const response = await axios.get('/api/home');
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -26,12 +28,14 @@ export const AllPromoBanners = createAsyncThunk(
 
   async ({ authKey, bodyParam }, thunkAPI) => {
     try {
-      const response = await axios.get(`/api/banners`,{params:bodyParam});
+      const response = await axios.get(`/api/banners`, { params: bodyParam });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);

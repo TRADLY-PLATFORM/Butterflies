@@ -24,11 +24,10 @@ function MyApp({ Component, pageProps }) {
     setConnected(true);
   });
 
-  useEffect(() => {
+    useEffect(() => {
     axios.get('/api/configs/onboarding').then((res) => {
-      console.log(res);
       if (typeof window !== 'undefined') {
-        if (!res.error) {
+        if (!res.data.error) {
           let root = document.documentElement;
           const primary_color = res.data.configs?.app_color_primary;
           const secondary_color = res.data.configs?.app_color_secondary;
@@ -42,13 +41,22 @@ function MyApp({ Component, pageProps }) {
           setIs_onboarding(true);
         } else {
           setIs_onboarding(false);
+          if (
+            res.data.error.code == 401 &&
+            res.data.error.message == 'unauthorized.'
+          ) {
+            axios.post('/api/auth/refresh', { key: localStorage.getItem("refresh_key") }).then((res) => {
+               console.log('====================================');
+               console.log(res);
+               console.log('====================================');
+             })
+          }
         }
       }
     });
     axios.get('/api/configs/general').then((res) => {
-      console.log(res);
       if (typeof window !== 'undefined') {
-        if (!res.error) {
+        if (!res.data.error) {
           localStorage.setItem('marketplace_type', res.data.configs?.type);
           localStorage.setItem(
             'marketplace_module',
@@ -71,9 +79,8 @@ function MyApp({ Component, pageProps }) {
       }
     });
     axios.get('/api/configs/extensions').then((res) => {
-      console.log(res);
       if (typeof window !== 'undefined') {
-        if (!res.error) {
+        if (!res.data.error) {
           if (res.data.configs?.gtm) {
             TagManager.initialize({ gtmId: `GTM-${res.data.configs?.gtm}` });
           }

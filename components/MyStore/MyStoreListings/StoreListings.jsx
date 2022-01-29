@@ -36,7 +36,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
   const deleteListing = (id) => {
     setIsloading(true);
     axios.post('/api/l/delete_listing', { id }).then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         dispatch(
           myAccountListings({
             prams: { page: router.query.page, account_id: my_stores[0].id },

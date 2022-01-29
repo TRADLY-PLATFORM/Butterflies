@@ -41,7 +41,7 @@ const Schedule = ({ schedules }) => {
           bodyParam: { days: 30, start_at: selectedDate },
         })
         .then((res) => {
-          if (!res.error) {
+          if (!res.data.error) {
             setScheduleArray(res.data.schedules_per_day);
           }
         });

@@ -13,7 +13,7 @@ const PhoneForm = ({ setNumber, setPassword, setDialCode }) => {
 
   useEffect(() => {
     axios.get('/api/countries').then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         setCountries(res.data.countries);
       }
     });

@@ -8,6 +8,10 @@ export default async function handler(req, res) {
       bodyParam: req.body.bodyParam,
       currency: req.body.currency,
     });
-    res.send(response.data);
+    if (!response.error) {
+      res.send(response.data);
+    } else {
+      res.send(response);
+    }
   }
 }

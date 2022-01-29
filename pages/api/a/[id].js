@@ -8,5 +8,9 @@ export default async function handler(req, res) {
     authKey: auth_key ? auth_key : '',
     Method: 'Get',
   });
-  res.send(response.data);
+  if (!response.error) {
+    res.send(response.data);
+  } else {
+    res.send(response);
+  }
 }

@@ -14,10 +14,10 @@ export const addToCart = createAsyncThunk(
     try {
       const response = await axios.post('/api/cart/add_cart', { sendData });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -32,10 +32,10 @@ export const deleteCart = createAsyncThunk(
     try {
       const response = await axios.post('/api/cart/delete_cart', { sendData });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -50,10 +50,10 @@ export const cartList = createAsyncThunk(
     try {
       const response = await axios.post('/api/cart', { bodyParam, currency });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -67,10 +67,10 @@ export const shippingMethods = createAsyncThunk(
     try {
       const response = await axios.get('/api/shipping_method');
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -85,10 +85,10 @@ export const paymentMethods = createAsyncThunk(
     try {
       const response = await axios.get('/api/payment/payment_method');
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -103,10 +103,10 @@ export const getCurrencies = createAsyncThunk(
     try {
       const response = await axios.get('/api/currencies');
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -124,10 +124,10 @@ export const save_address = createAsyncThunk(
         addressData,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -143,10 +143,10 @@ export const getAddress = createAsyncThunk(
         params: bodyParam,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -163,10 +163,10 @@ export const getStorageHubAddress = createAsyncThunk(
         params: bodyParam,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -184,10 +184,10 @@ export const checkout = createAsyncThunk(
         currency,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -206,10 +206,10 @@ export const directCheckout = createAsyncThunk(
         currency,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -227,10 +227,10 @@ export const EphemeralKey = createAsyncThunk(
         send_data,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -247,10 +247,10 @@ export const paymentIntent = createAsyncThunk(
         sendData,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -265,10 +265,10 @@ export const getSchedulesData = createAsyncThunk(
     try {
       const response = await axios.post('/api/schedules', { id, bodyParam });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {

@@ -34,7 +34,7 @@ const AddressBox = ({ order_details }) => {
         },
       })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           axios
             .post('/api/orders/update_order', {
               id: order_details.id,
@@ -44,7 +44,7 @@ const AddressBox = ({ order_details }) => {
               },
             })
             .then((res) => {
-              if (!res.error) {
+              if (!res.data.error) {
                 dispatch(
                   get_order_details({
                     authKey: auth_key,

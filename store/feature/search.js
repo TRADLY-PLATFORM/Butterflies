@@ -9,10 +9,12 @@ export const listingLike = createAsyncThunk(
     try {
       const response = await axios.post('/api/search/like', { id, isLiked });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -26,10 +28,12 @@ export const getSearchListings = createAsyncThunk(
     try {
       const response = await axios.get('/api/search', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

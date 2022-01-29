@@ -19,6 +19,7 @@ import tradly from 'tradly';
 import SuccessPopUp from '../Shared/PopUp/Success';
 import { route } from 'next/dist/server/router';
 import CustomLoading from '../Shared/Loading/CustomLoading';
+import axios from 'axios';
 
 const SetPasswordForm = ({ general_configs }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -67,7 +68,7 @@ const SetPasswordForm = ({ general_configs }) => {
       setIsLoading(false);
       return false;
     }
-    if (pass.length< 6) {
+    if (pass.length < 6) {
       setShowError(true);
       setError_message('At least  password   will 6 digit');
       setIsLoading(false);
@@ -85,14 +86,14 @@ const SetPasswordForm = ({ general_configs }) => {
       code: verificationCode,
       password: pass,
     };
-    tradly.user.setPassword({ data: users }).then((res) => {
-      if (!res.error) {
+    axios.post('/api/auth/set_password', { users }).then((res) => {
+      if (!res.data.error) {
         setIsLoading(false);
         setShowSuccess(true);
         setSuccess_message('Password updated successfully ');
       } else {
         setShowError(true);
-        setError_message(res.error.message);
+        setError_message(res.data.error.message);
         setIsLoading(false);
       }
     });

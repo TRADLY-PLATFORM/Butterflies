@@ -62,7 +62,7 @@ export const create_store_click = (
       },
     })
     .then((response) => {
-      if (!response.error) {
+      if (!response.data.error) {
         const fileURL = response.data.result[0];
         const path = fileURL.signedUrl;
         const ImagePath = fileURL.fileUri;
@@ -122,7 +122,7 @@ export const create_store_click = (
                       },
                     })
                     .then((response) => {
-                      if (!response.error) {
+                      if (!response.data.error) {
                         const fileURL = response.data.result[0];
                         const path = fileURL.signedUrl;
                         const ImagePath2 = fileURL.fileUri;
@@ -183,7 +183,7 @@ export const create_store_click = (
                       } else {
                         setCreateStoreLoading(false);
                         setShowError(true);
-                        setError_message(response.error.message);
+                        setError_message(response.data.error.message);
                       }
                     });
                 }
@@ -229,7 +229,7 @@ export const create_store_click = (
       } else {
         setCreateStoreLoading(false);
         setShowError(true);
-        setError_message(response.error.message);
+        setError_message(response.data.error.message);
       }
     })
     .catch((error) => {

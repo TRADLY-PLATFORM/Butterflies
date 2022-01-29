@@ -20,7 +20,7 @@ const HeaderCategories = () => {
         params: { parent: 0, type: 'listings' },
       })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           const response = res?.data?.categories;
           if (response?.length > 0) {
             if (response.length < 9) {

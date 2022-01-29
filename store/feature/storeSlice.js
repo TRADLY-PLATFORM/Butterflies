@@ -11,10 +11,10 @@ export const myStore = createAsyncThunk(
     try {
       const response = await axios.get('/api/a/my_account', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -30,10 +30,10 @@ export const getAddressSearch = createAsyncThunk(
     try {
       const response = await axios.get(`/api/address/${searchKey}`);
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -49,10 +49,10 @@ export const categories = createAsyncThunk(
     try {
       const response = await axios.get('/api/categories', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -67,10 +67,10 @@ export const listingCategories = createAsyncThunk(
     try {
       const response = await axios.get('/api/categories', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -86,10 +86,10 @@ export const accountAttribute = createAsyncThunk(
     try {
       const response = await axios.get('/api/attributes', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -105,10 +105,10 @@ export const postStore = createAsyncThunk(
     try {
       const response = await axios.post('/api/a/my_account', { id, prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -124,10 +124,10 @@ export const myAccountListings = createAsyncThunk(
     try {
       const response = await axios.get('/api/l', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -142,10 +142,10 @@ export const myAccountListingDetails = createAsyncThunk(
     try {
       const response = await axios.get(`/api/l/${id}`);
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -161,10 +161,10 @@ export const currencies = createAsyncThunk(
     try {
       const response = await axios.get('/api/currencies');
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -180,10 +180,10 @@ export const get_all_accounts = createAsyncThunk(
     try {
       const response = await axios.get('/api/a', { params: bodyParam });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -199,10 +199,10 @@ export const accountDetails = createAsyncThunk(
     try {
       const response = await axios.get(`/api/a/${id}`);
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {

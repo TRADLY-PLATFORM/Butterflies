@@ -61,7 +61,7 @@ const ExploreFilter = () => {
     axios
       .get('/api/categories', { params: { parent: 0, type: 'listings' } })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setAllCategories(res.data.categories);
         }
       });
@@ -69,7 +69,7 @@ const ExploreFilter = () => {
     axios
       .get('/api/attributes', { params: { type: 'listings' } })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setAllAttributes(res.data.attributes);
         }
       });

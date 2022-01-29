@@ -29,7 +29,7 @@ export const changeSchedule = (
       data: { schedules: [...filter, schedulesObject] },
     })
     .then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         setIsEditSchedule(false), setEditScheduleData(null);
         setIsScheduleFormOpen(false);
         setEditScheduleIndex(null);
@@ -45,7 +45,7 @@ export const changeSchedule = (
         setShowSuccessMessage(true);
       } else {
         setShowError(true);
-        setError_message(res.error.message);
+        setError_message(res.data.error.message);
         setEditScheduleLoading(false);
       }
     });
@@ -75,7 +75,7 @@ export const addNewSchedule = (
       data: { schedules: [...schedulesArray, schedulesObject] },
     })
     .then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         setIsScheduleFormOpen(false);
 
         setSchedulesObject({
@@ -90,7 +90,7 @@ export const addNewSchedule = (
         setShowSuccessMessage(true);
       } else {
         setShowError(true);
-        setError_message(res.error.message);
+        setError_message(res.data.error.message);
         setEditScheduleLoading(false);
       }
     });
@@ -118,12 +118,12 @@ export const deleteSchedule = (
         data: { schedules: filter },
       })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setEditScheduleLoading(false);
           setShowSuccessMessage(true);
         } else {
           setShowError(true);
-          setError_message(res.error.message);
+          setError_message(res.data.error.message);
           setEditScheduleLoading(false);
         }
       });
