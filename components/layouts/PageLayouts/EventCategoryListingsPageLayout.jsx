@@ -24,6 +24,7 @@ import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import { Marker } from '@react-google-maps/api';
 import { InfoWindow } from '@react-google-maps/api';
 import moment from 'moment';
+import CustomLoading from '../../Shared/Loading/CustomLoading';
 
 const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
   const [pageCount, setPageCount] = useState(0);
@@ -75,7 +76,7 @@ const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
     }
   };
 
-  const { category_listings, page, total_records } =
+  const { category_listings, page, total_records, isFetching } =
     useSelector(categorySelector);
 
   useEffect(() => {
@@ -151,6 +152,7 @@ const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
 
   return (
     <>
+      {isFetching && <CustomLoading />}
       <Head>
         <title>{seoTitle(pageTitle)}</title>
         <meta
