@@ -25,6 +25,9 @@ function MyApp({ Component, pageProps }) {
   });
 
   useEffect(() => {
+      axios.get('/api').then((res) => {
+        setConnected(true);
+      });
     axios.get('/api/configs/onboarding').then((res) => {
       if (typeof window !== 'undefined') {
         if (!res.data.error) {
@@ -44,6 +47,10 @@ function MyApp({ Component, pageProps }) {
         }
       }
     });
+
+      axios.get('/api').then((res) => {
+        setConnected(true);
+      });
     axios.get('/api/configs/general').then((res) => {
       if (typeof window !== 'undefined') {
         if (!res.data.error) {
@@ -68,6 +75,10 @@ function MyApp({ Component, pageProps }) {
         }
       }
     });
+
+      axios.get('/api').then((res) => {
+        setConnected(true);
+      });
     axios.get('/api/configs/extensions').then((res) => {
       if (typeof window !== 'undefined') {
         if (!res.data.error) {
@@ -80,6 +91,10 @@ function MyApp({ Component, pageProps }) {
         }
       }
     });
+
+      axios.get('/api').then((res) => {
+        setConnected(true);
+      });
     axios.get('/api/configs/seo').then((res) => {
       console.log(res);
       const { configs } = res?.data;
