@@ -7,6 +7,7 @@ import { refreshPage } from '../../store/feature/authSlice';
 import tradly from 'tradly';
 import { clearListings } from '../../store/feature/listingSlice';
 import { all_listings_page } from '../../themes/Theme1';
+import { setGeneralConfig } from '../../store/feature/configsSlice';
   
 const AllListings = (props) => {
   const dispatch = useDispatch();
@@ -17,6 +18,11 @@ const AllListings = (props) => {
         key: localStorage.getItem('refresh_key'),
       })
     );
+
+     const general_configs = JSON.parse(
+       localStorage.getItem('general_configs')
+     );
+     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
   const pageTitle = props?.seo_text?.meta_title;
   const pageDescription = props?.seo_text?.meta_description;

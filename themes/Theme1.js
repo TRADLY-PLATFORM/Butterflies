@@ -78,6 +78,9 @@ const {
   default: CategoryListingsPageLayout,
 } = require('../components/layouts/PageLayouts/CategoryListingsPageLayout');
 const { default: CategoriesPageLayout } = require('../components/layouts/PageLayouts/CategoriesPageLayout');
+const { default: EventListingsPageLayout } = require('../components/layouts/PageLayouts/EventListingsPageLayout');
+const { default: EventSearchPageLayout } = require('../components/layouts/PageLayouts/EventSearchPageLayout');
+const { default: EventCategoryListingsPageLayout } = require('../components/layouts/PageLayouts/EventCategoryListingsPageLayout');
 
 // Here In all condition first switch case for marketplace type and second switch case for marketplace module;
 
@@ -156,7 +159,7 @@ module.exports = {
       case 2:
         return (
           <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
-            <ListingsPageLayout />
+            <EventListingsPageLayout />
           </MainLayout>
         );
         break;
@@ -181,10 +184,19 @@ module.exports = {
   category_listings_page: (pageTitle, pageDescription) => {
     switch (Number(TYPE_CONSTANT.MARKETPLACE_TYPE)) {
       case 1:
-      case 2:
         return (
           <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CategoryListingsPageLayout
+              pageTitle={pageTitle}
+              pageDescription={pageDescription}
+            />
+          </MainLayout>
+        );
+        break;
+      case 2:
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <EventCategoryListingsPageLayout
               pageTitle={pageTitle}
               pageDescription={pageDescription}
             />
@@ -498,10 +510,16 @@ module.exports = {
   search_page: (pageTitle, pageDescription) => {
     switch (Number(TYPE_CONSTANT.MARKETPLACE_TYPE)) {
       case 1:
-      case 2:
         return (
           <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <SearchPageLayout />
+          </MainLayout>
+        );
+        break;
+      case 2:
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <EventSearchPageLayout />
           </MainLayout>
         );
         break;

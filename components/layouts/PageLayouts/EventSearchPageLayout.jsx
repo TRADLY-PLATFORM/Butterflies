@@ -1,43 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import {
-  clearListings,
-  getAllListings,
-  listingSelector,
-} from '../../../store/feature/listingSlice';
-import Listings from '../../Listings/Listings';
-import ReactPaginate from 'react-paginate';
+  getSearchListings,
+  searchSelector,
+} from '../../../store/feature/search';
+import { useDispatch } from 'react-redux';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
-import NewListings from '../../explore/NewListings';
+import ReactPaginate from 'react-paginate';
+import SearchListingsItem from '../../SearchItem/SearchListingsItem';
+import Filter from '../../SearchItem/Filter';
 import ListingsView from '../../explore/ListingsView';
-import ExploreFilter from '../../explore/Filter/ExploreFilter';
-import ListListingCard from '../../Shared/Cards/ListListingCard';
+import NewListings from '../../explore/NewListings';
 import ListListings from '../../explore/ListListings';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import { Marker } from '@react-google-maps/api';
 import { InfoWindow } from '@react-google-maps/api';
 import MarkerListing from '../../explore/Map View/Marker';
+import ExploreFilter from '../../explore/Filter/ExploreFilter';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import moment from 'moment';
 
-const ExplorePageLayout = () => {
+const EventSearchPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
   const [selected_type, setSelected_type] = useState('gallery_view');
   const [selected_marker, setSelected_marker] = useState(null);
   const [coordinates_listings, setCoordinates_listings] = useState(null);
 
   const router = useRouter();
-
   const dispatch = useDispatch();
-  const { auth_key, first_name } = useSelector(authSelector);
 
-  const { general_configs, marketplace_type } = useSelector(configsSelector);
+  const { auth_key } = useSelector(authSelector);
 
   useEffect(() => {
     dispatch(
-      getAllListings({
+      getSearchListings({
         prams: router.query,
         authKey: auth_key,
       })
@@ -51,7 +49,22 @@ const ExplorePageLayout = () => {
   };
 
   const { listings, total_records, page, isFetching } =
-    useSelector(listingSelector);
+    useSelector(searchSelector);
+
+  const { general_configs, marketplace_type } = useSelector(configsSelector);
+
+  //
+  useEffect(() => {
+    const totalpage = Math.ceil(total_records / 30);
+    if (page === 1 && total_records === 0) {
+      setPageCount(total_records);
+    }
+    if (Number(total_records) > 30) {
+      setPageCount(totalpage);
+    }
+  }, [total_records]);
+
+  //
 
   useEffect(() => {
     if (listings && listings.length > 0) {
@@ -67,18 +80,7 @@ const ExplorePageLayout = () => {
     }
   }, [coordinates_listings]);
 
-  useEffect(() => {
-    const totalpage = Math.ceil(total_records / 30);
-    if (Number(total_records) > 30) {
-      setPageCount(totalpage);
-    }
-  }, [total_records]);
-
-  const containerStyle = {
-    width: '100%',
-    height: '100%',
-  };
-
+  //
   const opened_list_view = () => {
     if (marketplace_type == 2 && !router?.query?.start_at) {
       router.push({
@@ -93,12 +95,28 @@ const ExplorePageLayout = () => {
     }
   };
 
+  //
+  const containerStyle = {
+    width: '100%',
+    height: '100%',
+  };
+
+  //
+  const reset_filter = () => {
+    router.push({
+      query: {
+        page: router.query.page,
+        search_key: router.query.search_key,
+      },
+    });
+  };
+
   return (
     <>
       {isFetching && <CustomLoading />}
       <div>
-        <div className=" mb-4 flex items-center justify-between">
-          <ExploreFilter />
+        <div className="mb-4 flex items-center justify-between ">
+          <ExploreFilter hidden_category={false} reset_filter={reset_filter} />
           <ListingsView
             selected_type={selected_type}
             setSelected_type={setSelected_type}
@@ -106,80 +124,84 @@ const ExplorePageLayout = () => {
         </div>
         {listings === null || listings?.length > 0 ? (
           <div>
-            {selected_type == 'gallery_view' && (
-              <NewListings Products={listings} />
-            )}
-            {selected_type == 'list_view' && (
-              <>
-                {!router?.query?.start_at && opened_list_view()}
-                <ListListings Products={listings} />
-              </>
-            )}
-            {selected_type == 'map_view' && general_configs && (
-              <LoadScript
-                googleMapsApiKey={general_configs?.google_map_api_key}
-                loadingElement={CustomLoading}
-              >
-                {!router?.query?.start_at && opened_list_view()}
-                {router?.query?.start_at && (
-                  <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[75vh]     lg:overflow-hidden">
-                    <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto  md:pb-96">
-                      <ListListings Products={listings} map_view={true} />
-                    </div>
-                    {router?.query?.start_at && (
-                      <div className="  h-[100%] lg:col-span-2 pt-3">
-                        <GoogleMap
-                          mapContainerStyle={containerStyle}
-                          center={{
-                            lat: coordinates_listings[0]?.coordinates?.latitude,
-                            lng: coordinates_listings[0]?.coordinates?.longitude,
-                          }}
-                          zoom={10}
-                        >
-                          {coordinates_listings?.map((item) => {
-                            return (
-                              item?.coordinates?.latitude && (
-                                <>
-                                  <Marker
-                                    key={item.id}
-                                    position={{
-                                      lat: item?.coordinates?.latitude,
-                                      lng: item?.coordinates?.longitude,
-                                    }}
-                                    clickable
-                                    onClick={() =>
-                                      setSelected_marker(
-                                        item?.coordinates?.latitude
-                                      )
-                                    }
-                                  />
-                                  {Number(selected_marker) ==
-                                    Number(item.coordinates.latitude) && (
-                                    <InfoWindow
-                                      position={{
-                                        lat: item.coordinates.latitude,
-                                        lng: item.coordinates.longitude,
-                                      }}
-                                      onCloseClick={() =>
-                                        setSelected_marker(null)
-                                      }
-                                    >
-                                      <div className=" max-w-[350px] p-0 relative">
-                                        <MarkerListing item={item} />
-                                      </div>
-                                    </InfoWindow>
-                                  )}
-                                </>
-                              )
-                            );
-                          })}
-                        </GoogleMap>
+            <div>
+              {selected_type == 'gallery_view' && (
+                <NewListings Products={listings} />
+              )}
+              {selected_type == 'list_view' && (
+                <>
+                  {!router?.query?.start_at && opened_list_view()}
+                  <ListListings Products={listings} />
+                </>
+              )}
+              {selected_type == 'map_view' && general_configs && (
+                <LoadScript
+                  googleMapsApiKey={general_configs?.google_map_api_key}
+                  loadingElement={CustomLoading}
+                >
+                  {!router?.query?.start_at && opened_list_view()}
+                  {router?.query?.start_at && (
+                    <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[75vh]     lg:overflow-hidden">
+                      <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto  md:pb-96">
+                        <ListListings Products={listings} map_view={true} />
                       </div>
-                    )}
-                  </div>
-                )}
-              </LoadScript>
-            )}
+                      {router?.query?.start_at && (
+                        <div className="  h-[100%] lg:col-span-2 pt-3">
+                          <GoogleMap
+                            mapContainerStyle={containerStyle}
+                            center={{
+                              lat: coordinates_listings[0]?.coordinates
+                                ?.latitude,
+                              lng: coordinates_listings[0]?.coordinates
+                                ?.longitude,
+                            }}
+                            zoom={10}
+                          >
+                            {coordinates_listings?.map((item) => {
+                              return (
+                                item?.coordinates?.latitude && (
+                                  <>
+                                    <Marker
+                                      key={item.id}
+                                      position={{
+                                        lat: item?.coordinates?.latitude,
+                                        lng: item?.coordinates?.longitude,
+                                      }}
+                                      clickable
+                                      onClick={() =>
+                                        setSelected_marker(
+                                          item?.coordinates?.latitude
+                                        )
+                                      }
+                                    />
+                                    {Number(selected_marker) ==
+                                      Number(item.coordinates.latitude) && (
+                                      <InfoWindow
+                                        position={{
+                                          lat: item.coordinates.latitude,
+                                          lng: item.coordinates.longitude,
+                                        }}
+                                        onCloseClick={() =>
+                                          setSelected_marker(null)
+                                        }
+                                      >
+                                        <div className=" max-w-[350px] p-0 relative">
+                                          <MarkerListing item={item} />
+                                        </div>
+                                      </InfoWindow>
+                                    )}
+                                  </>
+                                )
+                              );
+                            })}
+                          </GoogleMap>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </LoadScript>
+              )}
+            </div>
           </div>
         ) : (
           <div className=" w-full h-[200px] mt-5 flex justify-center items-start">
@@ -187,7 +209,7 @@ const ExplorePageLayout = () => {
               className="w-full    md:w-5/6 bg-yellow-500    text-white px-4 py-3 rounded relative grid grid-cols-[5%,80%]"
               role="alert"
             >
-              <div className="flex items-center justify-center w-6 ">
+              <div className="flex items-center justify-center   w-6">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -268,4 +290,4 @@ const ExplorePageLayout = () => {
   );
 };
 
-export default ExplorePageLayout;
+export default EventSearchPageLayout;
