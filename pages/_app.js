@@ -20,15 +20,11 @@ function MyApp({ Component, pageProps }) {
   const [connected, setConnected] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
 
-  axios.get('/api').then((res) => {
-    setConnected(true);
-  });
+  axios.get('/api');
 
   useEffect(() => {
-    axios.get('/api').then((res) => {
-      setConnected(true);
-    });
-    
+    axios.get('/api');
+
     axios.get('/api/configs/onboarding').then((res) => {
       if (typeof window !== 'undefined') {
         if (!res.data.error) {
@@ -115,7 +111,7 @@ function MyApp({ Component, pageProps }) {
     axios.get('/api/configs/payment').then((res) => {
       TYPE_CONSTANT.PAYMENT_CONFIGS = res?.configs || '';
     });
-  }, [connected]);
+  }, []);
 
   useEffect(() => {
     if (is_onboarding && is_general && isExtension) {
