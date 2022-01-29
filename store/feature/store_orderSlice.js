@@ -1,21 +1,21 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import tradly from 'tradly';
 
 export const get_orders = createAsyncThunk(
   'store_order/get_orders',
   async ({ authKey, bodyParam }, thunkAPI) => {
     try {
-      const response = await tradly.app.getOrders({
-        authKey,
-        bodyParam,
-      });
+      const response = await axios.get('/api/a/orders', { params: bodyParam });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -27,16 +27,16 @@ export const get_order_details = createAsyncThunk(
   'store_order/get_order_details',
   async ({ authKey, id, bodyParam }, thunkAPI) => {
     try {
-      const response = await tradly.app.getOrderDetail({
-        authKey,
-        id,
-        bodyParam,
+      const response = await axios.get(`/api/a/orders/${id}`, {
+        params: { body_params: bodyParam },
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -48,16 +48,17 @@ export const changeOrderStatus = createAsyncThunk(
   'store_order/changeOrderStatus',
   async ({ authKey, id, sendData }, thunkAPI) => {
     try {
-      const response = await tradly.app.updateOrderStatus({
-        authKey,
+      const response = await axios.post('/api/a/orders/status', {
         id,
-        data: sendData,
+        sendData,
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

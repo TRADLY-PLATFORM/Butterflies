@@ -1,3 +1,4 @@
+import axios from 'axios';
 import tradly from 'tradly';
 import { myAccountListingDetails } from '../../../../store/feature/storeSlice';
 
@@ -16,9 +17,8 @@ export const editVariantButton = (
 ) => {
   setEditVariantLoading(true);
   if (variantsObject.images.name) {
-    tradly.app
-      .generateS3ImageURL({
-        authKey: auth_key,
+    axios
+      .post('/api/generateS3ImageURL', {
         data: {
           files: [
             {
@@ -29,7 +29,7 @@ export const editVariantButton = (
         },
       })
       .then((response) => {
-        if (!response.error) {
+        if (!response.data.error) {
           const fileURL = response.data.result[0];
           const path = fileURL.signedUrl;
           const variant_ImagePath = fileURL.fileUri;
@@ -55,17 +55,17 @@ export const editVariantButton = (
                 },
               ],
             };
-            tradly.app
-              .addEditVariants({
-                authKey: auth_key,
-                listingId: productId,
-                id: variantId,
+
+            axios
+              .post('/api/variant/edit_variant', {
+                productId,
+                variantId,
                 data: {
                   variant: { ...variant_data },
                 },
               })
               .then((res) => {
-                if (!res.error) {
+                if (!res.data.error) {
                   setShowVariantForm(false);
                   setIsEditVariant(false);
                   setEditVariantData(null);
@@ -73,7 +73,7 @@ export const editVariantButton = (
                   setEditVariantLoading(false);
                 } else {
                   setShowError(true);
-                  setError_message(res?.error?.message);
+                  setError_message(res?.data?.error?.message);
                   setEditVariantLoading(false);
                   // setAddProductLoading(false);
                 }
@@ -81,7 +81,7 @@ export const editVariantButton = (
           });
         } else {
           setShowError(true);
-          setError_message(response?.error?.message);
+          setError_message(response?.data?.error?.message);
           setEditVariantLoading(false);
 
           // setAddProductLoading(false);
@@ -103,17 +103,17 @@ export const editVariantButton = (
         },
       ],
     };
-    tradly.app
-      .addEditVariants({
-        authKey: auth_key,
-        listingId: productId,
-        id: variantId,
+
+    axios
+      .post('/api/variant/edit_variant', {
+        productId,
+        variantId,
         data: {
           variant: { ...variant_data },
         },
       })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setShowVariantForm(false);
           setIsEditVariant(false);
           setEditVariantData(null);
@@ -121,7 +121,7 @@ export const editVariantButton = (
           setEditVariantLoading(false);
         } else {
           setShowError(true);
-          setError_message(res?.error?.message);
+          setError_message(res?.data?.error?.message);
           setEditVariantLoading(false);
 
           // setAddProductLoading(false);
@@ -130,20 +130,15 @@ export const editVariantButton = (
   }
 };
 
-export const deleteVariant = (variantID, productId, auth_key,dispatch) => {
-  tradly.app.deleteVariant({
-    id: variantID,
-    listingId: productId,
-    authKey: auth_key,
-  }).then((res) => {
-      if (!res.error) {
-           dispatch(
-             myAccountListingDetails({ id: productId, authKey: auth_key })
-           );
+export const deleteVariant = (variantID, productId, auth_key, dispatch) => {
+  axios
+    .post('/api/variant/delete_variant', { variantID, productId })
+    .then((res) => {
+      if (!res.data.error) {
+        dispatch(myAccountListingDetails({ id: productId, authKey: auth_key }));
       }
-  })
+    });
 };
-
 
 export const addNewVariant = (
   variantsObject,
@@ -160,9 +155,8 @@ export const addNewVariant = (
 ) => {
   setAddVariantLoading(true);
 
-  tradly.app
-    .generateS3ImageURL({
-      authKey: auth_key,
+  axios
+    .post('/api/generateS3ImageURL', {
       data: {
         files: [
           {
@@ -173,7 +167,7 @@ export const addNewVariant = (
       },
     })
     .then((response) => {
-      if (!response.error) {
+      if (!response.data.error) {
         const fileURL = response.data.result[0];
         const path = fileURL.signedUrl;
         const variant_ImagePath = fileURL.fileUri;
@@ -199,17 +193,17 @@ export const addNewVariant = (
               },
             ],
           };
-          tradly.app
-            .addEditVariants({
-              authKey: auth_key,
-              listingId: productId,
-              id: variantId,
+
+          axios
+            .post('/api/variant/edit_variant', {
+              productId,
+              variantId,
               data: {
                 variant: { ...variant_data },
               },
             })
             .then((res) => {
-              if (!res.error) {
+              if (!res.data.error) {
                 setShowVariantForm(false);
                 setIsEditVariant(false);
                 setEditVariantData(null);
@@ -217,7 +211,7 @@ export const addNewVariant = (
                 setAddVariantLoading(false);
               } else {
                 setShowError(true);
-                setError_message(res?.error?.message);
+                setError_message(res?.data?.error?.message);
                 setAddVariantLoading(false);
                 // setAddProductLoading(false);
               }
@@ -225,7 +219,7 @@ export const addNewVariant = (
         });
       } else {
         setShowError(true);
-        setError_message(response?.error?.message);
+        setError_message(response?.data?.error?.message);
         setAddVariantLoading(false);
 
         // setAddProductLoading(false);

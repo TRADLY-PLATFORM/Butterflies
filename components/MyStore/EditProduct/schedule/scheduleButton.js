@@ -1,3 +1,4 @@
+import axios from 'axios';
 import tradly from 'tradly';
 
 export const changeSchedule = (
@@ -21,14 +22,14 @@ export const changeSchedule = (
   const filter = schedulesArray.filter(
     (item, index) => index !== editScheduleIndex
   );
-  tradly.app
-    .createSchedule({
+
+  axios
+    .post('/api/schedules/create_schedule', {
       id: productId,
-      authKey: auth_key,
       data: { schedules: [...filter, schedulesObject] },
     })
     .then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         setIsEditSchedule(false), setEditScheduleData(null);
         setIsScheduleFormOpen(false);
         setEditScheduleIndex(null);
@@ -44,7 +45,7 @@ export const changeSchedule = (
         setShowSuccessMessage(true);
       } else {
         setShowError(true);
-        setError_message(res.error.message);
+        setError_message(res.data.error.message);
         setEditScheduleLoading(false);
       }
     });
@@ -68,14 +69,13 @@ export const addNewSchedule = (
 ) => {
   setEditScheduleLoading(true);
 
-  tradly.app
-    .createSchedule({
+  axios
+    .post('/api/schedules/create_schedule', {
       id: productId,
-      authKey: auth_key,
       data: { schedules: [...schedulesArray, schedulesObject] },
     })
     .then((res) => {
-      if (!res.error) {
+      if (!res.data.error) {
         setIsScheduleFormOpen(false);
 
         setSchedulesObject({
@@ -90,7 +90,7 @@ export const addNewSchedule = (
         setShowSuccessMessage(true);
       } else {
         setShowError(true);
-        setError_message(res.error.message);
+        setError_message(res.data.error.message);
         setEditScheduleLoading(false);
       }
     });
@@ -112,25 +112,24 @@ export const deleteSchedule = (
     (item, index) => index !== selectScheduleIndex
   );
   if (filter.length > 0) {
-    tradly.app
-      .createSchedule({
+    axios
+      .post('/api/schedules/create_schedule', {
         id: productId,
-        authKey: auth_key,
         data: { schedules: filter },
       })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setEditScheduleLoading(false);
           setShowSuccessMessage(true);
         } else {
           setShowError(true);
-          setError_message(res.error.message);
+          setError_message(res.data.error.message);
           setEditScheduleLoading(false);
         }
       });
   } else {
-       setShowError(true);
-       setError_message("You can't delete all schedules");
-       setEditScheduleLoading(false);
+    setShowError(true);
+    setError_message("You can't delete all schedules");
+    setEditScheduleLoading(false);
   }
 };

@@ -6,6 +6,7 @@ import CategoriesPageLayout from "../../components/layouts/PageLayouts/Categorie
 import { refreshPage } from "../../store/feature/authSlice";
 import tradly from "tradly";
 import { all_listing_categories_page } from "../../themes/Theme1";
+import { TYPE_CONSTANT } from "../../constant/Web_constant";
 
 const Categories = (props) => {
 	const dispatch = useDispatch();
@@ -17,8 +18,8 @@ const Categories = (props) => {
 		);
 	}, [dispatch]);
 
-	const pageTitle = props?.seo_text?.meta_title;
-	const pageDescription = props?.seo_text?.meta_description;
+	const pageTitle = TYPE_CONSTANT.META_TITLE;
+	const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
 
 	return (
 		all_listing_categories_page(pageTitle, pageDescription)
@@ -27,11 +28,4 @@ const Categories = (props) => {
 
 export default Categories;
 
-export async function getServerSideProps() {
-	const response = await tradly.app.getConfigList({
-		paramBody: "seo",
-	});
-	return {
-		props: { seo_text: response?.data?.configs },
-	};
-}
+ 

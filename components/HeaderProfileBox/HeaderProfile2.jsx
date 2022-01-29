@@ -21,6 +21,7 @@ import {
 } from '../Shared/Constant/Icons/AllIcons';
 import { myStore, storeSelector } from '../../store/feature/storeSlice';
 import { account_menus, customer_menus } from './desktopMenu';
+import axios from 'axios';
 
 const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
   const [marketplace_type, setMarketplace_type] = useState(null);
@@ -28,12 +29,9 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
 
   useEffect(() => {
     setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
-    tradly.app
-      .getConfigList({
-        paramBody: 'general',
-      })
+    axios.get('/api/configs/general')
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setGeneral_configs(res?.data?.configs);
         }
       });

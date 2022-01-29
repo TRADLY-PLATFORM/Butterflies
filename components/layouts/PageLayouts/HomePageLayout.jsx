@@ -27,7 +27,7 @@ const HomePageLayout = () => {
     dispatch(
       AllPromoBanners({
         authKey: localStorage.getItem('auth_key'),
-        bodyParam: { placement: 'footer' },
+        bodyParam: { placement: 'footer'},
       })
     );
   }, [auth_key, dispatch]);

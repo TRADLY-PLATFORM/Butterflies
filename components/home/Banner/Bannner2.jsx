@@ -12,16 +12,17 @@ import 'swiper/components/navigation/navigation.min.css';
 
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
+import axios from 'axios';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const Banner2 = ({ banners }) => {
   const [appPromoBanners, setAppsPromoBanners] = useState(null);
   useEffect(() => {
-    tradly.app
-      .getPromoBanner({ authKey: '', bodyParam: { medium: 'app', placement: 'footer' } })
+    axios
+      .get(`/api/banners`, { params: { medium: 'app', placement: 'footer' } })
       .then((res) => {
-        if (!res.error) {
+        if (!res.data.error) {
           setAppsPromoBanners(res.data.promo_banners);
         }
       });

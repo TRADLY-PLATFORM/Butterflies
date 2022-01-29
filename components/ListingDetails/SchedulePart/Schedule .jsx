@@ -13,6 +13,7 @@ import { useRouter } from 'next/dist/client/router';
 import Modal from '../../Shared/Modal.jsx/Modal';
 import OutsideClickHandler from 'react-outside-click-handler';
 import SchedulesModal from './SchedulesModal';
+import axios from 'axios';
 
 const Schedule = ({ schedules }) => {
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
@@ -34,14 +35,13 @@ const Schedule = ({ schedules }) => {
     setSelectedDate(moment(dates[0]).format('YYYY-MM-DD'));
     setSelectedDateIndex(0);
     if (auth_key && selectedDate) {
-      tradly.app
-        .getSchedule({
+      axios
+        .post('/api/schedules', {
           id: `${router?.query.id.split('-')[0]}`,
           bodyParam: { days: 30, start_at: selectedDate },
-          authKey: auth_key,
         })
         .then((res) => {
-          if (!res.error) {
+          if (!res.data.error) {
             setScheduleArray(res.data.schedules_per_day);
           }
         });

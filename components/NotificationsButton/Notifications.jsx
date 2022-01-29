@@ -20,6 +20,7 @@ import {
 } from '../Shared/Constant/Icons/AllIcons';
 import { useDispatch } from 'react-redux';
 import Link from 'next/link';
+import axios from 'axios';
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState(null);
@@ -31,19 +32,13 @@ const Notifications = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    tradly.app
-      .commonFuntion({
-        path: `/v1/activities?page=${page}`,
-        Method: 'GET',
-        authKey: auth_key,
-      })
-      .then((res) => {
-        if (!res.error) {
-          setNotifications(res.data.activities);
-          setPage(res.data.page);
-          setTotal_records(res.data.total_records);
-        }
-      });
+    axios.get('/api/activities', { params: { page: page } }).then((res) => {
+      if (!res.data.error) {
+        setNotifications(res.data.activities);
+        setPage(res.data.page);
+        setTotal_records(res.data.total_records);
+      }
+    });
 
     if (user_details) {
       dispatch(
@@ -69,19 +64,13 @@ const Notifications = () => {
   };
 
   const fetch_more = () => {
-    tradly.app
-      .commonFuntion({
-        path: `/v1/activities?page=${page + 1}`,
-        Method: 'GET',
-        authKey: auth_key,
-      })
-      .then((res) => {
-        if (!res.error) {
-          setNotifications([...notifications, ...res.data.activities]);
-          setPage(res.data.page);
-          setTotal_records(res.data.total_records);
-        }
-      });
+    axios.get('/api/activities', { params: { page: page + 1 } }).then((res) => {
+      if (!res.data.error) {
+        setNotifications([...notifications, ...res.data.activities]);
+        setPage(res.data.page);
+        setTotal_records(res.data.total_records);
+      }
+    });
   };
 
   //   useEffect(() => {

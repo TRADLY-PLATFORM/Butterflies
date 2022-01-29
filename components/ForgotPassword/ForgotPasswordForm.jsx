@@ -53,7 +53,7 @@ const ForgotPasswordForm = ({ general_configs }) => {
     };
 
     dispatch(verifyUserEmail({ prams: users })).then((res) => {
-      if (!res.error) {
+      if (!res.payload.code) {
         router.push({
           pathname: '/forgot-password/set-password',
           query: { verify_id: res.payload.verify_id },

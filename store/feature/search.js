@@ -1,21 +1,20 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import tradly from 'tradly';
 
 export const listingLike = createAsyncThunk(
   'search/listingLike',
   async ({ id, isLiked, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.likeListing({
-        id,
-        authKey,
-        isLiked,
-      });
+      const response = await axios.post('/api/search/like', { id, isLiked });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -27,15 +26,14 @@ export const getSearchListings = createAsyncThunk(
   'search/getSearchListings',
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getListings({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/search', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
