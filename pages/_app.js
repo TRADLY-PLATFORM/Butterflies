@@ -49,6 +49,14 @@ function MyApp({ Component, pageProps }) {
             setIs_onboarding(true);
           } else {
             setIs_onboarding(false);
+            axios
+              .post('/api', {
+                token: process.env.API_KEY,
+                environment: process.env.ENVIRONMENT,
+              })
+              .then((res) => {
+                setConnected(true);
+              });
           }
         }
       });
@@ -73,6 +81,14 @@ function MyApp({ Component, pageProps }) {
             setIs_general(true);
           } else {
             setIs_general(false);
+            axios
+              .post('/api', {
+                token: process.env.API_KEY,
+                environment: process.env.ENVIRONMENT,
+              })
+              .then((res) => {
+                setConnected(true);
+              });
           }
         }
       });
@@ -85,6 +101,14 @@ function MyApp({ Component, pageProps }) {
             setIsExtension(true);
           } else {
             setIsExtension(false);
+            axios
+              .post('/api', {
+                token: process.env.API_KEY,
+                environment: process.env.ENVIRONMENT,
+              })
+              .then((res) => {
+                setConnected(true);
+              });
           }
         }
       });
