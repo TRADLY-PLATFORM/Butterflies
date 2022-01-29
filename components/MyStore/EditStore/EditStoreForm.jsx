@@ -54,7 +54,9 @@ const EditStoreForm = ({
       longitude: my_account_details?.coordinates?.longitude,
     });
     setAddressSearchKey(my_account_details?.location?.formatted_address);
-    setCategory(my_account_details?.categories[0]?.id);
+    my_account_details?.categories[0]?.id
+      ? setCategory(my_account_details?.categories[0]?.id)
+      : setCategory(null);
 
     my_account_details?.categories[0]?.id &&
       dispatch(

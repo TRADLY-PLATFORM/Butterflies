@@ -66,7 +66,7 @@ export const saveChange = (
             };
 
             axios
-              .post('/api/user/update_user', { id, userData })
+              .post('/api/user/update_user', { userId, userData })
               .then((res) => {
                 if (!res.data.error) {
                   dispatch(UserInfo({ userId, auth_key })).then((res) => {

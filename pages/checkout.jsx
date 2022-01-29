@@ -37,9 +37,11 @@ const Checkout = (props) => {
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
     
-    axios.get('/api/configs/listings').then((res) => {
-      dispatch(setListingConfig({ listings_configs: res?.configs }));
-    });
+ 
+      dispatch(
+        setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
+      );
+   
 
     setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
   }, [dispatch]);

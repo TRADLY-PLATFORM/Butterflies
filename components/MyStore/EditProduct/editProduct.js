@@ -1,3 +1,4 @@
+import axios from 'axios';
 import trady from 'tradly';
 
 export const edit_product_click = (
@@ -86,9 +87,8 @@ export const edit_product_click = (
   }
 
   if (fullFile !== null) {
-    trady.app
-      .generateS3ImageURL({
-        authKey: auth_key,
+    axios
+      .post('/api/generateS3ImageURL', {
         data: {
           files: files,
         },
@@ -146,11 +146,11 @@ export const edit_product_click = (
                         }
 
                         // ekhane
-                        trady.app
-                          .postListing({
-                            id: productId,
-                            authKey: auth_key,
-                            data: listingData,
+
+                        axios
+                          .post('/api/l/edit_listing', {
+                            productId,
+                            data: { listing: listingData },
                           })
                           .then((res) => {
                             if (!res.data.error) {
@@ -163,9 +163,8 @@ export const edit_product_click = (
                             }
                           });
                       } else {
-                        trady.app
-                          .generateS3ImageURL({
-                            authKey: auth_key,
+                        axios
+                          .post('/api/generateS3ImageURL', {
                             data: {
                               files: [
                                 {
@@ -228,11 +227,10 @@ export const edit_product_click = (
                                   }
 
                                   // ekhane
-                                  trady.app
-                                    .postListing({
-                                      id: productId,
-                                      authKey: auth_key,
-                                      data: listingData,
+                                  axios
+                                    .post('/api/l/edit_listing', {
+                                      productId,
+                                      data: { listing: listingData },
                                     })
                                     .then((res) => {
                                       if (!res.data.error) {
@@ -240,7 +238,9 @@ export const edit_product_click = (
                                         setShowSuccessMessage(true);
                                       } else {
                                         setShowError(true);
-                                        setError_message(res?.data?.error?.message);
+                                        setError_message(
+                                          res?.data?.error?.message
+                                        );
                                         setEditProductLoading(false);
                                       }
                                     });
@@ -284,10 +284,9 @@ export const edit_product_click = (
                       }
 
                       // ekhane
-                      trady.app
-                        .postListing({
-                          id: productId,
-                          authKey: auth_key,
+                      axios
+                        .post('/api/l/edit_listing', {
+                          productId,
                           data: { listing: listingData },
                         })
                         .then((res) => {
@@ -351,10 +350,9 @@ export const edit_product_click = (
         }
 
         // ekhane
-        trady.app
-          .postListing({
-            id: productId,
-            authKey: auth_key,
+        axios
+          .post('/api/l/edit_listing', {
+            productId,
             data: { listing: listingData },
           })
           .then((res) => {
@@ -368,9 +366,8 @@ export const edit_product_click = (
             }
           });
       } else {
-        trady.app
-          .generateS3ImageURL({
-            authKey: auth_key,
+        axios
+          .post('/api/generateS3ImageURL', {
             data: {
               files: [
                 {
@@ -425,10 +422,9 @@ export const edit_product_click = (
                     listingData['description'] = description;
                   }
                   // ekhane
-                  trady.app
-                    .postListing({
-                      id: productId,
-                      authKey: auth_key,
+                  axios
+                    .post('/api/l/edit_listing', {
+                      productId,
                       data: { listing: listingData },
                     })
                     .then((res) => {
@@ -474,10 +470,9 @@ export const edit_product_click = (
         listingData['description'] = description;
       }
       // ekhane
-      trady.app
-        .postListing({
-          id: productId,
-          authKey: auth_key,
+      axios
+        .post('/api/l/edit_listing', {
+          productId,
           data: { listing: listingData },
         })
         .then((res) => {

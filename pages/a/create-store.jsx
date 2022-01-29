@@ -8,6 +8,7 @@ import { setAccountConfig } from '../../store/feature/configsSlice';
 import { useRouter } from 'next/dist/client/router';
 import { create_store_page } from '../../themes/Theme1';
 import axios from 'axios';
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
 
 const createStore = (props) => {
@@ -19,9 +20,9 @@ const createStore = (props) => {
       })
     );
  
-    axios.get('/api/configs/accounts').then((res) => {
-      dispatch(setAccountConfig({ accounts_configs: res?.configs }));
-    });
+     
+      dispatch(setAccountConfig({ accounts_configs:TYPE_CONSTANT.ACCOUNTS_CONFIGS }));
+  
   }, [dispatch]);
 
   const router = useRouter();

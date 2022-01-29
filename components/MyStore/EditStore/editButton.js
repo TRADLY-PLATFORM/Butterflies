@@ -52,6 +52,7 @@ export const edit_store_click = (
 
   //   return false;
   // }
+ 
 
   if (files !== null) {
     axios
@@ -83,7 +84,6 @@ export const edit_store_click = (
                 if (check === undefined) {
                   const storesData = {
                     name: name,
-                    category_id: [category],
                     description: description,
                     web_address: '',
                     images: [ImagePath],

@@ -38,6 +38,15 @@ function MyApp({ Component, pageProps }) {
  
 
   useEffect(() => {
+    axios.get('/api/configs/payment').then((res) => {
+      TYPE_CONSTANT.PAYMENT_CONFIGS = res?.data.configs || '';
+    });
+    axios.get('/api/configs/listings').then((res) => {
+      TYPE_CONSTANT.LISTINGS_CONFIGS = res?.data.configs || '';
+    });
+    axios.get('/api/configs/accounts').then((res) => {
+      TYPE_CONSTANT.ACCOUNTS_CONFIGS = res?.data.configs || '';
+    });
     axios.get('/api/configs/onboarding').then((res) => {
       if (typeof window !== 'undefined') {
         if (!res.data.error) {
@@ -107,9 +116,7 @@ function MyApp({ Component, pageProps }) {
       TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION =
         configs?.meta_listing_category_description || '';
     });
-    axios.get('/api/configs/payment').then((res) => {
-      TYPE_CONSTANT.PAYMENT_CONFIGS = res?.configs || '';
-    });
+    
   }, []);
 
   useEffect(() => {

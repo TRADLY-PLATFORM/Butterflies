@@ -11,7 +11,7 @@ import { setGeneralConfig } from '../../store/feature/configsSlice';
 import { useRouter } from 'next/dist/client/router';
 import { add_listing_page } from '../../themes/Theme1';
 import axios from 'axios';
-
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
 const AddProduct = (props) => {
   const dispatch = useDispatch();
@@ -25,9 +25,9 @@ const AddProduct = (props) => {
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
 
-    axios.get('/api/configs/listings').then((res) => {
-      dispatch(setListingConfig({ listings_configs: res?.configs }));
-    });
+    dispatch(
+      setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
+    );
   }, [dispatch]);
 
   const router = useRouter();
@@ -43,4 +43,3 @@ const AddProduct = (props) => {
 };
 
 export default AddProduct;
- 
