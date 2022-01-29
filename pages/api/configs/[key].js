@@ -6,7 +6,6 @@ export default async function handler(req, res) {
 
   const response = await tradly.app.getConfigList({
     paramBody: key,
-    authKey:''
   });
   if (!response.error) {
     res.send(response.data);
