@@ -24,7 +24,11 @@ function MyApp({ Component, pageProps }) {
     setConnected(true);
   });
 
-    useEffect(() => {
+  useEffect(() => {
+    axios.get('/api').then((res) => {
+      setConnected(true);
+    });
+    
     axios.get('/api/configs/onboarding').then((res) => {
       if (typeof window !== 'undefined') {
         if (!res.data.error) {
@@ -45,11 +49,15 @@ function MyApp({ Component, pageProps }) {
             res.data.error.code == 401 &&
             res.data.error.message == 'unauthorized.'
           ) {
-            axios.post('/api/auth/refresh', { key: localStorage.getItem("refresh_key") }).then((res) => {
-               console.log('====================================');
-               console.log(res);
-               console.log('====================================');
-             })
+            axios
+              .post('/api/auth/refresh', {
+                key: localStorage.getItem('refresh_key'),
+              })
+              .then((res) => {
+                console.log('====================================');
+                console.log(res);
+                console.log('====================================');
+              });
           }
         }
       }
