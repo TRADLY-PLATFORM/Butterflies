@@ -31,7 +31,7 @@ import moment from 'moment';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-const ExploreFilter = () => {
+const ExploreFilter = ({ hidden_category, reset_filter }) => {
   const [marketplace_type, setMarketplace_type] = useState();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSeeAllCategories, setIsSeeAllCategories] = useState(false);
@@ -382,14 +382,58 @@ const ExploreFilter = () => {
               )}
 
               {/* Categories Part */}
-              <div>
-                <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
-                  <span className=" cursor-pointer">All Categories</span>
-                  {category_id === undefined && <span>{check_icon}</span>}
-                </h4>
-                {allCategories?.map((item, index, array) => {
-                  if (array.length > 4) {
-                    if (index < 4) {
+              {!hidden_category && (
+                <div>
+                  <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
+                    <span className=" cursor-pointer">All Categories</span>
+                    {category_id === undefined && <span>{check_icon}</span>}
+                  </h4>
+                  {allCategories?.map((item, index, array) => {
+                    if (array.length > 4) {
+                      if (index < 4) {
+                        return (
+                          <p
+                            className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center  "
+                            key={Math.random()}
+                            // onClick={() => filter_by_category(item.id)}
+                          >
+                            <span className=" ">{item.name}</span>
+                            <input
+                              className=" form-check-input appearance-none h-3 w-3 border border-gray-300 rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-primary checked:hover:bg-primary  checked:focus:ring-primary checked:focus:bg-primary  transition duration-200   align-top bg-no-repeat bg-center bg-contain   mr-2 cursor-pointer"
+                              type="checkbox"
+                              checked={
+                                selectedCategories?.includes(`${item.id}`)
+                                  ? true
+                                  : false
+                              }
+                              onChange={() => filter_by_category(item.id)}
+                            />
+                            {/* {selectedCategories?.includes(`${item.id}`) && (
+                          
+                        )} */}
+                          </p>
+                        );
+                      }
+                      if (index === 4) {
+                        return (
+                          <button
+                            className=" text-xs text-primary font-semibold py-[7px]  flex justify-between items-center  cursor-pointer w-full"
+                            onClick={() =>
+                              setIsSeeAllCategories(!isSeeAllCategories)
+                            }
+                          >
+                            <span>See all categories</span>
+                            <span
+                              className={
+                                isSeeAllCategories && 'transform rotate-180'
+                              }
+                            >
+                              {angle_down}
+                            </span>
+                          </button>
+                        );
+                      }
+                    } else {
                       return (
                         <p
                           className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center  "
@@ -413,55 +457,36 @@ const ExploreFilter = () => {
                         </p>
                       );
                     }
-                    if (index === 4) {
-                      return (
-                        <button
-                          className=" text-xs text-primary font-semibold py-[7px]  flex justify-between items-center  cursor-pointer w-full"
-                          onClick={() =>
-                            setIsSeeAllCategories(!isSeeAllCategories)
-                          }
-                        >
-                          <span>See all categories</span>
-                          <span
-                            className={
-                              isSeeAllCategories && 'transform rotate-180'
-                            }
-                          >
-                            {angle_down}
-                          </span>
-                        </button>
-                      );
-                    }
-                  }
-                })}
-
-                {isSeeAllCategories &&
-                  allCategories?.map((item, index, array) => {
-                    if (array.length > 4) {
-                      if (index > 4) {
-                        return (
-                          <p
-                            className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center  "
-                            key={Math.random()}
-                            // onClick={() => filter_by_category(item.id)}
-                          >
-                            <span className=" ">{item.name}</span>
-                            <input
-                              className=" form-check-input appearance-none h-3 w-3 border border-gray-300 rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-primary checked:hover:bg-primary  checked:focus:ring-primary checked:focus:bg-primary  transition duration-200   align-top bg-no-repeat bg-center bg-contain   mr-2 cursor-pointer"
-                              type="checkbox"
-                              checked={
-                                selectedCategories?.includes(`${item.id}`)
-                                  ? true
-                                  : false
-                              }
-                              onChange={() => filter_by_category(item.id)}
-                            />
-                          </p>
-                        );
-                      }
-                    }
                   })}
-              </div>
+
+                  {isSeeAllCategories &&
+                    allCategories?.map((item, index, array) => {
+                      if (array.length > 4) {
+                        if (index > 4) {
+                          return (
+                            <p
+                              className=" text-[12px] text-[#4F4F4F] font-semibold py-[7px]  flex justify-between items-center  "
+                              key={Math.random()}
+                              // onClick={() => filter_by_category(item.id)}
+                            >
+                              <span className=" ">{item.name}</span>
+                              <input
+                                className=" form-check-input appearance-none h-3 w-3 border border-gray-300 rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-primary checked:hover:bg-primary  checked:focus:ring-primary checked:focus:bg-primary  transition duration-200   align-top bg-no-repeat bg-center bg-contain   mr-2 cursor-pointer"
+                                type="checkbox"
+                                checked={
+                                  selectedCategories?.includes(`${item.id}`)
+                                    ? true
+                                    : false
+                                }
+                                onChange={() => filter_by_category(item.id)}
+                              />
+                            </p>
+                          );
+                        }
+                      }
+                    })}
+                </div>
+              )}
 
               {/* Sort */}
               <div className=" mt-3">
@@ -616,11 +641,15 @@ const ExploreFilter = () => {
               <button
                 className=" text-xm font font-medium text-red-600 cursor-pointer pb-[30%]"
                 onClick={() => {
-                  router.push({
-                    query: {
-                      page: router.query.page,
-                    },
-                  }),
+                  reset_filter
+                    ? (reset_filter(),
+                      setSelectedAtValues([]),
+                      setSelectedCategories([]))
+                    : router.push({
+                        query: {
+                          page: router.query.page,
+                        },
+                      }),
                     setSelectedAtValues([]),
                     setSelectedCategories([]);
                 }}
