@@ -20,12 +20,11 @@ function MyApp({ Component, pageProps }) {
   const [connected, setConnected] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
 
-  tradly.init.config({
-    token: process.env.API_KEY,
-    environment: process.env.ENVIRONMENT,
-  });
+  axios.get('/api');
 
   useEffect(() => {
+    axios.get('/api');
+
     axios.get('/api/configs/onboarding').then((res) => {
       if (typeof window !== 'undefined') {
         if (!res.data.error) {
