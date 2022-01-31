@@ -24,7 +24,7 @@ import {
 import { useRouter } from 'next/dist/client/router';
 
 const ReviewBox = ({ rating_data, reviews, review_page }) => {
-  const { auth_key } = useSelector(authSelector);
+  const { auth_key, login } = useSelector(authSelector);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -36,48 +36,52 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
   var header = {};
 
   const helpful_review = (id, status) => {
-    axios({
-      url: `${base_url}/v1/reviews/${id}/like`,
-      method: 'PATCH',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'x-agent': 1,
-        Authorization: `Bearer ${process.env.API_KEY}`,
-        'x-auth-key': auth_key,
-      },
-      data: {
-        review: {
-          status: status == 0 ? 1 : 0,
+    if (login) {
+      axios({
+        url: `${base_url}/v1/reviews/${id}/like`,
+        method: 'PATCH',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'x-agent': 1,
+          Authorization: `Bearer ${process.env.API_KEY}`,
+          'x-auth-key': auth_key,
         },
-      },
-    })
-      .then((res) => {
-        if (res.data.status) {
-          dispatch(
-            listingDetails({
-              id: router?.query.id.split('-')[0],
-              authKey: auth_key,
-            })
-          );
-          dispatch(
-            getListingReviews({
-              authKey: auth_key,
-              params: {
-                type: 'listings',
-                id: router?.query.id.split('-')[0],
-                page: review_page,
-                per_page: 30,
-              },
-            })
-          );
-        }
+        data: {
+          review: {
+            status: status == 0 ? 1 : 0,
+          },
+        },
       })
-      .catch((error) => {
-        console.log('====================================');
-        console.log(error);
-        console.log('====================================');
-      });
+        .then((res) => {
+          if (res.data.status) {
+            dispatch(
+              listingDetails({
+                id: router?.query.id.split('-')[0],
+                authKey: auth_key,
+              })
+            );
+            dispatch(
+              getListingReviews({
+                authKey: auth_key,
+                params: {
+                  type: 'listings',
+                  id: router?.query.id.split('-')[0],
+                  page: review_page,
+                  per_page: 30,
+                },
+              })
+            );
+          }
+        })
+        .catch((error) => {
+          console.log('====================================');
+          console.log(error);
+          console.log('====================================');
+        });
+    } else {
+      router.push('/sign-in');
+    }
   };
 
   const [show_moe_review, setShow_more_review] = useState(false);
@@ -183,9 +187,21 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
           );
         })}
       </div>
-      <div className={[' w-full flex justify-center mt-6 mb-3',show_moe_review && "hidden"].join(' ')}>
-        <button className=' w-4/6 text-center py-3 border border-primary text-primary text-lg rounded-md' onClick={()=> setShow_more_review(true)}>Read All Reviews</button>
-      </div>
+      {reviews.length > 1 && (
+        <div
+          className={[
+            ' w-full flex justify-center mt-6 mb-3',
+            show_moe_review && 'hidden',
+          ].join(' ')}
+        >
+          <button
+            className=" w-4/6 text-center py-3 border border-primary text-primary text-lg rounded-md"
+            onClick={() => setShow_more_review(true)}
+          >
+            Read All Reviews
+          </button>
+        </div>
+      )}
     </div>
   );
 };
