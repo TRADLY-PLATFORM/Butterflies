@@ -102,7 +102,7 @@ const Header3 = () => {
           ''
         )}
 
-        <div className="w-screen px-[16px] xs:px-[35px]  ">
+        <div className="  px-[16px] xs:px-[35px]  ">
           <div className="flex justify-between items-center py-[16px]  relative">
             <div className="  flex items-center">
               <button className="outline-none" onClick={drawerOpen}>

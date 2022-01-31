@@ -22,7 +22,7 @@ import MarkerListing from '../../explore/Map View/Marker';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import moment from 'moment';
 
-const ExplorePageLayout = () => {
+const EventListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
   const [selected_type, setSelected_type] = useState('gallery_view');
   const [selected_marker, setSelected_marker] = useState(null);
@@ -132,7 +132,8 @@ const ExplorePageLayout = () => {
                           mapContainerStyle={containerStyle}
                           center={{
                             lat: coordinates_listings[0]?.coordinates?.latitude,
-                            lng: coordinates_listings[0]?.coordinates?.longitude,
+                            lng: coordinates_listings[0]?.coordinates
+                              ?.longitude,
                           }}
                           zoom={10}
                         >
@@ -268,4 +269,4 @@ const ExplorePageLayout = () => {
   );
 };
 
-export default ExplorePageLayout;
+export default EventListingsPageLayout;

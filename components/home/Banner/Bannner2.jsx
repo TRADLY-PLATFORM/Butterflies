@@ -19,7 +19,7 @@ const Banner2 = ({ banners }) => {
   const [appPromoBanners, setAppsPromoBanners] = useState(null);
   useEffect(() => {
     tradly.app
-      .getPromoBanner({ authKey: '', bodyParam: { medium: 'app' } })
+      .getPromoBanner({ authKey: '', bodyParam: { medium: 'app', placement: 'footer' } })
       .then((res) => {
         if (!res.error) {
           setAppsPromoBanners(res.data.promo_banners);
