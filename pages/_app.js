@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
   const [start, setStart] = useState(false);
   const [favicon, setFavicon] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
-  const [primary_font_name, set_primary_font_name] = useState('Roboto');
+  const [primary_font_name, set_primary_font_name] = useState('Montserrat');
   const router = useRouter();
   const [searchconsole, setSearchconsole] = useState(null);
 
@@ -79,7 +79,7 @@ function MyApp({ Component, pageProps }) {
         if (typeof window !== 'undefined') {
           if (!res.error) {
             let root = document.documentElement;
-            const primary_font = res.data.configs.web_font_title;
+            const primary_font = res.data.configs.web_font_title || primary_font_name;
             root.style.setProperty('--primary_font', primary_font);
             set_primary_font_name(primary_font);
             localStorage.setItem('marketplace_type', res.data.configs.type);
