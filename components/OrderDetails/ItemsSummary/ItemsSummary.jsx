@@ -27,12 +27,11 @@ const ItemsSummary = ({ order_details }) => {
           return (
             <Link
               key={Math.random()}
- 
               href={`/l/${item?.listing?.id}-${item?.listing?.title?.replace(
                 /\W/g,
                 '+'
               )}`}
-             >
+            >
               <a
                 className={[
                   '  grid  grid-cols-[50%,20%,30%]   md:grid-cols-[40%,20%,20%,20%] items-center py-3  cursor-pointer',
@@ -78,6 +77,13 @@ const ItemsSummary = ({ order_details }) => {
             </Link>
           );
         })}
+      </div>
+      <div className="flex justify-end mt-2">
+        <Link href={`/review/${order_details?.id}`}>
+          <a className="  bg-primary py-1 px-3  text-white rounded-md ">
+            Review Products
+          </a>
+        </Link>
       </div>
     </div>
   );
