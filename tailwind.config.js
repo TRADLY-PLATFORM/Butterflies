@@ -35,6 +35,7 @@ module.exports = {
       colors: {
         primary: 'var( --primary_color)',
         secondary: 'var( --secondary_color)',
+        footer: 'var( --footer_color)',
         primary_light: '#DFFBF4',
         default_gray: '#959393',
       },

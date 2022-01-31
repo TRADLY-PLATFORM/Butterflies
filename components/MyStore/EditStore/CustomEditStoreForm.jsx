@@ -48,13 +48,15 @@ const CustomEditStoreForm = ({
   useEffect(() => {
     setImagePath({ path: my_account_details.images[0] });
     setName(my_account_details.name);
-    setDescription(my_account_details.description);
+    my_account_details?.description &&
+      setDescription(my_account_details.description);
     setCoordinates({
       latitude: my_account_details?.coordinates?.latitude,
       longitude: my_account_details?.coordinates?.longitude,
     });
     setAddressSearchKey(my_account_details?.location?.formatted_address);
-    setCategory(my_account_details?.categories[0]?.id);
+    my_account_details?.categories[0]?.id &&
+      setCategory(my_account_details?.categories[0]?.id);
 
     my_account_details?.categories[0]?.id &&
       dispatch(
@@ -189,10 +191,11 @@ const CustomEditStoreForm = ({
             )}
           </div>
         </div>
-        <label className="block">
-          <span className="text-gray-700 ">Categories</span>
-          <select
-            className="
+        {account_categories?.length > 0 && (
+          <label className="block">
+            <span className="text-gray-700 ">Categories</span>
+            <select
+              className="
                     block
                     w-full
                     mt-0
@@ -200,21 +203,22 @@ const CustomEditStoreForm = ({
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-            onChange={(e) => {
-              setCategory(Number(e.target.value)), setAttributeData(null);
-            }}
-          >
-            {account_categories?.map((ct) => (
-              <option
-                selected={ct.id === category ? true : false}
-                key={ct.id}
-                value={ct.id}
-              >
-                {ct.name}
-              </option>
-            ))}
-          </select>
-        </label>
+              onChange={(e) => {
+                setCategory(Number(e.target.value)), setAttributeData(null);
+              }}
+            >
+              {account_categories?.map((ct) => (
+                <option
+                  selected={ct.id === category ? true : false}
+                  key={ct.id}
+                  value={ct.id}
+                >
+                  {ct.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         <label className="block">
           <span className="text-gray-700">Account name</span>
           <input

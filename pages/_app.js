@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }) {
   const [start, setStart] = useState(false);
   const [favicon, setFavicon] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
+  const [primary_font_name, set_primary_font_name] = useState('Roboto');
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -54,8 +55,10 @@ function MyApp({ Component, pageProps }) {
             let root = document.documentElement;
             const primary_color = res.data.configs.app_color_primary;
             const secondary_color = res.data.configs.app_color_secondary;
+            const footer_color = res.data.configs.bg_footer_color;
             root.style.setProperty('--primary_color', primary_color);
             root.style.setProperty('--secondary_color', secondary_color);
+            root.style.setProperty('--footer_color', footer_color);
             localStorage.setItem(
               'onboarding_configs',
               JSON.stringify(res.data.configs)
@@ -74,6 +77,10 @@ function MyApp({ Component, pageProps }) {
       .then((res) => {
         if (typeof window !== 'undefined') {
           if (!res.error) {
+            let root = document.documentElement;
+            const primary_font = res.data.configs.web_font_title;
+            root.style.setProperty('--primary_font', primary_font);
+            set_primary_font_name(primary_font);
             localStorage.setItem('marketplace_type', res.data.configs.type);
             localStorage.setItem(
               'marketplace_module',
@@ -126,6 +133,10 @@ function MyApp({ Component, pageProps }) {
       <>
         <Head>
           <link rel="icon" href={favicon} />
+          <link
+            href={`https://fonts.googleapis.com/css2?family=${primary_font_name}&display=optional`}
+            rel="stylesheet"
+          />
         </Head>
         <Provider store={store}>
           <Loading loading={loading} />

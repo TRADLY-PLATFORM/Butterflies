@@ -32,7 +32,7 @@ export const edit_store_click = (
     setEditStoreLoading(false);
 
     return false;
-  } else if (description === '' || description === null) {
+  } else if (description !== '' && description !== null) {
     setShowError(true);
     setError_message('Store Description is require');
     setEditStoreLoading(false);
@@ -84,8 +84,7 @@ export const edit_store_click = (
                 if (check === undefined) {
                   const storesData = {
                     name: name,
-                    category_id: [category],
-                    description: description,
+
                     web_address: '',
                     images: [ImagePath],
 
@@ -97,6 +96,9 @@ export const edit_store_click = (
                   }
                   if (category !== null) {
                     storesData['category_id'] = [category];
+                  }
+                  if (description !== '' && description !== null) {
+                    storesData['description'] = description;
                   }
                   dispatch(
                     postStore({
@@ -150,7 +152,6 @@ export const edit_store_click = (
                             const storesData = {
                               name: name,
 
-                              description: description,
                               web_address: '',
                               images: [ImagePath],
 
@@ -162,6 +163,9 @@ export const edit_store_click = (
                             }
                             if (accounts_configs.account_address_enabled) {
                               storesData['coordinates'] = coordinates;
+                            }
+                            if (description !== '' && description !== null) {
+                              storesData['description'] = description;
                             }
 
                             dispatch(
@@ -199,7 +203,6 @@ export const edit_store_click = (
                 const storesData = {
                   name: name,
 
-                  description: description,
                   web_address: '',
                   images: [ImagePath],
                   type: 'accounts',
@@ -209,6 +212,9 @@ export const edit_store_click = (
                 }
                 if (category !== null) {
                   storesData['category_id'] = [category];
+                }
+                if (description !== '' && description !== null) {
+                  storesData['description'] = description;
                 }
                 dispatch(
                   postStore({
@@ -250,7 +256,6 @@ export const edit_store_click = (
         const storesData = {
           name: name,
 
-          description: description,
           web_address: '',
           images: [imagePath.path],
           attributes: attributeData,
@@ -261,6 +266,9 @@ export const edit_store_click = (
         }
         if (category !== null) {
           storesData['category_id'] = [category];
+        }
+        if (description !== '' && description !== null) {
+          storesData['description'] = description;
         }
         dispatch(
           postStore({
@@ -314,7 +322,6 @@ export const edit_store_click = (
                   const storesData = {
                     name: name,
 
-                    description: description,
                     web_address: '',
                     images: [imagePath.path],
                     attributes: attributeUpdate,
@@ -325,6 +332,9 @@ export const edit_store_click = (
                   }
                   if (category !== null) {
                     storesData['category_id'] = [category];
+                  }
+                  if (description !== '' && description !== null) {
+                    storesData['description'] = description;
                   }
                   dispatch(
                     postStore({
@@ -359,7 +369,6 @@ export const edit_store_click = (
       const storesData = {
         name: name,
 
-        description: description,
         web_address: '',
         images: [imagePath.path],
         type: 'accounts',
@@ -369,6 +378,9 @@ export const edit_store_click = (
       }
       if (category !== null) {
         storesData['category_id'] = [category];
+      }
+      if (description !== '' && description !== null) {
+        storesData['description'] = description;
       }
       dispatch(
         postStore({

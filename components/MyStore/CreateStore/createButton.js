@@ -32,12 +32,14 @@ export const create_store_click = (
     setError_message('Store name is required');
     setCreateStoreLoading(false);
     return false;
-  } else if (description === '' || description === null) {
-    setShowError(true);
-    setError_message('Store Description is require');
-    setCreateStoreLoading(false);
-    return false;
-  } else if (accounts_configs.account_address_enabled && coordinates === null) {
+  }
+  // else if (description !== '' && description !== null) {
+  //   setShowError(true);
+  //   setError_message('Store Description is require');
+  //   setCreateStoreLoading(false);
+  //   return false;
+  // }
+  else if (accounts_configs.account_address_enabled && coordinates === null) {
     setShowError(true);
     setError_message('Address is required');
     setCreateStoreLoading(false);
@@ -82,7 +84,6 @@ export const create_store_click = (
                   let storesData = {
                     name: name,
 
-                    description: description,
                     web_address: '',
                     images: [ImagePath],
                     attributes: attributeData,
@@ -93,6 +94,9 @@ export const create_store_click = (
                   }
                   if (category !== null) {
                     storesData['category_id'] = [category];
+                  }
+                  if (description !== '' && description !== null) {
+                   storesData['description'] = description;
                   }
                   dispatch(
                     postStore({
@@ -145,8 +149,6 @@ export const create_store_click = (
                             ];
                             let storesData = {
                               name: name,
-
-                              description: description,
                               web_address: '',
                               images: [ImagePath],
                               attributes: attributeUpdate,
@@ -157,6 +159,9 @@ export const create_store_click = (
                             }
                             if (category !== null) {
                               storesData['category_id'] = [category];
+                            }
+                            if (description !== '' && description !== null) {
+                              storesData['description'] = description;
                             }
                             dispatch(
                               postStore({
@@ -192,8 +197,6 @@ export const create_store_click = (
               } else {
                 let storesData = {
                   name: name,
-
-                  description: description,
                   web_address: '',
                   images: [ImagePath],
                   type: 'accounts',
@@ -203,6 +206,9 @@ export const create_store_click = (
                 }
                 if (category !== null) {
                   storesData['category_id'] = [category];
+                }
+                if (description !== '' && description !== null) {
+                 storesData['description'] = description;
                 }
                 dispatch(
                   postStore({

@@ -10,7 +10,7 @@ import {
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import { useSelector } from 'react-redux';
- import { authSelector } from '../../../store/feature/authSlice';
+import { authSelector } from '../../../store/feature/authSlice';
 import Attribute from './Attribute';
 import PopUp from '../../Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -185,10 +185,11 @@ const CreateStoreForm = ({ accounts_configs }) => {
           </label>
         )}
 
-        { <label className="block">
-          <span className="text-gray-700 ">Categories</span>
-          <select
-            className="
+        {account_categories?.length > 0 && (
+          <label className="block">
+            <span className="text-gray-700 ">Categories</span>
+            <select
+              className="
                     block
                     w-full
                     mt-0
@@ -196,18 +197,19 @@ const CreateStoreForm = ({ accounts_configs }) => {
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option hidden selected>
-              Select Category
-            </option>
-            {account_categories?.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option hidden selected>
+                Select Category
               </option>
-            ))}
-          </select>
-        </label>}
+              {account_categories?.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         <div>
           <Attribute
             attributeData={attributeData}
