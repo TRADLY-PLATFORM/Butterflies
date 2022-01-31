@@ -25,6 +25,7 @@ function MyApp({ Component, pageProps }) {
   const [generalCf, setGeneralCf] = useState(null);
   const [primary_font_name, set_primary_font_name] = useState('Roboto');
   const router = useRouter();
+  const [searchconsole, setSearchconsole] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -112,6 +113,11 @@ function MyApp({ Component, pageProps }) {
             if (res.data.configs.gtm) {
               TagManager.initialize({ gtmId: `GTM-${res.data.configs.gtm}` });
             }
+
+            if (res.data.configs?.searchconsole) {
+              setSearchconsole(res.data.configs?.searchconsole);
+            }
+
             setIsExtension(true);
           } else {
             setIsExtension(false);
@@ -137,6 +143,9 @@ function MyApp({ Component, pageProps }) {
             href={`https://fonts.googleapis.com/css2?family=${primary_font_name}&display=optional`}
             rel="stylesheet"
           />
+          {searchconsole && (
+            <meta name="google-site-verification" content={searchconsole} />
+          )}
         </Head>
         <Provider store={store}>
           <Loading loading={loading} />
