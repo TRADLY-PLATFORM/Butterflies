@@ -47,7 +47,7 @@ const AddReviewPageLayout = () => {
     if (auth_key) {
       dispatch(get_order_details({ authKey: auth_key, id: router.query.id }));
     }
-  }, [auth_key, router.query.id]);
+  }, [auth_key, router.query.id,showSuccess]);
   const { order_details } = useSelector(orderSelector);
 
   useEffect(() => {
@@ -62,6 +62,7 @@ const AddReviewPageLayout = () => {
     setError_message('');
     setShowSuccess(false);
     setSuccess_message('');
+    dispatch(get_order_details({ authKey: auth_key, id: router.query.id }));
   };
 
   // send review

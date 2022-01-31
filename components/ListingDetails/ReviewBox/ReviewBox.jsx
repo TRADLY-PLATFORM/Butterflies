@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   default_large_user_icon,
   default_user_icon,
@@ -51,46 +51,54 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
           status: status == 0 ? 1 : 0,
         },
       },
-    }).then((res) => {
-      if (res.data.status) {
-        dispatch(
-          listingDetails({
-            id: router?.query.id.split('-')[0],
-            authKey: auth_key,
-          })
-        );
-        dispatch(
-          getListingReviews({
-            authKey: auth_key,
-            params: {
-              type: 'listings',
+    })
+      .then((res) => {
+        if (res.data.status) {
+          dispatch(
+            listingDetails({
               id: router?.query.id.split('-')[0],
-              page: review_page,
-              per_page: 30,
-            },
-          })
-        );
-      }
-    })
-    .catch((error)=>{
-      console.log('====================================');
-      console.log(error);
-      console.log('====================================');
-    })
+              authKey: auth_key,
+            })
+          );
+          dispatch(
+            getListingReviews({
+              authKey: auth_key,
+              params: {
+                type: 'listings',
+                id: router?.query.id.split('-')[0],
+                page: review_page,
+                per_page: 30,
+              },
+            })
+          );
+        }
+      })
+      .catch((error) => {
+        console.log('====================================');
+        console.log(error);
+        console.log('====================================');
+      });
   };
 
+  const [show_moe_review, setShow_more_review] = useState(false);
+
   return (
-    <div className=" bg-white rounded  w-full min-h-[66px] p-4  ">
+    <div className=" bg-white rounded  w-full min-h-[66px] p-4">
       <p className="text-black text-base font-medium">
         {' '}
         Review {`(${rating_data.review_count})`}
       </p>
       <div className="mt-5">
-        {reviews.map((item, index) => {
+        {reviews.map((item, index, array) => {
           return (
             <div
               key={index}
-              className="min-h-[200px] p-4  rounded-md shadow-c-md"
+              className={[
+                'min-h-[200px] p-4  rounded-md shadow-c-md my-3',
+                array.length > 1 && !show_moe_review && index + 1 !== 1
+                  ? 'hidden'
+                  : 'block',
+              ].join(' ')}
             >
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full overflow-hidden">
@@ -174,6 +182,9 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
             </div>
           );
         })}
+      </div>
+      <div className={[' w-full flex justify-center mt-6 mb-3',show_moe_review && "hidden"].join(' ')}>
+        <button className=' w-4/6 text-center py-3 border border-primary text-primary text-lg rounded-md' onClick={()=> setShow_more_review(true)}>Read All Reviews</button>
       </div>
     </div>
   );
