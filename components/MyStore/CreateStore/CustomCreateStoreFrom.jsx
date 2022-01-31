@@ -146,7 +146,7 @@ const CustomCreateStoreForm = ({ accounts_configs }) => {
             )}
           </div>
         </div>
-        {
+        {account_categories?.length > 0 && (
           <label className="block">
             <span className="text-gray-700 ">Categories</span>
             <select
@@ -170,7 +170,7 @@ const CustomCreateStoreForm = ({ accounts_configs }) => {
               ))}
             </select>
           </label>
-        }
+        )}
         <label className="block">
           <span className="text-gray-700">Account name</span>
           <input
@@ -189,8 +189,8 @@ const CustomCreateStoreForm = ({ accounts_configs }) => {
         </label>
         <label className="block">
           <span className="text-gray-700">Description</span>
-                  <textarea
-                      placeholder='Write your description ..'
+          <textarea
+            placeholder="Write your description .."
             className="
             
                     mt-0

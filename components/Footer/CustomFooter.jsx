@@ -55,7 +55,7 @@ const CustomFooter = () => {
       });
   }, [0]);
   return (
-    <>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 ">
       <div className="w-full h-full py-4 grid grid-cols-2 md:grid-cols-3 gap-10  border-b border-t border-[rgba(216, 216, 216, 0.5)] pt-16  ">
         <div className=" col-span-2 md:col-span-1">
           {logo && (
@@ -382,7 +382,7 @@ const CustomFooter = () => {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

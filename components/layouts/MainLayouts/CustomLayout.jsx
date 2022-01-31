@@ -20,7 +20,7 @@ const CustomLayout = ({ children, pageTitle, pageDescription }) => {
         <div className="mt-16  min-h-screen  overflow-x-hidden max-w-6xl mx-auto px-4 sm:px-6">
           <div>{children}</div>
         </div>
-        <div className=" mt-16 md:mt-20 bg-wite min-h-[200px]  left-0 bottom-0 max-w-6xl mx-auto px-4 sm:px-6  ">
+        <div className="  bg-footer mt-16 md:mt-20   min-h-[200px]  left-0 bottom-0  ">
           <CustomFooter />
         </div>
       </div>
