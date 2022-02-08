@@ -23,7 +23,8 @@ export const add_product_click = (
   accountId,
   setAddProductLoading,
   schedulesArray,
-  variantsArray
+  variantsArray,
+  type
 ) => {
   setAddProductLoading(true);
   if (files === null || !files.length > 0) {
@@ -111,7 +112,7 @@ export const add_product_click = (
               if (res.ok) {
                 increment = increment + 1;
                 if (increment === files.length) {
-                  if (attributeData !== null  && attributeData?.length !== 0) {
+                  if (attributeData !== null && attributeData?.length !== 0) {
                     const check = attributeData.find((attr) => attr.uploadFile);
                     if (check === undefined) {
                       const listingData = {
@@ -123,7 +124,7 @@ export const add_product_click = (
                         offer_percent: offerPercent,
                         images: responseFiles.map((res) => res.fileUri),
                         category_id: [selectedCategory],
-                        type: 'listings',
+                        type:type,
                       };
                       if (listing_configs.listing_address_enabled) {
                         listingData['coordinates'] = coordinates;
@@ -321,7 +322,7 @@ export const add_product_click = (
                                     (res) => res.fileUri
                                   ),
                                   category_id: [selectedCategory],
-                                  type: 'listings',
+                                  type:type,
                                 };
 
                                 if (listing_configs.listing_address_enabled) {
@@ -518,7 +519,7 @@ export const add_product_click = (
                       offer_percent: offerPercent,
                       images: responseFiles.map((res) => res.fileUri),
                       category_id: [selectedCategory],
-                      type: 'listings',
+                      type:type,
                     };
                     if (listing_configs.listing_address_enabled) {
                       listingData['coordinates'] = coordinates;

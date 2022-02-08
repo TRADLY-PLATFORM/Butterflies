@@ -386,6 +386,84 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                     </div>
                   </div>
                 ))}
+              {attr.field_type === 11 &&
+                (file === null ? (
+                  <div className="mt-5">
+                    <div>
+                      <div className=" h-0 overflow-hidden">
+                        <input
+                          type="file"
+                          id="attachmentClick"
+                          name="imageUpload"
+                          accept="/*"
+                          onChange={(e) => imageUpload(e, attr.id)}
+                        />
+                      </div>
+                      <button
+                        className=" flex flex-col items-center justify-center w-full p-3 border-2 border-dashed border-primary  "
+                        onClick={imageUploadClick}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-9 w-9"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                          />
+                        </svg>
+                        <p>Upload Json File</p>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className=" grid grid-cols-[20%,70%,10%;] xs:grid-cols-[10%,70%,20%] items-center px-[10px] py-[5px] border-2 border-primary rounded-md">
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-9 w-9"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                    <div className=" flex flex-col text-base  ">
+                      <span>{file.name}</span>
+                      <span>{file.type}</span>
+                    </div>
+                    <div
+                      className="flex justify-end cursor-pointer"
+                      onClick={() => setFile(null)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                ))}
             </div>
           </>
         );

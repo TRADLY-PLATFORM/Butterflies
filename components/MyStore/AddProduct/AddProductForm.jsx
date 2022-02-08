@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   accountAttribute,
   clearStoreState,
+  listingCategories,
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import SearchAddress from './SearchAddress';
@@ -19,8 +20,11 @@ import VariantsPart from './Variants/VariantsPart';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
 import tradly from 'tradly';
+import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 
 const AddProductForm = () => {
+  const [type, setType] = useState('listings');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
@@ -78,7 +82,7 @@ const AddProductForm = () => {
     if (selectedCategory) {
       dispatch(
         accountAttribute({
-          prams: { category_id: selectedCategory, type: 'listings' },
+          prams: { category_id: selectedCategory, type: type },
           authKey: auth_key,
         })
       );
@@ -142,6 +146,25 @@ const AddProductForm = () => {
     setShowError(false);
     setError_message('');
   };
+
+  const options = [
+    { value: 'Listings', label: 'listings', id: 'listings' },
+    { value: 'Extensions', label: 'extensions', id: 'extensions' },
+  ];
+
+  const handleChange = (newValue, actionMeta) => {
+    setType(newValue.id);
+  };
+
+  useEffect(() => {
+    dispatch(
+      listingCategories({
+        prams: { parent: 0, type: type },
+        authKey: auth_key,
+      })
+    );
+  }, [type]);
+
   return (
     <>
       {(showError || isError) && (
@@ -165,9 +188,18 @@ const AddProductForm = () => {
       )}
       <div className=" w-full pt-2  pb-[100px] flex items-center  flex-col gap-8 md:gap-2   c-lg:flex-row justify-center c-lg:items-start  ">
         <div className=" w-full  xs:w-[500px]  c-lg:w-[450px] xl:w-[500px]  2xl:w-[600px] ">
-          <h3 className=" font-semibold text-[#121212] text-xl mb-4">
-            Listing Details
-          </h3>
+          <div className="flex items-center justify-between  mb-5">
+            <h3 className=" block h-full  font-semibold text-[#121212] text-xl ">
+              Listing Details
+            </h3>
+            <CreatableSelect
+              onChange={(newValue, actionMeta) =>
+                handleChange(newValue, actionMeta)
+              }
+              options={options}
+            />
+          </div>
+
           <div className=" bg-white p-10  grid grid-cols-1 gap-6 rounded-lg shadow-c-sm">
             <div className="block">
               <span className="text-gray-700">Listing Image</span>
@@ -473,7 +505,8 @@ const AddProductForm = () => {
                   accountId,
                   setAddProductLoading,
                   schedulesArray,
-                  variantsArray
+                  variantsArray,
+                  type
                 )
               }
               disabled={addProductLoading ? true : false}
