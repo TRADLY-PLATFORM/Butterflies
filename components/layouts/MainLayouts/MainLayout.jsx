@@ -23,6 +23,7 @@ const MainLayout = ({ children, pageTitle, pageDescription }) => {
         <div className="bg-wite min-h-[200px]   left-0 bottom-0 px-[50px]  2xl:px-[12%]">
           <Footer />
         </div>
+        
       </div>
 
       <div className=" md:hidden">

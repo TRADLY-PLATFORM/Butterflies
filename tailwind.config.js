@@ -45,6 +45,9 @@ module.exports = {
       outline: {
         blue: '2px solid var( --primary_color)',
       },
+      fontFamily: {
+         'Inter-var':"Inter"
+       }
     },
     screens: {
       xs: '540px',
