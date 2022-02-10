@@ -11,17 +11,16 @@ const MarkdownEditor = ({ oldValue, setMarkdownValue }) => {
   }, [oldValue]);
   return (
     default_value && (
-      <div
-        className="relative mt-0
+      <div className="">
+        <Editor
+          className="
+                    relative mt-0
                     block
                     w-full
                     px-0.5
                     border-0 border-b-2 border-gray-200 transition  duration-700
-                    focus:ring-0 focus:border-primary"
-      >
-        <Editor
-          className="
-                    
+                    focus:ring-0 focus:border-primary
+                     
                   "
           defaultValue={default_value}
           onChange={debounce((value) => {
@@ -30,6 +29,7 @@ const MarkdownEditor = ({ oldValue, setMarkdownValue }) => {
             setMarkdownValue(text);
           }, 250)}
           tooltip={'right'}
+          placeholder="Write from here"
         />
       </div>
     )

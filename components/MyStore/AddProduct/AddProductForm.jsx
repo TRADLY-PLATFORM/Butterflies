@@ -19,10 +19,11 @@ import VariantsPart from './Variants/VariantsPart';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
 import tradly from 'tradly';
+import Markdown_Editor from '../../Shared/MarkdownEditor';
 
 const AddProductForm = () => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(' ');
   const [price, setPrice] = useState(0);
   const [shippingCharge, setShippingCharge] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -247,7 +248,9 @@ const AddProductForm = () => {
             </label>
             <label className="block">
               <span className="text-gray-700">Listing Description</span>
-              <textarea
+               <Markdown_Editor oldValue={description} setMarkdownValue={setDescription}   />
+          {/* <textarea
+              {/* <textarea
                 className="
                     mt-0
                     block
@@ -258,7 +261,7 @@ const AddProductForm = () => {
                   "
                 rows="3"
                 onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
+              ></textarea> */}
             </label>
 
             {listing_configs?.listing_address_enabled && (

@@ -19,7 +19,7 @@ import Modal from '../../Shared/Modal.jsx/Modal';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
 import Markdown_Editor from '../../Shared/MarkdownEditor';
- import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 
  
 
