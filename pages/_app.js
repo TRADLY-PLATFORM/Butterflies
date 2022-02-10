@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }) {
   const [isExtension, setIsExtension] = useState(false);
   const [start, setStart] = useState(false);
   const [favicon, setFavicon] = useState(false);
+  const [hidefooter_note, sethidfooter_note] = useState(false);
   const [generalCf, setGeneralCf] = useState(null);
   const [primary_font_name, set_primary_font_name] = useState('Montserrat');
   const router = useRouter();
@@ -79,7 +80,8 @@ function MyApp({ Component, pageProps }) {
         if (typeof window !== 'undefined') {
           if (!res.error) {
             let root = document.documentElement;
-            const primary_font = res.data.configs.web_font_title || primary_font_name;
+            const primary_font =
+              res.data.configs.web_font_title || primary_font_name;
             root.style.setProperty('--primary_font', primary_font);
             set_primary_font_name(primary_font);
             localStorage.setItem('marketplace_type', res.data.configs.type);
@@ -91,6 +93,7 @@ function MyApp({ Component, pageProps }) {
             TYPE_CONSTANT.MARKETPLACE_MODULE = res.data.configs.sub_type;
 
             setFavicon(res?.data?.configs?.web_icon);
+            sethidfooter_note(res?.data?.configs?.hide_tradly_footer_note);
             localStorage.setItem('logo', res?.data?.configs?.web_logo);
 
             localStorage.setItem(
@@ -149,8 +152,72 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <Provider store={store}>
           <Loading loading={loading} />
-
           <Component {...pageProps} />
+          {!hidefooter_note && (
+            <div
+              className=" fixed bottom-5 right-5 z-50 shadow px-2 py-2 flex items-center gap-2 rounded bg-black cursor-pointer"
+              onClick={() => window.open('https://tradly.app')}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 126 126"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M63 0C97.7939 0 126 28.2061 126 63C126 97.7939 97.7939 126 63 126C28.2061 126 0 97.7939 0 63C0 28.2061 28.2061 0 63 0Z"
+                  fill="url(#paint0_linear)"
+                ></path>
+                <path
+                  opacity="0.5"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M63 119C93.9279 119 119 93.9279 119 63C119 32.0721 93.9279 7 63 7C32.0721 7 7 32.0721 7 63C7 93.9279 32.0721 119 63 119Z"
+                  stroke="white"
+                  strokeWidth="1.4"
+                ></path>
+                <path
+                  opacity="0.5"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M63 105C86.196 105 105 86.196 105 63C105 39.804 86.196 21 63 21C39.804 21 21 39.804 21 63C21 86.196 39.804 105 63 105Z"
+                  stroke="white"
+                  strokeWidth="1.4"
+                ></path>
+                <path
+                  d="M108.282 44.2442C105.799 38.2551 102.162 32.8652 97.6482 28.3518C88.7809 19.4845 76.5309 14 63 14C49.469 14 37.219 19.4845 28.3517 28.3518C23.8383 32.8652 20.2012 38.2551 17.7178 44.2442"
+                  stroke="white"
+                  strokeWidth="15.4"
+                  strokeLinecap="round"
+                ></path>
+                <path
+                  d="M63.0001 14.0001V111.222"
+                  stroke="white"
+                  strokeWidth="15.4"
+                  strokeLinecap="round"
+                ></path>
+                <defs>
+                  <linearGradient
+                    id="paint0_linear"
+                    x1="126"
+                    y1="0"
+                    x2="126"
+                    y2="126"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#2BDBC0"></stop>
+                    <stop offset="1" stopColor="#13B58C"></stop>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <p className="text-sm font-semibold text-white  font-Inter-var">
+                Built with <span className=" text-[#55d4a3] ">Tradly</span>
+              </p>
+            </div>
+          )}
         </Provider>
       </>
     )
