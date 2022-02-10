@@ -156,7 +156,7 @@ function MyApp({ Component, pageProps }) {
           {!hidefooter_note && (
             <div
               className=" fixed bottom-5 right-5 z-50 shadow px-2 py-2 flex items-center gap-2 rounded bg-black cursor-pointer"
-              onClick={() => window.open('https://tradly.app')}
+              onClick={() => window.open('https://tradly.app/?utm_source=user_website')}
             >
               <svg
                 width="20"
