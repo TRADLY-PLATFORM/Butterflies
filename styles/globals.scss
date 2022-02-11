@@ -193,6 +193,11 @@ input[type='number'] {
   border-color: var(--primary_color) !important;
 }
 
+.ProseMirror {
+  height: 150px;
+  overflow-y: auto;
+}
+
 @tailwind base;
 @tailwind components;
 

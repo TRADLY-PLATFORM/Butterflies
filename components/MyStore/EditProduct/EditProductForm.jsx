@@ -18,6 +18,10 @@ import EditListingSuccess from './EditListingSuccess';
 import Modal from '../../Shared/Modal.jsx/Modal';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
+import Markdown_Editor from '../../Shared/MarkdownEditor';
+import dynamic from 'next/dynamic';
+
+ 
 
 const EditProductForm = () => {
   const [title, setTitle] = useState('');
@@ -43,6 +47,7 @@ const EditProductForm = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const { auth_key } = useSelector(authSelector);
+  const [editorData, setData] = useState();
 
   const {
     listing_configs,
@@ -103,6 +108,11 @@ const EditProductForm = () => {
               };
             } else if (attr.field_type === 3 || attr.field_type === 4) {
               return { id: attr.id, values: attr.values.map((item) => item) };
+            } else if (attr.field_type === 5) {
+              return {
+                values: attr.values,
+                id: attr.id,
+              };
             }
           })
         );
@@ -188,6 +198,11 @@ const EditProductForm = () => {
     setShowError(false);
     setError_message('');
   };
+
+  // console.log('====================================');
+  // console.log(editorData);
+  // console.log('====================================');
+
   return (
     <div className=" w-full">
       {(showError || isError) && (
@@ -313,10 +328,13 @@ const EditProductForm = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
+
         <label className="block">
           <span className="text-gray-700">Listing Description</span>
-          <textarea
-            value={description}
+          {/* <New/> */}
+          {/* {CustomEditor && <CustomEditor data={editorData} />} */}
+          <Markdown_Editor oldValue={description} setMarkdownValue={setDescription}   />
+          {/* <textarea
             className="
                     mt-0
                     block
@@ -326,8 +344,8 @@ const EditProductForm = () => {
                     focus:ring-0 focus:border-primary
                   "
             rows="4"
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
+            onChange={(e) => e.target.value}
+          ></textarea> */}
         </label>
 
         {listing_configs?.listing_address_enabled && (

@@ -22,11 +22,12 @@ import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstan
 import tradly from 'tradly';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
+import MarkdownEditor from '../../Shared/MarkdownEditor';
 
 const AddProductForm = () => {
   const [type, setType] = useState('listings');
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(' ');
   const [price, setPrice] = useState(0);
   const [shippingCharge, setShippingCharge] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -279,7 +280,7 @@ const AddProductForm = () => {
             </label>
             <label className="block">
               <span className="text-gray-700">Listing Description</span>
-              <textarea
+              {/* <textarea
                 className="
                     mt-0
                     block
@@ -290,7 +291,11 @@ const AddProductForm = () => {
                   "
                 rows="3"
                 onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
+              ></textarea> */}
+              <MarkdownEditor
+                oldValue={description}
+                setMarkdownValue={setDescription}
+              />
             </label>
 
             {listing_configs?.listing_address_enabled && (
