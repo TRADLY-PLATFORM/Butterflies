@@ -120,10 +120,10 @@ const AddReviewPageLayout = () => {
       {/* <CustomLoading/> */}
       <div className=" flex">
         <h2 className=" text-xl sm:text-3xl font-semibold text-black">
-          Order Number{' '}
+          Order Reference{' '}
         </h2>
         <h2 className="  text-xl sm:text-3xl font-semibold text-primary ml-2">
-          #{order_details?.id}
+          #{order_details?.reference_number}
         </h2>
       </div>
       <div className=" grid   grid-cols-[100%]  lg:grid-cols-[40%,60%]   mt-6">

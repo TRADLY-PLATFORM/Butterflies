@@ -68,7 +68,7 @@ const Feedback = ({
       <div className=" grid grid-rows-2 grid-cols-2 gap-4 mt-[40px]">
         <button
           className={[
-            'border rounded-3xl py-2 px-3 border-primary text-primary text-xs ms:text-sm font-medium',
+            'border rounded-3xl py-2 px-3 border-primary text-xs ms:text-sm font-medium',
             rating_title === 'Excellent Service' && 'bg-primary text-white',
           ].join(' ')}
           onClick={() => setRating_title('Excellent Service')}
@@ -77,7 +77,7 @@ const Feedback = ({
         </button>
         <button
           className={[
-            'border rounded-3xl py-2 px-3 border-primary text-primary text-xs ms:text-sm font-medium',
+            'border rounded-3xl py-2 px-3 border-primary   text-xs ms:text-sm font-medium',
             rating_title === 'Great Product' && 'bg-primary text-white',
           ].join(' ')}
           onClick={() => setRating_title('Great Product')}
@@ -86,7 +86,7 @@ const Feedback = ({
         </button>
         <button
           className={[
-            'border rounded-3xl py-2 px-3 border-primary text-primary text-xs ms:text-sm font-medium',
+            'border rounded-3xl py-2 px-3 border-primary   text-xs ms:text-sm font-medium',
             rating_title === 'Good Packaging' && 'bg-primary text-white',
           ].join(' ')}
           onClick={() => setRating_title('Good Packaging')}
@@ -95,7 +95,7 @@ const Feedback = ({
         </button>
         <button
           className={[
-            'border rounded-3xl py-2 px-3 border-primary text-primary text-xs ms:text-sm font-medium',
+            'border rounded-3xl py-2 px-3 border-primary   text-xs ms:text-sm font-medium',
             rating_title === 'Fast Response' && 'bg-primary text-white',
           ].join(' ')}
           onClick={() => setRating_title('Fast Response')}
