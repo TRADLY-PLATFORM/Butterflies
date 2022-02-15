@@ -84,7 +84,7 @@ const ProductButtons = ({ listing_details, selectedVariant }) => {
 
       <div className=" w-full flex justify-between items-center">
         <button
-          className="   w-[45%] h-[52px]  flex justify-center items-center border border-primary rounded-lg box-border  "
+          className="   w-[45%]  h-[44px] md:h-[52px]  flex justify-center items-center border border-primary rounded-lg box-border  "
           onClick={() =>
             login
               ? listing_details.in_cart
@@ -97,12 +97,12 @@ const ProductButtons = ({ listing_details, selectedVariant }) => {
               : router.push('/sign-in')
           }
         >
-          <span className=" text-xl text-primary font-semibold ml-3">
+          <span className=" text-base  sm:text-xl text-primary font-semibold ml-3">
             {listing_details?.in_cart ? 'Go To Cart' : ' Add To Cart'}
           </span>
         </button>
         <button
-          className="  w-[50%]  h-[52px] bg-primary rounded-lg flex justify-center items-center "
+          className="  w-[50%]  h-[44px]  md:h-[52px] bg-primary rounded-lg flex justify-center items-center "
           // onClick={add_to_Cart}
           onClick={() =>
             login
@@ -114,7 +114,9 @@ const ProductButtons = ({ listing_details, selectedVariant }) => {
               : router.push('/sign-in')
           }
         >
-          <span className=" text-xl text-white font-semibold  ">Buy Now</span>
+          <span className=" text-base sm:text-xl text-white font-semibold  ">
+            Buy Now
+          </span>
         </button>
       </div>
     </>
