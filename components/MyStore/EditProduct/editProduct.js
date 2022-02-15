@@ -23,7 +23,8 @@ export const edit_product_click = (
   accountId,
   productId,
   setEditProductLoading,
-  setShowSuccessMessage
+  setShowSuccessMessage,
+  type
 ) => {
   setEditProductLoading(true);
   if (fullFile !== null) {
@@ -129,7 +130,7 @@ export const edit_product_click = (
                             offer_percent: offerPercent,
                             images: responseFiles.map((res) => res.fileUri),
                             category_id: [selectedCategory],
-                            type: 'listings',
+                            type: type,
                           },
                         };
                         if (listing_configs.listing_address_enabled) {
@@ -207,7 +208,7 @@ export const edit_product_click = (
                                         (res) => res.fileUri
                                       ),
                                       category_id: [selectedCategory],
-                                      type: 'listings',
+                                      type: type,
                                     },
                                   };
 
@@ -268,7 +269,7 @@ export const edit_product_click = (
                         offer_percent: offerPercent,
                         images: responseFiles.map((res) => res.fileUri),
                         category_id: [selectedCategory],
-                        type: 'listings',
+                        type: type,
                       };
                       if (listing_configs.listing_address_enabled) {
                         listingData['coordinates'] = coordinates;
@@ -335,7 +336,7 @@ export const edit_product_click = (
           offer_percent: offerPercent,
           images: imagePath.map((item) => item.path),
           category_id: [selectedCategory],
-          type: 'listings',
+          type: type,
         };
         if (listing_configs.listing_address_enabled) {
           listingData['coordinates'] = coordinates;
@@ -409,7 +410,7 @@ export const edit_product_click = (
                     offer_percent: offerPercent,
                     images: imagePath.map((item) => item.path),
                     category_id: [selectedCategory],
-                    type: 'listings',
+                    type: type,
                   };
 
                   if (listing_configs.listing_address_enabled) {
@@ -459,7 +460,7 @@ export const edit_product_click = (
         offer_percent: offerPercent,
         images: imagePath.map((item) => item.path),
         category_id: [selectedCategory],
-        type: 'listings',
+        type: type,
       };
       if (listing_configs.listing_address_enabled) {
         listingData['coordinates'] = coordinates;

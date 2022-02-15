@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   accountAttribute,
   clearStoreState,
+  listingCategories,
   myAccountListingDetails,
   storeSelector,
 } from '../../../store/feature/storeSlice';
@@ -19,11 +20,10 @@ import Modal from '../../Shared/Modal.jsx/Modal';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
 import Markdown_Editor from '../../Shared/MarkdownEditor';
-import dynamic from 'next/dynamic';
-
- 
+import CreatableSelect from 'react-select/creatable';
 
 const EditProductForm = () => {
+  const [type, setType] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
@@ -68,6 +68,12 @@ const EditProductForm = () => {
   // Use Effect functions
   useEffect(() => {
     if (my_account_listing_details) {
+      // dispatch(
+      //   listingCategories({
+      //     prams: { parent: 0, type: my_account_listing_details.type },
+      //     authKey: auth_key,
+      //   })
+      // );
       setTitle(my_account_listing_details.title);
       setDescription(my_account_listing_details.description);
       setPrice(Number(my_account_listing_details.list_price.amount));
@@ -88,12 +94,13 @@ const EditProductForm = () => {
       setAddressSearchKey(
         my_account_listing_details.location.formatted_address
       );
+      setType(my_account_listing_details.type);
       setSelectedCategory(my_account_listing_details.category_id[0]);
       dispatch(
         accountAttribute({
           prams: {
             category_id: my_account_listing_details.category_id[0],
-            type: 'listings',
+            type: my_account_listing_details.type,
           },
           authKey: auth_key,
         })
@@ -108,7 +115,14 @@ const EditProductForm = () => {
               };
             } else if (attr.field_type === 3 || attr.field_type === 4) {
               return { id: attr.id, values: attr.values.map((item) => item) };
-            } else if (attr.field_type === 5) {
+            }
+            else if (attr.field_type === 5) {
+              return {
+                values: attr.values,
+                id: attr.id,
+              };
+            }
+            else if (attr.field_type === 11) {
               return {
                 values: attr.values,
                 id: attr.id,
@@ -119,6 +133,14 @@ const EditProductForm = () => {
       }
     }
   }, [my_account_listing_details]);
+    useEffect(() => {
+      dispatch(
+        listingCategories({
+          prams: { parent: 0, type: type },
+          authKey: auth_key,
+        })
+      );
+    }, [type]);
 
   useEffect(() => {
     if (currencies !== null) {
@@ -130,7 +152,7 @@ const EditProductForm = () => {
     if (selectedCategory) {
       dispatch(
         accountAttribute({
-          prams: { category_id: selectedCategory, type: 'listings' },
+          prams: { category_id: selectedCategory, type: type },
           authKey: auth_key,
         })
       );
@@ -199,9 +221,14 @@ const EditProductForm = () => {
     setError_message('');
   };
 
-  // console.log('====================================');
-  // console.log(editorData);
-  // console.log('====================================');
+  //
+  const options = [
+    { value: 'Listings', label: 'listings', id: 'listings' },
+    { value: 'Extensions', label: 'extensions', id: 'extensions' },
+  ];
+  const handleChange = (newValue, actionMeta) => {
+    setType(newValue.id);
+  };
 
   return (
     <div className=" w-full">
@@ -246,9 +273,18 @@ const EditProductForm = () => {
         </Modal>
       )}
 
-      <h3 className=" text-center font-semibold text-2xl text-primary mb-7">
-        Edit Your Listing
-      </h3>
+      <div className="flex items-center justify-between  mb-5">
+        <h3 className=" block h-full  font-semibold text-[#121212] text-xl ">
+          Edit Your Listing
+        </h3>
+        <CreatableSelect
+          onChange={(newValue, actionMeta) =>
+            handleChange(newValue, actionMeta)
+          }
+          options={options}
+        />
+      </div>
+
       <div className="grid grid-cols-1 gap-6">
         <div className="block">
           <span className="text-gray-700">Listing Image</span>
@@ -333,7 +369,10 @@ const EditProductForm = () => {
           <span className="text-gray-700">Listing Description</span>
           {/* <New/> */}
           {/* {CustomEditor && <CustomEditor data={editorData} />} */}
-          <Markdown_Editor oldValue={description} setMarkdownValue={setDescription}   />
+          <Markdown_Editor
+            oldValue={description}
+            setMarkdownValue={setDescription}
+          />
           {/* <textarea
             className="
                     mt-0
@@ -538,7 +577,8 @@ const EditProductForm = () => {
               accountId,
               productId,
               setEditProductLoading,
-              setShowSuccessMessage
+              setShowSuccessMessage,
+              type
             )
           }
         >
