@@ -32,7 +32,6 @@ import EventOrderSummary from '../../Cart/OrderSummary/EventOrderSummary';
 import ScheduleSelect from '../../Cart/SchedulePart/ScheduleSelect';
 import { getDatesArray } from '../../Shared/Constant/Constant';
 import moment from 'moment';
-import api from '../../../pages/api/api';
 
 const EventCheckoutPageLayout = () => {
   const [paymentMethod, setPaymentMethod] = useState(null);

@@ -14,6 +14,7 @@ import {
   whatsapp_icon,
   youtube_icon,
 } from '../Shared/Constant/Icons/socialIcons';
+import tradly_icon from '../../public/tradly-Icon-192x192.png';
 
 const Footer = () => {
   const [logo, setLogo] = useState(null);
@@ -361,17 +362,19 @@ const Footer = () => {
           </div> */}
         </div>
       </div>
-      <div className="py-2 flex items-center">
-        <p className=" text-sm text-default_gray mr-4">
-          {`© ${new Date().getFullYear()} ${
-            general_configs?.website_name
-          }. All rights reserved.`}
-        </p>
-        <Link href={'/sitemap.xml'}>
-          <a className=" text-xs text-[#4F4F4F] font-medium" target="_blank">
-            Sitemap
-          </a>
-        </Link>
+      <div className="py-2 flex items-center justify-between">
+        <div className="py-2 flex items-center">
+          <p className=" text-sm text-default_gray mr-4">
+            {`© ${new Date().getFullYear()} ${
+              general_configs?.website_name
+            }. All rights reserved.`}
+          </p>
+          <Link href={'/sitemap.xml'}>
+            <a className=" text-xs text-[#4F4F4F] font-medium" target="_blank">
+              Sitemap
+            </a>
+          </Link>
+        </div>
       </div>
     </>
   );

@@ -126,11 +126,11 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
         <div
           id="profileMenus"
           className={
-            '   group-hover:block  fixed top-0 right-0 z-[60]  mx-[16px] xs:mx-[30px]  md:mx-[25px] 2xl:mx-[10%] mt-[65px]   transition duration-1000 hidden'
+            '   group-hover:block  fixed top-0 right-0 z-[60]  mx-[16px] xs:mx-[30px]  md:mx-[25px] 2xl:mx-[10%] mt-[50px]   transition duration-1000 hidden'
           }
         >
           {login && (
-            <div className="bg-[#fff] rounded-lg  min-w-[300px] mt-[15px]  pt-[20px] pb-[15px]   min-h-[100px]  border border-[rgba(250, 250, 250, 0.93)]  shadow-sm  relative">
+            <div className={["bg-[#fff] rounded-lg   mt-[15px]  pt-[20px] pb-[15px]   min-h-[100px]  border border-[rgba(250, 250, 250, 0.93)]  shadow-sm  relative"]}>
               {login && (
                 <>
                   {my_stores?.length > 0 ? (

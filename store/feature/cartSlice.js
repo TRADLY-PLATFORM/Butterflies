@@ -5,7 +5,6 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import tradly from "tradly";
-import api from "../../pages/api/api";
 
 export const addToCart = createAsyncThunk(
 	"cart/addToCart",
