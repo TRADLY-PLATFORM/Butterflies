@@ -203,3 +203,8 @@ input[type='number'] {
     border-color: var(--primary_color) !important;
     box-shadow: none !important;
 }
+
+.ProseMirror {
+  height: 150px;
+  overflow-y: auto;
+}
