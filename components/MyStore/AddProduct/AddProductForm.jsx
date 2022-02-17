@@ -19,6 +19,7 @@ import VariantsPart from './Variants/VariantsPart';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
 import tradly from 'tradly';
+import Attribute3 from './Attribute3';
 
 const AddProductForm = () => {
   const [title, setTitle] = useState('');
@@ -410,7 +411,7 @@ const AddProductForm = () => {
               </select>
             </label>
             <div>
-              <Attribute
+              <Attribute3
                 attributeData={attributeData}
                 setAttributeData={setAttributeData}
               />
@@ -446,7 +447,7 @@ const AddProductForm = () => {
           </div>
         )}
 
-        <div className="  relative  mt-10 md:mt-0  md:fixed w-full h-[80px] md:bg-white bottom-0 left-0 ">
+        <div className="  relative  mt-10 md:mt-0  md:fixed w-full h-[80px] md:bg-white bottom-0 left-0 z-[1000000]">
           <div className="h-full   flex   justify-center md:justify-end items-center ">
             <button
               className="text-white  w-5/6  md:w-[180px] h-12 rounded-md bg-primary  flex items-center justify-center  md:mr-7"

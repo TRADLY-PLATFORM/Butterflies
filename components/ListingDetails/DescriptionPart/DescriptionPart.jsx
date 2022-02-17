@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 
 const DescriptionPart = ({ description }) => {
 	return description!== undefined || description ===""  ? (
-		<div className=" w-full  min-h-[200px] bg-[#FFFFFF] rounded  p-[24px]">
+		<div className=" w-full  min-h-[200px] bg-[#FFFFFF] rounded-md  p-[24px]">
 			<p className="text-[#121212] text-sm  font-semibold leading-4 ">
 				Description
 			</p>

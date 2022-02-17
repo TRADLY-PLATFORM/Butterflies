@@ -18,6 +18,7 @@ import EditListingSuccess from './EditListingSuccess';
 import Modal from '../../Shared/Modal.jsx/Modal';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
+import Attribute3 from './Attribute3';
 
 const EditProductForm = () => {
   const [title, setTitle] = useState('');
@@ -103,6 +104,11 @@ const EditProductForm = () => {
               };
             } else if (attr.field_type === 3 || attr.field_type === 4) {
               return { id: attr.id, values: attr.values.map((item) => item) };
+            } else if (attr.field_type === 5) {
+              return {
+                values: attr.values,
+                id: attr.id,
+              };
             }
           })
         );
@@ -487,7 +493,7 @@ const EditProductForm = () => {
           </select>
         </label>
         <div>
-          <Attribute
+          <Attribute3
             attributeData={attributeData}
             setAttributeData={setAttributeData}
           />
