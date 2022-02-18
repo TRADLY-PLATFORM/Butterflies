@@ -40,3 +40,4 @@ env/.env.dev
 .vercel
 
 .vercel
+package-lock.json
