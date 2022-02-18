@@ -99,15 +99,15 @@ const Notifications = () => {
       <div>
         <div
           className={
-            '   group-hover:block  fixed top-0 right-0 z-[60]  mx-[16px] xs:mx-[30px]  md:mx-[25px] 2xl:mx-[10%] mt-[50px]   transition duration-1000 hidden'
+            '   group-hover:block  fixed top-0 right-0 z-[60]  mx-[16px] xs:mx-[30px]  md:mx-[25px] 2xl:mx-[10%] mt-[42px]   transition duration-1000 hidden'
           }
         >
           {login && (
-            <div className="bg-[#fff] rounded-lg   mt-[30px]    pb-[15px]   min-h-[100px]  border border-[rgba(250, 250, 250, 0.93)]  shadow-sm  relative     ">
+            <div className="bg-[#fff] rounded-lg   mt-[20px]    pb-[15px]   min-h-[100px]  border border-[rgba(250, 250, 250, 0.93)]  shadow-sm  relative     ">
               {/* <div className="w-[15px] h-[15px] bg-[#fff] absolute   left-0  transform rotate-45  -top-2  ml-[25%]    border-l border-t border-[rgba(250, 250, 250, 0.93)]  z-[50]" /> */}
 
               {notifications !== null && notifications?.length !== 0 ? (
-                <div className="  max-w-[350px] h-[80vh] overflow-auto scrollbar  scrollbar-thin   scrollbar-track-gray-100  scrollbar-thumb-gray-300  pt-[20px] ">
+                <div className="  max-w-[350px] h-[70vh] overflow-auto scrollbar  scrollbar-thin   scrollbar-track-gray-100  scrollbar-thumb-gray-300  pt-[20px]  ">
                   {notifications?.map((nt, index) => {
                     if (nt.type == 1) {
                       return (
@@ -126,8 +126,8 @@ const Notifications = () => {
                                 />
                               )}
                             </div>
-                            <div>
-                              <h2 className=" text-base font-semibold text-[#050505]">
+                            <div className=''>
+                              <h2 className=" text-sm font-semibold text-[#050505]">
                                 {account_follow_notification_text(
                                   nt?.user?.first_name
                                 )}
@@ -171,7 +171,7 @@ const Notifications = () => {
                               )}
                             </div>
                             <div>
-                              <h2 className=" text-base font-semibold text-[#050505]">
+                              <h2 className=" text-sm font-semibold text-[#050505]">
                                 {listing_like_notification_text(
                                   nt?.user?.first_name
                                 )}
@@ -211,7 +211,7 @@ const Notifications = () => {
                                 <p>{order_icon}</p>
                               </div>
                               <div>
-                                <h2 className=" text-base font-semibold text-[#050505]">
+                                <h2 className=" text-sm font-semibold text-[#050505]">
                                   {account_order_notification_text(
                                     nt?.metadata?.order_status
                                   )}
@@ -241,7 +241,7 @@ const Notifications = () => {
                                 <p>{order_icon}</p>
                               </div>
                               <div>
-                                <h2 className=" text-base font-semibold text-[#050505]">
+                                <h2 className=" text-sm font-semibold text-[#050505]">
                                   {order_notification_text(
                                     nt?.metadata?.order_status
                                   )}

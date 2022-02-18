@@ -13,6 +13,7 @@ import {
   setListingConfig,
 } from '../store/feature/configsSlice';
 import { useRouter } from 'next/dist/client/router';
+import { check_login } from '../constant/check_auth';
 
 const Checkout = (props) => {
   const [marketplace_type, setmarketplace_type] = useState(null);
@@ -35,19 +36,11 @@ const Checkout = (props) => {
     setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (!localStorage.getItem('login')) {
-      router.push('/');
-    }
-  }, [localStorage.getItem('login')]);
-
   const pageTitle = props?.seo_text?.meta_title;
   const pageDescription = props?.seo_text?.meta_description;
 
-  const { login } = useSelector(authSelector);
-
   const selectLayout = () => {
-    if (login) {
+    if (check_login(router)) {
       if (marketplace_type === 1) {
         return <CheckoutPageLayout />;
       } else {

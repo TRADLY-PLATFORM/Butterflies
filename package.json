@@ -29,7 +29,7 @@
     "@tailwindcss/typography": "^0.4.1",
     "axios": "^0.23.0",
     "crypto-js": "^4.1.1",
-    "email-validator": "^2.0.4",
+    "email-validator": "^2.0.4", 
     "env-cmd": "^10.1.0",
     "js-cookie": "^3.0.1",
     "moment": "^2.29.1",
@@ -56,7 +56,7 @@
     "sharp": "^0.29.3",
     "slugify": "^1.6.3",
     "swiper": "^6.8.3",
-    "tradly": "^1.0.38",
+    "tradly": "^1.0.39",
     "unified": "^10.1.0",
     "uuidv4": "^6.2.12"
   },

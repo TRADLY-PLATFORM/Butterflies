@@ -7,6 +7,7 @@ import tradly from 'tradly';
 import { setAccountConfig } from '../../store/feature/configsSlice';
 import { useRouter } from 'next/dist/client/router';
 import { create_store_page } from '../../themes/Theme1';
+import { check_login } from '../../constant/check_auth';
 
 const createStore = (props) => {
   const dispatch = useDispatch();
@@ -20,15 +21,8 @@ const createStore = (props) => {
   }, [dispatch]);
 
   const router = useRouter();
-  useEffect(() => {
-    if (!localStorage.getItem('login')) {
-      router.push('/');
-    }
-  }, [localStorage.getItem('login')]);
 
-  const { login } = useSelector(authSelector);
-
-  return login && create_store_page();
+  return check_login(router) && create_store_page();
 };
 
 export default createStore;

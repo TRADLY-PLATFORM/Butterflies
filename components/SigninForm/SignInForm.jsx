@@ -18,7 +18,6 @@ import { useRouter } from 'next/dist/client/router';
 import PhoneForm from './PhoneForm';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 
-
 const SignInForm = ({ general_configs }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -29,7 +28,6 @@ const SignInForm = ({ general_configs }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
- 
   const { isFetching, isSuccess, errorMessage, isError } =
     useSelector(authSelector);
 
@@ -38,6 +36,12 @@ const SignInForm = ({ general_configs }) => {
     setShowError(false);
     setError_message('');
   };
+
+  // useEffect(() => {
+  //   console.log('====================================');
+  //   console.log(router);
+  //   console.log('====================================');
+  // }, [router]);
 
   const clickSignIn = () => {
     if (general_configs?.auth_type === 1) {
@@ -69,7 +73,11 @@ const SignInForm = ({ general_configs }) => {
 
       dispatch(signIn({ prams: users })).then((res) => {
         if (!res.payload.code) {
-          router.push('/');
+          if (router.query.to) {
+            router.push(router.query.to);
+          } else {
+            router.push('/');
+          }
         }
       });
     }
@@ -103,7 +111,11 @@ const SignInForm = ({ general_configs }) => {
 
       dispatch(signIn({ prams: users })).then((res) => {
         if (!res.payload.code) {
-          router.push('/');
+           if (router.query.to) {
+             router.push(router.query.to);
+           } else {
+             router.push('/');
+           }
         }
       });
     }

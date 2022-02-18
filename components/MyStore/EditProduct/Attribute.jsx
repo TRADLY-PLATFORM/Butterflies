@@ -25,7 +25,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
   const imageUpload = async (e, attribute_id) => {
     setFile(e.target.files[0]);
     if (attributeData !== null) {
-      const check = attributeData?.find((attr) => attr.id === attribute_id);
+      const check = attributeData?.find((attr) => attr?.id === attribute_id);
       if (check === undefined) {
         setAttributeData([
           ...attributeData,
@@ -33,7 +33,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
         ]);
       } else {
         const findOut = attributeData.filter(
-          (attr) => attr.id !== attribute_id
+          (attr) => attr?.id !== attribute_id
         );
         setAttributeData([
           ...findOut,
@@ -55,12 +55,12 @@ const Attribute = ({ attributeData, setAttributeData }) => {
   ) => {
     if (attribute_field_type === 1 || attribute_field_type === 3) {
       if (attributeData !== null) {
-        const check = attributeData?.find((attr) => attr.id === attribute_id);
+        const check = attributeData?.find((attr) => attr?.id === attribute_id);
         if (check === undefined) {
           if (attribute_field_type === 1) {
             setAttributeData([
               ...attributeData,
-              { values: [newValue.id], id: attribute_id },
+              { values: [newValue?.id], id: attribute_id },
             ]);
           } else if (attribute_field_type === 3) {
             setAttributeData([
@@ -70,12 +70,12 @@ const Attribute = ({ attributeData, setAttributeData }) => {
           }
         } else {
           const findOut = attributeData.filter(
-            (attr) => attr.id !== attribute_id
+            (attr) => attr?.id !== attribute_id
           );
           if (attribute_field_type === 1) {
             setAttributeData([
               ...findOut,
-              { values: [newValue.id], id: attribute_id },
+              { values: [newValue?.id], id: attribute_id },
             ]);
           } else if (attribute_field_type === 3) {
             setAttributeData([
@@ -86,7 +86,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
         }
       } else {
         if (attribute_field_type === 1) {
-          setAttributeData([{ values: [newValue.id], id: attribute_id }]);
+          setAttributeData([{ values: [newValue?.id], id: attribute_id }]);
         } else if (attribute_field_type === 3) {
           setAttributeData([{ values: [newValue.value], id: attribute_id }]);
         }
@@ -99,13 +99,13 @@ const Attribute = ({ attributeData, setAttributeData }) => {
           !actionMeta.action === 'clear'
         ) {
          
-          const check = attributeData.find((attr) => attr.id === attribute_id);
+          const check = attributeData.find((attr) => attr?.id === attribute_id);
           if (check === undefined) {
             if (attribute_field_type === 2) {
               setAttributeData([
                 ...attributeData,
                 {
-                  values: newValue.map((singleValue) => singleValue.id),
+                  values: newValue.map((singleValue) => singleValue?.id),
                   id: attribute_id,
                 },
               ]);
@@ -120,13 +120,13 @@ const Attribute = ({ attributeData, setAttributeData }) => {
             }
           } else {
             const findOut = attributeData.filter(
-              (attr) => attr.id !== attribute_id
+              (attr) => attr?.id !== attribute_id
             );
             if (attribute_field_type === 2) {
               setAttributeData([
                 ...findOut,
                 {
-                  values: newValue.map((singleValue) => singleValue.id),
+                  values: newValue.map((singleValue) => singleValue?.id),
                   id: attribute_id,
                 },
               ]);
@@ -143,13 +143,13 @@ const Attribute = ({ attributeData, setAttributeData }) => {
         } else {
           if (newValue?.length !== 0) {
             const findOut = attributeData.filter(
-              (attr) => attr.id !== attribute_id
+              (attr) => attr?.id !== attribute_id
             );
             if (attribute_field_type === 2) {
               setAttributeData([
                 ...findOut,
                 {
-                  values: newValue.map((singleValue) => singleValue.id),
+                  values: newValue.map((singleValue) => singleValue?.id),
                   id: attribute_id,
                 },
               ]);
@@ -164,7 +164,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
             }
           } else {
             const findOut = attributeData.filter(
-              (attr) => attr.id !== attribute_id
+              (attr) => attr?.id !== attribute_id
             );
             if (attribute_field_type === 2) {
               setAttributeData([...findOut]);
@@ -177,7 +177,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
         if (attribute_field_type === 2) {
           setAttributeData([
             {
-              values: newValue.map((singleValue) => singleValue.id),
+              values: newValue.map((singleValue) => singleValue?.id),
               id: attribute_id,
             },
           ]);
@@ -196,13 +196,13 @@ const Attribute = ({ attributeData, setAttributeData }) => {
   const multi_select_attributeValueReturn = (options, attrID) => {
     for (let y = 0; y < attributeData?.length; y++) {
       const elementy = attributeData[y];
-      if (elementy.id === attrID) {
+      if (elementy?.id === attrID) {
         let finding = [];
         for (let i = 0; i < options.length; i++) {
           const elementi = options[i];
           for (let j = 0; j < elementy.values.length; j++) {
             const elementj = elementy.values[j];
-            if (elementi.id === elementj) {
+            if (elementi?.id === elementj) {
               finding.push(elementi);
               if (finding.length === elementy.values.length) {
                 
@@ -218,7 +218,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
   const multi_value_attributeValueReturn = (attrID) => {
     for (let y = 0; y < attributeData?.length; y++) {
       const elementy = attributeData[y];
-      if (elementy.id === attrID) {
+      if (elementy?.id === attrID) {
         let finding = [];
         for (let j = 0; j < elementy.values.length; j++) {
           const elementj = elementy.values[j];
@@ -246,7 +246,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
             return {
               value: value.name,
               label: value.name,
-              id: value.id,
+              id: value?.id,
             };
           });
         }
@@ -270,16 +270,16 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                       handleChange(
                         newValue,
                         actionMeta,
-                        attr.id,
+                        attr?.id,
                         attr.field_type
                       );
                     }}
                     placeholder={'Select your' + ' ' + attr.name}
                     options={options}
                     value={attributeData?.map((atData) => {
-                      if (atData.id === attr.id) {
+                      if (atData?.id === attr?.id) {
                         const finding = options.filter(
-                          (op) => op.id === atData.values[0]
+                          (op) => op?.id === atData.values[0]
                         );
                         return finding[0];
                       }
@@ -307,13 +307,13 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                       handleChange(
                         newValue,
                         actionMeta,
-                        attr.id,
+                        attr?.id,
                         attr.field_type
                       );
                     }}
                     className="basic-multi-select mt-3"
                     classNamePrefix="select"
-                    value={multi_select_attributeValueReturn(options, attr.id)}
+                    value={multi_select_attributeValueReturn(options, attr?.id)}
                   />
                 </div>
               )}
@@ -335,12 +335,12 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                       handleChange(
                         newValue,
                         actionMeta,
-                        attr.id,
+                        attr?.id,
                         attr.field_type
                       );
                     }}
                     value={attributeData?.map((atData) => {
-                      if (atData.id === attr.id) {
+                      if (atData?.id === attr?.id) {
                         return {
                           label: atData.values[0],
                           value: atData.values[0],
@@ -368,13 +368,13 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                       handleChange(
                         newValue,
                         actionMeta,
-                        attr.id,
+                        attr?.id,
                         attr.field_type
                       );
                     }}
                     className="basic-multi-select mt-3"
                     classNamePrefix="select"
-                    value={multi_value_attributeValueReturn(attr.id)}
+                    value={multi_value_attributeValueReturn(attr?.id)}
                   />
                 </div>
               )}
@@ -388,7 +388,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                           id="attachmentClick"
                           name="imageUpload"
                           accept="image/*"
-                          onChange={(e) => imageUpload(e, attr.id)}
+                          onChange={(e) => imageUpload(e, attr?.id)}
                         />
                       </div>
                       <button
