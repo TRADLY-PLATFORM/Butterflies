@@ -31,13 +31,7 @@ export const edit_store_click = (
     setEditStoreLoading(false);
 
     return false;
-  } else if (description !== '' && description !== null) {
-    setShowError(true);
-    setError_message('Store Description is require');
-    setEditStoreLoading(false);
-
-    return false;
-  } else if (accounts_configs.account_address_enabled && coordinates === null) {
+  }  else if (accounts_configs.account_address_enabled && coordinates === null) {
     setShowError(true);
     setError_message('Address is required');
     setEditStoreLoading(false);

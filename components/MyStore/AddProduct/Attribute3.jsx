@@ -18,34 +18,9 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
 
   // functions
 
-  const imageUploadClick = () => {
-    let fileInput = document.getElementById('attachmentClick');
+  const imageUploadClick = (id) => {
+    let fileInput = document.getElementById(`attachmentClick-${id}`);
     fileInput.click();
-  };
-
-  const imageUpload = async (e, attribute_id) => {
-    setFile(e.target.files[0]);
-    if (attributeData !== null) {
-      const check = attributeData?.find((attr) => attr.id === attribute_id);
-      if (check === undefined) {
-        setAttributeData([
-          ...attributeData,
-          { values: [e.target.files[0]], id: attribute_id, uploadFile: true },
-        ]);
-      } else {
-        const findOut = attributeData.filter(
-          (attr) => attr.id !== attribute_id
-        );
-        setAttributeData([
-          ...findOut,
-          { values: [e.target.files[0]], id: attribute_id, uploadFile: true },
-        ]);
-      }
-    } else {
-      setAttributeData([
-        { values: [e.target.files[0]], id: attribute_id, uploadFile: true },
-      ]);
-    }
   };
 
   console.log('====================================');
@@ -84,13 +59,13 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                       onChange={(e) => {
                         attributeData?.length > 0
                           ? setAttributeData([
-                              { values: [e.target.value], id: attr.id },
-                              ...attributeData.filter(
-                                (filter_att) => filter_att.id !== attr.id
+                              { values: [e.target.value], id: attr?.id },
+                              ...attributeData?.filter(
+                                (filter_att) => filter_att?.id !== attr?.id
                               ),
                             ])
                           : setAttributeData([
-                              { values: [e.target.value], id: attr.id },
+                              { values: [e.target.value], id: attr?.id },
                             ]);
                       }}
                     >
@@ -99,12 +74,12 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                       </option>
                       {attr.values?.map((value, index) => (
                         <option
-                          key={value.id}
-                          value={value.id}
+                          key={value?.id}
+                          value={value?.id}
                           selected={
                             attributeData?.filter(
-                              (atData) => atData.id === attr.id
-                            )[0]?.values[0] == value.id
+                              (atData) => atData?.id === attr?.id
+                            )[0]?.values[0] == value?.id
                               ? true
                               : false
                           }
@@ -132,20 +107,20 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                   <MultiSelect
                     options={attr.values?.map((value, index) => {
                       return {
-                        value: value.id,
+                        value: value?.id,
                         label: value.name,
                       };
                     })}
                     value={
                       attributeData
-                        ?.filter((single_at) => single_at.id == attr.id)[0]
+                        ?.filter((single_at) => single_at?.id == attr?.id)[0]
                         ?.values?.map((vl) => {
                           return {
                             value: attr.values?.filter(
-                              (a_vl) => vl == a_vl.id
-                            )[0].id,
+                              (a_vl) => vl == a_vl?.id
+                            )[0]?.id,
                             label: attr.values?.filter(
-                              (a_vl) => vl == a_vl.id
+                              (a_vl) => vl == a_vl?.id
                             )[0].name,
                           };
                         }) || []
@@ -155,23 +130,23 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                         ? e.length > 0
                           ? setAttributeData([
                               {
-                                id: attr.id,
+                                id: attr?.id,
                                 values: e.map(
                                   (singleValue) => singleValue.value
                                 ),
                               },
-                              ...attributeData.filter(
-                                (filter_att) => filter_att.id !== attr.id
+                              ...attributeData?.filter(
+                                (filter_att) => filter_att?.id !== attr?.id
                               ),
                             ])
                           : setAttributeData([
-                              ...attributeData.filter(
-                                (filter_att) => filter_att.id !== attr.id
+                              ...attributeData?.filter(
+                                (filter_att) => filter_att?.id !== attr?.id
                               ),
                             ])
                         : setAttributeData([
                             {
-                              id: attr.id,
+                              id: attr?.id,
                               values: e.map((singleValue) => singleValue.value),
                             },
                           ]);
@@ -198,7 +173,7 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                     <input
                       value={
                         attributeData?.filter(
-                          (atData) => atData.id === attr.id
+                          (atData) => atData?.id === attr?.id
                         )[0]?.values[0]
                       }
                       type="text"
@@ -215,18 +190,18 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                         attributeData?.length > 0
                           ? e.target.value.replace(/ /g, '').length > 0
                             ? setAttributeData([
-                                { values: [e.target.value], id: attr.id },
-                                ...attributeData.filter(
-                                  (filter_att) => filter_att.id !== attr.id
+                                { values: [e.target.value], id: attr?.id },
+                                ...attributeData?.filter(
+                                  (filter_att) => filter_att?.id !== attr?.id
                                 ),
                               ])
                             : setAttributeData([
-                                ...attributeData.filter(
-                                  (filter_att) => filter_att.id !== attr.id
+                                ...attributeData?.filter(
+                                  (filter_att) => filter_att?.id !== attr?.id
                                 ),
                               ])
                           : setAttributeData([
-                              { values: [e.target.value], id: attr.id },
+                              { values: [e.target.value], id: attr?.id },
                             ]);
                       }}
                     />
@@ -250,7 +225,7 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                     </span>
                     <input
                       value={attributeData
-                        ?.filter((atData) => atData.id === attr.id)[0]
+                        ?.filter((atData) => atData?.id === attr?.id)[0]
                         ?.values.toString()}
                       type="text"
                       className="
@@ -268,21 +243,21 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                             ? setAttributeData([
                                 {
                                   values: e.target.value.split(','),
-                                  id: attr.id,
+                                  id: attr?.id,
                                 },
-                                ...attributeData.filter(
-                                  (filter_att) => filter_att.id !== attr.id
+                                ...attributeData?.filter(
+                                  (filter_att) => filter_att?.id !== attr?.id
                                 ),
                               ])
                             : setAttributeData([
-                                ...attributeData.filter(
-                                  (filter_att) => filter_att.id !== attr.id
+                                ...attributeData?.filter(
+                                  (filter_att) => filter_att?.id !== attr?.id
                                 ),
                               ])
                           : setAttributeData([
                               {
                                 values: e.target.value.split(','),
-                                id: attr.id,
+                                id: attr?.id,
                               },
                             ]);
                       }}
@@ -292,92 +267,139 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
               )}
 
               {/* Field type 5 */}
-              {attr.field_type === 5 &&
-                (file === null ? (
-                  <div className="mt-6">
-                    <div>
-                      <div className=" h-0 overflow-hidden">
-                        <input
-                          type="file"
-                          id="attachmentClick"
-                          name="imageUpload"
-                          accept="image/*"
-                          onChange={(e) => imageUpload(e, attr.id)}
-                        />
-                      </div>
-                      <button
-                        className=" flex flex-col items-center justify-center w-full p-3 border-2 border-dashed border-primary  "
-                        onClick={imageUploadClick}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-9 w-9"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                          />
-                        </svg>
-                        <p
-                          className={
-                            attr.optional
-                              ? ''
-                              : "after:content-['*'] text-red-500 after:-top-[5px] after:-right-[10px] "
-                          }
-                        >
-                          Upload Attachment Image
-                        </p>
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className=" mt-5 grid grid-cols-[20%,70%,10%;] xs:grid-cols-[10%,70%,20%] items-center px-[10px] py-[5px] border-2 border-primary rounded-md">
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-9 w-9"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
-                    </div>
-                    <div className=" flex flex-col text-base  ">
-                      <span>{file.name}</span>
-                      <span>{file.type}</span>
-                    </div>
-                    <div
-                      className="flex justify-end cursor-pointer"
-                      onClick={() => setFile(null)}
+              {attr.field_type === 5 && (
+                <>
+                  <label className="block mt-3">
+                    <span
+                      className={
+                        attr.optional
+                          ? ''
+                          : "after:content-['*'] text-red-500 after:-top-[5px] after:-right-[10px] "
+                      }
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
+                      {attr.name}
+                    </span>{' '}
+                  </label>{' '}
+                  {!attributeData?.filter(
+                    (at_filter) => attr.id == at_filter.id
+                  ).length > 0 ? (
+                    <div className="mt-2">
+                      <div>
+                        <div className=" h-0 overflow-hidden">
+                          <input
+                            type="file"
+                            id={`attachmentClick-${attr.id}`}
+                            name="imageUpload"
+                            accept="image/*"
+                            onChange={(e) => {
+                              attributeData?.length > 0
+                                ? setAttributeData([
+                                    {
+                                      values: [e.target.files[0]],
+                                      id: attr.id,
+                                      uploadFile: true,
+                                    },
+                                    ...attributeData?.filter(
+                                      (filter_att) =>
+                                        filter_att?.id !== attr?.id
+                                    ),
+                                  ])
+                                : setAttributeData([
+                                    {
+                                      values: [e.target.files[0]],
+                                      id: attr.id,
+                                      uploadFile: true,
+                                    },
+                                  ]);
+                            }}
+                          />
+                        </div>
+                        <button
+                          className=" flex flex-col items-center justify-center w-full p-3 border-2 border-dashed border-primary  "
+                          onClick={() => imageUploadClick(attr.id)}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-9 w-9"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                            />
+                          </svg>
+                          <p
+                            className={
+                              attr.optional
+                                ? ''
+                                : "after:content-['*'] text-red-500 after:-top-[5px] after:-right-[10px] "
+                            }
+                          >
+                            Upload Attachment
+                          </p>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ) : attributeData?.filter(
+                      (at_filter) => attr.id == at_filter.id
+                    )[0].uploadFile ? (
+                    <div className=" mt-2  flex flex-col items-center px-[10px] py-[5px] border-2 border-dashed border-primary rounded-md">
+                      <div className=" flex flex-col text-base  ">
+                        <span>
+                          {
+                            attributeData?.filter(
+                              (at_filter) => attr.id == at_filter.id
+                            )[0].values[0].name
+                          }
+                        </span>
+                      </div>
+                      <div
+                        className="flex justify-end cursor-pointer text-red-500 mt-2"
+                        onClick={() =>
+                          setAttributeData([
+                            ...attributeData?.filter(
+                              (filter_att) => filter_att?.id !== attr?.id
+                            ),
+                          ])
+                        }
+                      >
+                        Cancel
+                      </div>
+                    </div>
+                  ) : (
+                    <div className=" mt-2  flex flex-col items-center px-[10px] py-[5px] border-2 border-dashed border-primary rounded-md">
+                      <div className=" flex flex-col text-base  ">
+                        <span>
+                          {
+                            attributeData
+                              ?.filter(
+                                (at_filter) => attr.id == at_filter.id
+                              )[0]
+                              .values[0].split('/')
+                              .reverse()[0]
+                          }
+                        </span>
+                      </div>
+                      <div
+                        className="flex justify-end cursor-pointer text-red-500 mt-2"
+                        onClick={() =>
+                          setAttributeData([
+                            ...attributeData?.filter(
+                              (filter_att) => filter_att?.id !== attr?.id
+                            ),
+                          ])
+                        }
+                      >
+                        Cancel
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </>
         );

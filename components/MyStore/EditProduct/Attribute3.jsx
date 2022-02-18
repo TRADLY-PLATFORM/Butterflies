@@ -18,34 +18,9 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
 
   // functions
 
-  const imageUploadClick = () => {
-    let fileInput = document.getElementById('attachmentClick');
+  const imageUploadClick = (id) => {
+    let fileInput = document.getElementById(`attachmentClick-${id}`);
     fileInput.click();
-  };
-
-  const imageUpload = async (e, attribute_id) => {
-    setFile(e.target.files[0]);
-    if (attributeData !== null) {
-      const check = attributeData?.find((attr) => attr?.id === attribute_id);
-      if (check === undefined) {
-        setAttributeData([
-          ...attributeData,
-          { values: [e.target.files[0]], id: attribute_id, uploadFile: true },
-        ]);
-      } else {
-        const findOut = attributeData.filter(
-          (attr) => attr?.id !== attribute_id
-        );
-        setAttributeData([
-          ...findOut,
-          { values: [e.target.files[0]], id: attribute_id, uploadFile: true },
-        ]);
-      }
-    } else {
-      setAttributeData([
-        { values: [e.target.files[0]], id: attribute_id, uploadFile: true },
-      ]);
-    }
   };
 
   console.log('====================================');
@@ -85,7 +60,7 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                         attributeData?.length > 0
                           ? setAttributeData([
                               { values: [e.target.value], id: attr?.id },
-                              ...attributeData.filter(
+                              ...attributeData?.filter(
                                 (filter_att) => filter_att?.id !== attr?.id
                               ),
                             ])
@@ -160,12 +135,12 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                                   (singleValue) => singleValue.value
                                 ),
                               },
-                              ...attributeData.filter(
+                              ...attributeData?.filter(
                                 (filter_att) => filter_att?.id !== attr?.id
                               ),
                             ])
                           : setAttributeData([
-                              ...attributeData.filter(
+                              ...attributeData?.filter(
                                 (filter_att) => filter_att?.id !== attr?.id
                               ),
                             ])
@@ -216,12 +191,12 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                           ? e.target.value.replace(/ /g, '').length > 0
                             ? setAttributeData([
                                 { values: [e.target.value], id: attr?.id },
-                                ...attributeData.filter(
+                                ...attributeData?.filter(
                                   (filter_att) => filter_att?.id !== attr?.id
                                 ),
                               ])
                             : setAttributeData([
-                                ...attributeData.filter(
+                                ...attributeData?.filter(
                                   (filter_att) => filter_att?.id !== attr?.id
                                 ),
                               ])
@@ -270,12 +245,12 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                                   values: e.target.value.split(','),
                                   id: attr?.id,
                                 },
-                                ...attributeData.filter(
+                                ...attributeData?.filter(
                                   (filter_att) => filter_att?.id !== attr?.id
                                 ),
                               ])
                             : setAttributeData([
-                                ...attributeData.filter(
+                                ...attributeData?.filter(
                                   (filter_att) => filter_att?.id !== attr?.id
                                 ),
                               ])
@@ -305,14 +280,15 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                       {attr.name}
                     </span>{' '}
                   </label>{' '}
-                  {!attributeData.filter((at_filter) => attr.id == at_filter.id)
-                    .length > 0 ? (
+                  {!attributeData?.filter(
+                    (at_filter) => attr.id == at_filter.id
+                  ).length > 0 ? (
                     <div className="mt-2">
                       <div>
                         <div className=" h-0 overflow-hidden">
                           <input
                             type="file"
-                            id="attachmentClick"
+                            id={`attachmentClick-${attr.id}`}
                             name="imageUpload"
                             accept="image/*"
                             onChange={(e) => {
@@ -323,7 +299,7 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                                       id: attr.id,
                                       uploadFile: true,
                                     },
-                                    ...attributeData.filter(
+                                    ...attributeData?.filter(
                                       (filter_att) =>
                                         filter_att?.id !== attr?.id
                                     ),
@@ -340,7 +316,7 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                         </div>
                         <button
                           className=" flex flex-col items-center justify-center w-full p-3 border-2 border-dashed border-primary  "
-                          onClick={imageUploadClick}
+                          onClick={() => imageUploadClick(attr.id)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -368,14 +344,14 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                         </button>
                       </div>
                     </div>
-                  ) : attributeData.filter(
+                  ) : attributeData?.filter(
                       (at_filter) => attr.id == at_filter.id
                     )[0].uploadFile ? (
                     <div className=" mt-2  flex flex-col items-center px-[10px] py-[5px] border-2 border-dashed border-primary rounded-md">
                       <div className=" flex flex-col text-base  ">
                         <span>
                           {
-                            attributeData.filter(
+                            attributeData?.filter(
                               (at_filter) => attr.id == at_filter.id
                             )[0].values[0].name
                           }
@@ -385,7 +361,7 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                         className="flex justify-end cursor-pointer text-red-500 mt-2"
                         onClick={() =>
                           setAttributeData([
-                            ...attributeData.filter(
+                            ...attributeData?.filter(
                               (filter_att) => filter_att?.id !== attr?.id
                             ),
                           ])
@@ -396,12 +372,13 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                     </div>
                   ) : (
                     <div className=" mt-2  flex flex-col items-center px-[10px] py-[5px] border-2 border-dashed border-primary rounded-md">
-                       
                       <div className=" flex flex-col text-base  ">
                         <span>
                           {
                             attributeData
-                              .filter((at_filter) => attr.id == at_filter.id)[0]
+                              ?.filter(
+                                (at_filter) => attr.id == at_filter.id
+                              )[0]
                               .values[0].split('/')
                               .reverse()[0]
                           }
@@ -411,7 +388,7 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                         className="flex justify-end cursor-pointer text-red-500 mt-2"
                         onClick={() =>
                           setAttributeData([
-                            ...attributeData.filter(
+                            ...attributeData?.filter(
                               (filter_att) => filter_att?.id !== attr?.id
                             ),
                           ])
