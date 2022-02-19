@@ -27,7 +27,6 @@ const MarkdownEditor = ({ oldValue, setMarkdownValue }) => {
             defaultValue={default_value}
             onChange={debounce((value) => {
               const text = value();
-              console.log(text);
               setMarkdownValue(text);
             }, 250)}
             tooltip={'right'}

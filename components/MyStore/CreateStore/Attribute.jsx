@@ -7,6 +7,8 @@ import CreatableSelect from 'react-select/creatable';
 import { storeSelector } from '../../../store/feature/storeSlice';
 
 import { MultiSelect } from 'react-multi-select-component';
+import Editor from 'rich-markdown-editor';
+import debounce from 'lodash/debounce';
 
 const Attribute = ({ attributeData, setAttributeData }) => {
   const { attributes } = useSelector(storeSelector);
@@ -30,7 +32,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
             <div>
               {/* Field type 1 */}
               {attr.field_type === 1 && (
-                <div className="  mt-3 ">
+                <div className="  mt-6 ">
                   <label className="block">
                     <span
                       className={
@@ -89,7 +91,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
 
               {/* Field type 2*/}
               {attr.field_type === 2 && (
-                <div className="  mt-3 ">
+                <div className="  mt-6 ">
                   <label
                     className={
                       attr.optional
@@ -153,7 +155,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
 
               {/* Field type 3 */}
               {attr.field_type === 3 && (
-                <div className="  mt-3 ">
+                <div className="  mt-6 ">
                   <label className="block">
                     <span
                       className={
@@ -206,7 +208,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
 
               {/* Field type 4*/}
               {attr.field_type === 4 && (
-                <div className=" mt-3 ">
+                <div className=" mt-6 ">
                   <label className="block">
                     <span
                       className={
@@ -264,7 +266,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
               {/* Field type 5 */}
               {attr.field_type === 5 && (
                 <>
-                  <label className="block mt-3">
+                  <label className="block mt-6">
                     <span
                       className={
                         attr.optional
@@ -394,6 +396,65 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                     </div>
                   )}
                 </>
+              )}
+
+              {/* Field type 6 */}
+              {attr.field_type === 6 && (
+                <label className="block mt-6">
+                  <span
+                    className={
+                      attr.optional
+                        ? ''
+                        : "after:content-['*'] text-red-500 after:-top-[5px] after:-right-[10px] "
+                    }
+                  >
+                    {attr.name}
+                  </span>
+                  <article className="prose  prose-red	">
+                    <Editor
+                      className="event
+                    relative mt-0
+                    block
+                    w-full
+                    px-0.5
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    hover:ring-0 hover:border-primary
+
+                  "
+                      defaultValue={
+                        attributeData?.filter(
+                          (atData) => atData?.id === attr?.id
+                        )[0]?.values[0] || ''
+                      }
+                      onChange={debounce((value) => {
+                        const text = value();
+                        attributeData?.length > 0
+                          ? text.replace(/ /g, '').length > 0
+                            ? setAttributeData([
+                                { values: [text], id: attr?.id },
+                                ...attributeData?.filter(
+                                  (filter_att) => filter_att?.id !== attr?.id
+                                ),
+                              ])
+                            : setAttributeData([
+                                ...attributeData?.filter(
+                                  (filter_att) => filter_att?.id !== attr?.id
+                                ),
+                              ])
+                          : setAttributeData([
+                              { values: [text], id: attr?.id },
+                            ]);
+                      }, 250)}
+                      tooltip={'right'}
+                      placeholder="Write from here"
+                      style={{
+                        height: '150px',
+                        overflow: 'auto',
+                        justifyContent: 'start',
+                      }}
+                    />
+                  </article>
+                </label>
               )}
             </div>
           </>

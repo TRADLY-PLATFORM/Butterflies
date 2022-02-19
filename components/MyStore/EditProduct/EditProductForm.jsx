@@ -22,8 +22,6 @@ import Markdown_Editor from '../../Shared/MarkdownEditor';
 import dynamic from 'next/dynamic';
 import Attribute3 from './Attribute3';
 
- 
-
 const EditProductForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -107,7 +105,11 @@ const EditProductForm = () => {
                 id: attr.id,
                 values: attr.values.map((item) => item.id),
               };
-            } else if (attr.field_type === 3 || attr.field_type === 4) {
+            } else if (
+              attr.field_type === 3 ||
+              attr.field_type === 4 ||
+              attr.field_type === 6
+            ) {
               return { id: attr.id, values: attr.values.map((item) => item) };
             } else if (attr.field_type === 5) {
               return {
@@ -334,7 +336,10 @@ const EditProductForm = () => {
           <span className="text-gray-700">Listing Description</span>
           {/* <New/> */}
           {/* {CustomEditor && <CustomEditor data={editorData} />} */}
-          <Markdown_Editor oldValue={description} setMarkdownValue={setDescription}   />
+          <Markdown_Editor
+            oldValue={description}
+            setMarkdownValue={setDescription}
+          />
           {/* <textarea
             className="
                     mt-0
