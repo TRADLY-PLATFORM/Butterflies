@@ -60,7 +60,7 @@
     "slugify": "^1.6.3",
     "styled-components": "^5.3.3",
     "swiper": "^6.8.3",
-    "tradly": "^1.0.38",
+    "tradly": "^1.0.40",
     "unified": "^10.1.0",
     "uuidv4": "^6.2.12"
   },

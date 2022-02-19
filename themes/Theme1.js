@@ -77,10 +77,27 @@ const {
 const {
   default: CategoryListingsPageLayout,
 } = require('../components/layouts/PageLayouts/CategoryListingsPageLayout');
-const { default: CategoriesPageLayout } = require('../components/layouts/PageLayouts/CategoriesPageLayout');
-const { default: EventListingsPageLayout } = require('../components/layouts/PageLayouts/EventListingsPageLayout');
-const { default: EventSearchPageLayout } = require('../components/layouts/PageLayouts/EventSearchPageLayout');
-const { default: EventCategoryListingsPageLayout } = require('../components/layouts/PageLayouts/EventCategoryListingsPageLayout');
+const {
+  default: CategoriesPageLayout,
+} = require('../components/layouts/PageLayouts/CategoriesPageLayout');
+const {
+  default: EventListingsPageLayout,
+} = require('../components/layouts/PageLayouts/EventListingsPageLayout');
+const {
+  default: EventSearchPageLayout,
+} = require('../components/layouts/PageLayouts/EventSearchPageLayout');
+const {
+  default: EventCategoryListingsPageLayout,
+} = require('../components/layouts/PageLayouts/EventCategoryListingsPageLayout');
+const {
+  default: SimilarListingsPageLayout,
+} = require('../components/layouts/PageLayouts/SimilarListingsPageLayout');
+const {
+  default: SimilarEventListingsPageLayout,
+} = require('../components/layouts/PageLayouts/SimilarEventListingsPageLayout');
+const {
+  default: SimilarCustomListingsPageLayout,
+} = require('../components/layouts/PageLayouts/SimilarCustomListingsPageLayout');
 
 // Here In all condition first switch case for marketplace type and second switch case for marketplace module;
 
@@ -167,6 +184,40 @@ module.exports = {
         return (
           <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
             <CustomListingsPageLayout />
+          </CustomLayout>
+        );
+        break;
+
+      default:
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <ListingsPageLayout />
+          </MainLayout>
+        );
+        break;
+    }
+  },
+  //Similar All Listing Page:
+  similar_all_listings_page: (pageTitle, pageDescription) => {
+    switch (Number(TYPE_CONSTANT.MARKETPLACE_TYPE)) {
+      case 1:
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <SimilarListingsPageLayout />
+          </MainLayout>
+        );
+        break;
+      case 2:
+        return (
+          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <SimilarEventListingsPageLayout />
+          </MainLayout>
+        );
+        break;
+      case 3:
+        return (
+          <CustomLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+            <SimilarCustomListingsPageLayout />
           </CustomLayout>
         );
         break;
