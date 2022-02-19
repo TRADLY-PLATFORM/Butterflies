@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Editor from 'rich-markdown-editor';
 import debounce from 'lodash/debounce';
 import { useState } from 'react';
+import styled from 'styled-components';
 
 const MarkdownEditor = ({ oldValue, setMarkdownValue }) => {
   console.log(oldValue);
@@ -12,25 +13,32 @@ const MarkdownEditor = ({ oldValue, setMarkdownValue }) => {
   return (
     default_value && (
       <div className="">
-        <Editor
-          className="
+        <article className="prose  prose-red	">
+          <Editor
+            className="event
                     relative mt-0
                     block
                     w-full
                     px-0.5
                     border-0 border-b-2 border-gray-200 transition  duration-700
-                    focus:ring-0 focus:border-primary
-                     
+                    hover:ring-0 hover:border-primary
+
                   "
-          defaultValue={default_value}
-          onChange={debounce((value) => {
-            const text = value();
-            console.log(text);
-            setMarkdownValue(text);
-          }, 250)}
-          tooltip={'right'}
-          placeholder="Write from here"
-        />
+            defaultValue={default_value}
+            onChange={debounce((value) => {
+              const text = value();
+              console.log(text);
+              setMarkdownValue(text);
+            }, 250)}
+            tooltip={'right'}
+            placeholder="Write from here"
+            style={{
+              height: '150px',
+              overflow: 'auto',
+              justifyContent: 'start',
+            }}
+          />
+        </article>
       </div>
     )
   );

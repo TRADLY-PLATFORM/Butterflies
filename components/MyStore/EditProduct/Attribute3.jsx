@@ -8,8 +8,13 @@ import { storeSelector } from '../../../store/feature/storeSlice';
 
 import { MultiSelect } from 'react-multi-select-component';
 
-const Attribute = ({ attributeData, setAttributeData }) => {
+const Attribute3 = ({ attributeData, setAttributeData }) => {
   const { attributes } = useSelector(storeSelector);
+
+  const { my_account_listing_details } = useSelector(storeSelector);
+
+  // state
+  const [file, setFile] = useState(null);
 
   // functions
 
@@ -394,6 +399,140 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                   )}
                 </>
               )}
+              {/* Field type 11 */}
+              {attr.field_type === 11 && (
+                <>
+                  <label className="block mt-3">
+                    <span
+                      className={
+                        attr.optional
+                          ? ''
+                          : "after:content-['*'] text-red-500 after:-top-[5px] after:-right-[10px] "
+                      }
+                    >
+                      {attr.name}
+                    </span>{' '}
+                  </label>{' '}
+                  {!attributeData?.filter(
+                    (at_filter) => attr.id == at_filter.id
+                  ).length > 0 ? (
+                    <div className="mt-2">
+                      <div>
+                        <div className=" h-0 overflow-hidden">
+                          <input
+                            type="file"
+                            id={`attachmentClick-${attr.id}`}
+                            name="imageUpload"
+                            accept=".json"
+                            onChange={(e) => {
+                              attributeData?.length > 0
+                                ? setAttributeData([
+                                    {
+                                      values: [e.target.files[0]],
+                                      id: attr.id,
+                                      uploadFile: true,
+                                    },
+                                    ...attributeData?.filter(
+                                      (filter_att) =>
+                                        filter_att?.id !== attr?.id
+                                    ),
+                                  ])
+                                : setAttributeData([
+                                    {
+                                      values: [e.target.files[0]],
+                                      id: attr.id,
+                                      uploadFile: true,
+                                    },
+                                  ]);
+                            }}
+                          />
+                        </div>
+                        <button
+                          className=" flex flex-col items-center justify-center w-full p-3 border-2 border-dashed border-primary  "
+                          onClick={() => imageUploadClick(attr.id)}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-9 w-9"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                            />
+                          </svg>
+                          <p
+                            className={
+                              attr.optional
+                                ? ''
+                                : "after:content-['*'] text-red-500 after:-top-[5px] after:-right-[10px] "
+                            }
+                          >
+                            Upload Json
+                          </p>
+                        </button>
+                      </div>
+                    </div>
+                  ) : attributeData?.filter(
+                      (at_filter) => attr.id == at_filter.id
+                    )[0].uploadFile ? (
+                    <div className=" mt-2  flex flex-col items-center px-[10px] py-[5px] border-2 border-dashed border-primary rounded-md">
+                      <div className=" flex flex-col text-base  ">
+                        <span>
+                          {
+                            attributeData?.filter(
+                              (at_filter) => attr.id == at_filter.id
+                            )[0].values[0].name
+                          }
+                        </span>
+                      </div>
+                      <div
+                        className="flex justify-end cursor-pointer text-red-500 mt-2"
+                        onClick={() =>
+                          setAttributeData([
+                            ...attributeData?.filter(
+                              (filter_att) => filter_att?.id !== attr?.id
+                            ),
+                          ])
+                        }
+                      >
+                        Cancel
+                      </div>
+                    </div>
+                  ) : (
+                    <div className=" mt-2  flex flex-col items-center px-[10px] py-[5px] border-2 border-dashed border-primary rounded-md">
+                      <div className=" flex flex-col text-base  ">
+                        <span>
+                          {
+                            attributeData
+                              ?.filter(
+                                (at_filter) => attr.id == at_filter.id
+                              )[0]
+                              .values[0].split('/')
+                              .reverse()[0]
+                          }
+                        </span>
+                      </div>
+                      <div
+                        className="flex justify-end cursor-pointer text-red-500 mt-2"
+                        onClick={() =>
+                          setAttributeData([
+                            ...attributeData?.filter(
+                              (filter_att) => filter_att?.id !== attr?.id
+                            ),
+                          ])
+                        }
+                      >
+                        Cancel
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </>
         );
@@ -402,4 +541,4 @@ const Attribute = ({ attributeData, setAttributeData }) => {
   );
 };
 
-export default Attribute;
+export default Attribute3;

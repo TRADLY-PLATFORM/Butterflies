@@ -30,25 +30,21 @@ const ImagePart = ({ images }) => {
 				>
 					{images?.map((image, i) => {
 						return (
-							<SwiperSlide
-								key={i}
-								className= " ms:w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] relative bg-white"
-							>
-								<div className=" w-[100vw] h-[400px] ms:w-[400px] ms:h-[400px] lg:w-[500px] lg:h-[500px]  xl:w-[600px] xl:h-[600px] relative  ">
-									<Image
-										src={
-											image
-										}
-										alt="details image"
-										layout="fill"
-										objectFit="cover"
-										priority={
-											true
-										}
-									/>
-								</div>
-							</SwiperSlide>
-						);
+              <SwiperSlide
+                key={i}
+                className=" ms:w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] relative bg-white rounded-md overflow-hidden "
+              >
+                <div className=" w-[100vw] h-[400px] ms:w-[400px] ms:h-[400px] lg:w-[500px] lg:h-[500px]  xl:w-[600px] xl:h-[600px] relative  rounded-md overflow-hidden shadow ">
+                  <Image
+                    src={image}
+                    alt="details image"
+                    layout="fill"
+                    objectFit="cover"
+                    priority={true}
+                  />
+                </div>
+              </SwiperSlide>
+            );
 					})}
 				</Swiper>
 			) : (

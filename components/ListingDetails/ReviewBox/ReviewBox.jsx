@@ -28,33 +28,22 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  var base_url =
-    process.env.ENVIRONMENT == 'development'
-      ? 'https://api.dev.tradly.app'
-      : 'https://api.tradly.app';
-
-  var header = {};
+ 
 
   const helpful_review = (id, status) => {
     if (login) {
-      axios({
-        url: `${base_url}/v1/reviews/${id}/like`,
-        method: 'PATCH',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'x-agent': 1,
-          Authorization: `Bearer ${process.env.API_KEY}`,
-          'x-auth-key': auth_key,
-        },
-        data: {
-          review: {
-            status: status == 0 ? 1 : 0,
+      tradly.app
+        .likeReview({
+          authKey: auth_key,
+          data: {
+            review: {
+              status: status == 0 ? 1 : 0,
+            },
           },
-        },
-      })
+          id: id,
+        })
         .then((res) => {
-          if (res.data.status) {
+          if (!res.error) {
             dispatch(
               listingDetails({
                 id: router?.query.id.split('-')[0],
@@ -75,9 +64,7 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
           }
         })
         .catch((error) => {
-          console.log('====================================');
-          console.log(error);
-          console.log('====================================');
+          alert(error.message);
         });
     } else {
       router.push('/sign-in');

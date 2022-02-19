@@ -343,7 +343,8 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                     {attr.name}
                   </label>
                   <CreatableSelect
-                    className="mt-3"
+                    className="mt-3  "
+                    components={{ LoadingIndicator: null }}
                     placeholder={'Type your' + ' ' + attr.name}
                     onChange={(newValue, actionMeta) => {
                       handleChange(

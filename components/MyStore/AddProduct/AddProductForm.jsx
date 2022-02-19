@@ -23,6 +23,8 @@ import tradly from 'tradly';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import MarkdownEditor from '../../Shared/MarkdownEditor';
+import Markdown_Editor from '../../Shared/MarkdownEditor';
+import Attribute3 from './Attribute3';
 
 const AddProductForm = () => {
   const [type, setType] = useState('listings');
@@ -148,15 +150,6 @@ const AddProductForm = () => {
     setError_message('');
   };
 
-  const options = [
-    { value: 'Listings', label: 'listings', id: 'listings' },
-    { value: 'Extensions', label: 'extensions', id: 'extensions' },
-  ];
-
-  const handleChange = (newValue, actionMeta) => {
-    setType(newValue.id);
-  };
-
   useEffect(() => {
     dispatch(
       listingCategories({
@@ -189,16 +182,43 @@ const AddProductForm = () => {
       )}
       <div className=" w-full pt-2  pb-[100px] flex items-center  flex-col gap-8 md:gap-2   c-lg:flex-row justify-center c-lg:items-start  ">
         <div className=" w-full  xs:w-[500px]  c-lg:w-[450px] xl:w-[500px]  2xl:w-[600px] ">
-          <div className="flex items-center justify-between  mb-5">
-            <h3 className=" block h-full  font-semibold text-[#121212] text-xl ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-center justify-between  mb-5">
+            <h3 className="   block h-full  font-semibold text-[#121212] text-xl   ">
               Listing Details
             </h3>
-            <CreatableSelect
-              onChange={(newValue, actionMeta) =>
-                handleChange(newValue, actionMeta)
-              }
-              options={options}
-            />
+            <select
+              className="
+                    block
+                    w-full
+                    mt-0
+                    px-2
+                    border-2 border-gray-200 rounded-md transition  duration-700 
+                    focus:ring-0 focus:border-primary
+                  "
+              onChange={(e) => {
+                setType(e.target.value), setAttributeData(null);
+              }}
+            >
+              <option className="" hidden selected>
+                Select Category
+              </option>
+
+              <option
+                value="listings"
+                selected={type == 'listings' ? true : false}
+              >
+                Listing
+              </option>
+              <option value="events" selected={type == 'events' ? true : false}>
+                Event
+              </option>
+              <option
+                value="extensions"
+                selected={type == 'extensions' ? true : false}
+              >
+                Extensions
+              </option>
+            </select>
           </div>
 
           <div className=" bg-white p-10  grid grid-cols-1 gap-6 rounded-lg shadow-c-sm">
@@ -447,7 +467,7 @@ const AddProductForm = () => {
               </select>
             </label>
             <div>
-              <Attribute
+              <Attribute3
                 attributeData={attributeData}
                 setAttributeData={setAttributeData}
               />
@@ -483,7 +503,7 @@ const AddProductForm = () => {
           </div>
         )}
 
-        <div className="  relative  mt-10 md:mt-0  md:fixed w-full h-[80px] md:bg-white bottom-0 left-0 ">
+        <div className="  relative  mt-10 md:mt-0  md:fixed w-full h-[80px] md:bg-white bottom-0 left-0 z-[1000000]">
           <div className="h-full   flex   justify-center md:justify-end items-center ">
             <button
               className="text-white  w-5/6  md:w-[180px] h-12 rounded-md bg-primary  flex items-center justify-center  md:mr-7"

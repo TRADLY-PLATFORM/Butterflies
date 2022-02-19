@@ -21,9 +21,11 @@ import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
 import Markdown_Editor from '../../Shared/MarkdownEditor';
 import CreatableSelect from 'react-select/creatable';
+import dynamic from 'next/dynamic';
+import Attribute3 from './Attribute3';
 
 const EditProductForm = () => {
-  const [type, setType] = useState('');
+  const [type, setType] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
@@ -68,12 +70,12 @@ const EditProductForm = () => {
   // Use Effect functions
   useEffect(() => {
     if (my_account_listing_details) {
-      // dispatch(
-      //   listingCategories({
-      //     prams: { parent: 0, type: my_account_listing_details.type },
-      //     authKey: auth_key,
-      //   })
-      // );
+      dispatch(
+        listingCategories({
+          prams: { parent: 0, type: my_account_listing_details.type },
+          authKey: auth_key,
+        })
+      );
       setTitle(my_account_listing_details.title);
       setDescription(my_account_listing_details.description);
       setPrice(Number(my_account_listing_details.list_price.amount));
@@ -115,14 +117,12 @@ const EditProductForm = () => {
               };
             } else if (attr.field_type === 3 || attr.field_type === 4) {
               return { id: attr.id, values: attr.values.map((item) => item) };
-            }
-            else if (attr.field_type === 5) {
+            } else if (attr.field_type === 5) {
               return {
                 values: attr.values,
                 id: attr.id,
               };
-            }
-            else if (attr.field_type === 11) {
+            } else if (attr.field_type === 11) {
               return {
                 values: attr.values,
                 id: attr.id,
@@ -133,14 +133,20 @@ const EditProductForm = () => {
       }
     }
   }, [my_account_listing_details]);
-    useEffect(() => {
+
+  //
+  useEffect(() => {
+    if (type) {
       dispatch(
         listingCategories({
           prams: { parent: 0, type: type },
           authKey: auth_key,
         })
       );
-    }, [type]);
+    }
+  }, [type]);
+
+  //
 
   useEffect(() => {
     if (currencies !== null) {
@@ -148,6 +154,7 @@ const EditProductForm = () => {
     }
   }, [currencies]);
 
+  // 
   useEffect(() => {
     if (selectedCategory) {
       dispatch(
@@ -221,14 +228,7 @@ const EditProductForm = () => {
     setError_message('');
   };
 
-  //
-  const options = [
-    { value: 'Listings', label: 'listings', id: 'listings' },
-    { value: 'Extensions', label: 'extensions', id: 'extensions' },
-  ];
-  const handleChange = (newValue, actionMeta) => {
-    setType(newValue.id);
-  };
+ 
 
   return (
     <div className=" w-full">
@@ -273,16 +273,40 @@ const EditProductForm = () => {
         </Modal>
       )}
 
-      <div className="flex items-center justify-between  mb-5">
-        <h3 className=" block h-full  font-semibold text-[#121212] text-xl ">
-          Edit Your Listing
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-center justify-between  mb-5">
+        <h3 className="   block h-full  font-semibold text-[#121212] text-xl   ">
+          Edit Listing
         </h3>
-        <CreatableSelect
-          onChange={(newValue, actionMeta) =>
-            handleChange(newValue, actionMeta)
-          }
-          options={options}
-        />
+        <select
+          className="
+                    block
+                    w-full
+                    mt-0
+                    px-2
+                    border-2 border-gray-200 rounded-md transition  duration-700 
+                    focus:ring-0 focus:border-primary
+                  "
+          onChange={(e) => {
+            setType(e.target.value), setAttributeData(null);
+          }}
+        >
+          <option className="" hidden selected>
+            Select Category
+          </option>
+
+          <option value="listings" selected={type == 'listings' ? true : false}>
+            Listing
+          </option>
+          <option value="events" selected={type == 'events' ? true : false}>
+            Event
+          </option>
+          <option
+            value="extensions"
+            selected={type == 'extensions' ? true : false}
+          >
+            Extensions
+          </option>
+        </select>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
@@ -544,7 +568,7 @@ const EditProductForm = () => {
           </select>
         </label>
         <div>
-          <Attribute
+          <Attribute3
             attributeData={attributeData}
             setAttributeData={setAttributeData}
           />
