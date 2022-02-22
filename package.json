@@ -35,6 +35,7 @@
     "js-cookie": "^3.0.1",
     "moment": "^2.29.1",
     "next": "latest",
+    "next-images": "^1.8.4",
     "next-sitemap": "^1.6.203",
     "rc-slider": "^9.7.5",
     "react": "^17.0.2",

@@ -26,6 +26,7 @@ import Variants from '../../ListingDetails/Variants/Variants';
 import RatingBox from '../../ListingDetails/RatingBox/RatingBox';
 import ReviewBox from '../../ListingDetails/ReviewBox/ReviewBox';
 import ReactPaginate from 'react-paginate';
+import StoreNameBox from '../../ListingDetails/StoreNameBox/StoreNameBox';
 
 const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -154,6 +155,8 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     }
   };
 
+ 
+
   return (
     <>
       {listing_details && (
@@ -226,6 +229,8 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
               <EventButtons
                 listing_details={listing_details}
                 selectedVariant={selectedVariant}
+                setError_message={setError_message}
+                setShowError={setShowError}
               />
             </div>
             {listing_details?.schedules?.length > 0 && (
@@ -233,6 +238,12 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                 <Schedule schedules={listing_details?.schedules} />
               </div>
             )}
+            {listing_details?.account && (
+              <div className="mt-6">
+                <StoreNameBox account={listing_details?.account} />
+              </div>
+            )}
+
             {listing_details?.location &&
               Object.keys(listing_details?.location).length > 0 && (
                 <div className="mt-6">

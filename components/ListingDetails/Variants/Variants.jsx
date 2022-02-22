@@ -48,20 +48,22 @@ const Variants = ({
                   </span>
                   <span className=" ml-2">{item.offer_price.amount} </span>
                 </p>
-                <p className=" flex items-center  text-xs ">
-                  <span
-                    className={
-                      item.offer_percent != 0
-                        ? ' line-through text-default_gray font-normal'
-                        : '  text-default_gray font-normal'
-                    }
-                  >
-                    {item.list_price.formatted}
-                  </span>
-                  <span className=" font-medium ml-2">
-                    -{item.offer_percent}%
-                  </span>
-                </p>
+                {item.offer_percent != 0 && (
+                  <p className=" flex items-center  text-xs ">
+                    <span
+                      className={
+                        item.offer_percent != 0
+                          ? ' line-through text-default_gray font-normal'
+                          : '  text-default_gray font-normal'
+                      }
+                    >
+                      {item.list_price.formatted}
+                    </span>
+                    <span className=" font-medium ml-2">
+                      -{item.offer_percent}%
+                    </span>
+                  </p>
+                )}
               </div>
               <input
                 className={
