@@ -155,6 +155,8 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     }
   };
 
+ 
+
   return (
     <>
       {listing_details && (
@@ -227,6 +229,8 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
               <EventButtons
                 listing_details={listing_details}
                 selectedVariant={selectedVariant}
+                setError_message={setError_message}
+                setShowError={setShowError}
               />
             </div>
             {listing_details?.schedules?.length > 0 && (
