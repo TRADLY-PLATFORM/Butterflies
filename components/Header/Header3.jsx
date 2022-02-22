@@ -41,7 +41,10 @@ const Header3 = () => {
         ) : (
           ''
         )}
-        <div className="   min-h-[70px] px-[25px] 2xl:px-[10%]  shadow-c-sm   bg-white top-0    overflow-x-hidden relative">
+        <div
+          className="   min-h-[70px] px-[25px] 2xl:px-[10%]  shadow-c-sm   bg-white top-0    overflow-x-hidden relative "
+          id="header_section"
+        >
           <div className="flex pt-[10px]  w-full">
             <div className="  absolute left-0 right-0    flex  justify-center     ">
               {logo && (
@@ -59,7 +62,7 @@ const Header3 = () => {
               )}
             </div>
             <div className="   z-[100] ml-auto">
-              <div className=" flex items-center justify-between">
+              <div className=" flex items-center justify-between" id="header_nav_items">
                 {login && (
                   <div className="  ms:mr-2 ">
                     <Notifications />

@@ -71,7 +71,7 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
         // onClick={openUserMenu}
       >
         {login ? (
-          <div className="flex items-center">
+          <div className="flex items-center" id="profile_section">
             {profile_pic !== undefined && profile_pic !== '' ? (
               <div className=" w-10 h-10 relative rounded-full overflow-hidden">
                 <Image
