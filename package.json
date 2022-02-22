@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "env-cmd -f env/.env.dev next dev",
+    "dev": "env-cmd -f env/.env.ah next dev",
     "build": "NODE_ENV=production env-cmd -f env/.env.production next build  ",
     "start": "NODE_ENV=production env-cmd -f env/.env.production next start",
     "lint": "next lint",
@@ -35,6 +35,7 @@
     "js-cookie": "^3.0.1",
     "moment": "^2.29.1",
     "next": "latest",
+    "next-images": "^1.8.4",
     "next-sitemap": "^1.6.203",
     "rc-slider": "^9.7.5",
     "react": "^17.0.2",

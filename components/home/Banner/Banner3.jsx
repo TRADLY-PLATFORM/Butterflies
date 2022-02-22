@@ -15,7 +15,7 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-const Banner2 = ({ banners }) => {
+const Banner3 = ({ banners }) => {
   return (
     <>
       <div className=" hidden md:block w-full   h-auto mb-9 mx-auto">
@@ -32,18 +32,21 @@ const Banner2 = ({ banners }) => {
         >
           {banners?.map((banner, i) => {
             return (
-              <SwiperSlide
-                key={i}
-                className=" w-full flex flex-col justify-center items-center mb-14"
-              >
-                <div className="  relative   ">
-                  <img
-                    src={banner.image_path}
-                    alt="Banner Image"
-                    className="w-full h-[200px] md:h-[360px]  object-contain  rounded-lg "
-                  />
-                </div>
-              </SwiperSlide>
+              banner.medium == 'web' && (
+                <SwiperSlide
+                  key={i}
+                  className=" w-full flex flex-col justify-center items-center mb-14"
+                >
+                  <div className="w-full h-[200px] md:h-[350px] relative rounded-lg overflow-hidden">
+                    <Image
+                      src={banner.image_path}
+                      alt="Banner Image"
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                </SwiperSlide>
+              )
             );
           })}
         </Swiper>
@@ -62,19 +65,21 @@ const Banner2 = ({ banners }) => {
         >
           {banners?.map((banner, i) => {
             return (
-              <SwiperSlide
-                key={i}
-                className=" w-full flex flex-col justify-center items-center mb-14"
-              >
-                <div className=" ">
-                  <img
-                    src={banner.image_path}
-                    alt="Banner Image"
-                    className="  w-full  h-[170px]     relative rounded-lg  object-cover"
-                  
-                  />
-                </div>
-              </SwiperSlide>
+              banner.medium == 'app' && (
+                <SwiperSlide
+                  key={i}
+                  className=" w-full flex flex-col justify-center items-center mb-14"
+                >
+                  <div className=" w-full h-full aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                    <Image
+                      src={banner.image_path}
+                      alt="Banner Image"
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                </SwiperSlide>
+              )
             );
           })}
         </Swiper>
@@ -83,6 +88,6 @@ const Banner2 = ({ banners }) => {
   );
 };
 
-export default Banner2;
+export default Banner3;
 
 // w-full h-[200px] md:h-[400px]  relative rounded-lg overflow-hidden
