@@ -18,7 +18,7 @@ SwiperCore.use([Autoplay, Pagination, Navigation]);
 const Banner2 = ({}) => {
   const [banners, setBanners] = useState(null);
   useEffect(() => {
-    window.innerWidth > 800
+    window.innerWidth > 850
       ? tradly.app
           .getPromoBanner({
             authKey: '',
@@ -61,7 +61,7 @@ const Banner2 = ({}) => {
                     <img
                       src={banner.image_path}
                       alt="Banner Image"
-                      className="w-full  h-[170px]  md:h-[280px] lg:h-[360px]  object-cover  md:object-contain     rounded-lg "
+                      className="w-full      object-contain     rounded-lg "
                     />
                   </div>
                 </SwiperSlide>
