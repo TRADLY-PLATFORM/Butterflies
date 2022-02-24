@@ -74,8 +74,8 @@ const HomePageLayout = () => {
           );
         }
       })}
-      <div>
-        <Banner3 banners={page_promo_banners} />
+      <div className='mt-9'>
+        <Banner3 />
       </div>
     </div>
   );
