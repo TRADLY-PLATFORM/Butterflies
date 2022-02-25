@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>undefined</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.932Z</lastmod></url>
-<url><loc>undefined/category</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/category-sitemap.xml</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/listing</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/listing-sitemap.xml</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/profile</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/stores/add-product</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/stores/create-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/stores/edit-product</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/stores/edit-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/stores/my-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
-<url><loc>undefined/stores/orders</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-11-30T06:36:28.933Z</lastmod></url>
+<url><loc>/</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//a</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//a/add-product</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//a/create-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//a/edit-product</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//a/edit-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//a/my-store</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//a/orders</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//category-sitemap.xml</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//edit-profile</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//explore</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//forgot-password</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//forgot-password/set-password</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//invite</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//l</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//lc</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//listing-sitemap.xml</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//profile</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
+<url><loc>//wishlist</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-02-25T12:35:28.337Z</lastmod></url>
 </urlset>
