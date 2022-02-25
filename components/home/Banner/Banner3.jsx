@@ -15,14 +15,14 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-const Banner2 = ({}) => {
+const Banner3 = ({}) => {
   const [banners, setBanners] = useState(null);
   useEffect(() => {
     window.innerWidth > 850
       ? tradly.app
           .getPromoBanner({
             authKey: '',
-            bodyParam: { medium: 'web' },
+            bodyParam: { medium: 'web', placement: 'footer' },
           })
           .then((res) => {
             setBanners(res.data.promo_banners);
@@ -30,7 +30,7 @@ const Banner2 = ({}) => {
       : tradly.app
           .getPromoBanner({
             authKey: '',
-            bodyParam: { medium: 'app' },
+            bodyParam: { medium: 'app', placement: 'footer' },
           })
           .then((res) => {
             setBanners(res.data.promo_banners);
@@ -52,20 +52,18 @@ const Banner2 = ({}) => {
         >
           {banners?.map((banner, i) => {
             return (
-              banner.placement == '' && (
-                <SwiperSlide
-                  key={i}
-                  className=" w-full flex flex-col justify-center items-center mb-14"
-                >
-                  <div className="  relative   ">
-                    <img
-                      src={banner.image_path}
-                      alt="Banner Image"
-                      className="w-full      object-contain     rounded-lg "
-                    />
-                  </div>
-                </SwiperSlide>
-              )
+              <SwiperSlide
+                key={i}
+                className=" w-full flex flex-col justify-center items-center mb-14"
+              >
+                <div className="  relative   ">
+                  <img
+                    src={banner.image_path}
+                    alt="Banner Image"
+                    className="w-full  object-contain  rounded-lg "
+                  />
+                </div>
+              </SwiperSlide>
             );
           })}
         </Swiper>
@@ -74,6 +72,6 @@ const Banner2 = ({}) => {
   );
 };
 
-export default Banner2;
+export default Banner3;
 
 // w-full h-[200px] md:h-[400px]  relative rounded-lg overflow-hidden

@@ -46,7 +46,10 @@ const EditStoreForm = ({
   }, [0]);
 
   useEffect(() => {
-    setImagePath({ path: my_account_details.images[0] });
+    my_account_details.images.length > 0 &&
+      setImagePath({
+        path: my_account_details.images[0],
+      });
     setName(my_account_details.name);
     my_account_details?.description &&
       setDescription(my_account_details.description);

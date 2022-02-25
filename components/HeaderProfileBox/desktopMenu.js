@@ -74,7 +74,7 @@ export const customer_menus = (
           </div>
         </Link>
       )} */}
-      <div className="   flex  sm:items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
+      {general_configs?.terms_url &&<div className="   flex  sm:items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 mr-3  sm:mr-5 text-[#6e686e]"
@@ -95,8 +95,8 @@ export const customer_menus = (
         >
           Terms & Conditions
         </p>
-      </div>
-      <div className=" flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
+      </div>}
+      {general_configs?.privacy_policy_url &&<div className=" flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
         {privacy_icon}
         <p
           onClick={() => window.open(general_configs?.privacy_policy_url)}
@@ -104,7 +104,7 @@ export const customer_menus = (
         >
           Privacy Policy
         </p>
-      </div>
+      </div>}
       {general_configs?.invite_friends_collection_enabled && (
         <div className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group ">
           {invite_friend}

@@ -143,48 +143,50 @@ const RelatedListings = () => {
 
   return (
     <>
-      {related_listings?.length > 0 ? (
-        <div className="w-full h-[400px] p-[19px] bg-[#FFFFFF]">
-          <div className=" flex justify-between items-center">
-            <p className=" text-2xl font-normal  text-[#222222] ">
-              You may also like
-            </p>
-            <Link
-              href={{
-                pathname: `/l/similar/${router?.query.id.split('-')[0]}`,
-                query: { page: 1 },
-              }}
-            >
-              <a className="  px-8 py-2 flex  justify-center items-center  bg-primary text-[14px] text-[#FEFEFE]  rounded">
-                See All
-              </a>
-            </Link>
+      {related_listings !== null ? (
+        related_listings?.length > 0 && (
+          <div className="w-full h-[400px] p-[19px] bg-[#FFFFFF]">
+            <div className=" flex justify-between items-center">
+              <p className=" text-2xl font-normal  text-[#222222] ">
+                You may also like
+              </p>
+              <Link
+                href={{
+                  pathname: `/l/similar/${router?.query.id.split('-')[0]}`,
+                  query: { page: 1 },
+                }}
+              >
+                <a className="  px-8 py-2 flex  justify-center items-center  bg-primary text-[14px] text-[#FEFEFE]  rounded">
+                  See All
+                </a>
+              </Link>
+            </div>
+            <div className="mt-8 ">
+              <Swiper
+                slidesPerView={'auto'}
+                slidesPerGroup={1}
+                spaceBetween={16}
+                loop={false}
+                navigation={false}
+                style={{ paddingBottom: '20px' }}
+              >
+                {related_listings?.map((item) => {
+                  return (
+                    <SwiperSlide
+                      className=" w-[190px] h-[284px]  shadow-sm   rounded mr-4 overflow-hidden"
+                      key={Math.random() * 3000000}
+                      style={{
+                        width: '190px',
+                      }}
+                    >
+                      <ListingCard item={item} like={like} />
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            </div>
           </div>
-          <div className="mt-8 ">
-            <Swiper
-              slidesPerView={'auto'}
-              slidesPerGroup={1}
-              spaceBetween={16}
-              loop={false}
-              navigation={false}
-              style={{ paddingBottom: '20px' }}
-            >
-              {related_listings?.map((item) => {
-                return (
-                  <SwiperSlide
-                    className=" w-[190px] h-[284px]  shadow-sm   rounded mr-4 overflow-hidden"
-                    key={Math.random() * 3000000}
-                    style={{
-                      width: '190px',
-                    }}
-                  >
-                    <ListingCard item={item} like={like} />
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </div>
-        </div>
+        )
       ) : (
         <div className="border bg-[#3B3269] bg-opacity-[10%] shadow rounded-md p-4   w-full mx-auto overflow-hidden">
           <div className="flex  justify-between">

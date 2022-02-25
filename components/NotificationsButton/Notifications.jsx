@@ -24,7 +24,10 @@ import Link from 'next/link';
 const Notifications = () => {
   const [notifications, setNotifications] = useState(null);
   const [page, setPage] = useState(1);
+  const [window_width, setWindow_width] = useState(1);
   const [total_records, setTotal_records] = useState(0);
+  const [profile_section_width, setprofile_section_width] = useState(0);
+  const [header_section_padding, setheader_section_padding] = useState(0);
 
   const { auth_key, login, user_details } = useSelector(authSelector);
   const router = useRouter();
@@ -57,16 +60,20 @@ const Notifications = () => {
         })
       );
     }
+    setWindow_width(window?.innerWidth);
+    const header_section = document.getElementById('header_section');
+    const paddingLeft = window
+      .getComputedStyle(header_section, null)
+      ?.getPropertyValue('padding-left');
+    setprofile_section_width(
+      Number(document.getElementById('header_nav_items')?.offsetWidth) -
+        Number(document.getElementById('profile_section')?.offsetWidth)
+    );
+
+    setheader_section_padding(paddingLeft);
   }, [auth_key, router, dispatch]);
 
   const { my_stores } = useSelector(storeSelector);
-
-  const account_order_link = (refId, acID) => {
-    router.push(`/a/orders/${refId}?store_id=${acID}`);
-  };
-  const order_link = (refId) => {
-    router.push(`/orders/${refId}`);
-  };
 
   const fetch_more = () => {
     tradly.app
@@ -99,7 +106,16 @@ const Notifications = () => {
       <div>
         <div
           className={
-            '  opacity-0  h-0  group-hover:h-auto group-hover:opacity-100  fixed top-0 right-0 z-[60]  mx-[16px] xs:mx-[30px]  md:mx-[25px] 2xl:mx-[10%] mt-[40px]   transition duration-700  ease-in-out'
+            '  opacity-0  h-0  group-hover:h-auto group-hover:opacity-100  fixed top-0 right-0 z-[60]   mt-[40px]   transition duration-700  ease-in-out'
+          }
+          style={
+            window_width > 768
+              ? {
+                  marginRight: `calc(${header_section_padding} + 107px)`,
+                }
+              : {
+                  marginRight: `calc(${header_section_padding}  `,
+                }
           }
         >
           {login && (
