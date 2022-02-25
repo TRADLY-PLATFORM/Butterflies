@@ -3,7 +3,11 @@ import React from 'react';
 import Image from 'next/image';
 import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
-import { changeDateFormat, getThumbnailImage } from '../Constant/Constant';
+import {
+  changeDateFormat,
+  getThumbnailImage,
+  getThumbnailImage2,
+} from '../Constant/Constant';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { TYPE_CONSTANT } from '../../../constant/Web_constant';

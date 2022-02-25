@@ -5,13 +5,18 @@ import { useSelector } from 'react-redux';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { storeSelector } from '../../../store/feature/storeSlice';
-
+import Markdown_Editor from '../../Shared/MarkdownEditor';
 import { MultiSelect } from 'react-multi-select-component';
 import Editor from 'rich-markdown-editor';
 import debounce from 'lodash/debounce';
 
-const Attribute = ({ attributeData, setAttributeData }) => {
+const Attribute3 = ({ attributeData, setAttributeData }) => {
   const { attributes } = useSelector(storeSelector);
+
+  const { my_account_listing_details } = useSelector(storeSelector);
+
+  // state
+  const [file, setFile] = useState(null);
 
   // functions
 
@@ -19,6 +24,8 @@ const Attribute = ({ attributeData, setAttributeData }) => {
     let fileInput = document.getElementById(`attachmentClick-${id}`);
     fileInput.click();
   };
+
+  //
 
   console.log('====================================');
   console.log(attributeData);
@@ -397,7 +404,6 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                   )}
                 </>
               )}
-
               {/* Field type 6 */}
               {attr.field_type === 6 && (
                 <label className="block mt-6">
@@ -464,4 +470,4 @@ const Attribute = ({ attributeData, setAttributeData }) => {
   );
 };
 
-export default Attribute;
+export default Attribute3;

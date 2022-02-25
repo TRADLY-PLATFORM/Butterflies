@@ -3,9 +3,9 @@ User-agent: *
 Allow: /
 
 # Host
-Host: undefined
+Host: 
 
 # Sitemaps
-Sitemap: undefined/sitemap.xml
-Sitemap: undefined/listing-sitemap.xml
-Sitemap: undefined/category-sitemap.xml
+Sitemap: //sitemap.xml
+Sitemap: /listing-sitemap.xml
+Sitemap: /category-sitemap.xml

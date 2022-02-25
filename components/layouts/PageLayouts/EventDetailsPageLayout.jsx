@@ -26,6 +26,7 @@ import Variants from '../../ListingDetails/Variants/Variants';
 import RatingBox from '../../ListingDetails/RatingBox/RatingBox';
 import ReviewBox from '../../ListingDetails/ReviewBox/ReviewBox';
 import ReactPaginate from 'react-paginate';
+import RelatedListings from '../../ListingDetails/RelatedListing/RelatedListings';
 import StoreNameBox from '../../ListingDetails/StoreNameBox/StoreNameBox';
 
 const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
@@ -194,7 +195,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
       )}
       {
         <div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  md:pt-[20px] pb-20   c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
-          <div className=" w-[100vw] ms:w-[400px] lg:w-[500px] xl:w-[600px]">
+          <div className=" w-screen ms:w-[400px] lg:w-[500px] xl:w-[600px]">
             <div>
               <ImagePart images={listing_details?.images} />
             </div>
@@ -203,9 +204,9 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                 <DescriptionPart description={listing_details?.description} />
               </div>
             )}
-            {/* <div className=" mt-6">
-							<RelatedEvents />
-						</div> */}
+            <div className=" hidden c-md:block  mt-6">
+              <RelatedListings />
+            </div>
           </div>
           <div className="  w-[100vw] ms:w-[400px] lg:w-[500px] xl:w-[600px] mt-6 c-md:mt-0">
             <div>
@@ -225,7 +226,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                 />
               </div>
             )}
-            <div className=" fixed bottom-0 w-full left-0 right-0 bg-white sm:relative sm:bg-transparent z-30 md:mt-6">
+            <div className=" fixed bottom-0 w-full left-0 right-0 bg-white sm:relative sm:bg-transparent z-[60] sm:z-30  md:mt-6 ">
               <EventButtons
                 listing_details={listing_details}
                 selectedVariant={selectedVariant}
@@ -326,6 +327,10 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                 </div>
               </div>
             )}
+
+            <div className="  c-md:hidden  mt-6">
+              <RelatedListings />
+            </div>
 
             {/* <div className="mt-6">
 							<StoreNameBox
