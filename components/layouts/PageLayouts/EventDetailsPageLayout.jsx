@@ -28,6 +28,7 @@ import ReviewBox from '../../ListingDetails/ReviewBox/ReviewBox';
 import ReactPaginate from 'react-paginate';
 import RelatedListings from '../../ListingDetails/RelatedListing/RelatedListings';
 import StoreNameBox from '../../ListingDetails/StoreNameBox/StoreNameBox';
+import AccountListings from '../../ListingDetails/AccountListings/AccountListings';
 
 const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -156,8 +157,6 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     }
   };
 
- 
-
   return (
     <>
       {listing_details && (
@@ -193,89 +192,90 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           </div>
         </OutsideClickHandler>
       )}
-      {
-        <div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  md:pt-[20px] pb-20   c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
-          <div className=" w-screen ms:w-[400px] lg:w-[500px] xl:w-[600px]">
-            <div>
-              <ImagePart images={listing_details?.images} />
-            </div>
-            {listing_details?.description !== '' && (
-              <div className="mt-6 hidden md:block">
-                <DescriptionPart description={listing_details?.description} />
-              </div>
-            )}
-            <div className=" hidden c-md:block  mt-6">
-              <RelatedListings />
-            </div>
+
+      <div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  md:pt-[20px]  pb-6  c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
+        <div className=" w-screen ms:w-[400px] lg:w-[500px] xl:w-[600px]">
+          <div>
+            <ImagePart images={listing_details?.images} />
           </div>
-          <div className="  w-[100vw] ms:w-[400px] lg:w-[500px] xl:w-[600px] mt-6 c-md:mt-0">
-            <div>
-              <MainBox
-                listing_details={listing_details}
-                rating_data={rating_data}
-                like={like}
-              />
+          {listing_details?.description !== '' && (
+            <div className="mt-6 hidden md:block">
+              <DescriptionPart description={listing_details?.description} />
             </div>
-            {listing_details?.variants?.length > 0 && (
-              <div className="mt-6">
-                <Variants
-                  variants={listing_details.variants}
-                  setSelectedVariant={setSelectedVariant}
-                  selectedVariant={selectedVariant}
-                  listing_details={listing_details}
-                />
-              </div>
-            )}
-            <div className=" fixed bottom-0 w-full left-0 right-0 bg-white sm:relative sm:bg-transparent z-[60] sm:z-30  md:mt-6 ">
-              <EventButtons
-                listing_details={listing_details}
+          )}
+          <div className=" hidden c-md:block  mt-6">
+            <RelatedListings />
+          </div>
+        </div>
+        <div className="  w-[100vw] ms:w-[400px] lg:w-[500px] xl:w-[600px] mt-6 c-md:mt-0">
+          <div>
+            <MainBox
+              listing_details={listing_details}
+              rating_data={rating_data}
+              like={like}
+            />
+          </div>
+          {listing_details?.variants?.length > 0 && (
+            <div className="mt-6">
+              <Variants
+                variants={listing_details.variants}
+                setSelectedVariant={setSelectedVariant}
                 selectedVariant={selectedVariant}
-                setError_message={setError_message}
-                setShowError={setShowError}
+                listing_details={listing_details}
               />
             </div>
-            {listing_details?.schedules?.length > 0 && (
-              <div className="mt-6">
-                <Schedule schedules={listing_details?.schedules} />
-              </div>
-            )}
-            {listing_details?.account && (
-              <div className="mt-6">
-                <StoreNameBox account={listing_details?.account} />
-              </div>
-            )}
+          )}
+          <div className=" fixed bottom-0 w-full p-4 sm:p-0 left-0 right-0 bg-white sm:relative sm:bg-transparent z-[60] sm:z-30  sm:mt-6 ">
+            <EventButtons
+              listing_details={listing_details}
+              selectedVariant={selectedVariant}
+              setError_message={setError_message}
+              setShowError={setShowError}
+            />
+          </div>
+          {listing_details?.schedules?.length > 0 && (
+            <div className="mt-6">
+              <Schedule schedules={listing_details?.schedules} />
+            </div>
+          )}
+          {listing_details?.account && (
+            <div className="mt-6">
+              <StoreNameBox account={listing_details?.account} />
+            </div>
+          )}
 
-            {listing_details?.location &&
-              Object.keys(listing_details?.location).length > 0 && (
-                <div className="mt-6">
-                  <AddressBox location={listing_details?.location} />
-                </div>
-              )}
-            {listing_details?.attributes &&
-              listing_details?.attributes.length > 0 && (
-                <div className="mt-6">
-                  <AttributeDetails attributes={listing_details?.attributes} />
-                </div>
-              )}
-            {listing_details?.description !== '' && (
-              <div className="mt-6 md:hidden">
-                <DescriptionPart description={listing_details?.description} />
-              </div>
-            )}
-            {Object.keys(rating_data)?.length > 0 && (
+          {listing_details?.location &&
+            Object.keys(listing_details?.location).length > 0 && (
               <div className="mt-6">
-                <RatingBox rating_data={rating_data} />
+                <AddressBox location={listing_details?.location} />
               </div>
             )}
-            {reviews && reviews?.length > 0 && (
-              <div className="mt-6 ">
-                <ReviewBox
-                  rating_data={rating_data}
-                  reviews={reviews}
-                  review_page={review_page}
-                />
+          {listing_details?.attributes &&
+            listing_details?.attributes.length > 0 && (
+              <div className="mt-6">
+                <AttributeDetails attributes={listing_details?.attributes} />
+              </div>
+            )}
+          {listing_details?.description !== '' && (
+            <div className="mt-6 md:hidden">
+              <DescriptionPart description={listing_details?.description} />
+            </div>
+          )}
+          {Object.keys(rating_data)?.length > 0 && (
+            <div className="mt-6">
+              <RatingBox rating_data={rating_data} />
+            </div>
+          )}
+          {reviews && reviews?.length > 0 && (
+            <div className="mt-6 ">
+              <ReviewBox
+                rating_data={rating_data}
+                reviews={reviews}
+                review_page={review_page}
+              />
 
-                <div className="mt-5 pb-12 flex justify-center ">
+              {!pageCount === 0 && (
+                <div className="mt-5   flex justify-center ">
                   <ReactPaginate
                     breakLabel="..."
                     nextLabel={
@@ -325,26 +325,34 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                     forcePage={review_page - 1}
                   />
                 </div>
-              </div>
-            )}
-
-            <div className="  c-md:hidden  mt-6">
-              <RelatedListings />
+              )}
             </div>
+          )}
 
-            {/* <div className="mt-6">
+          <div className="  c-md:hidden  mt-6">
+            <RelatedListings />
+          </div>
+
+          {/* <div className="mt-6">
 							<StoreNameBox
 								account={
 									listing_details?.account
 								}
 							/>
 						</div> */}
-            {/* <div className="mt-6">
+          {/* <div className="mt-6">
 							<ShareButtons />
 						</div> */}
-          </div>
         </div>
-      }
+      </div>
+      <div className="pb-10  flex flex-col justify-center items-center   c-md:mx-auto        c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px]  ">
+        <div className=" w-[100vw] ms:w-[400px] md:w-full   ">
+          <AccountListings
+            account_id={listing_details?.account_id}
+            account={listing_details?.account}
+          />
+        </div>
+      </div>
     </>
   );
 };

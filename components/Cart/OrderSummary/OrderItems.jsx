@@ -9,13 +9,11 @@ const OrderItems = ({ cart_details }) => {
         className="w-full  bg-[#FFFFFF] rounded-lg shadow-c-sm   overflow-hidden flex  mb-3 "
         key={item.id}
       >
-        <div className=" w-[100px] h-[100px] relative mr-3 ">
-          <Image
+        <div className="  relative mr-3 ">
+          <img
             src={getThumbnailImage(item.listing.images[0])}
-            layout="fill"
-            objectFit="cover"
+            className="w-[100px] h-[100px] object-fill"
             alt="Order Items"
-            priority={true}
           />
         </div>
         <div className=" flex flex-col justify-around py-2">
