@@ -6,14 +6,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
 import { useDispatch, useSelector } from 'react-redux';
- 
+
 import { authSelector } from '../../store/feature/authSlice';
- 
+
 import favorite from '../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../assets/Images/Home/heartIcon@3x.png';
 import ListingCard from '../Shared/Cards/ListingCard';
 import { configsSelector } from '../../store/feature/configsSlice';
-import { getSearchListings, listingLike, searchSelector } from '../../store/feature/search';
+import {
+  getSearchListings,
+  listingLike,
+  searchSelector,
+} from '../../store/feature/search';
+import { check_login } from '../../constant/check_auth';
 
 const SearchListingsItem = ({ Products }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -24,7 +29,7 @@ const SearchListingsItem = ({ Products }) => {
   const { page } = useSelector(searchSelector);
 
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id,
@@ -41,8 +46,6 @@ const SearchListingsItem = ({ Products }) => {
           );
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
   return (

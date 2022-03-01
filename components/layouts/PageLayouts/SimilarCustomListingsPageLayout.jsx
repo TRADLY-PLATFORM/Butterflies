@@ -12,6 +12,7 @@ import { configsSelector } from '../../../store/feature/configsSlice';
 import moment from 'moment';
 import tradly from 'tradly';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
+import { check_login } from '../../../constant/check_auth';
 
 const SimilarCustomListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -75,9 +76,9 @@ const SimilarCustomListingsPageLayout = () => {
     }
   }, [coordinates_listings]);
 
-  //
+  //like
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       setIsFetching(true);
       dispatch(
         listingLike({
@@ -104,8 +105,6 @@ const SimilarCustomListingsPageLayout = () => {
             });
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
 

@@ -25,6 +25,7 @@ import { homeCollections } from '../../../store/feature/homeSlice';
 
 import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
+import { check_login } from '../../../constant/check_auth';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
@@ -36,7 +37,7 @@ const Listings = ({ products }) => {
   const router = useRouter();
 
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id,
@@ -48,8 +49,6 @@ const Listings = ({ products }) => {
           dispatch(homeCollections({ authKey: auth_key }));
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
 

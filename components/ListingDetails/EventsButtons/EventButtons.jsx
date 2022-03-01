@@ -53,7 +53,7 @@ const EventButtons = ({
                     pathname: '/checkout',
                     query: { event_id: listing_details.id },
                   })
-              : router.push('/sign-in');
+              : router.push(`/sign-in?to=${router.asPath}`);
           }}
         >
           {isFetching ? (

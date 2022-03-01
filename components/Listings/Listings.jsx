@@ -15,6 +15,7 @@ import { getAllListings, listingLike, listingSelector } from '../../store/featur
 import favorite from '../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../assets/Images/Home/heartIcon@3x.png';
 import { configsSelector } from '../../store/feature/configsSlice';
+import { check_login } from '../../constant/check_auth';
  
 
 const Listings = ({ Products }) => {
@@ -28,7 +29,7 @@ const Listings = ({ Products }) => {
   const { page } = useSelector(listingSelector);
 
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id,
@@ -48,9 +49,7 @@ const Listings = ({ Products }) => {
           );
         }
       });
-    } else {
-      router.push('/sign-in');
-    }
+    }  
   };
   return (
     <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-center">

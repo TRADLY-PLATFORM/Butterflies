@@ -21,6 +21,7 @@ import heartIcon from '../../assets/Images/Home/heartIcon@3x.png';
 import ListingCard from '../Shared/Cards/ListingCard';
 import { configsSelector } from '../../store/feature/configsSlice';
 import ExploreFilter from './Filter/ExploreFilter';
+import { check_login } from '../../constant/check_auth';
 
 const NewListings = ({ Products, like_listing }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -31,7 +32,7 @@ const NewListings = ({ Products, like_listing }) => {
   const { page } = useSelector(listingSelector);
 
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       if (like_listing) {
         like_listing(id, isLiked);
       } else {
@@ -52,8 +53,6 @@ const NewListings = ({ Products, like_listing }) => {
           }
         });
       }
-    } else {
-      router.push('/sign-in');
     }
   };
   return (

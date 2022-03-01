@@ -11,13 +11,14 @@ import {
   storeSelector,
 } from '../../../store/feature/storeSlice';
 import { useRouter } from 'next/dist/client/router';
+import { check_login } from '../../../constant/check_auth';
 
 const Accounts2 = ({ accounts }) => {
   const { login, auth_key } = useSelector(authSelector);
   const router = useRouter();
   const dispatch = useDispatch();
   const follow = (id, isFollow) => {
-    if (login) {
+    if (check_login(router)) {
       tradly.app
         .followUnfollowAccounts({
           id,
@@ -38,8 +39,6 @@ const Accounts2 = ({ accounts }) => {
             );
           }
         });
-    } else {
-      router.push('/sign-in');
     }
   };
 

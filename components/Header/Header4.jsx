@@ -9,11 +9,12 @@ import HeaderProfile from '../HeaderProfileBox/HeaderProfile3';
 import StoreButton from '../StoreButton/StoreButton';
 import SearchBox from '../SearchBox/SearchBox';
 import CustomSearchBox from '../SearchBox/CustomSearchBox';
+import { useRouter } from 'next/dist/client/router';
 
 function Header4() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [top, setTop] = useState(true);
-
+  const router = useRouter();
   const trigger = useRef(null);
   const mobileNav = useRef(null);
 
@@ -184,7 +185,7 @@ function Header4() {
             ) : (
               <ul className="flex flex-grow justify-end flex-wrap items-center">
                 <li>
-                  <Link href="/sign-in">
+                  <Link href={`/sign-in?to=${router.asPath}`}>
                     <a className="font-medium text-gray-800 hover:text-primary px-5 py-3 flex items-center transition duration-150 ease-in-out">
                       Sign in
                     </a>
@@ -326,7 +327,7 @@ function Header4() {
                   {!login && (
                     <>
                       <li>
-                        <Link href="/sign-in">
+                        <Link href={`/sign-in?to=${router.asPath}`}>
                           <a className="flex font-medium w-full text-gray-800 hover:text-primary py-2 justify-center">
                             Sign in
                           </a>

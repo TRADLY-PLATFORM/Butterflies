@@ -22,6 +22,7 @@ import {
   listingDetails,
 } from '../../../store/feature/listingSlice';
 import { useRouter } from 'next/dist/client/router';
+import { check_login } from '../../../constant/check_auth';
 
 const ReviewBox = ({ rating_data, reviews, review_page }) => {
   const { auth_key, login } = useSelector(authSelector);
@@ -31,7 +32,7 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
  
 
   const helpful_review = (id, status) => {
-    if (login) {
+    if (check_login(router)) {
       tradly.app
         .likeReview({
           authKey: auth_key,
@@ -66,9 +67,7 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
         .catch((error) => {
           alert(error.message);
         });
-    } else {
-      router.push('/sign-in');
-    }
+    }  
   };
 
   const [show_moe_review, setShow_more_review] = useState(false);

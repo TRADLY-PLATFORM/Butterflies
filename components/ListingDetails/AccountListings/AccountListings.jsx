@@ -26,6 +26,7 @@ import { authSelector } from '../../../store/feature/authSlice';
 import ListingCard from '../../Shared/Cards/ListingCard';
 import { listingLike } from '../../../store/feature/listingSlice';
 import Link from 'next/link';
+import { check_login } from '../../../constant/check_auth';
 
 const AccountListings = ({ account_id, account }) => {
   const router = useRouter();
@@ -48,7 +49,7 @@ const AccountListings = ({ account_id, account }) => {
 
   // Button Handle
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id: id,
@@ -69,8 +70,6 @@ const AccountListings = ({ account_id, account }) => {
             });
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
 
@@ -117,8 +116,8 @@ const AccountListings = ({ account_id, account }) => {
             <div className="h-8 bg-[#3B3269] bg-opacity-[20%] rounded  w-28"></div>
             <div className="h-8 bg-[#3B3269] bg-opacity-[20%] rounded w-28"></div>
           </div>
-          <div className="animate-pulse mt-4  grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">
-            <div className="w-full  min-h-[210px]">
+          <div className="animate-pulse mt-4  ">
+            <div className="w-full  min-h-[210px] grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">
               <div className="w-[190px] h-[220px] bg-[#3B3269] bg-opacity-[20%] rounded  "></div>
               <div className="w-[190px] h-[220px] bg-[#3B3269] bg-opacity-[20%] rounded  "></div>
               <div className="w-[190px] h-[220px] bg-[#3B3269] bg-opacity-[20%] rounded  "></div>

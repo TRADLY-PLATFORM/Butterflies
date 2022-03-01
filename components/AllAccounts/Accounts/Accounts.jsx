@@ -12,6 +12,7 @@ import {
 } from '../../../store/feature/storeSlice';
 import { useRouter } from 'next/dist/client/router';
 import AccountCard from '../../Shared/Cards/AccountCard';
+import { check_login } from '../../../constant/check_auth';
 
 
 const Accounts = ({ accounts }) => {
@@ -19,7 +20,7 @@ const Accounts = ({ accounts }) => {
   const router = useRouter()
     const dispatch=useDispatch()
     const follow = (id, isFollow) => {
-      if (login) {
+      if (check_login(router)) {
         tradly.app
           .followUnfollowAccounts({
             id,
@@ -28,17 +29,19 @@ const Accounts = ({ accounts }) => {
           })
           .then((res) => {
             if (!res.code) {
-             dispatch(
-               get_all_accounts({
-                 bodyParam: { page: router.query.page, type: 'accounts', per_page: 30 },
-                 authKey: auth_key,
-               })
-             );
+              dispatch(
+                get_all_accounts({
+                  bodyParam: {
+                    page: router.query.page,
+                    type: 'accounts',
+                    per_page: 30,
+                  },
+                  authKey: auth_key,
+                })
+              );
             }
           });
-      } else {
-        router.push('/sign-in');
-      }
+      }  
     };
 
   return (

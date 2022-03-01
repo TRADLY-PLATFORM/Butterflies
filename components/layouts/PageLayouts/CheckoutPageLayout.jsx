@@ -83,9 +83,7 @@ const CheckoutPageLayout = () => {
           authKey: auth_key,
         })
       );
-    } else {
-      // router.push("/sign-in")
-    }
+    }  
   }, [auth_key, dispatch, login, router, currencies]);
 
   const {

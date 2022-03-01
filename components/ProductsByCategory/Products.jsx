@@ -19,6 +19,7 @@ import {
 	categorySelector,
 } from "../../store/feature/categorySlice";
 import { configsSelector } from "../../store/feature/configsSlice";
+import { check_login } from "../../constant/check_auth";
 
 const Products = ({ Products }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -29,31 +30,28 @@ const Products = ({ Products }) => {
 	const { page } = useSelector(categorySelector);
  
 	const like = (id, isLiked) => {
-		if (login) {
-			dispatch(
-				listingLike({
-					id,
-					isLiked,
-					authKey: auth_key,
-				})
-			).then((res) => {
-				if (!res.payload.code) {
-					dispatch(
-						categoryListings({
-							prams: {
-								page,
-								per_page: 20,
-								category_id:
-									router.query.id,
-							},
-							authKey: auth_key,
-						})
-					);
-				}
-			});
-		} else {
-			router.push("/sign-in");
-		}
+		if (check_login(router)) {
+      dispatch(
+        listingLike({
+          id,
+          isLiked,
+          authKey: auth_key,
+        })
+      ).then((res) => {
+        if (!res.payload.code) {
+          dispatch(
+            categoryListings({
+              prams: {
+                page,
+                per_page: 20,
+                category_id: router.query.id,
+              },
+              authKey: auth_key,
+            })
+          );
+        }
+      });
+    }  
 	};
 	return (
     <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-center">

@@ -100,8 +100,6 @@ const EventCheckoutPageLayout = () => {
 
       dispatch(paymentMethods({ authKey: auth_key }));
       dispatch(EphemeralKey({ authKey: auth_key }));
-    } else {
-      // router.push("/sign-in")
     }
   }, [auth_key, dispatch, login, router, currencies]);
 
