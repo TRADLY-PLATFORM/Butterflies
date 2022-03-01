@@ -30,7 +30,7 @@ const ShippingMethod = ({
   };
 
   return shipping_methods ? (
-    <div className=" w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px] ">
+    <div className=" w-full min-h-[100px] bg-[#FEFEFE] rounded-lg py-6 md:py-8  px-4 md:px-9 ">
       <p className="text-primary text-xl leading-6 font-medium ">
         Shipping Method
       </p>

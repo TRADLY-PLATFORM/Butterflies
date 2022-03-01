@@ -82,7 +82,7 @@ const ProductButtons = ({ listing_details, selectedVariant }) => {
       )}
       {isFetching && <CustomLoading />}
 
-      <div className=" w-full flex justify-between items-center">
+      <div className=" w-full  flex justify-between items-center">
         <button
           className="   w-[45%]  h-[44px] md:h-[52px]  flex justify-center items-center border border-primary rounded-lg box-border  "
           onClick={() =>

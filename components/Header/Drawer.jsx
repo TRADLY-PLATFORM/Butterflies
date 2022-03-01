@@ -36,12 +36,10 @@ const Drawer = () => {
       <div className="    left-0 right-0    flex-col  justify-center     mb-2">
         {logo && (
           <Link href="/" passHref={true}>
-            <a className=" block flex items-center   relative cursor-pointer py-4">
-              <Image
+            <a className=" w-auto block px-2      cursor-pointer py-4">
+              <img
                 src={logo}
-                height={44}
-                width={250}
-                objectFit="contain"
+                className="   h-[50px] object-contain"
                 alt="logo"
               />
             </a>
@@ -73,8 +71,8 @@ const Drawer = () => {
               >
                 <div
                   className={[
-                    'w-full h-12 flex   items-center     cursor-pointer  hover:bg-primary_light mb-1',
-                    router?.query?.name === item.name ? 'bg-primary_light' : '',
+                    'w-full h-12 flex   items-center     cursor-pointer  hover:bg-secondary mb-1',
+                    router?.query?.name === item.name ? 'bg-secondary' : '',
                   ].join(' ')}
                 >
                   <p

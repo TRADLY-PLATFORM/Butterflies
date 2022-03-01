@@ -61,20 +61,15 @@ const Footer = () => {
         <div className=" col-span-2 md:col-span-1">
           {logo && (
             <Link href="/" passHref={true}>
-              <a className=" block w-[180px] h-[50px] relative">
-                <Image
-                  src={getThumbnailImage(logo)}
-                  layout="fill"
-                  objectFit="contain"
-                  alt="logo"
-                />
+              <a className=" block   relative">
+                <img src={logo} className=" block h-[50px]    " alt="logo" />
               </a>
             </Link>
           )}
 
           {general_configs?.android_app_download_link && (
             <Link href={general_configs?.android_app_download_link}>
-              <a className=" block mt-4 ml-3" target="_blank">
+              <a className=" block mt-4 " target="_blank">
                 <button className=" text-base text-[#4F4F4F] font-medium rounded-lg overflow-hidden">
                   <Image
                     src={googleplayImage}
@@ -89,8 +84,8 @@ const Footer = () => {
           )}
 
           {Object.keys(social_configs)?.length > 0 && (
-            <div className="mt-4 ml-3">
-              <h2 className="text-base font-semibold pb-4">
+            <div className="mt-4 ">
+              <h2 className="text-lg font-semibold pb-4">
                 Follow us on social media
               </h2>
               <div className="flex items-center gap-3">
@@ -130,7 +125,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <p className=" text-base font-semibold pb-4">Categories</p>
+          <p className=" text-base md:text-lg font-semibold pb-4">Categories</p>
           {allCategories?.map((item, index, array) => {
             if (array.length > 3) {
               if (index < 3) {
@@ -319,7 +314,7 @@ const Footer = () => {
           })}
         </div> */}
         <div>
-          <p className=" text-base font-semibold pb-4">Links</p>
+          <p className=" text-base md:text-lg font-semibold pb-4">Links</p>
           {general_configs?.terms_url && (
             <Link href={general_configs?.terms_url}>
               <a className=" block    pb-4" target="_blank">

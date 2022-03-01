@@ -74,7 +74,7 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
   const [show_moe_review, setShow_more_review] = useState(false);
 
   return (
-    <div className=" bg-white rounded  w-full min-h-[66px] p-4">
+    <div className=" bg-white rounded  w-full min-h-[66px] p-4 shadow-c-sm">
       <p className="text-black text-base font-medium">
         {' '}
         Review {`(${rating_data.review_count})`}
@@ -85,7 +85,7 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
             <div
               key={index}
               className={[
-                'min-h-[200px] p-4  rounded-md shadow-c-md my-3',
+                'min-h-[200px] p-4 rounded-md shadow-c-md my-3',
                 array.length > 1 && !show_moe_review && index + 1 !== 1
                   ? 'hidden'
                   : 'block',

@@ -62,7 +62,7 @@ const CustomFooter = () => {
             <Link href="/" passHref={true}>
               <a className=" block w-[180px] h-[50px] relative">
                 <Image
-                  src={getThumbnailImage(logo)}
+                  src={logo}
                   layout="fill"
                   objectFit="contain"
                   alt="logo"

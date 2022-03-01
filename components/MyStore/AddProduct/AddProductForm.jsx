@@ -19,10 +19,12 @@ import VariantsPart from './Variants/VariantsPart';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
 import tradly from 'tradly';
+import Markdown_Editor from '../../Shared/MarkdownEditor';
+import Attribute3 from './Attribute3';
 
 const AddProductForm = () => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(' ');
   const [price, setPrice] = useState(0);
   const [shippingCharge, setShippingCharge] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -95,6 +97,7 @@ const AddProductForm = () => {
     }
   };
 
+  // image upload
   const imageUpload = async (e) => {
     if (e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -142,6 +145,9 @@ const AddProductForm = () => {
     setShowError(false);
     setError_message('');
   };
+
+  console.log(imagePath);
+
   return (
     <>
       {(showError || isError) && (
@@ -154,7 +160,7 @@ const AddProductForm = () => {
           }}
         >
           <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-            <div className="w-full  xs:w-[500px] mx-auto">
+            <div className="w-4/6  xs:w-[500px] mx-auto">
               <PopUp
                 message={error_message || errorMessage}
                 closePopUP={closePopUP}
@@ -163,8 +169,8 @@ const AddProductForm = () => {
           </div>
         </OutsideClickHandler>
       )}
-      <div className=" w-full pt-2  pb-[100px] flex items-center  flex-col gap-8 md:gap-2   c-lg:flex-row justify-center c-lg:items-start  ">
-        <div className=" w-full  xs:w-[500px]  c-lg:w-[450px] xl:w-[500px]  2xl:w-[600px] ">
+      <div className=" w-full pt-2  pb-[100px] flex flex-col  c-lg:flex-row items-center   justify-center    c-lg:items-start   gap-8 md:gap-2 ">
+        <div className=" w-full  c-lg:w-[60%]  ">
           <h3 className=" font-semibold text-[#121212] text-xl mb-4">
             Listing Details
           </h3>
@@ -179,20 +185,18 @@ const AddProductForm = () => {
                 placeholder=""
                 onChange={(e) => imageUpload(e)}
               />
-              <div className="flex justify-start items-center">
-                {imagePath !== null &&
+              <div className="flex justify-start items-center flex-wrap gap-2">
+                {imagePath.length !== 0 &&
                   imagePath?.map((singleImage) => {
                     return (
                       <div
                         key={singleImage.id}
-                        className=" relative w-[100px] mt-4 mr-3"
+                        className=" relative w-[100px] "
                       >
-                        <Image
+                        <img
                           src={singleImage.path}
                           alt="store image"
-                          width={100}
-                          height={100}
-                          objectFit="cover"
+                          className="w-[100px] h-[100px]  object-cover shadow-c-xsm"
                         />
                         <button
                           className=" absolute -top-2 -right-2 text-primary "
@@ -247,18 +251,10 @@ const AddProductForm = () => {
             </label>
             <label className="block">
               <span className="text-gray-700">Listing Description</span>
-              <textarea
-                className="
-                    mt-0
-                    block
-                    w-full
-                    px-0.5
-                    border-0 border-b-2 border-gray-200 transition  duration-700
-                    focus:ring-0 focus:border-primary
-                  "
-                rows="3"
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
+              <Markdown_Editor
+                oldValue={description}
+                setMarkdownValue={setDescription}
+              />
             </label>
 
             {listing_configs?.listing_address_enabled && (
@@ -410,7 +406,7 @@ const AddProductForm = () => {
               </select>
             </label>
             <div>
-              <Attribute
+              <Attribute3
                 attributeData={attributeData}
                 setAttributeData={setAttributeData}
               />
@@ -433,7 +429,7 @@ const AddProductForm = () => {
           )}
         </div>
         {marketplace_type === 2 && (
-          <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full  xs:w-[500px] c-lg:w-[380px]  xl:w-[438px]">
+          <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full c-lg:w-[30%]  ">
             <h3 className=" font-semibold text-[#121212] text-xl mb-4">
               Date & Time
             </h3>{' '}
@@ -446,7 +442,7 @@ const AddProductForm = () => {
           </div>
         )}
 
-        <div className="  relative  mt-10 md:mt-0  md:fixed w-full h-[80px] md:bg-white bottom-0 left-0 ">
+        <div className="  relative  mt-10 md:mt-0  md:fixed w-full h-[80px] md:bg-white bottom-0 left-0 md:z-[1000000]">
           <div className="h-full   flex   justify-center md:justify-end items-center ">
             <button
               className="text-white  w-5/6  md:w-[180px] h-12 rounded-md bg-primary  flex items-center justify-center  md:mr-7"

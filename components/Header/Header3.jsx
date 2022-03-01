@@ -41,25 +41,25 @@ const Header3 = () => {
         ) : (
           ''
         )}
-        <div className="   min-h-[70px] px-[25px] 2xl:px-[10%]  shadow-c-sm   bg-white top-0    overflow-x-hidden relative">
-          <div className="flex pt-[10px]  w-full">
+        <div
+          className="   min-h-[70px] px-[25px] 2xl:px-[10%]  shadow-c-sm   bg-white top-0    overflow-x-hidden relative "
+          id="header_section"
+        >
+          <div className="flex pt-[10px] min-h-[50px]  w-full">
             <div className="  absolute left-0 right-0    flex  justify-center     ">
               {logo && (
                 <Link href="/" passHref={true}>
                   <a className=" flex items-center   relative cursor-pointer ">
-                    <Image
-                      src={getThumbnailImage(logo)}
-                      height={44}
-                      width={250}
-                      objectFit="contain"
-                      alt="logo"
-                    />
+                    <img src={logo} className="h-[50px] object-contain" />
                   </a>
                 </Link>
               )}
             </div>
-            <div className="   z-[100] ml-auto">
-              <div className=" flex items-center justify-between">
+            <div className=" z-[100] ml-auto my-auto">
+              <div
+                className=" flex items-center justify-between"
+                id="header_nav_items"
+              >
                 {login && (
                   <div className="  ms:mr-2 ">
                     <Notifications />
@@ -80,11 +80,11 @@ const Header3 = () => {
               </div>
             </div>
           </div>
-          <div className="mt-3 pb-[10px] flex justify-between items-center">
-            <div>
+          <div className="mt-3 pb-[10px] flex justify-between items-center gap-4">
+            <div className="flex-grow  overflow-hidden">
               <HeaderCategories />
             </div>
-            <div>
+            <div className="flex-none">
               <SearchBox />
             </div>
           </div>
@@ -103,7 +103,7 @@ const Header3 = () => {
         )}
 
         <div className="  px-[16px] xs:px-[35px]  ">
-          <div className="flex justify-between items-center py-[16px]  relative">
+          <div className="flex justify-between items-center py-[10px]  relative">
             <div className="  flex items-center">
               <button className="outline-none" onClick={drawerOpen}>
                 <svg
@@ -124,11 +124,9 @@ const Header3 = () => {
               {logo && (
                 <Link href="/" passHref={true}>
                   <a>
-                    <Image
+                    <img
                       src={logo}
-                      height={44}
-                      width={150}
-                      objectFit="contain"
+                      className="  h-[50px]  object-contain"
                       alt="logo"
                     />
                   </a>
@@ -137,14 +135,14 @@ const Header3 = () => {
             </div>
             <div className=" flex items-center justify-between">
               {login && (
-                <div className="  ms:mr-2 ">
+                <div className="  mr-3 ">
                   <Notifications />
                 </div>
               )}
-              <div className=" hidden   sm:block  ms:mr-2 ">
+              <div className="   mr-3 ">
                 <StoreButton />
               </div>
-              <div className=" ms:mr-2  ">
+              <div className=" mr-3  ">
                 <WishListButton />
               </div>
               <div className="relative">

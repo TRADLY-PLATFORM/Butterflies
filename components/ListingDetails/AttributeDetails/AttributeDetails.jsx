@@ -3,7 +3,7 @@ import React from 'react';
 
 const AttributeDetails = ({ attributes }) => {
   return (
-    <div className=" bg-white rounded  w-full min-h-[66px]    p-[16px]     ">
+    <div className=" bg-white rounded  w-full min-h-[66px]    p-[16px] shadow-c-sm    ">
       <p className="text-[#121212] text-sm  font-semibold leading-4 ">
         Details
       </p>
@@ -11,9 +11,7 @@ const AttributeDetails = ({ attributes }) => {
         {attributes?.map((attr) => {
           return (
             <div className="grid grid-cols-2  my-2 " key={attr.id}>
-              <p className="ml-2  text-base font-medium text-black">
-                {attr.name}
-              </p>
+              <p className="   text-base font-medium text-black">{attr.name}</p>
               <p className="text-base font-medium text-default_gray">
                 {attr.values
                   .map((item) => {

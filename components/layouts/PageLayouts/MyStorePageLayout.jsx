@@ -25,7 +25,7 @@ const MyStorePageLayout = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (auth_key) {
+    if (auth_key && user_details) {
       dispatch(
         myStore({
           prams: {

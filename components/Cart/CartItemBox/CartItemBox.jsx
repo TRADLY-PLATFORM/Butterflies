@@ -117,10 +117,10 @@ const CartItemBox = ({ cart, cart_details }) => {
       {cart_details.map((cartItem) => {
         return (
           <div
-            className=" w-full border border-primary rounded-lg px-[24px] py-[16px] grid  grid-cols-[100%] justify-between lg:grid-cols-[60%,35%]  mb-4"
+            className=" w-full border border-primary rounded-lg px-[24px] py-[16px] flex items-center  mb-4"
             key={cartItem.id}
           >
-            <div>
+            <div className="flex-grow">
               {listings_configs?.enable_stock && (
                 <p className=" text-xs  font-semibold leading-6 text-primary">
                   {cartItem.listing.stock} products in stock
@@ -129,6 +129,12 @@ const CartItemBox = ({ cart, cart_details }) => {
               <p className=" text-base text-black font-semibold mt-[2px]">
                 {cartItem.listing.title}
               </p>
+              {!cartItem.listing?.account.name && (
+                <p className=" mt-[8px] text-default_gray text-xs font-medium flex flex-wrap items-center">
+                  {' '}
+                  by {cartItem.listing?.account.name}
+                </p>
+              )}
               <p className=" mt-[11px] text-default_gray text-xs font-medium flex flex-wrap items-center">
                 <span className=" text-xs leading-6 font-medium text-default_gray mr-2">
                   {cartItem.listing.list_price.currency}
@@ -138,7 +144,7 @@ const CartItemBox = ({ cart, cart_details }) => {
                 </span>
               </p>
             </div>
-            <div className=" w-full mt-6 lg:mt-0  flex items-center justify-around">
+            <div className="  flex-none   flex   items-center  gap-3">
               <div className="  min-w-[90px] h-[32px] border border-primary rounded-[2px]  flex justify-between items-center ">
                 <button
                   onClick={() =>
@@ -168,7 +174,7 @@ const CartItemBox = ({ cart, cart_details }) => {
                   +
                 </button>
               </div>
-              <div className="ml-6">
+              <div className=" ">
                 <button
                   className="w-[32px] h-[32px] bg-primary   flex justify-center items-center text-xl leading-6 font-medium  text-white  rounded"
                   onClick={() => delete_cart(cartItem.listing.id)}

@@ -86,11 +86,13 @@ const HeaderCategories = () => {
                       : '',
                   ].join(' ')}
                 >
-                  {item.name === 'More'
+                  {item.name }
+
+                     {/* {item.name === 'More'
                     ? item.name
                     : item.name.length > 12
                     ? item.name.substring(0, 11)+'.'
-                    : item.name}
+                    : item.name} */}
                 </p>
               </a>
             </Link>

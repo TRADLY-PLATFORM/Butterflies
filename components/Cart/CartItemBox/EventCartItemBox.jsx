@@ -83,8 +83,8 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
         </OutsideClickHandler>
       )}
 
-      <div className=" w-full border border-primary rounded-lg px-[24px] py-[16px] grid  grid-cols-[100%] justify-between lg:grid-cols-[60%,35%]  mb-4">
-        <div>
+      <div className=" w-full border border-primary rounded-lg px-[24px] py-[16px]  flex items center gap-3">
+        <div className=' flex-grow'>
           {listings_configs?.enable_stock && (
             <p className=" text-xs  font-semibold leading-6 text-primary">
               {`${
@@ -99,6 +99,9 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
               ? listing_details.title
               : selecte_varient_details[0].title}
           </p>
+          <p className=" mt-[8px] text-default_gray text-xs font-medium  ">
+            by {listing_details?.account.name}
+          </p>
           <p className=" mt-[11px] text-default_gray text-xs font-medium flex flex-wrap items-center">
             <span className=" text-xs leading-6 font-medium text-default_gray mr-2">
               {!variant_id
@@ -112,7 +115,7 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
             </span>
           </p>
         </div>
-        <div className=" w-full mt-6 lg:mt-0  flex items-center justify-around">
+        <div className=" flex-none mt-6 lg:mt-0  flex items-center justify-around">
           <div className="  min-w-[90px] h-[32px] border border-primary rounded-[2px]  flex justify-between items-center ">
             <button
               onClick={() => updateCartQuantity(false)}

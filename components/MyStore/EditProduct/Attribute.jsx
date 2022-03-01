@@ -8,12 +8,28 @@ import { storeSelector } from '../../../store/feature/storeSlice';
 const Attribute = ({ attributeData, setAttributeData }) => {
   const { attributes } = useSelector(storeSelector);
 
- 
   const { my_account_listing_details } = useSelector(storeSelector);
 
- 
   // statte
   const [file, setFile] = useState(null);
+  const [oldfile, setOldFile] = useState(null);
+
+  //
+  useEffect(() => {
+    attributes?.map((attr) => {
+      if (attr.field_type === 5) {
+        attributeData?.map((it) => {
+          if (attr.id == it.id) {
+            if (oldfile === null) {
+               setOldFile([{ id: it.id, values: it.values[0] }]);
+            } else {
+             setOldFile([{ id: it.id, values: it.values[0] }, ...oldfile]);
+            }
+          }
+        });
+      }
+    });
+  }, [attributes, attributeData]);
 
   // functions
 
@@ -92,13 +108,11 @@ const Attribute = ({ attributeData, setAttributeData }) => {
         }
       }
     } else if (attribute_field_type === 2 || attribute_field_type === 4) {
-       
       if (attributeData !== null) {
         if (
           !actionMeta.action === 'remove-value' ||
           !actionMeta.action === 'clear'
         ) {
-         
           const check = attributeData.find((attr) => attr?.id === attribute_id);
           if (check === undefined) {
             if (attribute_field_type === 2) {
@@ -205,7 +219,6 @@ const Attribute = ({ attributeData, setAttributeData }) => {
             if (elementi?.id === elementj) {
               finding.push(elementi);
               if (finding.length === elementy.values.length) {
-                
                 return finding;
               }
             }
@@ -228,13 +241,14 @@ const Attribute = ({ attributeData, setAttributeData }) => {
           };
           finding.push(changeElementj);
           if (finding.length === elementy.values.length) {
-             
             return finding;
           }
         }
       }
     }
   };
+
+ 
 
   return (
     <>
@@ -329,7 +343,8 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                     {attr.name}
                   </label>
                   <CreatableSelect
-                    className="mt-3"
+                    className="mt-3  "
+                    components={{ LoadingIndicator: null }}
                     placeholder={'Type your' + ' ' + attr.name}
                     onChange={(newValue, actionMeta) => {
                       handleChange(
@@ -379,7 +394,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                 </div>
               )}
               {attr.field_type === 5 &&
-                (file === null ? (
+                (file === null && oldfile === null ? (
                   <div className="mt-6">
                     <div>
                       <div className=" h-0 overflow-hidden">
@@ -413,7 +428,7 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                       </button>
                     </div>
                   </div>
-                ) : (
+                ) : !oldfile ? (
                   <div className=" mt-5 grid grid-cols-[20%,70%,10%;] xs:grid-cols-[10%,70%,20%] items-center px-[10px] py-[5px] border-2 border-primary rounded-md">
                     <div>
                       <svg
@@ -438,6 +453,52 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                     <div
                       className="flex justify-end cursor-pointer"
                       onClick={() => setFile(null)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                ) : (
+                  <div className=" mt-5 grid grid-cols-[20%,70%,10%;] xs:grid-cols-[10%,70%,20%] items-center px-[10px] py-[5px] border-2 border-primary rounded-md">
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-9 w-9"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                    <div className=" flex flex-col text-base  ">
+                      {/* <span>{oldfile.split('/').reverse()[0]}</span> */}
+                    </div>
+                    <div
+                      className="flex justify-end cursor-pointer"
+                      onClick={() => {
+                        setAttributeData(
+                          attributeData.filter((at) => at.id !== attr.id)
+                        ),
+                          setOldFile(null);
+                      }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

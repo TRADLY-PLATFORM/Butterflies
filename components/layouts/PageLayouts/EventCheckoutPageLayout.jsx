@@ -119,6 +119,13 @@ const EventCheckoutPageLayout = () => {
 
   const { listing_details } = useSelector(listingSelector);
 
+  useEffect(() => {
+    if (payment_methods && paymentMethod == null) {
+      setPaymentMethod(payment_methods[0]);
+    }
+  }, [payment_methods]);
+
+  // checkout function
   const clickCheckOut = () => {
     if (
       listing_details?.schedules.length > 0 &&
@@ -195,12 +202,12 @@ const EventCheckoutPageLayout = () => {
     }
   };
 
+  // close popup message
   const closePopUP = () => {
     dispatch(clearCartState());
     setShowError(false);
     setError_message('');
   };
-
 
   return (
     <>
@@ -238,7 +245,7 @@ const EventCheckoutPageLayout = () => {
 
       <div className="   mx-auto w-full    sm:px-8 md:px-0 flex  flex-col justify-center c-md:flex-row c-md:justify-between    c-md:max-w-[824px]  lg:max-w-[1000px]  ">
         <div className="   c-md:w-[400px] lg:w-[600px] ">
-          <div className="bg-[#FEFEFE] rounded-lg py-12 px-9">
+          <div className="bg-[#FEFEFE] rounded-lg  py-6 md:py-12  px-4 md:px-9">
             {/* <CartItemBox cart={cart} cart_details={cart_details} /> */}
             <EventCartItemBox
               listing_details={listing_details}
@@ -262,11 +269,13 @@ const EventCheckoutPageLayout = () => {
           )}
 
           <div className="mt-6">
-            <PaymentMethod
-              payment_methods={payment_methods}
-              paymentMethod={paymentMethod}
-              setPaymentMethod={setPaymentMethod}
-            />
+            {payment_methods?.length > 1 && (
+              <PaymentMethod
+                payment_methods={payment_methods}
+                paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}
+              />
+            )}
           </div>
         </div>
         <div className=" mt-6 c-md:mt-0 c-md:w-[400px] lg:w-[380px]">
