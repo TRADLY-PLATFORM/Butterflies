@@ -169,7 +169,7 @@ const AddProductForm = () => {
           </div>
         </OutsideClickHandler>
       )}
-      <div className=" w-full pt-2  pb-[100px] flex  items-center gird-cols gap-8 md:gap-2   c-lg:grid-row  c-lg:items-start  justify-center ">
+      <div className=" w-full pt-2  pb-[100px] flex flex-col  c-lg:flex-row items-center   justify-center    c-lg:items-start   gap-8 md:gap-2 ">
         <div className=" w-full  c-lg:w-[60%]  ">
           <h3 className=" font-semibold text-[#121212] text-xl mb-4">
             Listing Details
@@ -255,7 +255,6 @@ const AddProductForm = () => {
                 oldValue={description}
                 setMarkdownValue={setDescription}
               />
-               
             </label>
 
             {listing_configs?.listing_address_enabled && (

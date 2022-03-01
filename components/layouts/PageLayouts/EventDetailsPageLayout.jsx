@@ -194,7 +194,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
       )}
 
       <div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  md:pt-[20px]  pb-6  c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
-        <div className=" w-screen ms:w-[400px] lg:w-[500px] xl:w-[600px]">
+        <div className=" w-screen top-0 ms:w-[400px] lg:w-[500px] xl:w-[600px]">
           <div>
             <ImagePart images={listing_details?.images} />
           </div>
