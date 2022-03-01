@@ -142,11 +142,7 @@ const Notifications = () => {
                                 />
                               )}
                             </div>
-<<<<<<< HEAD
-                            <div className=''>
-=======
                             <div>
->>>>>>> e51d4d791bd2acf1c287c8e30a0aabdccd411194
                               <h2 className=" text-sm font-semibold text-[#050505]">
                                 {account_follow_notification_text(
                                   nt?.user?.first_name
