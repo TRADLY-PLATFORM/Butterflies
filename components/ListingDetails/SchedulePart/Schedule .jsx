@@ -94,7 +94,7 @@ const Schedule = ({ schedules }) => {
           </OutsideClickHandler>
         </Modal>
       )}
-      <div className=" bg-white rounded  w-full min-h-[66px] flex   justify-between  p-[16px]  ">
+      <div className=" bg-white rounded  w-full min-h-[66px] flex   justify-between  p-[16px]  shadow-c-sm ">
         <div className="flex">
           <div className="flex justify-start items-start">
             <svg

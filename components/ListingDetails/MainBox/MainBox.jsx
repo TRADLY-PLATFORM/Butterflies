@@ -12,16 +12,16 @@ const MainBox = ({ listing_details, rating_data, like }) => {
   const { marketplace_type, listings_configs } = useSelector(configsSelector);
 
   return listing_details !== null ? (
-    <div className=" w-full  min-h-[200px] bg-white rounded  p-[25px] relative">
+    <div className=" w-full  min-h-[100px] bg-white rounded  p-[25px] relative shadow-c-sm">
       <div className=" w-5/6 ">
         {listings_configs?.enable_stock && (
           <p className=" text-sm text-primary font-medium">
             {constant.stock_text(marketplace_type, listing_details.stock)}
           </p>
         )}
-        <h2 className=" mt-[9px] text-[20px] md:text-[30px] text-primary font-medium ">
+        <h4 className=" mt-[9px] h4 text-primary font-medium ">
           {listing_details.title}
-        </h2>
+        </h4>
         <p className=" mt-1 flex items-center flex-wrap">
           <span className="text-default_gray text-base font-medium">
             {listing_details.list_price.currency}

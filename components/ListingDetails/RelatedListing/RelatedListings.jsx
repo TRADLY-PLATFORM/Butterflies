@@ -31,68 +31,7 @@ const RelatedListings = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { auth_key, login } = useSelector(authSelector);
-  const events = [
-    {
-      image: image1,
-      time: '15 hours ago',
-      name: 'Yoga Class For beginner',
-      price: 'Starting at ‘500',
-      store_name: 'Name Here',
-      follower: '4.5k Followers ',
-      city: 'Indonesia',
-      in_like: true,
-    },
-    {
-      image: image2,
-      time: '15 hours ago',
-      name: 'Explore Jakarta',
-      price: 'Starting at ‘500',
-      store_name: 'Name Here',
-      follower: '4.5k Followers ',
-      city: 'Indonesia',
-      in_like: false,
-    },
-    {
-      image: image3,
-      time: '15 hours ago',
-      name: 'Webinar Startup Industries',
-      price: 'Starting at ‘500',
-      store_name: 'Name Here',
-      follower: '4.5k Followers ',
-      city: 'Indonesia',
-      in_like: true,
-    },
-    {
-      image: image1,
-      time: '15 hours ago',
-      name: 'Yoga Class For beginner',
-      price: 'Starting at ‘500',
-      store_name: 'Name Here',
-      follower: '4.5k Followers ',
-      city: 'Indonesia',
-      in_like: true,
-    },
-    {
-      image: image2,
-      time: '15 hours ago',
-      name: 'Explore Jakarta',
-      price: 'Starting at ‘500',
-      store_name: 'Name Here',
-      follower: '4.5k Followers ',
-      city: 'Indonesia',
-      in_like: false,
-    },
-    {
-      image: image3,
-      time: '15 hours ago',
-      name: 'Webinar Startup Industries',
-      price: 'Starting at ‘500',
-      store_name: 'Name Here',
-      follower: '4.5k Followers ',
-      city: 'Indonesia',
-      in_like: true,
-    },
-  ];
+   
   const [related_listings, setRelated_listings] = useState(null);
   useEffect(() => {
     tradly.app
@@ -145,9 +84,9 @@ const RelatedListings = () => {
     <>
       {related_listings !== null ? (
         related_listings?.length > 0 && (
-          <div className="w-full h-[400px] p-[19px] bg-[#FFFFFF]">
+          <div className="w-full h-[400px] p-[19px] bg-[#FFFFFF] rounded-md shadow-c-sm">
             <div className=" flex justify-between items-center">
-              <p className=" text-2xl font-normal  text-[#222222] ">
+              <p className=" caption font-semibold  text-[#222222] ">
                 You may also like
               </p>
               <Link

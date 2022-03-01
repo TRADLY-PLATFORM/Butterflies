@@ -30,17 +30,13 @@ const CustomImagePart = ({ images }) => {
         >
           {images?.map((image, i) => {
             return (
-              <SwiperSlide
-                key={i}
-                className="  w-full aspect-w-1 aspect-h-1 relative bg-white"
-              >
-                <div className=" aspect-w-1 aspect-h-1relative rounded-lg shadow-c-xsm overflow-hidden  ">
-                  <Image
+              <SwiperSlide key={i} className="    relative bg-white">
+                <div className="  ">
+                  <img
                     src={image}
                     alt="details image"
                     layout="fill"
-                    objectFit="cover"
-                    priority={true}
+                    className=" w-full relative  rounded-md overflow-hidden  shadow-c-sm object-cover "
                   />
                 </div>
               </SwiperSlide>

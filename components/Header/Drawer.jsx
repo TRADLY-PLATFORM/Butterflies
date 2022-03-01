@@ -39,7 +39,7 @@ const Drawer = () => {
             <a className=" w-auto block px-2      cursor-pointer py-4">
               <img
                 src={logo}
-                className=" w-[60px] h-[60px] object-contain"
+                className="   h-[50px] object-contain"
                 alt="logo"
               />
             </a>

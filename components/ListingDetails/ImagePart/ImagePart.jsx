@@ -1,57 +1,58 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React from 'react';
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css";
-import "swiper/components/navigation/navigation.min.css";
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/components/navigation/navigation.min.css';
 
 // import Swiper core and required modules
-import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
-import Image from "next/image"; // install Swiper modules
+import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
+import Image from 'next/image'; // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const ImagePart = ({ images }) => {
-	return (
-		<div className=" w-[100%]  ms:w-[400px] ms:h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] ">
-			{images ? (
-				<Swiper
-					spaceBetween={30}
-					centeredSlides={true}
-					autoplay={{
-						delay: 2500,
-						disableOnInteraction: false,
-					}}
-					pagination={{
-						clickable: true,
-					}}
-				>
-					{images?.map((image, i) => {
-						return (
+  return (
+    <div className=" w-[100%]  ms:w-[400px] ms:h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] ">
+      {images ? (
+        <Swiper
+          spaceBetween={30}
+          centeredSlides={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+        >
+          {images?.map((image, i) => {
+            return (
               <SwiperSlide
                 key={i}
                 className=" ms:w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] relative bg-white rounded-md overflow-hidden "
               >
-                <div className=" w-[100vw] h-[400px] ms:w-[400px] ms:h-[400px] lg:w-[500px] lg:h-[500px]  xl:w-[600px] xl:h-[600px] relative  rounded-md overflow-hidden shadow ">
-                  <Image
+                <div className="  ">
+                  <img
                     src={image}
                     alt="details image"
                     layout="fill"
+                    className="w-[100vw] h-[400px] ms:w-[400px] ms:h-[400px] lg:w-[500px] lg:h-[500px]  xl:w-[600px] xl:h-[600px] relative  rounded-md overflow-hidden  shadow-c-sm"
                     objectFit="cover"
                     priority={true}
                   />
                 </div>
               </SwiperSlide>
             );
-					})}
-				</Swiper>
-			) : (
-				<div className="w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] bg-[#3B3269] bg-opacity-[10%] animate-pulse"></div>
-			)}
-		</div>
-	);
+          })}
+        </Swiper>
+      ) : (
+        <div className="w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] bg-[#3B3269] bg-opacity-[10%] animate-pulse"></div>
+      )}
+    </div>
+  );
 };
 
 export default ImagePart;

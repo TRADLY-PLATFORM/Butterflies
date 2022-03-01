@@ -4,7 +4,7 @@ import { rating_icon } from '../../Shared/Constant/Icons/AllIcons';
 
 const RatingBox = ({ rating_data }) => {
   return (
-    <div className=" bg-white rounded  w-full min-h-[66px] px-4  py-[24px]  grid       lg:grid-cols-[45%,55%] xl:grid-cols-2  items-center justify-center ">
+    <div className=" bg-white rounded  w-full min-h-[66px] px-4  py-[24px]  grid       lg:grid-cols-[45%,55%] xl:grid-cols-2  items-center justify-center shadow-c-sm ">
       <div className="flex flex-col justify-end items-center">
         <p className=" text-black  font-semibold text-sm">
           Ratings and reviews

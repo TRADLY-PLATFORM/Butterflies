@@ -89,7 +89,7 @@ function Header4() {
                   <Link href="/" passHref={true}>
                     <a className=" flex items-center   relative cursor-pointer ">
                       <Image
-                        src={getThumbnailImage(logo)}
+                        src={logo}
                         height={50}
                         width={50}
                         objectFit="contain"

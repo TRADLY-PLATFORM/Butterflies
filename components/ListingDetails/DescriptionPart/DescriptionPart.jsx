@@ -5,11 +5,11 @@ import Editor from 'rich-markdown-editor';
 
 const DescriptionPart = ({ description }) => {
   return description !== undefined || description === '' ? (
-    <div className=" w-full  min-h-[200px] bg-[#FFFFFF] rounded-md  p-[24px]">
+    <div className=" w-full  min-h-[200px] bg-[#FFFFFF] rounded-md  p-[24px] shadow-c-sm">
       <p className="text-[#121212] text-sm  font-semibold leading-4 ">
         Description
       </p>
-      <div className="ml-2 mt-4">
+      <div className="  mt-4">
         {description && (
           <article className="prose  prose-red	">
             <Editor defaultValue={description} readOnly={true} />
