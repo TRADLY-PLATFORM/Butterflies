@@ -6,16 +6,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
 import { useDispatch, useSelector } from 'react-redux';
- 
- import ListingCard from '../../Shared/Cards/ListingCard';
+
+import ListingCard from '../../Shared/Cards/ListingCard';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { authSelector } from '../../../store/feature/authSlice';
 import { listingLike } from '../../../store/feature/search';
-import tradly from "tradly"
- 
- 
+import tradly from 'tradly';
+import { check_login } from '../../../constant/check_auth';
 
-const AccountListingsItem = ({ Products, setAccount_details ,setIsDataLoading}) => {
+const AccountListingsItem = ({
+  Products,
+  setAccount_details,
+  setIsDataLoading,
+}) => {
   const { login, auth_key } = useSelector(authSelector);
   const { marketplace_type, marketplace_module } = useSelector(configsSelector);
   // const { isSuccess } = useSelector(listingSelector);
@@ -23,7 +26,7 @@ const AccountListingsItem = ({ Products, setAccount_details ,setIsDataLoading}) 
   const router = useRouter();
 
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       setIsDataLoading(true);
       dispatch(
         listingLike({
@@ -52,8 +55,6 @@ const AccountListingsItem = ({ Products, setAccount_details ,setIsDataLoading}) 
           setIsDataLoading(false);
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
   return (

@@ -24,6 +24,7 @@ import StoreNameBox from '../../ListingDetails/StoreNameBox/StoreNameBox';
 import CustomImagePart from '../../ListingDetails/ImagePart/CustomImagePart';
 import CustomProductButton from '../../ListingDetails/ProductButtons/CustomProductButton';
 import RelatedListings from '../../ListingDetails/RelatedListing/RelatedListings';
+import { check_login } from '../../../constant/check_auth';
 
 const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -65,7 +66,7 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 
   // Button Handle
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id: id,
@@ -82,9 +83,7 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           );
         }
       });
-    } else {
-      router.push('/sign-in');
-    }
+    }  
   };
 
   const closePopUP = () => {

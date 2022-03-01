@@ -23,6 +23,7 @@ import { configsSelector } from '../../store/feature/configsSlice';
 import ExploreFilter from './Filter/ExploreFilter';
 import ListListingCard from '../Shared/Cards/ListListingCard';
 import MarkerListingCard from '../Shared/Cards/MarkerListingCard';
+import { check_login } from '../../constant/check_auth';
 
 const ListListings = ({ Products, map_view, like_listing }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -33,7 +34,7 @@ const ListListings = ({ Products, map_view, like_listing }) => {
   const { page } = useSelector(listingSelector);
 
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       if (like_listing) {
         like_listing(id, isLiked);
       } else {
@@ -54,8 +55,6 @@ const ListListings = ({ Products, map_view, like_listing }) => {
           }
         });
       }
-    } else {
-      router.push('/sign-in');
     }
   };
   return (

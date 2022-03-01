@@ -44,7 +44,12 @@ const SetPasswordForm = ({ general_configs }) => {
   const closeSuccessPopup = () => {
     setShowSuccess(false);
     setSuccess_message('');
-    router.push('/sign-in');
+
+    if (router.query.to) {
+      router.push(`/sign-in?to=${router.query.to}`);
+    } else {
+      router.push('/sign-in');
+    }
   };
 
   const clickVerify = () => {
@@ -67,7 +72,7 @@ const SetPasswordForm = ({ general_configs }) => {
       setIsLoading(false);
       return false;
     }
-    if (pass.length< 6) {
+    if (pass.length < 6) {
       setShowError(true);
       setError_message('At least  password   will 6 digit');
       setIsLoading(false);

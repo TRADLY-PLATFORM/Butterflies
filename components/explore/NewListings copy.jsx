@@ -21,6 +21,7 @@ import heartIcon from '../../assets/Images/Home/heartIcon@3x.png';
 import ListingCard from '../Shared/Cards/ListingCard';
 import { configsSelector } from '../../store/feature/configsSlice';
 import ExploreFilter from './Filter/Filter';
+import { check_login } from '../../constant/check_auth';
 
 const NewListings = ({ Products }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -31,7 +32,7 @@ const NewListings = ({ Products }) => {
   const { page } = useSelector(listingSelector);
 
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id,
@@ -42,19 +43,16 @@ const NewListings = ({ Products }) => {
         if (!res.payload.code) {
           dispatch(
             getAllListings({
-              prams:router.query,
+              prams: router.query,
               authKey: auth_key,
             })
           );
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
   return (
     <>
-   
       <div className="grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">
         {Products?.map((item) => (
           <div key={Math.random()} className=" relative">

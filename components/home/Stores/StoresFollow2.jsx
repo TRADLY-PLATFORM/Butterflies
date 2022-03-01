@@ -24,6 +24,7 @@ import { homeCollections } from '../../../store/feature/homeSlice';
 
 import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
+import { check_login } from '../../../constant/check_auth';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
@@ -34,7 +35,7 @@ const StoresForFollow2 = ({ stores }) => {
   const router = useRouter();
 
   const follow = (id, isFollow) => {
-    if (login) {
+    if (check_login(router)) {
       tradly.app
         .followUnfollowAccounts({
           id,
@@ -46,8 +47,6 @@ const StoresForFollow2 = ({ stores }) => {
             dispatch(homeCollections({ authKey: auth_key }));
           }
         });
-    } else {
-      router.push('/sign-in');
     }
   };
 

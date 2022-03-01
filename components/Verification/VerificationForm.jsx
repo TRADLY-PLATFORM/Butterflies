@@ -37,10 +37,11 @@ const VerificationForm = () => {
     setError_message('');
   };
   const closeSuccessPopUP = () => {
-     setShowSuccess(false);
+    setShowSuccess(false);
     setSuccess_message('');
   };
 
+  // resend otp
   const resendOTP = () => {
     setIs_loading(true);
     const user_data = JSON.parse(
@@ -49,13 +50,14 @@ const VerificationForm = () => {
     tradly.user.resendOTP({ data: user_data }).then((res) => {
       if (!res.error) {
         localStorage.setItem('new_user_verify_id', res.data.verify_id);
-		  setIs_loading(false);
-		  setShowSuccess(true)
-		  setSuccess_message('OTP Sent, you can check your email.');
+        setIs_loading(false);
+        setShowSuccess(true);
+        setSuccess_message('OTP Sent, you can check your email.');
       }
     });
   };
 
+  // Verify
   const verifyClick = () => {
     if (code === null) {
       setShowError(true);
@@ -80,8 +82,11 @@ const VerificationForm = () => {
       if (!res.error) {
         localStorage.removeItem('new_user_verify_id');
         localStorage.removeItem('new_user_register_data');
-
-        router.push('/');
+        if (router.query.to) {
+          router.push(router.query.to);
+        } else {
+          router.push('/');
+        }
       }
     });
   };
@@ -93,8 +98,8 @@ const VerificationForm = () => {
   //   }, [isSuccess, login, router]);
 
   return (
-	  <div className="w-full   min-h-screen  py-36">
-		  {is_loading && <CustomLoading/>}
+    <div className="w-full   min-h-screen  py-36">
+      {is_loading && <CustomLoading />}
       {(showError || isError) && (
         <OutsideClickHandler
           onOutsideClick={() => {

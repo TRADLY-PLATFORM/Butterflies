@@ -54,10 +54,16 @@ const ForgotPasswordForm = ({ general_configs }) => {
 
     dispatch(verifyUserEmail({ prams: users })).then((res) => {
       if (!res.error) {
-        router.push({
-          pathname: '/forgot-password/set-password',
-          query: { verify_id: res.payload.verify_id },
-        });
+        if (router.query.to) {
+          router.push(
+            `/forgot-password/set-password?verify_id=${res.payload.verify_id}&to=${router.query.to}`
+          );
+        } else {
+          router.push({
+            pathname: '/forgot-password/set-password',
+            query: { verify_id: res.payload.verify_id },
+          });
+        }
       }
     });
   };
@@ -138,7 +144,12 @@ const ForgotPasswordForm = ({ general_configs }) => {
           )}
         </div>
         <div className=" mt-[68px] flex justify-center items-center">
-          <Link href={'/sign-in'} passHref>
+          <Link
+            href={
+              router.query.to ? `/sign-in?to=${router.query.to}` : '/sign-in'
+            }
+            passHref
+          >
             <button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl">
               Already have an account?
               <span className="font-semibold ml-2">Login</span>

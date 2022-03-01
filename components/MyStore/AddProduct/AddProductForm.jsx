@@ -412,7 +412,7 @@ const AddProductForm = () => {
               />
             </div>
           </div>
-          {variantsType?.length > 0 && marketplace_type === 2 && (
+          {variantsType?.length > 0 && marketplace_type == 2 && (
             <>
               <h3 className=" font-semibold mt-9 text-[#121212] text-xl mb-4">
                 Variants
@@ -428,7 +428,7 @@ const AddProductForm = () => {
             </>
           )}
         </div>
-        {marketplace_type === 2 && (
+        {marketplace_type == 2 && (
           <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full c-lg:w-[30%]  ">
             <h3 className=" font-semibold text-[#121212] text-xl mb-4">
               Date & Time

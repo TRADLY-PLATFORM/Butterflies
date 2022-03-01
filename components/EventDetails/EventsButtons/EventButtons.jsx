@@ -10,6 +10,7 @@ import {
 import { authSelector } from '../../../store/feature/authSlice';
 import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../../Shared/PopUp/PopUp';
+import { check_login } from '../../../constant/check_auth';
 
 const EventButtons = ({ listing_details, selectedVariant }) => {
   const [showError, setShowError] = useState(false);
@@ -21,7 +22,7 @@ const EventButtons = ({ listing_details, selectedVariant }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const add_to_Cart = () => {
-    if (login) {
+    if (check_login(router)) {
       const cartData = {
         cart: {
           listing_id: listing_details.id,
@@ -33,8 +34,6 @@ const EventButtons = ({ listing_details, selectedVariant }) => {
           router.push('/checkout');
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
   const closePopUP = () => {
@@ -87,22 +86,20 @@ const EventButtons = ({ listing_details, selectedVariant }) => {
         className="  w-[95%]  h-[52px] bg-primary rounded-lg flex justify-center items-center "
         // onClick={add_to_Cart}
         onClick={() =>
-          login
-            ? listing_details.variants.length > 0
-              ? selectedVariant === null
-                ? (setShowError(true), setError_message('Select one ticket'))
-                : router.push({
-                    pathname: '/checkout',
-                    query: {
-                      event_id: listing_details.id,
-                      variant_id: selectedVariant,
-                    },
-                  })
+          check_login(router) && listing_details.variants.length > 0
+            ? selectedVariant === null
+              ? (setShowError(true), setError_message('Select one ticket'))
               : router.push({
                   pathname: '/checkout',
-                  query: { event_id: listing_details.id },
+                  query: {
+                    event_id: listing_details.id,
+                    variant_id: selectedVariant,
+                  },
                 })
-            : router.push('/sign-in')
+            : router.push({
+                pathname: '/checkout',
+                query: { event_id: listing_details.id },
+              })
         }
       >
         {isFetching ? (

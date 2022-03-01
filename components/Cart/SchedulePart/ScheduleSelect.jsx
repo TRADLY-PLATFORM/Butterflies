@@ -35,7 +35,7 @@ const ScheduleSelect = ({
   const { first_name } = useSelector(authSelector);
 
   return (
-    <div className="w-full bg-[#FEFEFE] rounded-lg p-[31px] min-h-[200px]">
+    <div className="w-full bg-[#FEFEFE] rounded-lg py-6 md:py-8  px-4 md:px-9 min-h-[200px]">
       <p className="text-primary text-xl leading-6 font-medium ">
         Select Date & Time
       </p>

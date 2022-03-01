@@ -26,6 +26,7 @@ import { authSelector } from '../../../store/feature/authSlice';
 import ListingCard from '../../Shared/Cards/ListingCard';
 import { listingLike } from '../../../store/feature/listingSlice';
 import Link from 'next/link';
+import { check_login } from '../../../constant/check_auth';
 
 const RelatedListings = () => {
   const router = useRouter();
@@ -50,7 +51,7 @@ const RelatedListings = () => {
 
   // Button Handle
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id: id,
@@ -75,9 +76,7 @@ const RelatedListings = () => {
             });
         }
       });
-    } else {
-      router.push('/sign-in');
-    }
+    }  
   };
 
   return (

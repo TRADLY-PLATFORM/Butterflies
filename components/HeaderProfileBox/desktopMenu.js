@@ -123,13 +123,14 @@ export const customer_menus = (
         className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group"
         onClick={() => {
           dispatch(logout({ router }));
+          window.location.reload();
         }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6    text-[#6e686e]"
           fill="none"
-          viewBox="0 0 24 24 "
+          viewBox="-2 0 24 24 "
           stroke="currentColor"
         >
           <path
@@ -258,7 +259,6 @@ export const custom_customer_menus = (
 ) => {
   return (
     <div>
-       
       <div className="w-[15px] h-[15px] bg-[#fff] absolute   right-0  transform rotate-45  -top-2  mr-4  md:mr-8 border-l border-t border-[rgba(250, 250, 250, 0.93)]  z-[50]" />
 
       <Link href="/edit-profile" passHref={true}>
@@ -356,6 +356,7 @@ export const custom_customer_menus = (
         className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group"
         onClick={() => {
           dispatch(logout({ router }));
+          window.location.reload();
         }}
       >
         <svg

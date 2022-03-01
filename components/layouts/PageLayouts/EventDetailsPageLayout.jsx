@@ -29,6 +29,7 @@ import ReactPaginate from 'react-paginate';
 import RelatedListings from '../../ListingDetails/RelatedListing/RelatedListings';
 import StoreNameBox from '../../ListingDetails/StoreNameBox/StoreNameBox';
 import AccountListings from '../../ListingDetails/AccountListings/AccountListings';
+import { check_login } from '../../../constant/check_auth';
 
 const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -100,7 +101,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 
   // Button Handle
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id: id,
@@ -117,8 +118,6 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           );
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
 

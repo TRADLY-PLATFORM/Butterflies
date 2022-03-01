@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/dist/client/router';
 import { listingDetails } from '../../../store/feature/listingSlice';
 import Link from 'next/link';
+import { check_login } from '../../../constant/check_auth';
 
 const StoreNameBox = ({ account }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -15,7 +16,7 @@ const StoreNameBox = ({ account }) => {
   const router = useRouter();
 
   const follow = (id, isFollow) => {
-    if (login) {
+    if (check_login(router)) {
       tradly.app
         .followUnfollowAccounts({
           id,
@@ -32,9 +33,7 @@ const StoreNameBox = ({ account }) => {
             );
           }
         });
-    } else {
-      router.push('/sign-in');
-    }
+    }  
   };
   return (
     <div className=" bg-white rounded  w-full  min-h-[81px] flex   justify-between items-center  p-[16px] shadow-c-sm">

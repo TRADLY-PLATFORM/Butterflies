@@ -27,6 +27,7 @@ import ReviewBox from '../../ListingDetails/ReviewBox/ReviewBox';
 import ReactPaginate from 'react-paginate';
 import RelatedListings from '../../ListingDetails/RelatedListing/RelatedListings';
 import AccountListings from '../../ListingDetails/AccountListings/AccountListings';
+import { check_login } from '../../../constant/check_auth';
 
 const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -73,7 +74,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 
   // Button Handle
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id: id,
@@ -90,8 +91,6 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           );
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
 
@@ -139,7 +138,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     }
   }, [review_total_records]);
 
-  //
+  //more review click
   const moreReviews = (data) => {
     dispatch(
       getListingReviews({

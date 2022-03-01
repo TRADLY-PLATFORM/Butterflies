@@ -23,6 +23,7 @@ import MarkerListing from '../../explore/Map View/Marker';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import moment from 'moment';
 import tradly from 'tradly';
+import { check_login } from '../../../constant/check_auth';
 
 const SimilarEventListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -118,7 +119,7 @@ const SimilarEventListingsPageLayout = () => {
 
   //
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       setIsFetching(true);
       dispatch(
         listingLike({
@@ -145,8 +146,6 @@ const SimilarEventListingsPageLayout = () => {
             });
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
 

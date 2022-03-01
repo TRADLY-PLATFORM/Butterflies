@@ -7,6 +7,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import tradly from 'tradly';
+import { check_login } from '../../../constant/check_auth';
 
 const CustomAccountProfile = ({
   account_details,
@@ -17,7 +18,7 @@ const CustomAccountProfile = ({
   const { login, auth_key } = useSelector(authSelector);
 
   const follow = (id, isFollow) => {
-    if (login) {
+    if (check_login(router)) {
       setIsDataLoading(true);
       tradly.app
         .followUnfollowAccounts({
@@ -46,8 +47,6 @@ const CustomAccountProfile = ({
             setIsDataLoading(false);
           }
         });
-    } else {
-      router.push('/sign-in');
     }
   };
 

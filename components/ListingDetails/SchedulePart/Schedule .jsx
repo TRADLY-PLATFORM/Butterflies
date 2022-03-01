@@ -127,7 +127,7 @@ const Schedule = ({ schedules }) => {
               if (auth_key) {
                 setIsScheduleOpen(true);
               } else {
-                router.push('/sign-in');
+                router.push(`/sign-in?to=${router.asPath}`);
               }
             }}
           >

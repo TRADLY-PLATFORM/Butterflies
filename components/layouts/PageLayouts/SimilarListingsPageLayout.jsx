@@ -14,6 +14,7 @@ import CustomLoading from '../../Shared/Loading/CustomLoading';
 import NewListings from '../../Listings/NewListings';
 import Filter from '../../Listings/Filter/Filter';
 import tradly from 'tradly';
+import { check_login } from '../../../constant/check_auth';
 
 const SimilarListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -63,7 +64,7 @@ const SimilarListingsPageLayout = () => {
 
   //
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       setIsFetching(true);
       dispatch(
         listingLike({
@@ -84,14 +85,12 @@ const SimilarListingsPageLayout = () => {
               if (!res.error) {
                 setSimilarListings(res.data.listings);
                 setPage(res.data.page);
-                  setTotal_records(res.data.total_records);
-                  setIsFetching(false);
+                setTotal_records(res.data.total_records);
+                setIsFetching(false);
               }
             });
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
 
