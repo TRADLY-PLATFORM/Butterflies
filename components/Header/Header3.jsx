@@ -135,14 +135,14 @@ const Header3 = () => {
             </div>
             <div className=" flex items-center justify-between">
               {login && (
-                <div className="  ms:mr-2 ">
+                <div className="  mr-3 ">
                   <Notifications />
                 </div>
               )}
-              <div className="    ms:mr-2 ">
+              <div className="   mr-3 ">
                 <StoreButton />
               </div>
-              <div className=" ms:mr-2  ">
+              <div className=" mr-3  ">
                 <WishListButton />
               </div>
               <div className="relative">

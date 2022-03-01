@@ -74,37 +74,41 @@ export const customer_menus = (
           </div>
         </Link>
       )} */}
-      {general_configs?.terms_url &&<div className="   flex  sm:items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 mr-3  sm:mr-5 text-[#6e686e]"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-          />
-        </svg>
-        <p
-          onClick={() => window.open(general_configs?.terms_url)}
-          className="  text-sm  text-[#222222]  text-left font-semibold  transition duration-500 hover:text-primary"
-        >
-          Terms & Conditions
-        </p>
-      </div>}
-      {general_configs?.privacy_policy_url &&<div className=" flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
-        {privacy_icon}
-        <p
-          onClick={() => window.open(general_configs?.privacy_policy_url)}
-          className=" text-sm  text-[#222222]  font-semibold  transition duration-500 hover:text-primary ml-3  sm:ml-5"
-        >
-          Privacy Policy
-        </p>
-      </div>}
+      {general_configs?.terms_url && (
+        <div className="   flex  sm:items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 mr-3  sm:mr-5 text-[#6e686e]"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+            />
+          </svg>
+          <p
+            onClick={() => window.open(general_configs?.terms_url)}
+            className="  text-sm  text-[#222222]  text-left font-semibold  transition duration-500 hover:text-primary"
+          >
+            Terms & Conditions
+          </p>
+        </div>
+      )}
+      {general_configs?.privacy_policy_url && (
+        <div className=" flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
+          {privacy_icon}
+          <p
+            onClick={() => window.open(general_configs?.privacy_policy_url)}
+            className=" text-sm  text-[#222222]  font-semibold  transition duration-500 hover:text-primary ml-3  sm:ml-5"
+          >
+            Privacy Policy
+          </p>
+        </div>
+      )}
       {general_configs?.invite_friends_collection_enabled && (
         <div className="flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group ">
           {invite_friend}
@@ -123,7 +127,7 @@ export const customer_menus = (
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 ml-1 mr-4 text-[#6e686e]"
+          className="h-6 w-6    text-[#6e686e]"
           fill="none"
           viewBox="0 0 24 24 "
           stroke="currentColor"
@@ -135,7 +139,7 @@ export const customer_menus = (
             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
           />
         </svg>
-        <span className=" text-sm  text-[#222222]  font-semibold transition duration-500 group-hover:text-primary">
+        <span className=" text-sm  text-[#222222]  font-semibold transition duration-500 group-hover:text-primary ml-3  sm:ml-5">
           Log Out
         </span>
       </div>
