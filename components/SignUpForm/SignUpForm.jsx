@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-	authSelector,
-	clearState,
-	signUp,
-} from "../../store/feature/authSlice";
-import EmailForm from "./EmailForm";
-import OutsideClickHandler from "react-outside-click-handler";
-import PopUp from "../Shared/PopUp/PopUp";
-import * as EmailValidator from "email-validator";
-import { uuid } from "uuidv4";
-import { useRouter } from "next/dist/client/router";
+  authSelector,
+  clearState,
+  signUp,
+} from '../../store/feature/authSlice';
+import EmailForm from './EmailForm';
+import OutsideClickHandler from 'react-outside-click-handler';
+import PopUp from '../Shared/PopUp/PopUp';
+import * as EmailValidator from 'email-validator';
+import { uuid } from 'uuidv4';
+import { useRouter } from 'next/dist/client/router';
 
 const SignUpForm = ({ general_configs }) => {
   const [firstName, setFirstName] = useState(null);
@@ -34,8 +34,6 @@ const SignUpForm = ({ general_configs }) => {
     setShowError(false);
     setError_message('');
   };
-
-  
 
   const createAccount = () => {
     if (firstName === null) {
@@ -90,9 +88,13 @@ const SignUpForm = ({ general_configs }) => {
     dispatch(signUp({ prams: users })).then((res) => {
       if (!res.payload.code) {
         localStorage.setItem('new_user_register_data', JSON.stringify(users));
-        router.push('/verification');
+        if (router.query.to) {
+          router.push(`/verification?to=${router.query.to}`);
+        } else {
+          router.push('/verification');
+        }
       }
-    })
+    });
   };
 
   return (
@@ -168,7 +170,12 @@ const SignUpForm = ({ general_configs }) => {
           )}
         </div>
         <div className=" mt-[68px] flex justify-center items-center">
-          <Link href={'/sign-in'} passHref>
+          <Link
+            href={
+              router.query.to ? `/sign-in?to=${router.query.to}` : '/sign-in'
+            }
+            passHref
+          >
             <button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl">
               Already have an account?
               <span className="font-semibold ml-2">Login</span>

@@ -37,12 +37,6 @@ const SignInForm = ({ general_configs }) => {
     setError_message('');
   };
 
-  // useEffect(() => {
-  //   console.log('====================================');
-  //   console.log(router);
-  //   console.log('====================================');
-  // }, [router]);
-
   const clickSignIn = () => {
     if (general_configs?.auth_type === 1) {
       if (email === null) {
@@ -111,11 +105,11 @@ const SignInForm = ({ general_configs }) => {
 
       dispatch(signIn({ prams: users })).then((res) => {
         if (!res.payload.code) {
-           if (router.query.to) {
-             router.push(router.query.to);
-           } else {
-             router.push('/');
-           }
+          if (router.query.to) {
+            router.push(router.query.to);
+          } else {
+            router.push('/');
+          }
         }
       });
     }
@@ -202,13 +196,24 @@ const SignInForm = ({ general_configs }) => {
           )}
           <button
             className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium  text-xl"
-            onClick={() => router.push('/forgot-password')}
+            onClick={() =>
+              router.push(
+                router.query.to
+                  ? `/forgot-password?to=${router.query.to}`
+                  : '/forgot-password'
+              )
+            }
           >
             Forgot your password?
           </button>
         </div>
         <div className=" mt-32 flex justify-center items-center">
-          <Link href={'/sign-up'} passHref>
+          <Link
+            href={
+              router.query.to ? `/sign-up?to=${router.query.to}` : '/sign-up'
+            }
+            passHref
+          >
             <button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl">
               Don't have an account?
               <span className="font-semibold ml-2">Sign up </span>
