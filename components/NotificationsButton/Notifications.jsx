@@ -135,10 +135,9 @@ const Notifications = () => {
                           >
                             <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden ">
                               {nt?.account?.images.length > 0 && (
-                                <Image
+                                <img
                                   src={nt.account.images[0]}
-                                  layout="fill"
-                                  objectFit="cover"
+                                  className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  object-cover"
                                 />
                               )}
                             </div>
@@ -179,10 +178,9 @@ const Notifications = () => {
                           >
                             <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden ">
                               {nt?.listing?.images.length > 0 && (
-                                <Image
+                                <img
                                   src={nt.listing.images[0]}
-                                  layout="fill"
-                                  objectFit="cover"
+                                  className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  object-cover"
                                 />
                               )}
                             </div>

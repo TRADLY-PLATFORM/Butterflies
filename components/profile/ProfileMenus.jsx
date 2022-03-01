@@ -88,7 +88,7 @@ const ProfileMenus = () => {
           <button
             onClick={() => {
               dispatch(logout({ router }));
-               window.location.reload();
+              window.location.reload();
             }}
             className=" text-base  text-red-500 font-medium"
           >
@@ -156,6 +156,7 @@ const ProfileMenus = () => {
           <button
             onClick={() => {
               dispatch(logout({ router }));
+              window.location.reload();
             }}
             className=" text-base  text-red-500 font-medium"
           >
