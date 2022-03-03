@@ -18,7 +18,6 @@ import { useRouter } from 'next/dist/client/router';
 import PhoneForm from './PhoneForm';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 
-
 const SignInForm = ({ general_configs }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -29,7 +28,6 @@ const SignInForm = ({ general_configs }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
- 
   const { isFetching, isSuccess, errorMessage, isError } =
     useSelector(authSelector);
 
@@ -69,7 +67,11 @@ const SignInForm = ({ general_configs }) => {
 
       dispatch(signIn({ prams: users })).then((res) => {
         if (!res.payload.code) {
-          router.push('/');
+          if (router.query.to) {
+            router.push(router.query.to);
+          } else {
+            router.push('/');
+          }
         }
       });
     }
@@ -103,7 +105,11 @@ const SignInForm = ({ general_configs }) => {
 
       dispatch(signIn({ prams: users })).then((res) => {
         if (!res.payload.code) {
-          router.push('/');
+          if (router.query.to) {
+            router.push(router.query.to);
+          } else {
+            router.push('/');
+          }
         }
       });
     }
@@ -190,13 +196,24 @@ const SignInForm = ({ general_configs }) => {
           )}
           <button
             className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium  text-xl"
-            onClick={() => router.push('/forgot-password')}
+            onClick={() =>
+              router.push(
+                router.query.to
+                  ? `/forgot-password?to=${router.query.to}`
+                  : '/forgot-password'
+              )
+            }
           >
             Forgot your password?
           </button>
         </div>
         <div className=" mt-32 flex justify-center items-center">
-          <Link href={'/sign-up'} passHref>
+          <Link
+            href={
+              router.query.to ? `/sign-up?to=${router.query.to}` : '/sign-up'
+            }
+            passHref
+          >
             <button className=" w-full md:w-96 h-6 flex justify-center items-center bg-transparent   text-white  font-medium text-base  xs:text-xl">
               Don't have an account?
               <span className="font-semibold ml-2">Sign up </span>

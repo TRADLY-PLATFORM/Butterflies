@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../../components/layouts/MainLayouts/MainLayout';
 import StoreOrdersPageLayout from '../../../components/layouts/PageLayouts/StoreOrdersPageLayout';
+import { check_login } from '../../../constant/check_auth';
 import { authSelector, refreshPage } from '../../../store/feature/authSlice';
 
 const Orders = () => {
@@ -16,15 +17,15 @@ const Orders = () => {
   }, [dispatch]);
 
   const router = useRouter();
-  useEffect(() => {
-    if (!localStorage.getItem('login')) {
-      router.push('/');
-    }
-  }, [localStorage.getItem('login')]);
 
-  const { login } = useSelector(authSelector);
-
-  return <MainLayout>{login && <StoreOrdersPageLayout />}</MainLayout>;
+  return (
+    check_login(router) && (
+      <MainLayout>
+        {' '}
+        <StoreOrdersPageLayout />
+      </MainLayout>
+    )
+  );
 };
 
 export default Orders;

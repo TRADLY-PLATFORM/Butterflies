@@ -94,7 +94,7 @@ const Schedule = ({ schedules }) => {
           </OutsideClickHandler>
         </Modal>
       )}
-      <div className=" bg-white rounded  w-full min-h-[66px] flex   justify-between  p-[16px]  ">
+      <div className=" bg-white rounded  w-full min-h-[66px] flex   justify-between  p-[16px]  shadow-c-sm ">
         <div className="flex">
           <div className="flex justify-start items-start">
             <svg
@@ -127,7 +127,7 @@ const Schedule = ({ schedules }) => {
               if (auth_key) {
                 setIsScheduleOpen(true);
               } else {
-                router.push('/sign-in');
+                router.push(`/sign-in?to=${router.asPath}`);
               }
             }}
           >

@@ -9,6 +9,7 @@ import {
   homeSelector,
 } from '../../../store/feature/homeSlice';
 import Banner from '../../home/Banner/Banner';
+import Banner3 from '../../home/Banner/Banner3';
 import Banner2 from '../../home/Banner/Bannner2';
 import Categories from '../../home/Categories/Categories';
 import LatestEvent from '../../home/LatestEvents/LatestEvent';
@@ -73,8 +74,8 @@ const HomePageLayout = () => {
           );
         }
       })}
-      <div>
-        <Banner2 banners={page_promo_banners} />
+      <div className='mt-9'>
+        <Banner3 />
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ const AccountDetailsPageLayout = () => {
     if (account_details?.id) {
       axios
         .get('/api/l', {
-          params: { page: 1, per_page: 30, account_id: account_details.id },
+          params: { ...router.query, account_id: account_details.id },
         })
         .then((res) => {
           if (!res.data.error) {
@@ -46,23 +46,18 @@ const AccountDetailsPageLayout = () => {
   }, [account_details]);
 
   const moreListings = (data) => {
-    router.push(
-      {
-        query: { id: router.query.id, page: Number(data.selected) + 1 },
-      },
-      { shallow: true }
-    );
-
-    useEffect(() => {
-      const totalpage = Math.ceil(total_records / 30);
-      if (page === 1 && total_records === 0) {
-        setPageCount(total_records);
-      }
-      if (Number(total_records) > 30) {
-        setPageCount(totalpage);
-      }
-    }, [total_records]);
+    router.push({
+      query: { ...router.query, page: Number(data.selected) + 1 },
+    });
   };
+
+  useEffect(() => {
+    const totalpage = Math.ceil(total_records / 30);
+
+    if (Number(total_records) > 30) {
+      setPageCount(totalpage);
+    }
+  }, [total_records]);
 
   return (
     <div>

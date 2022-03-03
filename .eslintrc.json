@@ -10,7 +10,9 @@
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        " react/jsx-key": "off",
+        "@next/next/no-img-element": "off"
     },
     "globals": {
         "React": "writable"

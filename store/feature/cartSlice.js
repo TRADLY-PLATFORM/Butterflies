@@ -6,6 +6,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import tradly from 'tradly';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import tradly from "tradly";
 
 export const addToCart = createAsyncThunk(
   'cart/addToCart',

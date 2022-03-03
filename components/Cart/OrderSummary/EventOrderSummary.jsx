@@ -17,10 +17,10 @@ const EventOrderSummary = ({ listing_details, quantity }) => {
         Order Summary
       </p>
       <div className="mt-5">
-        <div className="w-full  bg-[#FFFFFF] rounded-lg shadow-c-sm   overflow-hidden flex  mb-3 ">
-          <div className=" w-[100px] h-[100px] relative mr-3 ">
+        <div className="w-full  bg-[#FFFFFF] rounded-lg shadow-c-sm   overflow-hidden flex   gap-3 ">
+          <div className=" flex-none  relative  min-h-[100px] ">
             {listing_details?.images.length > 0 && (
-              <Image
+              <img
                 src={
                   !variant_id
                     ? getThumbnailImage(listing_details.images[0])
@@ -28,14 +28,12 @@ const EventOrderSummary = ({ listing_details, quantity }) => {
                     ? getThumbnailImage(selecte_varient_details[0].images[0])
                     : getThumbnailImage(listing_details.images[0])
                 }
-                layout="fill"
-                objectFit="cover"
                 alt="Order Items"
-                priority={true}
+                className="w-[100px] h-full  object-fill"
               />
             )}
           </div>
-          <div className=" flex flex-col justify-around py-2">
+          <div className=" flex flex-grow flex-col justify-around py-2">
             <div>
               <p className=" text-base  font-semibold text-black">
                 {!variant_id

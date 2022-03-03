@@ -11,16 +11,19 @@ import {
   getThumbnailImage,
 } from '../Shared/Constant/Constant';
 import { authSelector } from '../../store/feature/authSlice';
-import { getAllListings, listingLike, listingSelector } from '../../store/feature/listingSlice';
+import {
+  getAllListings,
+  listingLike,
+  listingSelector,
+} from '../../store/feature/listingSlice';
 import favorite from '../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../assets/Images/Home/heartIcon@3x.png';
 import { configsSelector } from '../../store/feature/configsSlice';
- 
+import { check_login } from '../../constant/check_auth';
 
 const Listings = ({ Products }) => {
   const { login, auth_key } = useSelector(authSelector);
-    const { marketplace_type, marketplace_module } =
-      useSelector(configsSelector);
+  const { marketplace_type, marketplace_module } = useSelector(configsSelector);
 
   // const { isSuccess } = useSelector(listingSelector);
   const dispatch = useDispatch();
@@ -28,7 +31,7 @@ const Listings = ({ Products }) => {
   const { page } = useSelector(listingSelector);
 
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id,
@@ -48,8 +51,6 @@ const Listings = ({ Products }) => {
           );
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
   return (

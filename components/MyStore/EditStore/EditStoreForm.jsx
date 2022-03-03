@@ -46,17 +46,20 @@ const EditStoreForm = ({
   }, [0]);
 
   useEffect(() => {
-    setImagePath({ path: my_account_details.images[0] });
+    my_account_details.images.length > 0 &&
+      setImagePath({
+        path: my_account_details.images[0],
+      });
     setName(my_account_details.name);
-    setDescription(my_account_details.description);
+    my_account_details?.description &&
+      setDescription(my_account_details.description);
     setCoordinates({
       latitude: my_account_details?.coordinates?.latitude,
       longitude: my_account_details?.coordinates?.longitude,
     });
     setAddressSearchKey(my_account_details?.location?.formatted_address);
-    my_account_details?.categories[0]?.id
-      ? setCategory(my_account_details?.categories[0]?.id)
-      : setCategory(null);
+    my_account_details?.categories[0]?.id &&
+      setCategory(my_account_details?.categories[0]?.id);
 
     my_account_details?.categories[0]?.id &&
       dispatch(
@@ -77,8 +80,17 @@ const EditStoreForm = ({
               id: attr.id,
               values: attr.values.map((item) => item.id),
             };
-          } else if (attr.field_type === 3 || attr.field_type === 4) {
+          } else if (
+            attr.field_type === 3 ||
+            attr.field_type === 4 ||
+            attr.field_type === 6
+          ) {
             return { id: attr.id, values: attr.values.map((item) => item) };
+          } else if (attr.field_type === 5) {
+            return {
+              values: attr.values,
+              id: attr.id,
+            };
           }
         })
       );
@@ -236,10 +248,11 @@ const EditStoreForm = ({
           </label>
         )}
 
-        <label className="block">
-          <span className="text-gray-700 ">Categories</span>
-          <select
-            className="
+        {account_categories?.length > 0 && (
+          <label className="block">
+            <span className="text-gray-700 ">Categories</span>
+            <select
+              className="
                     block
                     w-full
                     mt-0
@@ -247,21 +260,25 @@ const EditStoreForm = ({
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-            onChange={(e) => {
-              setCategory(Number(e.target.value)), setAttributeData(null);
-            }}
-          >
-            {account_categories?.map((ct) => (
-              <option
-                selected={ct.id === category ? true : false}
-                key={ct.id}
-                value={ct.id}
-              >
-                {ct.name}
+              onChange={(e) => {
+                setCategory(Number(e.target.value)), setAttributeData(null);
+              }}
+            >
+              <option selected hidden>
+                Select category
               </option>
-            ))}
-          </select>
-        </label>
+              {account_categories?.map((ct) => (
+                <option
+                  selected={ct.id === category ? true : false}
+                  key={ct.id}
+                  value={ct.id}
+                >
+                  {ct.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
 
         <div>
           <Attribute

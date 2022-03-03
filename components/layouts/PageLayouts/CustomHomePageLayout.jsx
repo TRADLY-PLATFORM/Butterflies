@@ -50,16 +50,16 @@ const CustomHomePageLayout = ({ pageTitle, pageDescription }) => {
         <div className="grid md:grid-cols-2 items-center">
           <div className="flex flex-col gap-4">
             <h2 className="text-[32px] text-black font-bold pr-4">
-              Introducing Partner Ecosystem, A Growth Driver.
+              {general_configs?.header_text}
             </h2>
             <p className=" mt-2 text-[16px] text-black font-normal w-5/6">
-              Bring your partners, vendors, app providers and service provider under single ecosystem. 
+              {general_configs?.header_descriptions}
             </p>
-            <Link href="#">
+            {/* <Link href="#">
               <a className=" mt-2 text-[16px]   text-primary font-bold">
                 View all Apps
               </a>
-            </Link>
+            </Link> */}
           </div>
           <div className=" relative   aspect-w-4 aspect-h-2">
             {page_promo_banners?.length > 0 && (

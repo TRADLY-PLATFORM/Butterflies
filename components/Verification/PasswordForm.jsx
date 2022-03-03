@@ -11,7 +11,7 @@ const PasswordForm = ({code,setCode}) => {
     return (
       <div
         action=""
-        className="  w-full  flex justify-center  mx-auto"
+        className="  w-5/6 md:w-full  flex justify-center  mx-auto"
       >
         <OtpInput
           value={code}

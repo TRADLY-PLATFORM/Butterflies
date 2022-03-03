@@ -11,10 +11,11 @@ import { edit_listing_page } from '../../themes/Theme1';
 import axios from 'axios';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
+import { check_login } from '../../constant/check_auth';
 
 const EditProduct = (props) => {
   const dispatch = useDispatch();
-  const router = useRouter;
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(
@@ -33,15 +34,7 @@ const EditProduct = (props) => {
  
   }, [dispatch]);
 
-  useEffect(() => {
-    if (!localStorage.getItem('login')) {
-      router.push('/');
-    }
-  }, [localStorage.getItem('login')]);
-
-  const { login } = useSelector(authSelector);
-
-  return login && edit_listing_page();
+  return check_login(router) && edit_listing_page();
 };
 
 export default EditProduct;

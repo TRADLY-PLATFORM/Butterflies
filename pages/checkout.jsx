@@ -15,6 +15,7 @@ import {
 import { useRouter } from 'next/dist/client/router';
 import { TYPE_CONSTANT } from '../constant/Web_constant';
 import axios from 'axios';
+import { check_login } from '../constant/check_auth';
 
 const Checkout = (props) => {
   const [marketplace_type, setmarketplace_type] = useState(null);
@@ -46,19 +47,11 @@ const Checkout = (props) => {
     setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (!localStorage.getItem('login')) {
-      router.push('/');
-    }
-  }, [localStorage.getItem('login')]);
-
-  const pageTitle = TYPE_CONSTANT.META_TITLE;
-  const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
-
-  const { login } = useSelector(authSelector);
+ const pageTitle = TYPE_CONSTANT.META_TITLE;
+ const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
 
   const selectLayout = () => {
-    if (login) {
+    if (check_login(router)) {
       if (marketplace_type === 1) {
         return <CheckoutPageLayout />;
       } else {

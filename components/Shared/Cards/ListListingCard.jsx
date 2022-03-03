@@ -10,7 +10,6 @@ import { time_icon } from '../Constant/Icons/AllIcons';
 import moment from 'moment';
 import { TYPE_CONSTANT } from '../../../constant/Web_constant';
 
-
 const ListListingCard = ({ item, like }) => {
   const router = useRouter();
   const marketplace_type = TYPE_CONSTANT.MARKETPLACE_TYPE;
@@ -63,28 +62,30 @@ const ListListingCard = ({ item, like }) => {
                   : item.title}
               </span>
             </p>
-            <p className=" mt-2 flex justify-start items-center ">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 13"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M6.99967 10.3892L3.78059 12.1687C3.4153 12.3706 2.97802 12.0625 3.04521 11.6506L3.66634 7.84278L1.01255 5.12285C0.728341 4.83156 0.892609 4.34088 1.29491 4.27941L4.93956 3.72256L6.54705 0.297803C6.72701 -0.0855992 7.27234 -0.0855992 7.4523 0.297803L9.05979 3.72256L12.7044 4.27941C13.1067 4.34088 13.271 4.83156 12.9868 5.12285L10.333 7.84278L10.9541 11.6506C11.0213 12.0625 10.584 12.3706 10.2188 12.1687L6.99967 10.3892Z"
-                  fill="#FFBA49"
-                />
-              </svg>
-              <span className="  text-[#4F4F4F] font-medium text-base ml-[6px] ">
-                {item.rating_data.rating_average}
-              </span>
-              <span className=" border-l border-[#959393]   text-[#4F4F4F] font-medium text-base ml-[4px] pl-[4px] ">
-                {item.rating_data.rating_average} ratings
-              </span>
-            </p>
+            {item.rating_data?.rating_average && (
+              <p className=" mt-2 flex justify-start items-center ">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M6.99967 10.3892L3.78059 12.1687C3.4153 12.3706 2.97802 12.0625 3.04521 11.6506L3.66634 7.84278L1.01255 5.12285C0.728341 4.83156 0.892609 4.34088 1.29491 4.27941L4.93956 3.72256L6.54705 0.297803C6.72701 -0.0855992 7.27234 -0.0855992 7.4523 0.297803L9.05979 3.72256L12.7044 4.27941C13.1067 4.34088 13.271 4.83156 12.9868 5.12285L10.333 7.84278L10.9541 11.6506C11.0213 12.0625 10.584 12.3706 10.2188 12.1687L6.99967 10.3892Z"
+                    fill="#FFBA49"
+                  />
+                </svg>
+                <span className="  text-[#4F4F4F] font-medium text-base ml-[6px] ">
+                  {item.rating_data?.rating_average}
+                </span>
+                <span className=" border-l border-[#959393]   text-[#4F4F4F] font-medium text-base ml-[4px] pl-[4px] ">
+                  {item.rating_data?.rating_average} ratings
+                </span>
+              </p>
+            )}
             <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-3">
               {marketplace_type == 3
                 ? `By ${

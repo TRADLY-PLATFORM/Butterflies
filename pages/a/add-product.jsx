@@ -12,6 +12,7 @@ import { useRouter } from 'next/dist/client/router';
 import { add_listing_page } from '../../themes/Theme1';
 import axios from 'axios';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
+import { check_login } from '../../constant/check_auth';
 
 const AddProduct = (props) => {
   const dispatch = useDispatch();
@@ -31,15 +32,8 @@ const AddProduct = (props) => {
   }, [dispatch]);
 
   const router = useRouter();
-  useEffect(() => {
-    if (!localStorage.getItem('login')) {
-      router.push('/');
-    }
-  }, [localStorage.getItem('login')]);
 
-  const { login } = useSelector(authSelector);
-
-  return login && add_listing_page();
+  return check_login(router) && add_listing_page();
 };
 
 export default AddProduct;

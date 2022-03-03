@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import tradly from 'tradly';
@@ -9,8 +10,12 @@ import { refreshPage } from '../store/feature/authSlice';
 import { clearWishState } from '../store/feature/wishSlice';
 import axios from 'axios';
 
+import { check_login } from '../constant/check_auth';
+import { refreshPage } from '../store/feature/authSlice';
+import { clearWishState } from '../store/feature/wishSlice';
 
 const WishList = (props) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearWishState());
@@ -23,9 +28,11 @@ const WishList = (props) => {
   const pageTitle = TYPE_CONSTANT.META_TITLE;
   const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
   return (
-    <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
-      <WishListPageLayout />
-    </MainLayout>
+    check_login(router) && (
+      <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+        <WishListPageLayout />
+      </MainLayout>
+    )
   );
 };
 

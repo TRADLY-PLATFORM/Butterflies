@@ -160,10 +160,7 @@ export const authSlice = createSlice({
       state.profile_pic = '';
       state.user_details = '';
       localStorage.clear();
-      Cookies.remove('auth_key', { path: '' });
-      payload.router.push('/').then(() => {
-        window.location.reload();
-      });
+       Cookies.remove('auth_key', { path: '' });
       return state;
     },
   },

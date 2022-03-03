@@ -13,30 +13,28 @@ import {
 import { useRouter } from 'next/dist/client/router';
 import axios from 'axios';
 
+import { check_login } from '../../../constant/check_auth';
 
 const Accounts2 = ({ accounts }) => {
   const { login, auth_key } = useSelector(authSelector);
   const router = useRouter();
   const dispatch = useDispatch();
   const follow = (id, isFollow) => {
-    if (login) {
-       
-        axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
-          if (!res.code) {
-            dispatch(
-              get_all_accounts({
-                bodyParam: {
-                  page: router.query.page,
-                  type: 'accounts',
-                  per_page: 30,
-                },
-                authKey: auth_key,
-              })
-            );
-          }
-        });
-    } else {
-      router.push('/sign-in');
+    if (check_login(router)) {
+      axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
+        if (!res.code) {
+          dispatch(
+            get_all_accounts({
+              bodyParam: {
+                page: router.query.page,
+                type: 'accounts',
+                per_page: 30,
+              },
+              authKey: auth_key,
+            })
+          );
+        }
+      });
     }
   };
 

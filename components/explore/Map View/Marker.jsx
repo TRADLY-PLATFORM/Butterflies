@@ -16,9 +16,10 @@ import {
   listingLike,
   listingSelector,
 } from '../../../store/feature/listingSlice';
-   import { configsSelector } from '../../../store/feature/configsSlice';
- import ListListingCard from '../../Shared/Cards/ListListingCard';
+import { configsSelector } from '../../../store/feature/configsSlice';
+import ListListingCard from '../../Shared/Cards/ListListingCard';
 import MarkerListingCard from '../../Shared/Cards/MarkerListingCard';
+import { check_login } from '../../../constant/check_auth';
 
 const MarkerListing = ({ item }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -29,7 +30,7 @@ const MarkerListing = ({ item }) => {
   const { page } = useSelector(listingSelector);
 
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id,
@@ -46,12 +47,10 @@ const MarkerListing = ({ item }) => {
           );
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
   return (
-    <div  className=" relative ">
+    <div className=" relative ">
       <MarkerListingCard
         item={item}
         like={like}

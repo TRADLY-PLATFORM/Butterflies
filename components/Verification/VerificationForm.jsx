@@ -42,6 +42,7 @@ const VerificationForm = () => {
     setSuccess_message('');
   };
 
+  // resend otp
   const resendOTP = () => {
     setIs_loading(true);
     const user_data = JSON.parse(
@@ -57,6 +58,7 @@ const VerificationForm = () => {
     });
   };
 
+  // Verify
   const verifyClick = () => {
     if (code === null) {
       setShowError(true);
@@ -81,8 +83,11 @@ const VerificationForm = () => {
       if (!res.payload.error) {
         localStorage.removeItem('new_user_verify_id');
         localStorage.removeItem('new_user_register_data');
-
-        router.push('/');
+        if (router.query.to) {
+          router.push(router.query.to);
+        } else {
+          router.push('/');
+        }
       }
     });
   };

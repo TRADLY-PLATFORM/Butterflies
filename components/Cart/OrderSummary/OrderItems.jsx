@@ -6,19 +6,17 @@ const OrderItems = ({ cart_details }) => {
   return cart_details.map((item) => {
     return (
       <div
-        className="w-full  bg-[#FFFFFF] rounded-lg shadow-c-sm   overflow-hidden flex  mb-3 "
+        className="w-full  bg-[#FFFFFF] rounded-lg shadow-c-sm   overflow-hidden flex    mb-3 gap-3  "
         key={item.id}
       >
-        <div className=" w-[100px] h-[100px] relative mr-3 ">
-          <Image
+        <div className=" flex-none  relative  min-h-[100px] ">
+          <img
             src={getThumbnailImage(item.listing.images[0])}
-            layout="fill"
-            objectFit="cover"
+            className="w-[100px] h-full  object-fill"
             alt="Order Items"
-            priority={true}
           />
         </div>
-        <div className=" flex flex-col justify-around py-2">
+        <div className=" flex flex-grow flex-col justify-around py-2">
           <div>
             <p className=" text-base  font-semibold text-black">
               {item.listing.title}

@@ -9,6 +9,7 @@ import { useRouter } from 'next/dist/client/router';
 import { listingDetails } from '../../../store/feature/listingSlice';
 import Link from 'next/link';
 import axios from 'axios';
+import { check_login } from '../../../constant/check_auth';
 
 const StoreNameBox = ({ account }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -16,7 +17,7 @@ const StoreNameBox = ({ account }) => {
   const router = useRouter();
 
   const follow = (id, isFollow) => {
-    if (login) {
+    if (check_login(router)) {
       axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
         if (!res.data.error) {
           dispatch(
@@ -27,8 +28,6 @@ const StoreNameBox = ({ account }) => {
           );
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
   return (

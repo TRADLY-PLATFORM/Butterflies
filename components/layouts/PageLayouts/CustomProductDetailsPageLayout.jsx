@@ -1,4 +1,3 @@
- 
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import DescriptionPart from '../../ListingDetails/DescriptionPart/DescriptionPart';
@@ -24,6 +23,8 @@ import ProductButtons from '../../ListingDetails/ProductButtons/ProductButtons';
 import StoreNameBox from '../../ListingDetails/StoreNameBox/StoreNameBox';
 import CustomImagePart from '../../ListingDetails/ImagePart/CustomImagePart';
 import CustomProductButton from '../../ListingDetails/ProductButtons/CustomProductButton';
+import RelatedListings from '../../ListingDetails/RelatedListing/RelatedListings';
+import { check_login } from '../../../constant/check_auth';
 
 const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -65,7 +66,7 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 
   // Button Handle
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       dispatch(
         listingLike({
           id: id,
@@ -82,9 +83,7 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           );
         }
       });
-    } else {
-      router.push('/sign-in');
-    }
+    }  
   };
 
   const closePopUP = () => {
@@ -168,11 +167,11 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                 <DescriptionPart description={listing_details?.description} />
               </div>
             )}
-            {/* <div className=" mt-6">
-							<RelatedEvents />
-						</div> */}
+            <div className=" hidden c-md:block  mt-6">
+              <RelatedListings />
+            </div>
           </div>
-          <div className="  ">
+          <div className="">
             <div>
               <MainBox
                 listing_details={listing_details}
@@ -190,7 +189,7 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
               </div>
             )}
 
-            <div className=" fixed bottom-0 w-full left-0 right-0 bg-white sm:relative md:bg-transparent z-30 md:mt-6">
+            <div className=" fixed bottom-0 w-full left-0 right-0 bg-white sm:relative md:bg-transparent z-[60] sm:z-30 md:mt-6">
               {/* <ProductButtons
                 listing_details={listing_details}
                 selectedVariant={selectedVariant}
@@ -209,17 +208,23 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                   <AddressBox location={listing_details?.location} />
                 </div>
               )}
+
             {listing_details?.attributes &&
               listing_details?.attributes.length > 0 && (
                 <div className="mt-6">
                   <AttributeDetails attributes={listing_details?.attributes} />
                 </div>
               )}
+
             {listing_details?.description !== '' && (
               <div className="mt-6 md:hidden">
                 <DescriptionPart description={listing_details?.description} />
               </div>
             )}
+
+            <div className=" c-md:hidden    mt-6">
+              <RelatedListings />
+            </div>
 
             {/* <div className="mt-6">
 							<StoreNameBox
@@ -228,6 +233,7 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 								}
 							/>
 						</div> */}
+
             {/* <div className="mt-6">
 							<ShareButtons />
 						</div> */}

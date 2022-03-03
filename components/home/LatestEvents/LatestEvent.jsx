@@ -1,61 +1,58 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable camelcase */
-  import React from "react";
-import Image from "next/image";
-import Link from "next/link";
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/dist/client/router";
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/dist/client/router';
 
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination } from "swiper/core";
+import SwiperCore, { Navigation, Pagination } from 'swiper/core';
 import {
-	changeDateFormat,
-	getThumbnailImage,
-} from "../../Shared/Constant/Constant";
-import {configsSelector}from "../../../store/feature/configsSlice"
-import { authSelector } from "../../../store/feature/authSlice";
-import { listingLike } from "../../../store/feature/listingSlice";
-import { homeCollections } from "../../../store/feature/homeSlice";
+  changeDateFormat,
+  getThumbnailImage,
+} from '../../Shared/Constant/Constant';
+import { configsSelector } from '../../../store/feature/configsSlice';
+import { authSelector } from '../../../store/feature/authSlice';
+import { listingLike } from '../../../store/feature/listingSlice';
+import { homeCollections } from '../../../store/feature/homeSlice';
 
-import favorite from "../../../assets/Images/Home/favourite@3x.png";
-import heartIcon from "../../../assets/Images/Home/heartIcon@3x.png";
+import favorite from '../../../assets/Images/Home/favourite@3x.png';
+import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
+import { check_login } from '../../../constant/check_auth';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
 const LatestEvent = ({ products }) => {
-	const { login, auth_key } = useSelector(authSelector);
-  const { marketplace_type , marketplace_module } = useSelector(configsSelector);
-	// const { isSuccess } = useSelector(listingSelector);
-	const dispatch = useDispatch();
-	const router = useRouter();
+  const { login, auth_key } = useSelector(authSelector);
+  const { marketplace_type, marketplace_module } = useSelector(configsSelector);
+  // const { isSuccess } = useSelector(listingSelector);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-	const like = (id, isLiked) => {
-		if (login) {
-			dispatch(
-				listingLike({
-					id,
-					isLiked,
-					authKey: auth_key,
-				})
-			).then((res) => {
-				if (!res.payload.code) {
-					dispatch(
-						homeCollections({ authKey: auth_key })
-					);
-				}
-			});
-		} else {
-			router.push("/sign-in");
-		}
-	};
+  const like = (id, isLiked) => {
+    if (check_login(router)) {
+      dispatch(
+        listingLike({
+          id,
+          isLiked,
+          authKey: auth_key,
+        })
+      ).then((res) => {
+        if (!res.payload.code) {
+          dispatch(homeCollections({ authKey: auth_key }));
+        }
+      });
+    }
+  };
 
-	return (
+  return (
     <div className="mt-10">
       <div className="flex justify-between items-center  ">
         <h2 className=" text-2xl text-black font-semibold">{products.title}</h2>

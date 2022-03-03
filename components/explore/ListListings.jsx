@@ -23,8 +23,9 @@ import { configsSelector } from '../../store/feature/configsSlice';
 import ExploreFilter from './Filter/ExploreFilter';
 import ListListingCard from '../Shared/Cards/ListListingCard';
 import MarkerListingCard from '../Shared/Cards/MarkerListingCard';
+import { check_login } from '../../constant/check_auth';
 
-const ListListings = ({ Products ,map_view}) => {
+const ListListings = ({ Products, map_view, like_listing }) => {
   const { login, auth_key } = useSelector(authSelector);
   const { marketplace_type, marketplace_module } = useSelector(configsSelector);
   // const { isSuccess } = useSelector(listingSelector);
@@ -33,25 +34,27 @@ const ListListings = ({ Products ,map_view}) => {
   const { page } = useSelector(listingSelector);
 
   const like = (id, isLiked) => {
-    if (login) {
-      dispatch(
-        listingLike({
-          id,
-          isLiked,
-          authKey: auth_key,
-        })
-      ).then((res) => {
-        if (!res.payload.code) {
-          dispatch(
-            getAllListings({
-              prams: router.query,
-              authKey: auth_key,
-            })
-          );
-        }
-      });
-    } else {
-      router.push('/sign-in');
+    if (check_login(router)) {
+      if (like_listing) {
+        like_listing(id, isLiked);
+      } else {
+        dispatch(
+          listingLike({
+            id,
+            isLiked,
+            authKey: auth_key,
+          })
+        ).then((res) => {
+          if (!res.payload.code) {
+            dispatch(
+              getAllListings({
+                prams: router.query,
+                authKey: auth_key,
+              })
+            );
+          }
+        });
+      }
     }
   };
   return (

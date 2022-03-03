@@ -45,7 +45,12 @@ const SetPasswordForm = ({ general_configs }) => {
   const closeSuccessPopup = () => {
     setShowSuccess(false);
     setSuccess_message('');
-    router.push('/sign-in');
+
+    if (router.query.to) {
+      router.push(`/sign-in?to=${router.query.to}`);
+    } else {
+      router.push('/sign-in');
+    }
   };
 
   const clickVerify = () => {

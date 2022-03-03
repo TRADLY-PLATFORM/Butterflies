@@ -60,6 +60,25 @@ export const getAllListings = createAsyncThunk(
     }
   }
 );
+export const getListingReviews = createAsyncThunk(
+  'listing/getListingReviews',
+  async ({  authKey ,params}, thunkAPI) => {
+    try {
+      const response = await tradly.app.getReviewList({
+        authKey,
+        bodyParam: params,
+      });
+      const { data } = await response;
+      if (!response.error) {
+        return data;
+      }
+      const { error } = await response;
+      return error;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const listingSlice = createSlice({
   name: 'listing',
@@ -73,6 +92,10 @@ export const listingSlice = createSlice({
     listings: null,
     page: '',
     total_records: '',
+    reviews: null,
+    my_review: null,
+    review_page: '',
+    review_total_records: '',
   },
   reducers: {
     clearListingState: (state) => {
@@ -177,6 +200,36 @@ export const listingSlice = createSlice({
       state.isError = true;
       state.errorMessage = payload?.message;
     },
+<<<<<<< HEAD
+=======
+    [getListingReviews.fulfilled]: (state, { payload }) => {
+      if (payload.code) {
+        state.isFetching = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
+      } else {
+        state.isError = false;
+        state.isFetching = false;
+        state.isSuccess = true;
+        state.reviews = payload?.reviews;
+        state.my_review = payload?.my_review;
+        state.review_page = payload?.page;
+        state.review_total_records = payload?.total_records;
+      }
+    },
+    [getListingReviews.pending]: (state) => {
+      state.isSuccess = false;
+      state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    [getListingReviews.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload?.message;
+    },
+>>>>>>> 834ffe8e7535d14188234f891af4bd55dbab86c1
   },
 });
 

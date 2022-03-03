@@ -10,6 +10,7 @@ import { useRouter } from 'next/dist/client/router';
 import { edit_store_page } from '../../themes/Theme1';
 import axios from 'axios';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
+import { check_login } from '../../constant/check_auth';
 
 const EditStore = (props) => {
   const dispatch = useDispatch();
@@ -28,15 +29,8 @@ const EditStore = (props) => {
   }, [dispatch]);
 
   const router = useRouter();
-  useEffect(() => {
-    if (!localStorage.getItem('login')) {
-      router.push('/');
-    }
-  }, [localStorage.getItem('login')]);
 
-  const { login } = useSelector(authSelector);
-
-  return login && edit_store_page();
+  return check_login(router) && edit_store_page();
 };
 
 export default EditStore;

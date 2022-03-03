@@ -13,6 +13,7 @@ import { authSelector } from '../../../store/feature/authSlice';
 import { listingLike } from '../../../store/feature/search';
 import tradly from 'tradly';
 import axios from 'axios';
+import { check_login } from '../../../constant/check_auth';
 
 const AccountListingsItem = ({
   Products,
@@ -25,8 +26,10 @@ const AccountListingsItem = ({
   const dispatch = useDispatch();
   const router = useRouter();
 
+
+  // like listing
   const like = (id, isLiked) => {
-    if (login) {
+    if (check_login(router)) {
       setIsDataLoading(true);
       dispatch(
         listingLike({
@@ -48,8 +51,6 @@ const AccountListingsItem = ({
           setIsDataLoading(false);
         }
       });
-    } else {
-      router.push('/sign-in');
     }
   };
   return (

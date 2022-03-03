@@ -1,243 +1,232 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/dist/client/router";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { authSelector } from "../../../store/feature/authSlice";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/dist/client/router';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { authSelector } from '../../../store/feature/authSlice';
+import { useForm } from 'react-hook-form';
 
 import {
-	cartList,
-	cartSelector,
-	checkout,
-	clearCartState,
-	EphemeralKey,
-	getAddress,
-	getCurrencies,
-	getStorageHubAddress,
-	paymentIntent,
-	paymentMethods,
-	saveAddress,
-	save_address,
-	shippingMethods,
-} from "../../../store/feature/cartSlice";
-import CartItemBox from "../../Cart/CartItemBox/CartItemBox";
-import OrderSummary from "../../Cart/OrderSummary/OrderSummary";
-import PaymentMethod from "../../Cart/PaymentMethods/PaymentMethod";
-import ShippingMethod from "../../Cart/ShippingMethods/ShippingMethod";
-import OutsideClickHandler from "react-outside-click-handler";
-import PopUp from "../../Shared/PopUp/PopUp";
-import Modal from "../../Shared/Modal.jsx/Modal";
-import OrderSuccess from "../../Cart/OrderSuccess/OrderSuccess";
-import NoCartItem from "../../Cart/NoCartItem/NoCartItem";
-import AddressForm from "../../Cart/AddressForm/AddressForm";
-import ShippingAddresses from "../../Cart/ShippingAddresses/ShippingAddresses";
-import StorageHubAddresses from "../../Cart/StorageHubAddress/StorageHubAddresses";
-import CustomLoading from "../../Shared/Loading/CustomLoading";
+  cartList,
+  cartSelector,
+  checkout,
+  clearCartState,
+  EphemeralKey,
+  getAddress,
+  getCurrencies,
+  getStorageHubAddress,
+  paymentIntent,
+  paymentMethods,
+  saveAddress,
+  save_address,
+  shippingMethods,
+} from '../../../store/feature/cartSlice';
+import CartItemBox from '../../Cart/CartItemBox/CartItemBox';
+import OrderSummary from '../../Cart/OrderSummary/OrderSummary';
+import PaymentMethod from '../../Cart/PaymentMethods/PaymentMethod';
+import ShippingMethod from '../../Cart/ShippingMethods/ShippingMethod';
+import OutsideClickHandler from 'react-outside-click-handler';
+import PopUp from '../../Shared/PopUp/PopUp';
+import Modal from '../../Shared/Modal.jsx/Modal';
+import OrderSuccess from '../../Cart/OrderSuccess/OrderSuccess';
+import NoCartItem from '../../Cart/NoCartItem/NoCartItem';
+import AddressForm from '../../Cart/AddressForm/AddressForm';
+import ShippingAddresses from '../../Cart/ShippingAddresses/ShippingAddresses';
+import StorageHubAddresses from '../../Cart/StorageHubAddress/StorageHubAddresses';
+import CustomLoading from '../../Shared/Loading/CustomLoading';
 
 const CheckoutPageLayout = () => {
-	const [paymentMethod, setPaymentMethod] = useState(null);
-	const [shippingMethod, setShippingMethod] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState(null);
+  const [shippingMethod, setShippingMethod] = useState(null);
 
-	const [showError, setShowError] = useState(false);
-	const [error_message, setError_message] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [error_message, setError_message] = useState('');
 
-	const [showShippingAddressForm, setShowShippingAddressForm] =
-		useState(false);
-	const [selectShippingAddress, setSelectShippingAddress] = useState(null);
-	const [isNewAddress, setIsNewAddress] = useState(false);
+  const [showShippingAddressForm, setShowShippingAddressForm] = useState(false);
+  const [selectShippingAddress, setSelectShippingAddress] = useState(null);
+  const [isNewAddress, setIsNewAddress] = useState(false);
 
-	const [selectStorageHubAddress, setSelectStorageHubAddress] =
-			useState(null);
+  const [selectStorageHubAddress, setSelectStorageHubAddress] = useState(null);
 
-	const {
-		register,
-		handleSubmit,
-  	} = useForm();
+  const { register, handleSubmit } = useForm();
 
-	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-	const { login, auth_key } = useSelector(authSelector);
-	const { order_reference, currencies, addresses, storage_hub_addresses } =
-		useSelector(cartSelector);
-	const dispatch = useDispatch();
-	const router = useRouter();
- 
+  const { login, auth_key } = useSelector(authSelector);
+  const { order_reference, currencies, addresses, storage_hub_addresses } =
+    useSelector(cartSelector);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-	useEffect(() => {
-		if (login) {
-			if (currencies) {
-				dispatch(
-					cartList({
-						authKey: auth_key,
-						currency: currencies[0]?.code,
-					})
-				);
-			}
+  useEffect(() => {
+    if (login) {
+      if (currencies) {
+        dispatch(
+          cartList({
+            authKey: auth_key,
+            currency: currencies[0]?.code,
+          })
+        );
+      }
 
-			dispatch(shippingMethods({ authKey: auth_key }));
-			dispatch(paymentMethods({ authKey: auth_key }));
-			dispatch(EphemeralKey({ authKey: auth_key }));
-			dispatch(
-				getAddress({
-					bodyParam: { type: "delivery" },
-					authKey: auth_key,
-				})
-			);
-			dispatch(
-				getStorageHubAddress({
-					bodyParam: { type: "storage_hub" },
-					authKey: auth_key,
-				})
-			);
-		} else {
-			// router.push("/sign-in")
-		}
-	}, [auth_key, dispatch, login, router, currencies]);
+      dispatch(shippingMethods({ authKey: auth_key }));
+      dispatch(paymentMethods({ authKey: auth_key }));
+      dispatch(EphemeralKey({ authKey: auth_key }));
+      dispatch(
+        getAddress({
+          bodyParam: { type: 'delivery' },
+          authKey: auth_key,
+        })
+      );
+      dispatch(
+        getStorageHubAddress({
+          bodyParam: { type: 'storage_hub' },
+          authKey: auth_key,
+        })
+      );
+    }  
+  }, [auth_key, dispatch, login, router, currencies]);
 
-	const {
-		cart,
-		cart_details,
-		payment_methods,
-		shipping_methods,
-		isError,
-		errorMessage,
-		isFetching,
-		isCheckoutFetching,
-		isSuccess,
+  const {
+    cart,
+    cart_details,
+    payment_methods,
+    shipping_methods,
+    isError,
+    errorMessage,
+    isFetching,
+    isCheckoutFetching,
+    isSuccess,
 	} = useSelector(cartSelector);
+	
+	  useEffect(() => {
+      if (payment_methods && paymentMethod == null) {
+        setPaymentMethod(payment_methods[0]);
+      }
+    }, [payment_methods]);
 
-	const clickCheckOut = () => {
-		if (shippingMethod === null) {
-			setShowError(true);
-			setError_message("Shipping Method is required");
-			return false;
-		}
-		if (shippingMethod.type === "delivery") {
-			if (selectShippingAddress === null) {
-				setShowError(true);
-				setError_message(
-					"Select Your One shipping Address"
-				);
-				return false;
-			}
-		}
-		if (shippingMethod.type === "storage_hub") {
-			if (selectStorageHubAddress === null) {
-				setShowError(true);
-				setError_message(
-					`Select Your One ${shippingMethod.name}  Address`
-				);
-				return false;
-			}
-		}
-		if (paymentMethod === null) {
-			setShowError(true);
-			setError_message("Payment Method is required");
-			return false;
-		}
+  // Checkout func:
+  const clickCheckOut = () => {
+    if (shippingMethod === null) {
+      setShowError(true);
+      setError_message('Shipping Method is required');
+      return false;
+    }
+    if (shippingMethod.type === 'delivery') {
+      if (selectShippingAddress === null) {
+        setShowError(true);
+        setError_message('Select Your One shipping Address');
+        return false;
+      }
+    }
+    if (shippingMethod.type === 'storage_hub') {
+      if (selectStorageHubAddress === null) {
+        setShowError(true);
+        setError_message(`Select Your One ${shippingMethod.name}  Address`);
+        return false;
+      }
+    }
+    if (paymentMethod === null) {
+      setShowError(true);
+      setError_message('Payment Method is required');
+      return false;
+    }
 
-		let checkout_data;
-		if (shippingMethod.type === "delivery") {
-			checkout_data = {
-				order: {
-					payment_method_id: paymentMethod.id,
-					shipping_method_id: shippingMethod.id,
-					shipping_address_id:
-						selectShippingAddress.id,
-				},
-			};
-		}
-		else if (shippingMethod.type === "storage_hub") {
-			checkout_data = {
-				order: {
-					payment_method_id: paymentMethod.id,
-					shipping_method_id: shippingMethod.id,
-					shipping_address_id:
-						selectStorageHubAddress.id,
-				},
-			};
-		}
-		
-		else {
-			checkout_data = {
-				order: {
-					payment_method_id: paymentMethod.id,
-					shipping_method_id: shippingMethod.id,
-				},
-			};
-		}
-		if (paymentMethod.type === "stripe") {
-			dispatch(
-				checkout({
-					authKey: auth_key,
-					checkoutData: checkout_data,
-					currency: currencies && currencies[0]?.code,
-				})
-			).then((res) => {
-				if (!res.payload.code) {
-					dispatch(
-						paymentIntent({
-							authKey: auth_key,
-							sendData: {
-								order_reference:
-									res.payload
-										.order_reference,
-							},
-						})
-					).then((res) => {
-						if (!res.payload.code) {
-							router.push("/payment");
-						}
-					});
-				}
-			});
-		} else {
-			dispatch(
-				checkout({
-					authKey: auth_key,
-					checkoutData: checkout_data,
-					currency: currencies && currencies[0]?.code,
-				})
-			).then((res) => {
-				if (!res.payload.code) {
-					setShowSuccessMessage(true);
-				}
-			});
-		}
-	};
+    let checkout_data;
+    if (shippingMethod.type === 'delivery') {
+      checkout_data = {
+        order: {
+          payment_method_id: paymentMethod.id,
+          shipping_method_id: shippingMethod.id,
+          shipping_address_id: selectShippingAddress.id,
+        },
+      };
+    } else if (shippingMethod.type === 'storage_hub') {
+      checkout_data = {
+        order: {
+          payment_method_id: paymentMethod.id,
+          shipping_method_id: shippingMethod.id,
+          shipping_address_id: selectStorageHubAddress.id,
+        },
+      };
+    } else {
+      checkout_data = {
+        order: {
+          payment_method_id: paymentMethod.id,
+          shipping_method_id: shippingMethod.id,
+        },
+      };
+    }
+    if (paymentMethod.type === 'stripe') {
+      dispatch(
+        checkout({
+          authKey: auth_key,
+          checkoutData: checkout_data,
+          currency: currencies && currencies[0]?.code,
+        })
+      ).then((res) => {
+        if (!res.payload.code) {
+          dispatch(
+            paymentIntent({
+              authKey: auth_key,
+              sendData: {
+                order_reference: res.payload.order_reference,
+              },
+            })
+          ).then((res) => {
+            if (!res.payload.code) {
+              router.push('/payment');
+            }
+          });
+        }
+      });
+    } else {
+      dispatch(
+        checkout({
+          authKey: auth_key,
+          checkoutData: checkout_data,
+          currency: currencies && currencies[0]?.code,
+        })
+      ).then((res) => {
+        if (!res.payload.code) {
+          setShowSuccessMessage(true);
+        }
+      });
+    }
+  };
 
-	const onSubmit = (data) => {
-		const id = !isNewAddress ? selectShippingAddress.id : "";
-		dispatch(
-			save_address({
-				 id,
-				addressData: {
-					address: { ...data, type: "delivery" },
-				},
-				authKey: auth_key,
-			})
-		).then((res) => {
-			if (!res.payload.code) {
-				dispatch(
-					getAddress({
-						bodyParam: { type: "delivery" },
-						authKey: auth_key,
-					})
-				);
-				setShowShippingAddressForm(false);
-			}
-		});
-	};
+  // save address
+  const onSubmit = (data) => {
+    const id = !isNewAddress ? selectShippingAddress.id : '';
+    dispatch(
+      save_address({
+        id,
+        addressData: {
+          address: { ...data, type: 'delivery' },
+        },
+        authKey: auth_key,
+      })
+    ).then((res) => {
+      if (!res.payload.code) {
+        dispatch(
+          getAddress({
+            bodyParam: { type: 'delivery' },
+            authKey: auth_key,
+          })
+        );
+        setShowShippingAddressForm(false);
+      }
+    });
+  };
 
-	const closePopUP = () => {
-		dispatch(clearCartState());
-		setShowError(false);
-		setError_message("");
-	};
+  const closePopUP = () => {
+    dispatch(clearCartState());
+    setShowError(false);
+    setError_message('');
+  };
 
-	return (
+  return (
     <>
-      {isFetching&& <CustomLoading/>}
+      {isFetching && <CustomLoading />}
       {(showError || isError) && (
         <OutsideClickHandler
           onOutsideClick={() => {
@@ -289,7 +278,7 @@ const CheckoutPageLayout = () => {
       {cart_details === null || cart_details.length > 0 ? (
         <div className="  mx-auto w-full    sm:px-8 md:px-0 flex  flex-col justify-center c-md:flex-row c-md:justify-between    c-md:max-w-[824px]  lg:max-w-[1000px]  ">
           <div className="   c-md:w-[400px] lg:w-[600px] ">
-            <div className="bg-[#FEFEFE] rounded-lg py-12 px-9">
+            <div className="bg-[#FEFEFE] rounded-lg py-6 md:py-12  px-4 md:px-9">
               <CartItemBox cart={cart} cart_details={cart_details} />
             </div>
             <div className="mt-6">
@@ -300,7 +289,7 @@ const CheckoutPageLayout = () => {
               />
             </div>
             {shippingMethod?.type === 'delivery' && (
-              <div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px]">
+              <div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg py-6 md:py-8  px-4 md:px-9">
                 <p className="text-primary text-xl leading-6 font-medium ">
                   {shippingMethod.name} Address
                 </p>
@@ -335,7 +324,7 @@ const CheckoutPageLayout = () => {
               </div>
             )}
             {shippingMethod?.type === 'storage_hub' && (
-              <div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg p-[31px]">
+              <div className="mt-6  w-full min-h-[100px] bg-[#FEFEFE] rounded-lg py-6 md:py-8  px-4 md:px-9">
                 <p className="text-primary text-xl leading-6 font-medium ">
                   {shippingMethod.name}
                   Address
@@ -349,13 +338,15 @@ const CheckoutPageLayout = () => {
                 </div>
               </div>
             )}
-            <div className="mt-6">
-              <PaymentMethod
-                payment_methods={payment_methods}
-                paymentMethod={paymentMethod}
-                setPaymentMethod={setPaymentMethod}
-              />
-            </div>
+            {payment_methods?.length > 1 && (
+              <div className="mt-6">
+                <PaymentMethod
+                  payment_methods={payment_methods}
+                  paymentMethod={paymentMethod}
+                  setPaymentMethod={setPaymentMethod}
+                />
+              </div>
+            )}
           </div>
           <div className=" mt-6 c-md:mt-0 c-md:w-[400px] lg:w-[380px]">
             <OrderSummary cart={cart} cart_details={cart_details} />

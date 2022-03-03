@@ -1,6 +1,16 @@
-module.exports = {
-  auth_url: 'https://auth.dev.tradly.app/',
-  base_url: 'https://api.dev.tradly.app/',
-  cookie_name: 'ck_d_a',
-  site_url: 'https://tradly.app',
-}
+export const base_url = () => {
+  switch (process.env.ENVIRONMENT) {
+    case 'development':
+      return 'https://api.dev.tradly.app';
+      break;
+    case 'production':
+      return 'https://api.tradly.app';
+      break;
+    case 'sandbox':
+      return 'https://api.sandbox.tradly.app';
+      break;
+    default:
+      return 'https://api.tradly.app';
+      break;
+  }
+};
