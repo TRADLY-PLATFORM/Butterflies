@@ -8,14 +8,16 @@ import { check_login } from '../constant/check_auth';
 import { useRouter } from 'next/router';
 
 const Payout = () => {
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
   }, [dispatch]);
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem('user_details'));

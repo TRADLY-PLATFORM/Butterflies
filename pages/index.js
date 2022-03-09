@@ -7,12 +7,15 @@ import { refreshPage } from '../store/feature/authSlice';
 import tradly from 'tradly';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 import { home_page } from '../themes/Theme1';
-  
+
 const Index = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
-    dispatch(refreshPage({ key: localStorage.getItem('refresh_key') }));
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(refreshPage({ key: localStorage.getItem('refresh_key') }));
+    }
+
     if (props.general_configs !== null) {
       dispatch(setGeneralConfig(props));
     } else {

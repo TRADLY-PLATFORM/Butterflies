@@ -21,11 +21,13 @@ const Payment = (props) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
   }, [dispatch]);
 
   const stripePromise = loadStripe(props.payment?.stripe_api_publishable_key);
@@ -43,6 +45,6 @@ export async function getServerSideProps() {
     paramBody: 'payments',
   });
   return {
-    props: { payment: response?.data?.configs||[] },
+    props: { payment: response?.data?.configs || [] },
   };
 }

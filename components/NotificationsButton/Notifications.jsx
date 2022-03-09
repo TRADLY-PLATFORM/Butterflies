@@ -34,7 +34,8 @@ const Notifications = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    tradly.app
+    if (auth_key) {
+      tradly.app
       .commonFuntion({
         path: `/v1/activities?page=${page}`,
         Method: 'GET',
@@ -47,6 +48,8 @@ const Notifications = () => {
           setTotal_records(res.data.total_records);
         }
       });
+    }
+    
 
     if (user_details) {
       dispatch(

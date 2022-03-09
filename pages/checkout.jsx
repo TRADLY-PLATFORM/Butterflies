@@ -21,11 +21,14 @@ const Checkout = (props) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+       dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+     
     dispatch(
       getCurrencies({
         authKey: localStorage.getItem('auth_key'),

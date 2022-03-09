@@ -17,11 +17,13 @@ const EditProfile = (props) => {
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
   }, [dispatch]);
 
   useEffect(() => {

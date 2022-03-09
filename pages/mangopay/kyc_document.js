@@ -11,11 +11,13 @@ const onboarding_details = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
   }, [router]);
 
   return (

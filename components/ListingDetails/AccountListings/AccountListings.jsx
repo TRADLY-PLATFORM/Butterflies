@@ -35,16 +35,18 @@ const AccountListings = ({ account_id, account }) => {
 
   const [account_listings, setAccount_listings] = useState(null);
   useEffect(() => {
-    tradly.app
-      .getListings({
-        bodyParam: { page: 1, per_page: 30, account_id: account_id },
-        authKey: auth_key,
-      })
-      .then((res) => {
-        if (!res.error) {
-          setAccount_listings(res.data.listings);
-        }
-      });
+    if (account_id) {
+      tradly.app
+        .getListings({
+          bodyParam: { page: 1, per_page: 30, account_id: account_id },
+          authKey: auth_key,
+        })
+        .then((res) => {
+          if (!res.error) {
+            setAccount_listings(res.data.listings);
+          }
+        });
+    }
   }, [account_id]);
 
   // Button Handle

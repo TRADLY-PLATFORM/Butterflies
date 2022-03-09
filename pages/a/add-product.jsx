@@ -15,11 +15,14 @@ import { check_login } from '../../constant/check_auth';
 const AddProduct = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+
     dispatch(setListingConfig(props));
     dispatch(setGeneralConfig(props));
   }, [dispatch]);

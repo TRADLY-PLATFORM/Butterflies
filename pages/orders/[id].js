@@ -9,17 +9,18 @@ import { authSelector, refreshPage } from '../../store/feature/authSlice';
 const OrderDetails = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
   }, [dispatch]);
 
   const router = useRouter();
-   
 
-   return (
+  return (
     check_login(router) && (
       <MainLayout>
         {' '}

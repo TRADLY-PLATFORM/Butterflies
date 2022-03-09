@@ -11,11 +11,15 @@ import { my_store_page } from '../../themes/Theme1';
 const MyStore = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      if (localStorage.getItem('refresh_key')) {
+        dispatch(
+          refreshPage({
+            key: localStorage.getItem('refresh_key'),
+          })
+        );
+      }
+    }
   }, [dispatch]);
 
   const router = useRouter();

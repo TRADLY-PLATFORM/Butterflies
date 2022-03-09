@@ -13,20 +13,20 @@ const Search = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearSearch());
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
 
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
   const pageTitle = props?.seo_text?.meta_title;
   const pageDescription = props?.seo_text?.meta_description;
-  return (
-    search_page(pageTitle, pageDescription)
-  );
+  return search_page(pageTitle, pageDescription);
 };
 
 export default Search;

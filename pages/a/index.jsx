@@ -14,11 +14,14 @@ const Stores = (props) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+
     dispatch(setGeneralConfig(props));
     setmarketplace_module(Number(localStorage.getItem('marketplace_module')));
   }, [dispatch]);
@@ -41,7 +44,7 @@ export async function getServerSideProps() {
   return {
     props: {
       seo_text: response?.data?.configs || null,
-      general_configs: response2?.data?.configs ||[],
+      general_configs: response2?.data?.configs || [],
     },
   };
 }

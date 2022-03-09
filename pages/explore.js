@@ -10,17 +10,19 @@ import ExplorePageLayout from '../components/layouts/PageLayouts/ExplorePageLayo
 import { setGeneralConfig } from '../store/feature/configsSlice';
 import DefaultErrorPage from 'next/error';
 
-
 const explore = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearListings());
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
       );
-       dispatch(setGeneralConfig(props));
+    }
+
+    dispatch(setGeneralConfig(props));
   }, [dispatch]);
   const pageTitle = props?.seo_text?.meta_title;
   const pageDescription = props?.seo_text?.meta_description;
@@ -39,9 +41,9 @@ export async function getServerSideProps() {
   const response = await tradly.app.getConfigList({
     paramBody: 'seo',
   });
-    const response2 = await tradly.app.getConfigList({
-      paramBody: 'general',
-    });
+  const response2 = await tradly.app.getConfigList({
+    paramBody: 'general',
+  });
   return {
     props: {
       seo_text: response?.data?.configs || null,

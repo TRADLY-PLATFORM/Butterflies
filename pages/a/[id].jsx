@@ -15,11 +15,14 @@ const StoreDetails = (props) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+
     dispatch(setGeneralConfig(props));
     setmarketplace_module(Number(localStorage.getItem('marketplace_module')));
   }, [dispatch]);
