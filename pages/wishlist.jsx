@@ -19,11 +19,13 @@ const WishList = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearWishState());
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
   }, [dispatch]);
   const pageTitle = TYPE_CONSTANT.META_TITLE;
   const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;

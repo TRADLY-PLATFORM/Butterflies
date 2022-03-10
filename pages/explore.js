@@ -16,11 +16,14 @@ const explore = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearListings());
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);

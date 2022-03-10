@@ -32,7 +32,7 @@ export const edit_store_click = (
     setEditStoreLoading(false);
 
     return false;
-  }  else if (accounts_configs.account_address_enabled && coordinates === null) {
+  } else if (accounts_configs.account_address_enabled && coordinates === null) {
     setShowError(true);
     setError_message('Address is required');
     setEditStoreLoading(false);
@@ -46,12 +46,10 @@ export const edit_store_click = (
 
   //   return false;
   // }
- 
 
   if (files !== null && imagePath === null) {
-    tradly.app
-      .generateS3ImageURL({
-        authKey: auth_key,
+    axios
+      .post('/api/generateS3ImageURL', {
         data: {
           files: [
             {
@@ -431,9 +429,8 @@ export const edit_store_click = (
           }
         });
       } else {
-        tradly.app
-          .generateS3ImageURL({
-            authKey: auth_key,
+        axios
+          .post('/api/generateS3ImageURL', {
             data: {
               files: [
                 {

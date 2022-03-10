@@ -15,11 +15,14 @@ import { check_login } from '../../constant/check_auth';
 const EditStore = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+
     dispatch(clearAccountDetails());
      
       dispatch(

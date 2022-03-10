@@ -9,21 +9,21 @@ import { all_listing_categories_page } from "../../themes/Theme1";
 import { TYPE_CONSTANT } from "../../constant/Web_constant";
 
 const Categories = (props) => {
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(
-			refreshPage({
-				key: localStorage.getItem("refresh_key"),
-			})
-		);
-	}, [dispatch]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+  }, [dispatch]);
 
 	const pageTitle = TYPE_CONSTANT.META_TITLE;
 	const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
 
-	return (
-		all_listing_categories_page(pageTitle, pageDescription)
-	);
+  return all_listing_categories_page(pageTitle, pageDescription);
 };
 
 export default Categories;

@@ -16,7 +16,6 @@ export const homeCollections = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -65,7 +64,7 @@ export const homeSlice = createSlice({
   // 	},
   // },
   extraReducers: {
-    // @ts-ignore
+ 
     [homeCollections.fulfilled]: (state, { payload }) => {
       if (payload.code) {
         state.isFetching = false;
@@ -80,13 +79,13 @@ export const homeSlice = createSlice({
         state.promo_banners = payload?.promo_banners;
       }
     },
-    // @ts-ignore
+ 
     [homeCollections.pending]: (state) => {
       state.isFetching = true;
       state.isError = false;
       state.errorMessage = '';
     },
-    // @ts-ignore
+  
     [homeCollections.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
@@ -104,13 +103,13 @@ export const homeSlice = createSlice({
         state.page_promo_banners = payload?.promo_banners;
       }
     },
-    // @ts-ignore
+  
     [AllPromoBanners.pending]: (state) => {
       state.isFetching = true;
       state.isError = false;
       state.errorMessage = '';
     },
-    // @ts-ignore
+  
     [AllPromoBanners.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;

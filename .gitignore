@@ -35,8 +35,11 @@ env/.env.sandbox
 .env.production.local
 env/.env.dev
 .env.ah
+ah.md
 
 # vercel
 .vercel
 
 .vercel
+
+

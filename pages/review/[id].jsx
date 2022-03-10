@@ -10,11 +10,13 @@ import { authSelector, refreshPage } from '../../store/feature/authSlice';
 const review = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
+    if (localStorage.getItem('refresh_key')) {
+   dispatch(
       refreshPage({
         key: localStorage.getItem('refresh_key'),
       })
-    );
+    ); }
+    
   }, [dispatch]);
 
   const router = useRouter();

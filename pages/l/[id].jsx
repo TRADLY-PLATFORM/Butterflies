@@ -22,11 +22,15 @@ function Details(props) {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      if (localStorage.getItem('refresh_key')) {
+        dispatch(
+          refreshPage({
+            key: localStorage.getItem('refresh_key'),
+          })
+        );
+      }
+    }
     dispatch(clearListingDetails());
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
 

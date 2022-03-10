@@ -25,11 +25,14 @@ const Checkout = (props) => {
   useEffect(() => {
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
 
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+
     dispatch(
       getCurrencies({
         authKey: localStorage.getItem('auth_key'),
@@ -37,18 +40,16 @@ const Checkout = (props) => {
     );
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
-    
- 
-      dispatch(
-        setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
-      );
-   
+
+    dispatch(
+      setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
+    );
 
     setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
   }, [dispatch]);
 
- const pageTitle = TYPE_CONSTANT.META_TITLE;
- const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
+  const pageTitle = TYPE_CONSTANT.META_TITLE;
+  const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
 
   const selectLayout = () => {
     if (check_login(router)) {
@@ -74,5 +75,3 @@ const Checkout = (props) => {
 };
 
 export default Checkout;
-
- 

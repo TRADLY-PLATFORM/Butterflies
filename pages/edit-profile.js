@@ -19,11 +19,12 @@ const EditProfile = (props) => {
 
   useEffect(() => {
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
-    dispatch(
+    if (localStorage.getItem('refresh_key')) {  dispatch(
       refreshPage({
         key: localStorage.getItem('refresh_key'),
       })
-    );
+    );}
+   
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
 
@@ -44,11 +45,7 @@ const EditProfile = (props) => {
     }
   }, [localStorage.getItem('auth_key')]);
 
-<<<<<<< HEAD
-  return edit_profile_page();
-=======
   return check_login(router) && edit_profile_page();
->>>>>>> 834ffe8e7535d14188234f891af4bd55dbab86c1
 };
 
 export default EditProfile;

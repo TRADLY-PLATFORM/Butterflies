@@ -35,13 +35,15 @@ const Notifications = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get('/api/activities', { params: { page: page } }).then((res) => {
-      if (!res.data.error) {
-        setNotifications(res.data.activities);
-        setPage(res.data.page);
-        setTotal_records(res.data.total_records);
-      }
-    });
+    if (auth_key) {
+      axios.get('/api/activities', { params: { page: page } }).then((res) => {
+        if (!res.data.error) {
+          setNotifications(res.data.activities);
+          setPage(res.data.page);
+          setTotal_records(res.data.total_records);
+        }
+      });
+    }
 
     if (user_details) {
       dispatch(

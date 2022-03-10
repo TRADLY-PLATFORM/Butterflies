@@ -64,15 +64,12 @@ export const getListingReviews = createAsyncThunk(
   'listing/getListingReviews',
   async ({  authKey ,params}, thunkAPI) => {
     try {
-      const response = await tradly.app.getReviewList({
-        authKey,
-        bodyParam: params,
-      });
+      const response = await axios.get('/api/review/get_reviews',{params:params});
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       }
-      const { error } = await response;
+      const { error } = await response.data;
       return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -200,8 +197,6 @@ export const listingSlice = createSlice({
       state.isError = true;
       state.errorMessage = payload?.message;
     },
-<<<<<<< HEAD
-=======
     [getListingReviews.fulfilled]: (state, { payload }) => {
       if (payload.code) {
         state.isFetching = false;
@@ -229,7 +224,6 @@ export const listingSlice = createSlice({
       state.isError = true;
       state.errorMessage = payload?.message;
     },
->>>>>>> 834ffe8e7535d14188234f891af4bd55dbab86c1
   },
 });
 

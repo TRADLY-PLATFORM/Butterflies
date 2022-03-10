@@ -36,15 +36,17 @@ const AccountListings = ({ account_id, account }) => {
 
   const [account_listings, setAccount_listings] = useState(null);
   useEffect(() => {
-    axios
-      .get('/api/l', {
-        params: { page: 1, per_page: 30, account_id: account_id },
-      })
-      .then((res) => {
-        if (!res.error) {
-          setAccount_listings(res.data.listings);
-        }
-      });
+    if (account_id) {
+      axios
+        .get('/api/l', {
+          params: { page: 1, per_page: 30, account_id: account_id },
+        })
+        .then((res) => {
+          if (!res.error) {
+            setAccount_listings(res.data.listings);
+          }
+        });
+    }
   }, [account_id]);
 
   // Button Handle

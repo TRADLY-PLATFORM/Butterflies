@@ -15,15 +15,17 @@ import { check_login } from '../../constant/check_auth';
 const createStore = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+
     dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
+      setAccountConfig({ accounts_configs: TYPE_CONSTANT.ACCOUNTS_CONFIGS })
     );
- 
-     
-      dispatch(setAccountConfig({ accounts_configs:TYPE_CONSTANT.ACCOUNTS_CONFIGS }));
-  
   }, [dispatch]);
 
   const router = useRouter();
@@ -32,5 +34,3 @@ const createStore = (props) => {
 };
 
 export default createStore;
-
- 

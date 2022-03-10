@@ -14,16 +14,16 @@ const AllListings = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearListings());
-    dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
 
-     const general_configs = JSON.parse(
-       localStorage.getItem('general_configs')
-     );
-     dispatch(setGeneralConfig({ general_configs: general_configs }));
+    const general_configs = JSON.parse(localStorage.getItem('general_configs'));
+    dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
   const pageTitle = TYPE_CONSTANT.META_TITLE;
   const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
