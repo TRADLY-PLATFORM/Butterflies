@@ -80,7 +80,7 @@ const VerificationForm = () => {
       code: code,
     };
     dispatch(verifyUser({ prams: verification, key: 'abncg' })).then((res) => {
-      if (!res.payload.error) {
+      if (!res.payload.code) {
         localStorage.removeItem('new_user_verify_id');
         localStorage.removeItem('new_user_register_data');
         if (router.query.to) {

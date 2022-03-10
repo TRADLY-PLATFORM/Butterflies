@@ -161,6 +161,7 @@ export const authSlice = createSlice({
       state.user_details = '';
       localStorage.clear();
       Cookies.remove('auth_key', { path: '' });
+      Cookies.remove('refresh_key', { path: '' });
       return state;
     },
   },
@@ -188,6 +189,7 @@ export const authSlice = createSlice({
         state.user_details = payload?.user;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
         Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
+        Cookies.set('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
         localStorage.setItem('expiration_time', expirationDate);
@@ -223,7 +225,10 @@ export const authSlice = createSlice({
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = userDetails;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
-        Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
+        Cookies.set('auth_key', payload?.user?.key.auth_key, {
+          expires: 0.5,
+        });
+        Cookies.set('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('login', true);
       }
@@ -278,6 +283,7 @@ export const authSlice = createSlice({
         state.user_details = payload?.user;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
         Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
+        Cookies.set('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
         localStorage.setItem('expiration_time', expirationDate);

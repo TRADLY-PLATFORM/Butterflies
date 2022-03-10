@@ -192,10 +192,11 @@ export const get_all_accounts = createAsyncThunk(
   }
 );
 
-export const accountDetails = createAsyncThunk(
-  'store/accountDetails',
+export const account_full_details = createAsyncThunk(
+  'store/account_full_details',
 
   async ({ id, authKey }, thunkAPI) => {
+    
     try {
       const response = await axios.get(`/api/a/${id}`);
       const { data } = await response;
@@ -482,7 +483,7 @@ export const storeSlice = createSlice({
         state.isSuccess = false;
         state.errorMessage = payload?.message;
     },
-    [accountDetails.fulfilled]: (state, { payload }) => {
+    [account_full_details.fulfilled]: (state, { payload }) => {
       if (payload.code) {
         state.isFetching = false;
         state.isError = true;
@@ -496,13 +497,13 @@ export const storeSlice = createSlice({
         state.my_account_details = payload?.account;
       }
     },
-    [accountDetails.pending]: (state) => {
+    [account_full_details.pending]: (state) => {
     state.isFetching = false;
     state.isError = true;
     state.isSuccess = false;
     state.errorMessage = payload?.message;
     },
-    [accountDetails.rejected]: (state, { payload }) => {
+    [account_full_details.rejected]: (state, { payload }) => {
        state.isFetching = false;
        state.isError = true;
        state.isSuccess = false;

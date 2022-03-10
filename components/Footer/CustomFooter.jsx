@@ -459,7 +459,11 @@ const CustomFooter = () => {
           })}
         </div> */}
         <div>
-          <p className=" text-lg font-semibold pb-4">Links</p>
+          {(general_configs?.terms_url ||
+            general_configs?.privacy_policy_url ||
+            general_configs?.support_url) && (
+            <p className=" text-lg font-semibold pb-4">Links</p>
+          )}
           {general_configs?.terms_url && (
             <Link href={general_configs?.terms_url}>
               <a className=" block    pb-4" target="_blank">

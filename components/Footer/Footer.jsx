@@ -374,7 +374,7 @@ const Footer = () => {
 
           {isSeeAllCategories &&
             allCategories?.map((item, index, array) => {
-              if (array.length >3) {
+              if (array.length > 3) {
                 if (index + 1 >= 4) {
                   return (
                     <div className="mb-4 " key={Math.random()}>
@@ -454,7 +454,11 @@ const Footer = () => {
           })}
         </div> */}
         <div>
-          <p className=" text-base md:text-lg font-semibold pb-4">Links</p>
+          {(general_configs?.terms_url ||
+            general_configs?.privacy_policy_url ||
+            general_configs?.support_url) && (
+            <p className=" text-base md:text-lg font-semibold pb-4">Links</p>
+          )}
           {general_configs?.terms_url && (
             <Link href={general_configs?.terms_url}>
               <a className=" block    pb-4" target="_blank">
@@ -501,7 +505,7 @@ const Footer = () => {
         <div className="py-2 flex items-center">
           <p className=" text-sm text-default_gray mr-4">
             {`© ${new Date().getFullYear()} ${
-              general_configs?.website_name
+              general_configs?.website_name ? general_configs?.website_name : ''
             }. All rights reserved.`}
           </p>
           <Link href={'/sitemap.xml'}>

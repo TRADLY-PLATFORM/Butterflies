@@ -58,7 +58,7 @@ const CheckoutPageLayout = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (login) {
+    if (login && auth_key) {
       if (currencies) {
         dispatch(
           cartList({
@@ -83,7 +83,7 @@ const CheckoutPageLayout = () => {
           authKey: auth_key,
         })
       );
-    }  
+    }
   }, [auth_key, dispatch, login, router, currencies]);
 
   const {
@@ -96,13 +96,13 @@ const CheckoutPageLayout = () => {
     isFetching,
     isCheckoutFetching,
     isSuccess,
-	} = useSelector(cartSelector);
-	
-	  useEffect(() => {
-      if (payment_methods && paymentMethod == null) {
-        setPaymentMethod(payment_methods[0]);
-      }
-    }, [payment_methods]);
+  } = useSelector(cartSelector);
+
+  useEffect(() => {
+    if (payment_methods && paymentMethod == null) {
+      setPaymentMethod(payment_methods[0]);
+    }
+  }, [payment_methods]);
 
   // Checkout func:
   const clickCheckOut = () => {
