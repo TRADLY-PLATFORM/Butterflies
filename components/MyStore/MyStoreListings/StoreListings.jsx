@@ -16,6 +16,7 @@ import {
 import Warning from '../../Shared/PopUp/Warning';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import { configsSelector } from '../../../store/feature/configsSlice';
+import axios from 'axios';
 
 const StoreListings = ({ my_store_listings, my_stores }) => {
   const [marketplace_type, setMarketplace_type] = useState(null);
@@ -34,8 +35,9 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
 
   const deleteListing = (id) => {
     setIsloading(true);
-    tradly.app.deleteListing({ id, authKey: auth_key }).then((res) => {
-      if (!res.error) {
+    axios
+      .post('/api/l/delete_listing', { id })
+      .then((res) => {
         dispatch(
           myAccountListings({
             prams: { page: router.query.page, account_id: my_stores[0].id },
@@ -43,10 +45,10 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
           })
         );
         setIsloading(false);
-      } else {
+      })
+      .catch((error) => {
         setIsloading(false);
-      }
-    });
+      });
   };
 
   const closePopUP = () => {
@@ -55,24 +57,23 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
   };
 
   return (
-    <> {isLoading && <CustomLoading />}
-        {showWarning && (
-          <OutsideClickHandler
-            onOutsideClick={() => {
-              showWarning && (setShowWarning(false), setWarning_message(''));
-            }}
-          >
-            <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-              <div className="w-full  xs:w-[500px] mx-auto">
-                <Warning message={warning_message} closePopUP={closePopUP} />
-              </div>
-            </div>
-          </OutsideClickHandler>
-        )}
+    <>
       {' '}
+      {isLoading && <CustomLoading />}
+      {showWarning && (
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            showWarning && (setShowWarning(false), setWarning_message(''));
+          }}
+        >
+          <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
+            <div className="w-full  xs:w-[500px] mx-auto">
+              <Warning message={warning_message} closePopUP={closePopUP} />
+            </div>
+          </div>
+        </OutsideClickHandler>
+      )}{' '}
       <div className=" grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">
-       
-
         {my_store_listings?.map((item) => (
           <div key={Math.random()} className="  relative">
             <div

@@ -11,6 +11,7 @@ import PopUp from '../../../Shared/PopUp/PopUp';
 import { storeSelector } from '../../../../store/feature/storeSlice';
 import { configsSelector } from '../../../../store/feature/configsSlice';
 import { stock_card_text } from '../../../Shared/Constant/TextConstant/addlistingConstant';
+import axios from 'axios';
 
 const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
   const [showVariantForm, setShowVariantForm] = useState(false);
@@ -77,10 +78,8 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
 
   const { auth_key } = useSelector(authSelector);
   useEffect(() => {
-    tradly.app.getVariantTypes({ authKey: auth_key }).then((res) => {
-      if (!res.error) {
-        setVariantsType(res.data.variant_types);
-      }
+    axios.get('/api/variant').then((res) => {
+      setVariantsType(res.data.variant_types);
     });
   }, [auth_key]);
 

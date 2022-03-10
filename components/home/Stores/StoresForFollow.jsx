@@ -25,6 +25,7 @@ import { homeCollections } from '../../../store/feature/homeSlice';
 import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
 import AccountCard from '../../Shared/Cards/AccountCard';
+import axios from 'axios';
 import { check_login } from '../../../constant/check_auth';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
@@ -37,17 +38,11 @@ const StoresForFollow = ({ stores }) => {
 
   const follow = (id, isFollow) => {
     if (check_login(router)) {
-      tradly.app
-        .followUnfollowAccounts({
-          id,
-          authKey: auth_key,
-          isFollowing: isFollow,
-        })
-        .then((res) => {
-          if (!res.code) {
-            dispatch(homeCollections({ authKey: auth_key }));
-          }
-        });
+      axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
+        if (!res.code) {
+          dispatch(homeCollections({ authKey: auth_key }));
+        }
+      });
     }
   };
 

@@ -12,6 +12,7 @@ import { configsSelector } from '../../../store/feature/configsSlice';
 import { authSelector } from '../../../store/feature/authSlice';
 import { listingLike } from '../../../store/feature/search';
 import tradly from 'tradly';
+import axios from 'axios';
 import { check_login } from '../../../constant/check_auth';
 
 const AccountListingsItem = ({
@@ -25,6 +26,7 @@ const AccountListingsItem = ({
   const dispatch = useDispatch();
   const router = useRouter();
 
+  // like listing
   const like = (id, isLiked) => {
     if (check_login(router)) {
       setIsDataLoading(true);
@@ -36,20 +38,14 @@ const AccountListingsItem = ({
         })
       ).then((res) => {
         if (!res.payload.code) {
-          tradly.app
-            .commonFuntion({
-              path: `/v1/accounts/${router.query.id.split('-')[0]}`,
-              bodyParam: '',
-              authKey: auth_key,
-              Method: 'Get',
-            })
+          axios
+            .get(`/api/a/${router.query.id.split('-')[0]}`)
             .then((res) => {
-              if (!res.error) {
-                setAccount_details(res.data.account);
-                setIsDataLoading(false);
-              } else {
-                setIsDataLoading(false);
-              }
+              setAccount_details(res.data.account);
+              setIsDataLoading(false);
+            })
+            .catch((error) => {
+              setIsDataLoading(false);
             });
         } else {
           setIsDataLoading(false);

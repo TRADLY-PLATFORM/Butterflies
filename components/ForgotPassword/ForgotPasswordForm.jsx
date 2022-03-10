@@ -53,17 +53,17 @@ const ForgotPasswordForm = ({ general_configs }) => {
     };
 
     dispatch(verifyUserEmail({ prams: users })).then((res) => {
-      if (!res.error) {
-        if (router.query.to) {
-          router.push(
-            `/forgot-password/set-password?verify_id=${res.payload.verify_id}&to=${router.query.to}`
-          );
-        } else {
-          router.push({
-            pathname: '/forgot-password/set-password',
-            query: { verify_id: res.payload.verify_id },
-          });
-        }
+      if (!res.payload.code) {
+       if (router.query.to) {
+         router.push(
+           `/forgot-password/set-password?verify_id=${res.payload.verify_id}&to=${router.query.to}`
+         );
+       } else {
+         router.push({
+           pathname: '/forgot-password/set-password',
+           query: { verify_id: res.payload.verify_id },
+         });
+       }
       }
     });
   };

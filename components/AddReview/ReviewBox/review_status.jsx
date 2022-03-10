@@ -94,7 +94,7 @@ const Review_status = () => {
           stroke="var( --primary_color)"
           strokeWidth="2.5"
         />
-      </svg>
+      </svg>    
       <h2 className="text-xl text-primary  mt-5 ">
         You already added your review{' '}
       </h2>

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import tradly from 'tradly';
 
 export const add_review = (
@@ -17,15 +18,14 @@ export const add_review = (
 ) => {
   setIsLoading(true);
   if (files.length > 0) {
-    tradly.app
-      .generateS3ImageURL({
-        authKey: auth_key,
+    axios
+      .post('/api/generateS3ImageURL', {
         data: {
           files: files,
         },
       })
       .then((response) => {
-        if (!response.error) {
+        if (!response.data.error) {
           const responseFiles = response.data.result;
           var increment = 0;
           for (let index = 0; index < responseFiles.length; index++) {
@@ -54,21 +54,20 @@ export const add_review = (
                       reviewData['content'] = rating_description;
                     }
 
-                    tradly.app
-                      .addReview({
-                        authKey: auth_key,
+                    axios
+                      .post('/api/review/add_review', {
                         data: {
                           review: reviewData,
                         },
                       })
                       .then((response) => {
-                        if (!response.error) {
+                        if (!response.data.error) {
                           setShowSuccess(true);
                           setSuccess_message('Your review added successfully');
                           setIsLoading(false);
                         } else {
                           setShowError(true);
-                          setError_message(response?.error?.message);
+                          setError_message(response?.data.error?.message);
                           setIsLoading(false);
                         }
                       });
@@ -83,7 +82,7 @@ export const add_review = (
           }
         } else {
           setShowError(true);
-          setError_message(response?.error?.message);
+          setError_message(response?.data.error?.message);
           setIsLoading(false);
         }
       });
@@ -98,9 +97,8 @@ export const add_review = (
       reviewData['content'] = rating_description;
     }
 
-    tradly.app
-      .addReview({
-        authKey: auth_key,
+    axios
+      .post('/api/review/add_review', {
         data: {
           review: reviewData,
         },

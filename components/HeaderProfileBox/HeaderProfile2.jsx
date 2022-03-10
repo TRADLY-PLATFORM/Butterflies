@@ -21,6 +21,7 @@ import {
 } from '../Shared/Constant/Icons/AllIcons';
 import { myStore, storeSelector } from '../../store/feature/storeSlice';
 import { account_menus, customer_menus } from './desktopMenu';
+import axios from 'axios';
 
 const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
   const [marketplace_type, setMarketplace_type] = useState(null);
@@ -28,15 +29,9 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
 
   useEffect(() => {
     setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
-    tradly.app
-      .getConfigList({
-        paramBody: 'general',
-      })
-      .then((res) => {
-        if (!res.error) {
-          setGeneral_configs(res?.data?.configs);
-        }
-      });
+    axios.get('/api/configs/general').then((res) => {
+      setGeneral_configs(res?.data?.configs);
+    });
   }, [0]);
 
   useEffect(() => {
@@ -130,7 +125,11 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
           }
         >
           {login && (
-            <div className={["bg-[#fff] rounded-lg   mt-[15px]  pt-[20px] pb-[15px]   min-h-[100px]  border border-[rgba(250, 250, 250, 0.93)]  shadow-sm  relative"]}>
+            <div
+              className={[
+                'bg-[#fff] rounded-lg   mt-[15px]  pt-[20px] pb-[15px]   min-h-[100px]  border border-[rgba(250, 250, 250, 0.93)]  shadow-sm  relative',
+              ]}
+            >
               {login && (
                 <>
                   {my_stores?.length > 0 ? (

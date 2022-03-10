@@ -1,10 +1,11 @@
+import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import {
-  accountDetails,
+  account_full_details,
   myStore,
   storeSelector,
 } from '../../../store/feature/storeSlice';
@@ -14,6 +15,8 @@ import EditStoreForm from '../../MyStore/EditStore/EditStoreForm';
 const CustomEditStorePageLayout = () => {
   const { auth_key, user_details } = useSelector(authSelector);
   const { accounts_configs } = useSelector(configsSelector);
+
+  const [my_account_details, setMy_account_details] = useState(null);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -30,11 +33,18 @@ const CustomEditStorePageLayout = () => {
           authKey: auth_key,
         })
       );
-      dispatch(accountDetails({ id: router.query.id, authKey: auth_key }));
+      axios
+        .get(`/api/a/${router.query.id}`)
+        .then((res) => {
+          setMy_account_details(res.data.account);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [auth_key, user_details, dispatch, router]);
 
-  const { my_stores, my_account_details } = useSelector(storeSelector);
+  const { my_stores } = useSelector(storeSelector);
 
   return (
     <div className="  flex justify-center ">

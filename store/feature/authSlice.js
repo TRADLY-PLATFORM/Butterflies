@@ -2,18 +2,21 @@
 /* eslint-disable no-else-return */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import tradly from 'tradly';
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 export const signIn = createAsyncThunk(
   'auth/signIn',
 
   async ({ prams }, thunkAPI) => {
     try {
-      const response = await tradly.user.login({ data: prams });
+      const response = await axios.post('/api/auth/sign_in', { prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -21,17 +24,19 @@ export const signIn = createAsyncThunk(
     }
   }
 );
+
 export const refreshPage = createAsyncThunk(
   'auth/refreshPage',
 
   async ({ key }, thunkAPI) => {
     try {
-      const response = await tradly.init.refreshAPI(key);
+      const response = await axios.post('/api/auth/refresh', { key });
+
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -45,14 +50,12 @@ export const signUp = createAsyncThunk(
 
   async ({ prams }, thunkAPI) => {
     try {
-      const response = await tradly.user.register({
-        data: prams,
-      });
+      const response = await axios.post('/api/auth/sign_up', { prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -66,12 +69,13 @@ export const verifyUser = createAsyncThunk(
 
   async ({ prams }, thunkAPI) => {
     try {
-      const response = await tradly.user.verify({ data: prams });
+      const response = await axios.post('/api/auth/verify_user', { prams });
+
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -85,12 +89,12 @@ export const verifyUserEmail = createAsyncThunk(
 
   async ({ prams }, thunkAPI) => {
     try {
-      const response = await tradly.user.forgotPassword({ data: prams });
+      const response = await axios.post('/api/auth/forgot_password', { prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -99,22 +103,19 @@ export const verifyUserEmail = createAsyncThunk(
   }
 );
 
-export const updateUserInfo = createAsyncThunk(
-  'auth/updateUserInfo',
+export const UserInfo = createAsyncThunk(
+  'auth/UserInfo',
 
   async ({ userId, auth_key }, thunkAPI) => {
     try {
-      const response = await tradly.app.commonFuntion({
-        path: `/v1/users/${userId}`,
-        bodyParam: '',
-        Method: 'GET',
-        authKey: auth_key,
+      const response = await axios.get('/api/user/user_info', {
+        params: { userID: userId },
       });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -154,11 +155,13 @@ export const authSlice = createSlice({
       state.first_name = '';
       state.last_name = '';
       state.auth_key = '';
+      TYPE_CONSTANT.AUTH_KEY = '';
       state.refresh_key = '';
       state.profile_pic = '';
       state.user_details = '';
       localStorage.clear();
-
+      Cookies.remove('auth_key', { path: '' });
+      Cookies.remove('refresh_key', { path: '' });
       return state;
     },
   },
@@ -181,9 +184,12 @@ export const authSlice = createSlice({
         state.last_name = payload?.user.last_name;
         state.profile_pic = payload?.user?.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;
+        TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = payload?.user;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
+        Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
+        Cookies.set('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
         localStorage.setItem('expiration_time', expirationDate);
@@ -198,6 +204,7 @@ export const authSlice = createSlice({
     [signIn.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [refreshPage.fulfilled]: (state, { payload }) => {
@@ -210,13 +217,18 @@ export const authSlice = createSlice({
         const userDetails = JSON.parse(localStorage.getItem('user_details'));
         state.login = true;
         state.user_email = userDetails?.email;
-        state.first_name = userDetails.first_name;
+        state.first_name = userDetails?.first_name;
         state.last_name = userDetails.last_name;
         state.profile_pic = userDetails.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;
+        TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = userDetails;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
+        Cookies.set('auth_key', payload?.user?.key.auth_key, {
+          expires: 0.5,
+        });
+        Cookies.set('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('login', true);
       }
@@ -245,6 +257,7 @@ export const authSlice = createSlice({
     [signUp.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [verifyUser.fulfilled]: (state, { payload }) => {
@@ -265,9 +278,12 @@ export const authSlice = createSlice({
         state.last_name = payload?.user.last_name;
         state.profile_pic = payload?.user?.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;
+        TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
         state.refresh_key = payload?.user?.key.refresh_key;
         state.user_details = payload?.user;
         localStorage.setItem('auth_key', payload?.user?.key.auth_key);
+        Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
+        Cookies.set('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
         localStorage.setItem('expiration_time', expirationDate);
@@ -282,6 +298,7 @@ export const authSlice = createSlice({
     [verifyUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [verifyUserEmail.fulfilled]: (state, { payload }) => {
@@ -304,9 +321,10 @@ export const authSlice = createSlice({
     [verifyUserEmail.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
-    [updateUserInfo.fulfilled]: (state, { payload }) => {
+    [UserInfo.fulfilled]: (state, { payload }) => {
       if (payload.code) {
         state.isFetching = false;
         state.isError = true;
@@ -323,6 +341,17 @@ export const authSlice = createSlice({
         state.user_details = payload?.user;
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
       }
+    },
+    [UserInfo.pending]: (state) => {
+      state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    [UserInfo.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
   },
 });

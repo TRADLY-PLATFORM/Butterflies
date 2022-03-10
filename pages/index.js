@@ -7,41 +7,24 @@ import { refreshPage } from '../store/feature/authSlice';
 import tradly from 'tradly';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 import { home_page } from '../themes/Theme1';
+import { TYPE_CONSTANT } from '../constant/Web_constant';
 
 const Index = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
+
     if (localStorage.getItem('refresh_key')) {
       dispatch(refreshPage({ key: localStorage.getItem('refresh_key') }));
     }
 
-    if (props.general_configs !== null) {
-      dispatch(setGeneralConfig(props));
-    } else {
-      dispatch(setGeneralConfig({ general_configs: general_configs }));
-    }
+    dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
 
-  const pageTitle = props?.seo_text?.meta_title;
-  const pageDescription = props?.seo_text?.meta_description;
+  const pageTitle = TYPE_CONSTANT.META_TITLE;
+  const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
 
   return home_page(pageTitle, pageDescription);
 };
 
 export default Index;
-
-export async function getServerSideProps() {
-  const response = await tradly.app.getConfigList({
-    paramBody: 'seo',
-  });
-  const response2 = await tradly.app.getConfigList({
-    paramBody: 'general',
-  });
-  return {
-    props: {
-      seo_text: response?.data?.configs || null,
-      general_configs: response2?.data?.configs || null,
-    },
-  };
-}

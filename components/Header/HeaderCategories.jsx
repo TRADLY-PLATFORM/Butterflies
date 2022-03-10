@@ -4,50 +4,48 @@ import tradly from 'tradly';
 import { authSelector } from '../../store/feature/authSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
+import axios from 'axios';
 
 const HeaderCategories = () => {
   const [categories, setCategories] = useState(null);
 
   const { auth_key } = useSelector(authSelector);
-  const router =useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const width = window.innerWidth;
     var calc;
-    tradly.app
-      .getCategory({
-        bodyParam: { parent: 0, type: 'listings' },
-        authKey: auth_key,
+    axios
+      .get('/api/categories', {
+        params: { parent: 0, type: 'listings' },
       })
       .then((res) => {
-        if (!res.error) {
-          const response = res?.data?.categories;
-          if (response.length > 0) {
-            if (response.length < 9) {
-              setCategories(response);
-            } else {
-              var sliceLength;
-              if (width < 1300) {
-                sliceLength = 6;
-              }
-              if (width < 1000) {
-                sliceLength = 5;
-              }
-              if (width < 900) {
-                sliceLength = 4;
-              }
-
-              let updatedCategories = response.slice(0, sliceLength || 9);
-              let moreCategory = {
-                id: Math.random(),
-                name: 'More',
-                image_path: '',
-                has_sub_category: true,
-                link: 'all-categories',
-              };
-              updatedCategories.push(moreCategory);
-              setCategories(updatedCategories);
+        const response = res?.data?.categories;
+        if (response?.length > 0) {
+          if (response.length < 9) {
+            setCategories(response);
+          } else {
+            var sliceLength;
+            if (width < 1300) {
+              sliceLength = 6;
             }
+            if (width < 1000) {
+              sliceLength = 5;
+            }
+            if (width < 900) {
+              sliceLength = 4;
+            }
+
+            let updatedCategories = response.slice(0, sliceLength || 9);
+            let moreCategory = {
+              id: Math.random(),
+              name: 'More',
+              image_path: '',
+              has_sub_category: true,
+              link: 'all-categories',
+            };
+            updatedCategories.push(moreCategory);
+            setCategories(updatedCategories);
           }
         }
       });
@@ -70,9 +68,7 @@ const HeaderCategories = () => {
             <Link
               key={Math.random()}
               href={{
-                pathname: `${
-                  item.name !== 'More' ? '/lc/[name]' : '/lc'
-                }`,
+                pathname: `${item.name !== 'More' ? '/lc/[name]' : '/lc'}`,
                 query,
               }}
               passHref
@@ -86,9 +82,9 @@ const HeaderCategories = () => {
                       : '',
                   ].join(' ')}
                 >
-                  {item.name }
+                  {item.name}
 
-                     {/* {item.name === 'More'
+                  {/* {item.name === 'More'
                     ? item.name
                     : item.name.length > 12
                     ? item.name.substring(0, 11)+'.'

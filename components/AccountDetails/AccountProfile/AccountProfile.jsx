@@ -7,6 +7,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import tradly from 'tradly';
+import axios from 'axios';
 import { check_login } from '../../../constant/check_auth';
 
 const AccountProfile = ({
@@ -20,32 +21,22 @@ const AccountProfile = ({
   const follow = (id, isFollow) => {
     if (check_login(router)) {
       setIsDataLoading(true);
-      tradly.app
-        .followUnfollowAccounts({
-          id,
-          authKey: auth_key,
-          isFollowing: isFollow,
-        })
+
+      axios
+        .post('/api/a/follow_account', { id, isFollow })
         .then((res) => {
-          if (!res.code) {
-            tradly.app
-              .commonFuntion({
-                path: `/v1/accounts/${router.query.id.split('-')[0]}`,
-                bodyParam: '',
-                authKey: auth_key,
-                Method: 'Get',
-              })
-              .then((res) => {
-                if (!res.error) {
-                  setAccount_details(res.data.account);
-                  setIsDataLoading(false);
-                } else {
-                  setIsDataLoading(false);
-                }
-              });
-          } else {
-            setIsDataLoading(false);
-          }
+          axios
+            .get(`/api/a/${router.query.id.split('-')[0]}`)
+            .then((res) => {
+              setAccount_details(res.data.account);
+              setIsDataLoading(false);
+            })
+            .catch((error) => {
+              setIsDataLoading(false);
+            });
+        })
+        .catch((error) => {
+          setIsDataLoading(false);
         });
     }
   };

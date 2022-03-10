@@ -8,6 +8,8 @@ import tradly from 'tradly';
 import { clearAccountDetails } from '../../store/feature/storeSlice';
 import { useRouter } from 'next/dist/client/router';
 import { edit_store_page } from '../../themes/Theme1';
+import axios from 'axios';
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import { check_login } from '../../constant/check_auth';
 
 const EditStore = (props) => {
@@ -22,7 +24,11 @@ const EditStore = (props) => {
     }
 
     dispatch(clearAccountDetails());
-    dispatch(setAccountConfig(props));
+     
+      dispatch(
+        setAccountConfig({ accounts_configs: TYPE_CONSTANT.ACCOUNTS_CONFIGS })
+      );
+     
   }, [dispatch]);
 
   const router = useRouter();
@@ -31,12 +37,3 @@ const EditStore = (props) => {
 };
 
 export default EditStore;
-
-export async function getServerSideProps() {
-  const response = await tradly.app.getConfigList({
-    paramBody: 'accounts',
-  });
-  return {
-    props: { accounts_configs: response?.data?.configs || [] },
-  };
-}

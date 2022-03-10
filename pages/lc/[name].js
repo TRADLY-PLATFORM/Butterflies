@@ -8,6 +8,7 @@ import CategoryListingsPageLayout from '../../components/layouts/PageLayouts/Cat
 import tradly from 'tradly';
 import { clearCategoryListings } from '../../store/feature/categorySlice';
 import { category_listings_page } from '../../themes/Theme1';
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
 
 const CategoryListings = (props) => {
@@ -27,18 +28,9 @@ const CategoryListings = (props) => {
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
 
-  const pageTitle = props?.seo_text?.meta_listing_category_title;
-  const pageDescription = props?.seo_text?.meta_listing_description;
+  const pageTitle = TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION;
+  const pageDescription = TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION;
   return category_listings_page(pageTitle, pageDescription);
 };
 
 export default CategoryListings;
-
-export async function getServerSideProps() {
-  const response = await tradly.app.getConfigList({
-    paramBody: 'seo',
-  });
-  return {
-    props: { seo_text: response?.data?.configs },
-  };
-}

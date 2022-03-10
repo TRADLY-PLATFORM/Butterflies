@@ -8,6 +8,7 @@ import tradly from 'tradly';
 import { clearListings } from '../../../store/feature/listingSlice';
 import { similar_all_listings_page } from '../../../themes/Theme1';
 import { setGeneralConfig } from '../../../store/feature/configsSlice';
+import { TYPE_CONSTANT } from '../../../constant/Web_constant';
 
 const AllListings = (props) => {
   const dispatch = useDispatch();
@@ -24,18 +25,11 @@ const AllListings = (props) => {
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
-  const pageTitle = props?.seo_text?.meta_title;
-  const pageDescription = props?.seo_text?.meta_description;
+  const pageTitle = TYPE_CONSTANT.META_LISTING_TITLE;
+  const pageDescription = TYPE_CONSTANT.META_LISTING_DESCRIPTION;
   return similar_all_listings_page(pageTitle, pageDescription);
 };
 
 export default AllListings;
 
-export async function getServerSideProps() {
-  const response = await tradly.app.getConfigList({
-    paramBody: 'seo',
-  });
-  return {
-    props: { seo_text: response?.data?.configs || null },
-  };
-}
+ 

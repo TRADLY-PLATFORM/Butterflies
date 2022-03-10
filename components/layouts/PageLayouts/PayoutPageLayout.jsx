@@ -41,11 +41,4 @@ const PayoutPageLayout = () => {
 
 export default PayoutPageLayout;
 
-// export async function getServerSideProps() {
-//   const response = await tradly.app.getConfigList({
-//     paramBody: 'seo',
-//   });
-//   return {
-//     props: { seo_text: response?.data?.configs },
-//   };
-// }
+ 

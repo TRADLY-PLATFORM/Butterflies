@@ -29,13 +29,10 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
- 
-
   const helpful_review = (id, status) => {
     if (check_login(router)) {
-      tradly.app
-        .likeReview({
-          authKey: auth_key,
+      axios
+        .post('/api/review/like', {
           data: {
             review: {
               status: status == 0 ? 1 : 0,
@@ -44,7 +41,7 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
           id: id,
         })
         .then((res) => {
-          if (!res.error) {
+           
             dispatch(
               listingDetails({
                 id: router?.query.id.split('-')[0],
@@ -62,12 +59,12 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
                 },
               })
             );
-          }
+         
         })
         .catch((error) => {
-          alert(error.message);
+          alert(error.response.data.message);
         });
-    }  
+    }
   };
 
   const [show_moe_review, setShow_more_review] = useState(false);

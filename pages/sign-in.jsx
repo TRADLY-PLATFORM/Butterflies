@@ -20,14 +20,11 @@ const SignIn = (props) => {
         router.push('/');
       }
     } else {
-      const general_configs = JSON.parse(
-        localStorage.getItem('general_configs')
-      );
-      if (props.general_configs !== null) {
-        dispatch(setGeneralConfig(props));
-      } else {
+        const general_configs = JSON.parse(
+          localStorage.getItem('general_configs')
+        );
+
         dispatch(setGeneralConfig({ general_configs: general_configs }));
-      }
     }
   }, [login, router]);
   return (
@@ -39,11 +36,4 @@ const SignIn = (props) => {
 
 export default SignIn;
 
-export async function getServerSideProps() {
-  const response = await tradly.app.getConfigList({
-    paramBody: 'general',
-  });
-  return {
-    props: { general_configs: response?.data?.configs || null },
-  };
-}
+ 

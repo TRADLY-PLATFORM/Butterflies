@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-else-return */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import tradly from 'tradly';
 
 export const myStore = createAsyncThunk(
@@ -8,15 +9,12 @@ export const myStore = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getAccounts({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/a/my_account', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -30,15 +28,12 @@ export const getAddressSearch = createAsyncThunk(
 
   async ({ searchKey, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.searchAddress({
-        searchKey,
-        authKey,
-      });
+      const response = await axios.get(`/api/address/${searchKey}`);
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -52,15 +47,12 @@ export const categories = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getCategory({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/categories', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -73,15 +65,12 @@ export const listingCategories = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getCategory({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/categories', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -95,15 +84,12 @@ export const accountAttribute = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getAttribute({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/attributes', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -117,16 +103,12 @@ export const postStore = createAsyncThunk(
 
   async ({ id, prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.postAccounts({
-        id,
-        authKey,
-        data: prams,
-      });
+      const response = await axios.post('/api/a/my_account', { id, prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -140,15 +122,12 @@ export const myAccountListings = createAsyncThunk(
 
   async ({ prams, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getListings({
-        bodyParam: prams,
-        authKey,
-      });
+      const response = await axios.get('/api/l', { params: prams });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -161,15 +140,12 @@ export const myAccountListingDetails = createAsyncThunk(
 
   async ({ id, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getListingDetail({
-        id,
-        authKey,
-      });
+      const response = await axios.get(`/api/l/${id}`);
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -183,14 +159,12 @@ export const currencies = createAsyncThunk(
 
   async ({ authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getCurrency({
-        authKey,
-      });
+      const response = await axios.get('/api/currencies');
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -204,15 +178,12 @@ export const get_all_accounts = createAsyncThunk(
 
   async ({ bodyParam, authKey }, thunkAPI) => {
     try {
-      const response = await tradly.app.getAccounts({
-        bodyParam,
-        authKey,
-      });
+      const response = await axios.get('/api/a', { params: bodyParam });
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -221,22 +192,18 @@ export const get_all_accounts = createAsyncThunk(
   }
 );
 
-export const accountDetails = createAsyncThunk(
-  'store/accountDetails',
+export const account_full_details = createAsyncThunk(
+  'store/account_full_details',
 
   async ({ id, authKey }, thunkAPI) => {
+    
     try {
-      const response = await tradly.app.commonFuntion({
-        path: `/v1/accounts/${id}`,
-        bodyParam: '',
-        authKey,
-        Method: 'Get',
-      });
+      const response = await axios.get(`/api/a/${id}`);
       const { data } = await response;
-      if (!response.error) {
+      if (!response.data.error) {
         return data;
       } else {
-        const { error } = await response;
+        const { error } = await response.data;
         return error;
       }
     } catch (error) {
@@ -309,6 +276,7 @@ export const storeSlice = createSlice({
     [myStore.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [getAddressSearch.fulfilled]: (state, { payload }) => {
@@ -331,9 +299,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [getAddressSearch.rejected]: (state, { payload }) => {
-      state.addressFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+       state.addressFetching = false;
+       state.isError = true;
+       state.isSuccess = false;
+       state.errorMessage = payload?.message;
     },
     [categories.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -355,9 +324,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [categories.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+       state.isFetching = false;
+       state.isError = true;
+       state.isSuccess = false;
+       state.errorMessage = payload?.message;
     },
     [listingCategories.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -381,6 +351,7 @@ export const storeSlice = createSlice({
     [listingCategories.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [myAccountListingDetails.fulfilled]: (state, { payload }) => {
@@ -403,9 +374,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [myAccountListingDetails.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+       state.isFetching = false;
+       state.isError = true;
+       state.isSuccess = false;
+       state.errorMessage = payload?.message;
     },
     [accountAttribute.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -427,9 +399,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [accountAttribute.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+     state.isFetching = false;
+     state.isError = true;
+     state.isSuccess = false;
+     state.errorMessage = payload?.message;
     },
     [myAccountListings.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -453,9 +426,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [myAccountListings.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+       state.isFetching = false;
+       state.isError = true;
+       state.isSuccess = false;
+       state.errorMessage = payload?.message;
     },
     [currencies.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -477,9 +451,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [currencies.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+     state.isFetching = false;
+     state.isError = true;
+     state.isSuccess = false;
+     state.errorMessage = payload?.message;
     },
     [get_all_accounts.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -503,11 +478,12 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [get_all_accounts.rejected]: (state, { payload }) => {
-      state.isAllAccountsFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+        state.isAllAccountsFetching = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
     },
-    [accountDetails.fulfilled]: (state, { payload }) => {
+    [account_full_details.fulfilled]: (state, { payload }) => {
       if (payload.code) {
         state.isFetching = false;
         state.isError = true;
@@ -521,15 +497,17 @@ export const storeSlice = createSlice({
         state.my_account_details = payload?.account;
       }
     },
-    [accountDetails.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
+    [account_full_details.pending]: (state) => {
+    state.isFetching = false;
+    state.isError = true;
+    state.isSuccess = false;
+    state.errorMessage = payload?.message;
     },
-    [accountDetails.rejected]: (state, { payload }) => {
-      state.isAllAccountsFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+    [account_full_details.rejected]: (state, { payload }) => {
+       state.isFetching = false;
+       state.isError = true;
+       state.isSuccess = false;
+       state.errorMessage = payload?.message;
     },
   },
 });

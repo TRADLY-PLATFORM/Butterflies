@@ -13,6 +13,7 @@ import moment from 'moment';
 import tradly from 'tradly';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import { check_login } from '../../../constant/check_auth';
+import axios from 'axios';
 
 const SimilarCustomListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -33,21 +34,13 @@ const SimilarCustomListingsPageLayout = () => {
   //
   useEffect(() => {
     setIsFetching(true);
-    tradly.app
-      .commonFuntion({
-        path: `/products/v1/listings/${router?.query.id}/similar`,
-        bodyParam: router.query,
-        authKey: auth_key,
-        Method: 'GET',
-      })
-      .then((res) => {
-        if (!res.error) {
-          setIsFetching(false);
-          setSimilarListings(res.data.listings);
-          setPage(res.data.page);
-          setTotal_records(res.data.total_records);
-        }
-      });
+
+    axios.get('/api/l/similar', { params: router.query }).then((res) => {
+      setIsFetching(false);
+      setSimilarListings(res.data.listings);
+      setPage(res.data.page);
+      setTotal_records(res.data.total_records);
+    });
   }, [auth_key, dispatch, router]);
 
   //
@@ -88,21 +81,12 @@ const SimilarCustomListingsPageLayout = () => {
         })
       ).then((res) => {
         if (!res.payload.code) {
-          tradly.app
-            .commonFuntion({
-              path: `/products/v1/listings/${router?.query.id}/similar`,
-              bodyParam: router.query,
-              authKey: auth_key,
-              Method: 'GET',
-            })
-            .then((res) => {
-              if (!res.error) {
-                setIsFetching(false);
-                setSimilarListings(res.data.listings);
-                setPage(res.data.page);
-                setTotal_records(res.data.total_records);
-              }
-            });
+          axios.get('/api/l/similar', { params: router.query }).then((res) => {
+            setIsFetching(false);
+            setSimilarListings(res.data.listings);
+            setPage(res.data.page);
+            setTotal_records(res.data.total_records);
+          });
         }
       });
     }

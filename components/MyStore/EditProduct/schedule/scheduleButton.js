@@ -1,3 +1,4 @@
+import axios from 'axios';
 import tradly from 'tradly';
 
 export const changeSchedule = (
@@ -21,32 +22,31 @@ export const changeSchedule = (
   const filter = schedulesArray.filter(
     (item, index) => index !== editScheduleIndex
   );
-  tradly.app
-    .createSchedule({
+
+  axios
+    .post('/api/schedules/create_schedule', {
       id: productId,
-      authKey: auth_key,
       data: { schedules: [...filter, schedulesObject] },
     })
     .then((res) => {
-      if (!res.error) {
-        setIsEditSchedule(false), setEditScheduleData(null);
-        setIsScheduleFormOpen(false);
-        setEditScheduleIndex(null);
-        setSchedulesObject({
-          start_date: null,
-          start_time: null,
-          end_time: null,
-          schedule_type: 2,
-          repeat_days: null,
-          active: true,
-        });
-        setEditScheduleLoading(false);
-        setShowSuccessMessage(true);
-      } else {
-        setShowError(true);
-        setError_message(res.error.message);
-        setEditScheduleLoading(false);
-      }
+      setIsEditSchedule(false), setEditScheduleData(null);
+      setIsScheduleFormOpen(false);
+      setEditScheduleIndex(null);
+      setSchedulesObject({
+        start_date: null,
+        start_time: null,
+        end_time: null,
+        schedule_type: 2,
+        repeat_days: null,
+        active: true,
+      });
+      setEditScheduleLoading(false);
+      setShowSuccessMessage(true);
+    })
+    .catch((error) => {
+      setShowError(true);
+      setError_message(error.response.data.message);
+      setEditScheduleLoading(false);
     });
 };
 
@@ -68,31 +68,28 @@ export const addNewSchedule = (
 ) => {
   setEditScheduleLoading(true);
 
-  tradly.app
-    .createSchedule({
+  axios
+    .post('/api/schedules/create_schedule', {
       id: productId,
-      authKey: auth_key,
       data: { schedules: [...schedulesArray, schedulesObject] },
     })
     .then((res) => {
-      if (!res.error) {
-        setIsScheduleFormOpen(false);
-
-        setSchedulesObject({
-          start_date: null,
-          start_time: null,
-          end_time: null,
-          schedule_type: 2,
-          repeat_days: null,
-          active: true,
-        });
-        setEditScheduleLoading(false);
-        setShowSuccessMessage(true);
-      } else {
-        setShowError(true);
-        setError_message(res.error.message);
-        setEditScheduleLoading(false);
-      }
+      setIsScheduleFormOpen(false);
+      setSchedulesObject({
+        start_date: null,
+        start_time: null,
+        end_time: null,
+        schedule_type: 2,
+        repeat_days: null,
+        active: true,
+      });
+      setEditScheduleLoading(false);
+      setShowSuccessMessage(true);
+    })
+    .catch((error) => {
+      setShowError(true);
+      setError_message(error.response.data.message);
+      setEditScheduleLoading(false);
     });
 };
 
@@ -112,25 +109,23 @@ export const deleteSchedule = (
     (item, index) => index !== selectScheduleIndex
   );
   if (filter.length > 0) {
-    tradly.app
-      .createSchedule({
+    axios
+      .post('/api/schedules/create_schedule', {
         id: productId,
-        authKey: auth_key,
         data: { schedules: filter },
       })
       .then((res) => {
-        if (!res.error) {
-          setEditScheduleLoading(false);
-          setShowSuccessMessage(true);
-        } else {
-          setShowError(true);
-          setError_message(res.error.message);
-          setEditScheduleLoading(false);
-        }
+        setEditScheduleLoading(false);
+        setShowSuccessMessage(true);
+      })
+      .catch((error) => {
+        setShowError(true);
+        setError_message(error.response.data.message);
+        setEditScheduleLoading(false);
       });
   } else {
-       setShowError(true);
-       setError_message("You can't delete all schedules");
-       setEditScheduleLoading(false);
+    setShowError(true);
+    setError_message("You can't delete all schedules");
+    setEditScheduleLoading(false);
   }
 };

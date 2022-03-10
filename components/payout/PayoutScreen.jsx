@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import tradly from 'tradly';
 
 import paymentIcon from '../../assets/Images/Payout/bankIcon (1).svg';
 import { useSelector } from 'react-redux';
@@ -8,6 +7,7 @@ import { authSelector } from '../../store/feature/authSlice';
 import { storeSelector } from '../../store/feature/storeSlice';
 import { useDispatch } from 'react-redux';
 import { payoutSelector } from '../../store/feature/payout';
+import axios from 'axios';
 
 const PayoutScreen = ({ stripe_connect }) => {
   const dispatch = useDispatch();
@@ -18,15 +18,15 @@ const PayoutScreen = ({ stripe_connect }) => {
 
   const connectStripBtnAction = () => {
     if (stripe_connect.stripe_connect_onboarding === false) {
-      tradly.app
-        .createAccountLink({
-          authKey: auth_key,
+      axios
+        .post('/api/payment/create_account', {
           data: { account_id: my_stores[0].id },
         })
         .then((res) => {
-          if (!res.error) {
-            window.open(res.data.account_link);
-          }
+          window.open(res.data.account_link);
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
         });
     } else {
       if (express_login_link !== null) {

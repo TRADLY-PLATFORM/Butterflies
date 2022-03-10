@@ -12,6 +12,7 @@ import 'swiper/components/navigation/navigation.min.css';
 
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
+import axios from 'axios';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -19,18 +20,16 @@ const Banner3 = ({}) => {
   const [banners, setBanners] = useState(null);
   useEffect(() => {
     window.innerWidth > 850
-      ? tradly.app
-          .getPromoBanner({
-            authKey: '',
-            bodyParam: { medium: 'web', placement: 'footer' },
+      ? axios
+          .get(`/api/banners`, {
+            params: { medium: 'web', placement: 'footer' },
           })
           .then((res) => {
             setBanners(res.data.promo_banners);
           })
-      : tradly.app
-          .getPromoBanner({
-            authKey: '',
-            bodyParam: { medium: 'app', placement: 'footer' },
+      : axios
+          .get(`/api/banners`, {
+            params: { medium: 'app', placement: 'footer' },
           })
           .then((res) => {
             setBanners(res.data.promo_banners);

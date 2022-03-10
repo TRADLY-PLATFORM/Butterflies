@@ -3,8 +3,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import tradly from 'tradly';
 
- 
-
 export const configsSlice = createSlice({
   name: 'configs',
   initialState: {
@@ -12,7 +10,7 @@ export const configsSlice = createSlice({
     accounts_configs: null,
     listings_configs: null,
     marketplace_type: null,
-    marketplace_module:null,
+    marketplace_module: null,
   },
   reducers: {
     setGeneralConfig: (state, { payload }) => {
@@ -26,7 +24,7 @@ export const configsSlice = createSlice({
       return state;
     },
     setListingConfig: (state, { payload }) => {
-      state.listings_configs = payload?.listings_configs;
+      state.listings_configs = payload?.listing_configs;
       return state;
     },
   },

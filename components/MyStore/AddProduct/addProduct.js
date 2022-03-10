@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { set } from 'react-hook-form';
 import tradly from 'tradly';
 
@@ -83,15 +84,14 @@ export const add_product_click = (
     return false;
   }
 
-  tradly.app
-    .generateS3ImageURL({
-      authKey: auth_key,
+  axios
+    .post('/api/generateS3ImageURL', {
       data: {
         files: files,
       },
     })
     .then((response) => {
-      if (!response.error) {
+      if (!response.data.error) {
         // dispatch(SetFiles(response.data.data.result[0]));
         const responseFiles = response.data.result;
 
@@ -111,7 +111,7 @@ export const add_product_click = (
               if (res.ok) {
                 increment = increment + 1;
                 if (increment === files.length) {
-                  if (attributeData !== null  && attributeData?.length !== 0) {
+                  if (attributeData !== null && attributeData?.length !== 0) {
                     const check = attributeData.find((attr) => attr.uploadFile);
                     if (check === undefined) {
                       const listingData = {
@@ -139,148 +139,134 @@ export const add_product_click = (
                       }
 
                       // ekhane
-                      tradly.app
-                        .postListing({
-                          id: '',
-                          authKey: auth_key,
+
+                      axios
+                        .post('/api/l/post_listing', {
                           data: { listing: listingData },
                         })
                         .then((res) => {
-                          if (!res.error) {
-                            let changeRoute = false;
-                            const listingId = res.data.listing.id;
-                            if (
-                              schedulesArray !== null &&
-                              schedulesArray.length > 0
-                            ) {
-                              tradly.app
-                                .createSchedule({
-                                  id: res.data.listing.id,
-                                  authKey: auth_key,
-                                  data: { schedules: schedulesArray },
+                          let changeRoute = false;
+                          const listingId = res.data.listing.id;
+                          if (
+                            schedulesArray !== null &&
+                            schedulesArray.length > 0
+                          ) {
+                            axios
+                              .post('/api/schedules/create_schedule', {
+                                id: res.data.listing.id,
+                                data: { schedules: schedulesArray },
+                              })
+                              .then((res) => {
+                                // setAddProductLoading(false);
+                                // router.push('/stores/my-store');
+                                changeRoute = true;
+                              })
+                              .catch((error) => {
+                                setShowError(true);
+                                setError_message(error.response?.data?.message);
+                                setAddProductLoading(false);
+                              });
+                          }
+                          if (
+                            variantsArray !== null &&
+                            variantsArray.length > 0
+                          ) {
+                            let isLoopFinish = 0;
+                            for (let i = 0; i < variantsArray.length; i++) {
+                              const element = variantsArray[i];
+
+                              axios
+                                .post('/api/generateS3ImageURL', {
+                                  data: {
+                                    files: [
+                                      {
+                                        name: element.images.name,
+                                        type: element.images.type,
+                                      },
+                                    ],
+                                  },
                                 })
-                                .then((res) => {
-                                  if (!res.error) {
-                                    // setAddProductLoading(false);
-                                    // router.push('/stores/my-store');
-                                    changeRoute = true;
+                                .then((response) => {
+                                  if (!response.data.error) {
+                                    const fileURL = response.data.result[0];
+                                    const path = fileURL.signedUrl;
+                                    const variant_ImagePath = fileURL.fileUri;
+                                    fetch(path, {
+                                      method: 'put',
+                                      headers: {
+                                        ContentType: element.images.type,
+                                      },
+                                      body: element.images,
+                                    }).then((res) => {
+                                      const variant_data = {
+                                        active: true,
+                                        title: element.title,
+                                        description: element.description,
+                                        list_price: element.list_price,
+                                        offer_percent: element.offer_percent,
+                                        stock: element.stock,
+                                        images: [variant_ImagePath],
+                                        variant_values: [
+                                          {
+                                            variant_type_id:
+                                              element.variant_type,
+                                            variant_type_value_id:
+                                              element.variant_type_value,
+                                          },
+                                        ],
+                                      };
+
+                                      axios
+                                        .post('/api/variant/add_variant', {
+                                          listingId,
+                                          data: {
+                                            variant: { ...variant_data },
+                                          },
+                                        })
+                                        .then((res) => {
+                                          isLoopFinish = isLoopFinish + 1;
+
+                                          if (
+                                            isLoopFinish ===
+                                            variantsArray.length + 1
+                                          ) {
+                                            changeRoute = true;
+                                          }
+                                        })
+                                        .catch((error) => {
+                                          setShowError(true);
+                                          setError_message(
+                                            error.response.data.message
+                                          );
+                                          setAddProductLoading(false);
+                                        });
+                                    });
                                   } else {
                                     setShowError(true);
-                                    setError_message(res?.error?.message);
+                                    setError_message(
+                                      response?.data?.error?.message
+                                    );
                                     setAddProductLoading(false);
                                   }
                                 });
                             }
-                            if (
-                              variantsArray !== null &&
-                              variantsArray.length > 0
-                            ) {
-                              let isLoopFinish = 0;
-                              for (let i = 0; i < variantsArray.length; i++) {
-                                const element = variantsArray[i];
-                                tradly.app
-                                  .generateS3ImageURL({
-                                    authKey: auth_key,
-                                    data: {
-                                      files: [
-                                        {
-                                          name: element.images.name,
-                                          type: element.images.type,
-                                        },
-                                      ],
-                                    },
-                                  })
-                                  .then((response) => {
-                                    if (!response.error) {
-                                      const fileURL = response.data.result[0];
-                                      const path = fileURL.signedUrl;
-                                      const variant_ImagePath = fileURL.fileUri;
-                                      fetch(path, {
-                                        method: 'put',
-                                        headers: {
-                                          ContentType: element.images.type,
-                                        },
-                                        body: element.images,
-                                      }).then((res) => {
-                                        const variant_data = {
-                                          active: true,
-                                          title: element.title,
-                                          description: element.description,
-                                          list_price: element.list_price,
-                                          offer_percent: element.offer_percent,
-                                          stock: element.stock,
-                                          images: [variant_ImagePath],
-                                          variant_values: [
-                                            {
-                                              variant_type_id:
-                                                element.variant_type,
-                                              variant_type_value_id:
-                                                element.variant_type_value,
-                                            },
-                                          ],
-                                        };
-                                        tradly.app
-                                          .addEditVariants({
-                                            authKey: auth_key,
-                                            listingId,
-                                            id: '',
-                                            data: {
-                                              variant: { ...variant_data },
-                                            },
-                                          })
-                                          .then((res) => {
-                                            if (!res.error) {
-                                              isLoopFinish = isLoopFinish + 1;
-
-                                              if (
-                                                isLoopFinish ===
-                                                variantsArray.length + 1
-                                              ) {
-                                                changeRoute = true;
-                                              } else {
-                                                setShowError(true);
-                                                setError_message(
-                                                  response?.error?.message
-                                                );
-                                                setAddProductLoading(false);
-                                              }
-                                            }
-                                          });
-                                      });
-                                    } else {
-                                      setShowError(true);
-                                      setError_message(
-                                        response?.error?.message
-                                      );
-                                      setAddProductLoading(false);
-                                    }
-                                  });
-                              }
-                            }
-                            if (changeRoute) {
-                              setAddProductLoading(false);
-                              router.push('/a/my-store?page=1');
-                            } else {
-                              setAddProductLoading(false);
-                              router.push('/a/my-store?page=1');
-                            }
-                          } else {
-                            setShowError(true);
-                            setError_message(res?.error?.message);
+                          }
+                          if (changeRoute) {
                             setAddProductLoading(false);
+                            router.push('/a/my-store?page=1');
+                          } else {
+                            setAddProductLoading(false);
+                            router.push('/a/my-store?page=1');
                           }
                         })
                         .catch((error) => {
                           setShowError(true);
-                          setError_message(
-                            error?.response?.data?.error.message
-                          );
+                          setError_message(error?.response?.data.message);
                           setAddProductLoading(false);
                         });
                     } else {
-                      tradly.app
-                        .generateS3ImageURL({
-                          authKey: auth_key,
+                      axios
+                        .post('/api/generateS3ImageURL', {
                           data: {
                             files: [
                               {
@@ -291,7 +277,7 @@ export const add_product_click = (
                           },
                         })
                         .then((response) => {
-                          if (!response.error) {
+                          if (!response.data.error) {
                             const fileURL = response.data.result[0];
                             const path = fileURL.signedUrl;
                             const ImagePath2 = fileURL.fileUri;
@@ -341,170 +327,163 @@ export const add_product_click = (
                                 }
 
                                 // ekhane
-                                tradly.app
-                                  .postListing({
-                                    id: '',
-                                    authKey: auth_key,
+
+                                axios
+                                  .post('/api/l/post_listing', {
                                     data: { listing: listingData },
                                   })
                                   .then((res) => {
-                                    if (!res.error) {
-                                      let changeRoute = false;
-                                      const listingId = res.data.listing.id;
-                                      if (
-                                        schedulesArray !== null &&
-                                        schedulesArray.length > 0
-                                      ) {
-                                        tradly.app
-                                          .createSchedule({
+                                    let changeRoute = false;
+                                    const listingId = res.data.listing.id;
+                                    if (
+                                      schedulesArray !== null &&
+                                      schedulesArray.length > 0
+                                    ) {
+                                      axios
+                                        .post(
+                                          '/api/schedules/create_schedule',
+                                          {
                                             id: res.data.listing.id,
-                                            authKey: auth_key,
-                                            data: { schedules: schedulesArray },
-                                          })
-                                          .then((res) => {
-                                            if (!res.error) {
-                                              // setAddProductLoading(false);
-                                              // router.push('/stores/my-store');
-                                              changeRoute = true;
-                                            } else {
-                                              setShowError(true);
-                                              setError_message(
-                                                res?.error?.message
-                                              );
-                                              setAddProductLoading(false);
-                                            }
-                                          });
-                                      }
-                                      if (
-                                        variantsArray !== null &&
-                                        variantsArray.length > 0
+                                            data: {
+                                              schedules: schedulesArray,
+                                            },
+                                          }
+                                        )
+                                        .then((res) => {
+                                          // setAddProductLoading(false);
+                                          // router.push('/stores/my-store');
+                                          changeRoute = true;
+                                        })
+                                        .catch((error) => {
+                                          setShowError(true);
+                                          setError_message(
+                                            error?.response?.data?.message
+                                          );
+                                          setAddProductLoading(false);
+                                        });
+                                    }
+                                    if (
+                                      variantsArray !== null &&
+                                      variantsArray.length > 0
+                                    ) {
+                                      let isLoopFinish = 0;
+                                      for (
+                                        let i = 0;
+                                        i < variantsArray.length;
+                                        i++
                                       ) {
-                                        let isLoopFinish = 0;
-                                        for (
-                                          let i = 0;
-                                          i < variantsArray.length;
-                                          i++
-                                        ) {
-                                          const element = variantsArray[i];
-                                          tradly.app
-                                            .generateS3ImageURL({
-                                              authKey: auth_key,
-                                              data: {
-                                                files: [
-                                                  {
-                                                    name: element.images.name,
-                                                    type: element.images.type,
-                                                  },
-                                                ],
-                                              },
-                                            })
-                                            .then((response) => {
-                                              if (!response.error) {
-                                                const fileURL =
-                                                  response.data.result[0];
-                                                const path = fileURL.signedUrl;
-                                                const variant_ImagePath =
-                                                  fileURL.fileUri;
-                                                fetch(path, {
-                                                  method: 'put',
-                                                  headers: {
-                                                    ContentType:
-                                                      element.images.type,
-                                                  },
-                                                  body: element.images,
-                                                }).then((res) => {
-                                                  const variant_data = {
-                                                    active: true,
-                                                    title: element.title,
-                                                    description:
-                                                      element.description,
-                                                    list_price:
-                                                      element.list_price,
-                                                    offer_percent:
-                                                      element.offer_percent,
-                                                    stock: element.stock,
-                                                    images: [variant_ImagePath],
-                                                    variant_values: [
-                                                      {
-                                                        variant_type_id:
-                                                          element.variant_type,
-                                                        variant_type_value_id:
-                                                          element.variant_type_value,
-                                                      },
-                                                    ],
-                                                  };
-                                                  tradly.app
-                                                    .addEditVariants({
-                                                      authKey: auth_key,
+                                        const element = variantsArray[i];
+
+                                        axios
+                                          .post('/api/generateS3ImageURL', {
+                                            data: {
+                                              files: [
+                                                {
+                                                  name: element.images.name,
+                                                  type: element.images.type,
+                                                },
+                                              ],
+                                            },
+                                          })
+                                          .then((response) => {
+                                            if (!response.data.error) {
+                                              const fileURL =
+                                                response.data.result[0];
+                                              const path = fileURL.signedUrl;
+                                              const variant_ImagePath =
+                                                fileURL.fileUri;
+                                              fetch(path, {
+                                                method: 'put',
+                                                headers: {
+                                                  ContentType:
+                                                    element.images.type,
+                                                },
+                                                body: element.images,
+                                              }).then((res) => {
+                                                const variant_data = {
+                                                  active: true,
+                                                  title: element.title,
+                                                  description:
+                                                    element.description,
+                                                  list_price:
+                                                    element.list_price,
+                                                  offer_percent:
+                                                    element.offer_percent,
+                                                  stock: element.stock,
+                                                  images: [variant_ImagePath],
+                                                  variant_values: [
+                                                    {
+                                                      variant_type_id:
+                                                        element.variant_type,
+                                                      variant_type_value_id:
+                                                        element.variant_type_value,
+                                                    },
+                                                  ],
+                                                };
+
+                                                axios
+                                                  .post(
+                                                    '/api/variant/add_variant',
+                                                    {
                                                       listingId,
-                                                      id: '',
                                                       data: {
                                                         variant: {
                                                           ...variant_data,
                                                         },
                                                       },
-                                                    })
-                                                    .then((res) => {
-                                                      if (!res.error) {
-                                                        isLoopFinish =
-                                                          isLoopFinish + 1;
-
-                                                        if (
-                                                          isLoopFinish ===
-                                                          variantsArray.length +
-                                                            1
-                                                        ) {
-                                                          changeRoute = true;
-                                                        }
-                                                      } else {
-                                                        setShowError(true);
-                                                        setError_message(
-                                                          res?.error?.message
-                                                        );
-                                                        setAddProductLoading(
-                                                          false
-                                                        );
-                                                      }
-                                                    });
-                                                });
-                                              } else {
-                                                setShowError(true);
-                                                setError_message(
-                                                  response?.error?.message
-                                                );
-                                                setAddProductLoading(false);
-                                              }
-                                            });
-                                        }
+                                                    }
+                                                  )
+                                                  .then((res) => {
+                                                    isLoopFinish =
+                                                      isLoopFinish + 1;
+                                                    if (
+                                                      isLoopFinish ===
+                                                      variantsArray.length + 1
+                                                    ) {
+                                                      changeRoute = true;
+                                                    }
+                                                  })
+                                                  .catch((error) => {
+                                                    setShowError(true);
+                                                    setError_message(
+                                                      error.response.data?.message
+                                                    );
+                                                    setAddProductLoading(false);
+                                                  });
+                                              });
+                                            } else {
+                                              setShowError(true);
+                                              setError_message(
+                                                response?.data?.error?.message
+                                              );
+                                              setAddProductLoading(false);
+                                            }
+                                          });
                                       }
-                                      if (changeRoute) {
-                                        setAddProductLoading(false);
-                                        router.push('/a/my-store?page=1');
-                                      } else {
-                                        setAddProductLoading(false);
-                                        router.push('/a/my-store?page=1');
-                                      }
-                                    } else {
-                                      setShowError(true);
-                                      setError_message(res?.error?.message);
+                                    }
+                                    if (changeRoute) {
                                       setAddProductLoading(false);
+                                      router.push('/a/my-store?page=1');
+                                    } else {
+                                      setAddProductLoading(false);
+                                      router.push('/a/my-store?page=1');
                                     }
                                   })
                                   .catch((error) => {
                                     setShowError(true);
                                     setError_message(
-                                      error?.response?.data?.error.message
+                                      error?.response?.data.message
                                     );
                                     setAddProductLoading(false);
                                   });
                               })
                               .catch((error) => {
                                 setAddProductLoading(false);
-                                console.log('Error:' + error.message);
+                                
                               });
                           } else {
                             setShowError(true);
-                            setError_message(response?.error?.message);
+                            setError_message(response?.data?.error?.message);
                             setAddProductLoading(false);
                           }
                         });
@@ -534,138 +513,128 @@ export const add_product_click = (
                     }
 
                     // ekhane
-                    tradly.app
-                      .postListing({
-                        id: '',
-                        authKey: auth_key,
+
+                    axios
+                      .post('/api/l/post_listing', {
                         data: { listing: listingData },
                       })
                       .then((res) => {
-                        if (!res.error) {
-                          let changeRoute = false;
-                          const listingId = res.data.listing.id;
-                          if (
-                            schedulesArray !== null &&
-                            schedulesArray.length > 0
-                          ) {
-                            tradly.app
-                              .createSchedule({
-                                id: res.data.listing.id,
-                                authKey: auth_key,
-                                data: { schedules: schedulesArray },
+                        let changeRoute = false;
+                        const listingId = res.data.listing.id;
+                        if (
+                          schedulesArray !== null &&
+                          schedulesArray.length > 0
+                        ) {
+                          axios
+                            .post('/api/schedules/create_schedule', {
+                              id: res.data.listing.id,
+                              data: { schedules: schedulesArray },
+                            })
+                            .then((res) => {
+                              // setAddProductLoading(false);
+                              // router.push('/stores/my-store');
+                              changeRoute = true;
+                            })
+                            .catch((error) => {
+                              setShowError(true);
+                              setError_message(error.response.data.message);
+                              setAddProductLoading(false);
+                            });
+                        }
+                        if (
+                          variantsArray !== null &&
+                          variantsArray.length > 0
+                        ) {
+                          let isLoopFinish = 0;
+                          for (let i = 0; i < variantsArray.length; i++) {
+                            const element = variantsArray[i];
+
+                            axios
+                              .post('/api/generateS3ImageURL', {
+                                data: {
+                                  files: [
+                                    {
+                                      name: element.images.name,
+                                      type: element.images.type,
+                                    },
+                                  ],
+                                },
                               })
-                              .then((res) => {
-                                if (!res.error) {
-                                  // setAddProductLoading(false);
-                                  // router.push('/stores/my-store');
-                                  changeRoute = true;
+                              .then((response) => {
+                                if (!response.data.error) {
+                                  const fileURL = response.data.result[0];
+                                  const path = fileURL.signedUrl;
+                                  const variant_ImagePath = fileURL.fileUri;
+                                  fetch(path, {
+                                    method: 'put',
+                                    headers: {
+                                      ContentType: element.images.type,
+                                    },
+                                    body: element.images,
+                                  }).then((res) => {
+                                    const variant_data = {
+                                      active: true,
+                                      title: element.title,
+                                      description: element.description,
+                                      list_price: element.list_price,
+                                      offer_percent: element.offer_percent,
+                                      stock: element.stock,
+                                      images: [variant_ImagePath],
+                                      variant_values: [
+                                        {
+                                          variant_type_id: element.variant_type,
+                                          variant_type_value_id:
+                                            element.variant_type_value,
+                                        },
+                                      ],
+                                    };
+
+                                    axios
+                                      .post('/api/variant/add_variant', {
+                                        listingId,
+                                        data: {
+                                          variant: { ...variant_data },
+                                        },
+                                      })
+                                      .then((res) => {
+                                        isLoopFinish = isLoopFinish + 1;
+
+                                        if (
+                                          isLoopFinish ===
+                                          variantsArray.length + 1
+                                        ) {
+                                          changeRoute = true;
+                                        }
+                                      })
+                                      .catch((error) => {
+                                        setShowError(true);
+                                        setError_message(
+                                          error?.response.data.message
+                                        );
+                                        setAddProductLoading(false);
+                                      });
+                                  });
                                 } else {
                                   setShowError(true);
-                                  setError_message(res?.error?.message);
+                                  setError_message(
+                                    response?.data?.error?.message
+                                  );
                                   setAddProductLoading(false);
                                 }
                               });
                           }
-                          if (
-                            variantsArray !== null &&
-                            variantsArray.length > 0
-                          ) {
-                            let isLoopFinish = 0;
-                            for (let i = 0; i < variantsArray.length; i++) {
-                              const element = variantsArray[i];
-                              tradly.app
-                                .generateS3ImageURL({
-                                  authKey: auth_key,
-                                  data: {
-                                    files: [
-                                      {
-                                        name: element.images.name,
-                                        type: element.images.type,
-                                      },
-                                    ],
-                                  },
-                                })
-                                .then((response) => {
-                                  if (!response.error) {
-                                    const fileURL = response.data.result[0];
-                                    const path = fileURL.signedUrl;
-                                    const variant_ImagePath = fileURL.fileUri;
-                                    fetch(path, {
-                                      method: 'put',
-                                      headers: {
-                                        ContentType: element.images.type,
-                                      },
-                                      body: element.images,
-                                    }).then((res) => {
-                                      const variant_data = {
-                                        active: true,
-                                        title: element.title,
-                                        description: element.description,
-                                        list_price: element.list_price,
-                                        offer_percent: element.offer_percent,
-                                        stock: element.stock,
-                                        images: [variant_ImagePath],
-                                        variant_values: [
-                                          {
-                                            variant_type_id:
-                                              element.variant_type,
-                                            variant_type_value_id:
-                                              element.variant_type_value,
-                                          },
-                                        ],
-                                      };
-                                      tradly.app
-                                        .addEditVariants({
-                                          authKey: auth_key,
-                                          listingId,
-                                          id: '',
-                                          data: {
-                                            variant: { ...variant_data },
-                                          },
-                                        })
-                                        .then((res) => {
-                                          if (!res.error) {
-                                            isLoopFinish = isLoopFinish + 1;
-
-                                            if (
-                                              isLoopFinish ===
-                                              variantsArray.length + 1
-                                            ) {
-                                              changeRoute = true;
-                                            }
-                                          } else {
-                                            setShowError(true);
-                                            setError_message(
-                                              res?.error?.message
-                                            );
-                                            setAddProductLoading(false);
-                                          }
-                                        });
-                                    });
-                                  } else {
-                                    setShowError(true);
-                                    setError_message(response?.error?.message);
-                                    setAddProductLoading(false);
-                                  }
-                                });
-                            }
-                          }
-                          if (changeRoute) {
-                            setAddProductLoading(false);
-                            router.push('/a/my-store?page=1');
-                          } else {
-                            setAddProductLoading(false);
-                            router.push('/a/my-store?page=1');
-                          }
-                        } else {
-                          setShowError(true);
-                          setError_message(res?.error?.message);
+                        }
+                        if (changeRoute) {
                           setAddProductLoading(false);
+                          router.push('/a/my-store?page=1');
+                        } else {
+                          setAddProductLoading(false);
+                          router.push('/a/my-store?page=1');
                         }
                       })
                       .catch((error) => {
                         setShowError(true);
-                        setError_message(error?.response?.error?.message);
+                        setError_message(error.response.data?.message);
                         setAddProductLoading(false);
                       });
                   }
@@ -674,19 +643,19 @@ export const add_product_click = (
             })
             .catch((error) => {
               setShowError(true);
-              setError_message(response?.error?.message);
+              setError_message(error.response?.data?.message);
               setAddProductLoading(false);
             });
         }
       } else {
         setShowError(true);
-        setError_message(response?.error?.message);
+        setError_message(response?.data?.error?.message);
         setAddProductLoading(false);
       }
     })
     .catch((error) => {
       setShowError(true);
-      setError_message(response?.error?.message);
+      setError_message(error.response?.data?.message);
       setAddProductLoading(false);
     });
 };

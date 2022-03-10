@@ -14,6 +14,7 @@ import {
   whatsapp_icon,
   youtube_icon,
 } from '../Shared/Constant/Icons/socialIcons';
+import axios from 'axios';
 
 const CustomFooter = () => {
   const [logo, setLogo] = useState(null);
@@ -26,32 +27,29 @@ const CustomFooter = () => {
 
   useEffect(() => {
     setLogo(localStorage.getItem('logo'));
-    tradly.app
-      .getCategory({ bodyParam: { parent: 0, type: 'listings' }, authKey: '' })
+
+    axios
+      .get('/api/categories', { params: { parent: 0, type: 'listings' } })
       .then((res) => {
-        if (!res.error) {
-          setAllCategories(res.data.categories);
-        }
+        setAllCategories(res.data.categories);
       });
 
-    tradly.app
-      .getConfigList({
-        paramBody: 'general',
-      })
+    axios
+      .get('/api/configs/general')
       .then((res) => {
-        if (!res.error) {
-          setGeneral_configs(res.data.configs);
-        }
+        setGeneral_configs(res.data.configs);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
       });
 
-    tradly.app
-      .getConfigList({
-        paramBody: 'social',
-      })
+    axios
+      .get('/api/configs/social')
       .then((res) => {
-        if (!res.error) {
-          setSocial_configs(res.data.configs);
-        }
+        setSocial_configs(res.data.configs);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
       });
   }, [0]);
   return (
@@ -461,7 +459,11 @@ const CustomFooter = () => {
           })}
         </div> */}
         <div>
-          <p className=" text-lg font-semibold pb-4">Links</p>
+          {(general_configs?.terms_url ||
+            general_configs?.privacy_policy_url ||
+            general_configs?.support_url) && (
+            <p className=" text-lg font-semibold pb-4">Links</p>
+          )}
           {general_configs?.terms_url && (
             <Link href={general_configs?.terms_url}>
               <a className=" block    pb-4" target="_blank">

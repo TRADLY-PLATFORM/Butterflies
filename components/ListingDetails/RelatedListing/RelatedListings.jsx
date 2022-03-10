@@ -27,25 +27,25 @@ import ListingCard from '../../Shared/Cards/ListingCard';
 import { listingLike } from '../../../store/feature/listingSlice';
 import Link from 'next/link';
 import { check_login } from '../../../constant/check_auth';
+import axios from 'axios';
 
 const RelatedListings = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { auth_key, login } = useSelector(authSelector);
-   
+
   const [related_listings, setRelated_listings] = useState(null);
   useEffect(() => {
-    tradly.app
-      .commonFuntion({
-        path: `/products/v1/listings/${router?.query.id.split('-')[0]}/similar`,
-        bodyParam: { page: 1, per_page: 30 },
-        authKey: auth_key,
-        Method: 'GET',
+    axios
+      .get('/api/l/similar', {
+        params: {
+          page: 1,
+          per_page: 30,
+          id: router?.query.id.split('-')[0],
+        },
       })
       .then((res) => {
-        if (!res.error) {
-          setRelated_listings(res.data.listings);
-        }
+        setRelated_listings(res.data.listings);
       });
   }, [router]);
 
@@ -60,23 +60,20 @@ const RelatedListings = () => {
         })
       ).then((res) => {
         if (!res.payload.code) {
-          tradly.app
-            .commonFuntion({
-              path: `/products/v1/listings/${
-                router?.query.id.split('-')[0]
-              }/similar`,
-              bodyParam: { page: 1, per_page: 30 },
-              authKey: auth_key,
-              Method: 'GET',
+          axios
+            .get('/api/l/similar', {
+              params: {
+                page: 1,
+                per_page: 30,
+                id: router?.query.id.split('-')[0],
+              },
             })
             .then((res) => {
-              if (!res.error) {
-                setRelated_listings(res.data.listings);
-              }
+              setRelated_listings(res.data.listings);
             });
         }
       });
-    }  
+    }
   };
 
   return (

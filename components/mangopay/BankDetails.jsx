@@ -29,11 +29,11 @@ const BankDetails = () => {
 
   const [all_countries, setAllCountries] = useState(null);
 
-  useEffect(() => {
-    tradly.app.getCountries().then((res) => {
-      setAllCountries(res.data.countries);
-    });
-  }, [router]);
+  // useEffect(() => {
+  //   tradly.app.getCountries().then((res) => {
+  //     setAllCountries(res.data.countries);
+  //   });
+  // }, [router]);
 
   const closePopUP = () => {
     setIsError(false);

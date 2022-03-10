@@ -46,6 +46,8 @@ const HomePageLayout = () => {
   const { general_configs, marketplace_type, marketplace_module } =
     useSelector(configsSelector);
 
+  
+
   return (
     <div className="">
       <div>
@@ -74,7 +76,7 @@ const HomePageLayout = () => {
           );
         }
       })}
-      <div className='mt-9'>
+      <div className="mt-9">
         <Banner3 />
       </div>
     </div>

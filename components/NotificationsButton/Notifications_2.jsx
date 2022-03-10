@@ -21,6 +21,7 @@ import Link from 'next/link';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import axios from 'axios';
 
 const Notifications2 = () => {
   const [notifications, setNotifications] = useState(null);
@@ -32,19 +33,11 @@ const Notifications2 = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    tradly.app
-      .commonFuntion({
-        path: `/v1/activities?page=${page}`,
-        Method: 'GET',
-        authKey: auth_key,
-      })
-      .then((res) => {
-        if (!res.error) {
-          setNotifications(res.data.activities);
-          setPage(res.data.page);
-          setTotal_records(res.data.total_records);
-        }
-      });
+    axios.get('/api/activities', { params: { page: page } }).then((res) => {
+      setNotifications(res.data.activities);
+      setPage(res.data.page);
+      setTotal_records(res.data.total_records);
+    });
 
     if (user_details) {
       dispatch(
@@ -70,19 +63,11 @@ const Notifications2 = () => {
   };
 
   const fetch_more = () => {
-    tradly.app
-      .commonFuntion({
-        path: `/v1/activities?page=${page + 1}`,
-        Method: 'GET',
-        authKey: auth_key,
-      })
-      .then((res) => {
-        if (!res.error) {
-          setNotifications([...notifications, ...res.data.activities]);
-          setPage(res.data.page);
-          setTotal_records(res.data.total_records);
-        }
-      });
+    axios.get('/api/activities', { params: { page: page } }).then((res) => {
+      setNotifications([...notifications, ...res.data.activities]);
+      setPage(res.data.page);
+      setTotal_records(res.data.total_records);
+    });
   };
 
   //   useEffect(() => {

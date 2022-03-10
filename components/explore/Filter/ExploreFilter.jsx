@@ -30,6 +30,7 @@ import 'swiper/components/pagination/pagination.min.css';
 import moment from 'moment';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import axios from 'axios';
 
 const ExploreFilter = ({ hidden_category, reset_filter }) => {
   const [marketplace_type, setMarketplace_type] = useState();
@@ -57,19 +58,17 @@ const ExploreFilter = ({ hidden_category, reset_filter }) => {
   let dates = getDatesArray2();
 
   useEffect(() => {
-    tradly.app
-      .getCategory({ bodyParam: { parent: 0, type: 'listings' }, authKey: '' })
+    axios
+      .get('/api/categories', { params: { parent: 0, type: 'listings' } })
       .then((res) => {
-        if (!res.error) {
-          setAllCategories(res.data.categories);
-        }
+        setAllCategories(res.data.categories);
       });
 
-    tradly.app.getAttribute({ bodyParam: { type: 'listings' } }).then((res) => {
-      if (!res.error) {
+    axios
+      .get('/api/attributes', { params: { type: 'listings' } })
+      .then((res) => {
         setAllAttributes(res.data.attributes);
-      }
-    });
+      });
 
     if (category_id) {
       setSelectedCategories(category_id.split(','));

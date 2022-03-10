@@ -14,6 +14,7 @@ import {
   whatsapp_icon,
   youtube_icon,
 } from '../Shared/Constant/Icons/socialIcons';
+import axios from 'axios';
 import tradly_icon from '../../public/tradly-Icon-192x192.png';
 
 const Footer = () => {
@@ -27,32 +28,28 @@ const Footer = () => {
 
   useEffect(() => {
     setLogo(localStorage.getItem('logo'));
-    tradly.app
-      .getCategory({ bodyParam: { parent: 0, type: 'listings' }, authKey: '' })
+    axios
+      .get('/api/categories', { params: { parent: 0, type: 'listings' } })
       .then((res) => {
-        if (!res.error) {
-          setAllCategories(res.data.categories);
-        }
+        setAllCategories(res.data.categories);
       });
 
-    tradly.app
-      .getConfigList({
-        paramBody: 'general',
-      })
+    axios
+      .get('/api/configs/general')
       .then((res) => {
-        if (!res.error) {
-          setGeneral_configs(res.data.configs);
-        }
+        setGeneral_configs(res.data.configs);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
       });
 
-    tradly.app
-      .getConfigList({
-        paramBody: 'social',
-      })
+    axios
+      .get('/api/configs/social')
       .then((res) => {
-        if (!res.error) {
-          setSocial_configs(res.data.configs);
-        }
+        setSocial_configs(res.data.configs);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
       });
   }, [0]);
   return (
@@ -67,7 +64,7 @@ const Footer = () => {
             </Link>
           )}
 
-          <div className='flex items-center justify-start flex-wrap gap-3'>
+          <div className="flex items-center justify-start flex-wrap gap-3">
             {general_configs?.android_app_download_link && (
               <Link href={general_configs?.android_app_download_link}>
                 <a className=" block mt-4 " target="_blank">
@@ -377,8 +374,8 @@ const Footer = () => {
 
           {isSeeAllCategories &&
             allCategories?.map((item, index, array) => {
-              if (array.length > 4) {
-                if (index + 1 > 4) {
+              if (array.length > 3) {
+                if (index + 1 >= 4) {
                   return (
                     <div className="mb-4 " key={Math.random()}>
                       {' '}
@@ -457,7 +454,11 @@ const Footer = () => {
           })}
         </div> */}
         <div>
-          <p className=" text-base md:text-lg font-semibold pb-4">Links</p>
+          {(general_configs?.terms_url ||
+            general_configs?.privacy_policy_url ||
+            general_configs?.support_url) && (
+            <p className=" text-base md:text-lg font-semibold pb-4">Links</p>
+          )}
           {general_configs?.terms_url && (
             <Link href={general_configs?.terms_url}>
               <a className=" block    pb-4" target="_blank">
@@ -504,7 +505,7 @@ const Footer = () => {
         <div className="py-2 flex items-center">
           <p className=" text-sm text-default_gray mr-4">
             {`© ${new Date().getFullYear()} ${
-              general_configs?.website_name
+              general_configs?.website_name ? general_configs?.website_name : ''
             }. All rights reserved.`}
           </p>
           <Link href={'/sitemap.xml'}>
