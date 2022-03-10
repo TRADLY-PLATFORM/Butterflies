@@ -153,14 +153,13 @@ export const edit_product_click = (
                             data: { listing: listingData },
                           })
                           .then((res) => {
-                            if (!res.data.error) {
-                              setEditProductLoading(false);
-                              setShowSuccessMessage(true);
-                            } else {
-                              setShowError(true);
-                              setError_message(res?.data?.error?.message);
-                              setEditProductLoading(false);
-                            }
+                            setEditProductLoading(false);
+                            setShowSuccessMessage(true);
+                          })
+                          .catch((error) => {
+                            setShowError(true);
+                            setError_message(error.response.data.message);
+                            setEditProductLoading(false);
                           });
                       } else {
                         axios
@@ -233,16 +232,13 @@ export const edit_product_click = (
                                       data: { listing: listingData },
                                     })
                                     .then((res) => {
-                                      if (!res.data.error) {
-                                        setEditProductLoading(false);
-                                        setShowSuccessMessage(true);
-                                      } else {
-                                        setShowError(true);
-                                        setError_message(
-                                          res?.data?.error?.message
-                                        );
-                                        setEditProductLoading(false);
-                                      }
+                                      setEditProductLoading(false);
+                                      setShowSuccessMessage(true);
+                                    })
+                                    .catch((error) => {
+                                      setShowError(true);
+                                      setError_message(error.response.message);
+                                      setEditProductLoading(false);
                                     });
                                 })
                                 .catch((error) => {
@@ -290,14 +286,13 @@ export const edit_product_click = (
                           data: { listing: listingData },
                         })
                         .then((res) => {
-                          if (!res.data.error) {
-                            setEditProductLoading(false);
-                            setShowSuccessMessage(true);
-                          } else {
-                            setShowError(true);
-                            setError_message(res?.data?.error?.message);
-                            setEditProductLoading(false);
-                          }
+                          setEditProductLoading(false);
+                          setShowSuccessMessage(true);
+                        })
+                        .catch((error) => {
+                          setShowError(true);
+                          setError_message(error.response.data.message);
+                          setEditProductLoading(false);
                         });
                     }
                   }
@@ -356,14 +351,13 @@ export const edit_product_click = (
             data: { listing: listingData },
           })
           .then((res) => {
-            if (!res.data.error) {
-              setEditProductLoading(false);
-              setShowSuccessMessage(true);
-            } else {
-              setShowError(true);
-              setError_message(res?.data?.error?.message);
-              setEditProductLoading(false);
-            }
+            setEditProductLoading(false);
+            setShowSuccessMessage(true);
+          })
+          .catch((error) => {
+            setShowError(true);
+            setError_message(error.response.data.message);
+            setEditProductLoading(false);
           });
       } else {
         axios
@@ -428,14 +422,13 @@ export const edit_product_click = (
                       data: { listing: listingData },
                     })
                     .then((res) => {
-                      if (!res.data.error) {
-                        setEditProductLoading(false);
-                        setShowSuccessMessage(true);
-                      } else {
-                        setShowError(true);
-                        setError_message(res?.data?.error?.message);
-                        setEditProductLoading(false);
-                      }
+                      setEditProductLoading(false);
+                      setShowSuccessMessage(true);
+                    })
+                    .catch((error) => {
+                      setShowError(true);
+                      setError_message(error.response.data.message);
+                      setEditProductLoading(false);
                     });
                 })
                 .catch((error) => {
@@ -476,14 +469,13 @@ export const edit_product_click = (
           data: { listing: listingData },
         })
         .then((res) => {
-          if (!res.data.error) {
-            setEditProductLoading(false);
-            setShowSuccessMessage(true);
-          } else {
-            setShowError(true);
-            setError_message(res?.data?.error?.message);
-            setEditProductLoading(false);
-          }
+          setEditProductLoading(false);
+          setShowSuccessMessage(true);
+        })
+        .catch((error) => {
+          setShowError(true);
+          setError_message(error.response.data.message);
+          setEditProductLoading(false);
         });
     }
   }

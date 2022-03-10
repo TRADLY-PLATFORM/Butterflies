@@ -8,9 +8,9 @@ export default async function handler(req, res) {
       id: req.body.id,
     });
     if (!response.error) {
-      res.send(response.data);
+      res.status(200).send(response.data);
     } else {
-      res.send(response);
+      res.status(500).send(response.error);
     }
   }
 }

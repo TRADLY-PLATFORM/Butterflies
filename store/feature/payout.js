@@ -16,7 +16,7 @@ export const callStripeConnect = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
+     
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -36,7 +36,7 @@ export const callExpressLogin = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
+     
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -83,9 +83,10 @@ export const payoutSlice = createSlice({
       state.errorMessage = '';
     },
     [callStripeConnect.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+        state.isFetching = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
     },
     [callExpressLogin.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -109,6 +110,7 @@ export const payoutSlice = createSlice({
     [callExpressLogin.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
   },

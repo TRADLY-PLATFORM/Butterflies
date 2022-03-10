@@ -37,11 +37,9 @@ const Notifications = () => {
   useEffect(() => {
     if (auth_key) {
       axios.get('/api/activities', { params: { page: page } }).then((res) => {
-        if (!res.data.error) {
-          setNotifications(res.data.activities);
-          setPage(res.data.page);
-          setTotal_records(res.data.total_records);
-        }
+        setNotifications(res.data.activities);
+        setPage(res.data.page);
+        setTotal_records(res.data.total_records);
       });
     }
 
@@ -74,11 +72,9 @@ const Notifications = () => {
 
   const fetch_more = () => {
     axios.get('/api/activities', { params: { page: page + 1 } }).then((res) => {
-      if (!res.data.error) {
-        setNotifications([...notifications, ...res.data.activities]);
-        setPage(res.data.page);
-        setTotal_records(res.data.total_records);
-      }
+      setNotifications([...notifications, ...res.data.activities]);
+      setPage(res.data.page);
+      setTotal_records(res.data.total_records);
     });
   };
 

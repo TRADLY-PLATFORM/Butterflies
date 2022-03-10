@@ -19,14 +19,12 @@ const StoreNameBox = ({ account }) => {
   const follow = (id, isFollow) => {
     if (check_login(router)) {
       axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
-        if (!res.data.error) {
-          dispatch(
-            listingDetails({
-              id: router?.query.id.split('-')[0],
-              authKey: auth_key,
-            })
-          );
-        }
+        dispatch(
+          listingDetails({
+            id: router?.query.id.split('-')[0],
+            authKey: auth_key,
+          })
+        );
       });
     }
   };

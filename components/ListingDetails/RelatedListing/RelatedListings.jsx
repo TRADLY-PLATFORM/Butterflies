@@ -45,9 +45,7 @@ const RelatedListings = () => {
         },
       })
       .then((res) => {
-        if (!res.data.error) {
-          setRelated_listings(res.data.listings);
-        }
+        setRelated_listings(res.data.listings);
       });
   }, [router]);
 
@@ -71,9 +69,7 @@ const RelatedListings = () => {
               },
             })
             .then((res) => {
-              if (!res.data.error) {
-                setRelated_listings(res.data.listings);
-              }
+              setRelated_listings(res.data.listings);
             });
         }
       });

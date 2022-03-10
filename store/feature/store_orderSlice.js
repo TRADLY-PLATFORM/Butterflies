@@ -16,7 +16,7 @@ export const get_orders = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
+     
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -37,7 +37,7 @@ export const get_order_details = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
+     
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -59,7 +59,7 @@ export const changeOrderStatus = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
+     
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -119,9 +119,10 @@ export const store_orderSlice = createSlice({
       state.errorMessage = '';
     },
     [get_orders.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+     state.isFetching = false;
+     state.isError = true;
+     state.isSuccess = false;
+     state.errorMessage = payload?.message;
     },
     [get_order_details.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -145,6 +146,7 @@ export const store_orderSlice = createSlice({
     [get_order_details.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [changeOrderStatus.fulfilled]: (state, { payload }) => {
@@ -166,9 +168,10 @@ export const store_orderSlice = createSlice({
       state.errorMessage = '';
     },
     [changeOrderStatus.rejected]: (state, { payload }) => {
-      state.isChangeStatusFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+     state.isChangeStatusFetching = false;
+     state.isError = true;
+     state.isSuccess = false;
+     state.errorMessage = payload?.message;
     },
   },
 });

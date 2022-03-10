@@ -15,7 +15,6 @@ export const listingDetails = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -36,7 +35,6 @@ export const listingLike = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -54,7 +52,6 @@ export const getAllListings = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -62,15 +59,18 @@ export const getAllListings = createAsyncThunk(
 );
 export const getListingReviews = createAsyncThunk(
   'listing/getListingReviews',
-  async ({  authKey ,params}, thunkAPI) => {
+  async ({ authKey, params }, thunkAPI) => {
     try {
-      const response = await axios.get('/api/review/get_reviews',{params:params});
+      const response = await axios.get('/api/review/get_reviews', {
+        params: params,
+      });
       const { data } = await response;
       if (!response.data.error) {
         return data;
+      } else {
+        const { error } = await response.data;
+        return error;
       }
-      const { error } = await response.data;
-      return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -146,6 +146,7 @@ export const listingSlice = createSlice({
     [listingDetails.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [listingLike.fulfilled]: (state, { payload }) => {
@@ -169,6 +170,7 @@ export const listingSlice = createSlice({
     [listingLike.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [getAllListings.fulfilled]: (state, { payload }) => {
@@ -193,9 +195,10 @@ export const listingSlice = createSlice({
       state.errorMessage = '';
     },
     [getAllListings.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+       state.isFetching = false;
+       state.isError = true;
+       state.isSuccess = false;
+       state.errorMessage = payload?.message;
     },
     [getListingReviews.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -222,6 +225,7 @@ export const listingSlice = createSlice({
     [getListingReviews.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
   },

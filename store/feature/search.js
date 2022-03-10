@@ -15,7 +15,7 @@ export const listingLike = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
+      
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -34,7 +34,7 @@ export const getSearchListings = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
+     
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -94,6 +94,7 @@ export const searchSlice = createSlice({
     [listingLike.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [getSearchListings.fulfilled]: (state, { payload }) => {
@@ -118,9 +119,10 @@ export const searchSlice = createSlice({
       state.errorMessage = '';
     },
     [getSearchListings.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+       state.isFetching = false;
+       state.isError = true;
+       state.isSuccess = false;
+       state.errorMessage = payload?.message;
     },
   },
 });

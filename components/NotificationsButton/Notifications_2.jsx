@@ -34,11 +34,9 @@ const Notifications2 = () => {
 
   useEffect(() => {
     axios.get('/api/activities', { params: { page: page } }).then((res) => {
-      if (!res.data.error) {
-        setNotifications(res.data.activities);
-        setPage(res.data.page);
-        setTotal_records(res.data.total_records);
-      }
+      setNotifications(res.data.activities);
+      setPage(res.data.page);
+      setTotal_records(res.data.total_records);
     });
 
     if (user_details) {
@@ -65,13 +63,11 @@ const Notifications2 = () => {
   };
 
   const fetch_more = () => {
-   axios.get('/api/activities', { params: { page: page } }).then((res) => {
-     if (!res.data.error) {
-       setNotifications([...notifications, ...res.data.activities]);
-       setPage(res.data.page);
-       setTotal_records(res.data.total_records);
-     }
-   });
+    axios.get('/api/activities', { params: { page: page } }).then((res) => {
+      setNotifications([...notifications, ...res.data.activities]);
+      setPage(res.data.page);
+      setTotal_records(res.data.total_records);
+    });
   };
 
   //   useEffect(() => {

@@ -50,9 +50,10 @@ function MyApp({ Component, pageProps }) {
     });
 
     // onboarding Configs
-    axios.get('/api/configs/onboarding').then((res) => {
-      if (typeof window !== 'undefined') {
-        if (!res.data.error) {
+    axios
+      .get('/api/configs/onboarding')
+      .then((res) => {
+        if (typeof window !== 'undefined') {
           let root = document.documentElement;
           const primary_color = res.data.configs?.app_color_primary;
           const secondary_color = res.data.configs?.app_color_secondary;
@@ -66,16 +67,17 @@ function MyApp({ Component, pageProps }) {
           );
 
           setIs_onboarding(true);
-        } else {
-          setIs_onboarding(false);
         }
-      }
-    });
+      })
+      .catch((error) => {
+        setIs_onboarding(false);
+      });
 
     // General Configs
-    axios.get('/api/configs/general').then((res) => {
-      if (typeof window !== 'undefined') {
-        if (!res.data.error) {
+    axios
+      .get('/api/configs/general')
+      .then((res) => {
+        if (typeof window !== 'undefined') {
           // font set
           let root = document.documentElement;
           const primary_font =
@@ -106,16 +108,17 @@ function MyApp({ Component, pageProps }) {
             JSON.stringify(res.data.configs)
           );
           setIs_general(true);
-        } else {
-          setIs_general(false);
         }
-      }
-    });
+      })
+      .catch((error) => {
+        setIs_general(false);
+      });
 
     // extensions config
-    axios.get('/api/configs/extensions').then((res) => {
-      if (typeof window !== 'undefined') {
-        if (!res.data.error) {
+    axios
+      .get('/api/configs/extensions')
+      .then((res) => {
+        if (typeof window !== 'undefined') {
           // GTM
           if (res.data.configs?.gtm) {
             TagManager.initialize({ gtmId: `GTM-${res.data.configs?.gtm}` });
@@ -127,27 +130,31 @@ function MyApp({ Component, pageProps }) {
           }
 
           setIsExtension(true);
-        } else {
-          setIsExtension(false);
         }
-      }
-    });
+      })
+      .catch((error) => {
+        setIsExtension(false);
+      });
 
     // SEO Configs
-    axios.get('/api/configs/seo').then((res) => {
-      console.log(res);
-      const { configs } = res?.data;
-      TYPE_CONSTANT.META_TITLE = configs?.meta_title || '';
-      TYPE_CONSTANT.META_DESCRIPTIONS = configs?.meta_description || '';
-      TYPE_CONSTANT.META_ACCOUNT_TITLE = configs?.meta_account_title || '';
-      TYPE_CONSTANT.META_LISTING_TITLE = configs?.meta_listing_title || '';
-      TYPE_CONSTANT.META_LISTING_DESCRIPTION =
-        configs?.meta_listing_description || '';
-      TYPE_CONSTANT.META_LISTING_CATEGORY_TITLE =
-        configs?.meta_listing_category_title || '';
-      TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION =
-        configs?.meta_listing_category_description || '';
-    });
+    axios
+      .get('/api/configs/seo')
+      .then((res) => {
+        const { configs } = res?.data;
+        TYPE_CONSTANT.META_TITLE = configs?.meta_title || '';
+        TYPE_CONSTANT.META_DESCRIPTIONS = configs?.meta_description || '';
+        TYPE_CONSTANT.META_ACCOUNT_TITLE = configs?.meta_account_title || '';
+        TYPE_CONSTANT.META_LISTING_TITLE = configs?.meta_listing_title || '';
+        TYPE_CONSTANT.META_LISTING_DESCRIPTION =
+          configs?.meta_listing_description || '';
+        TYPE_CONSTANT.META_LISTING_CATEGORY_TITLE =
+          configs?.meta_listing_category_title || '';
+        TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION =
+          configs?.meta_listing_category_description || '';
+      })
+      .catch((error) => {
+        setIs_onboarding(false);
+      });
   }, []);
 
   useEffect(() => {

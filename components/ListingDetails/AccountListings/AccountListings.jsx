@@ -42,9 +42,7 @@ const AccountListings = ({ account_id, account }) => {
           params: { page: 1, per_page: 30, account_id: account_id },
         })
         .then((res) => {
-          if (!res.error) {
-            setAccount_listings(res.data.listings);
-          }
+          setAccount_listings(res.data.listings);
         });
     }
   }, [account_id]);
@@ -65,9 +63,7 @@ const AccountListings = ({ account_id, account }) => {
               params: { page: 1, per_page: 30, account_id: account_id },
             })
             .then((res) => {
-              if (!res.error) {
-                setAccount_listings(res.data.listings);
-              }
+              setAccount_listings(res.data.listings);
             });
         }
       });

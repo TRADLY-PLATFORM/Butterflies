@@ -70,7 +70,7 @@ export const verifyUser = createAsyncThunk(
   async ({ prams }, thunkAPI) => {
     try {
       const response = await axios.post('/api/auth/verify_user', { prams });
- 
+
       const { data } = await response;
       if (!response.data.error) {
         return data;
@@ -160,7 +160,7 @@ export const authSlice = createSlice({
       state.profile_pic = '';
       state.user_details = '';
       localStorage.clear();
-       Cookies.remove('auth_key', { path: '' });
+      Cookies.remove('auth_key', { path: '' });
       return state;
     },
   },
@@ -202,6 +202,7 @@ export const authSlice = createSlice({
     [signIn.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [refreshPage.fulfilled]: (state, { payload }) => {
@@ -251,6 +252,7 @@ export const authSlice = createSlice({
     [signUp.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [verifyUser.fulfilled]: (state, { payload }) => {
@@ -290,6 +292,7 @@ export const authSlice = createSlice({
     [verifyUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [verifyUserEmail.fulfilled]: (state, { payload }) => {
@@ -312,6 +315,7 @@ export const authSlice = createSlice({
     [verifyUserEmail.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [UserInfo.fulfilled]: (state, { payload }) => {
@@ -331,6 +335,17 @@ export const authSlice = createSlice({
         state.user_details = payload?.user;
         localStorage.setItem('user_details', JSON.stringify(payload?.user));
       }
+    },
+    [UserInfo.pending]: (state) => {
+      state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = '';
+    },
+    [UserInfo.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
   },
 });

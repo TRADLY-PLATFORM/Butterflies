@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import tradly from 'tradly';
 
 import paymentIcon from '../../assets/Images/Payout/bankIcon (1).svg';
 import { useSelector } from 'react-redux';
@@ -24,9 +23,10 @@ const PayoutScreen = ({ stripe_connect }) => {
           data: { account_id: my_stores[0].id },
         })
         .then((res) => {
-          if (!res.data.error) {
-            window.open(res.data.account_link);
-          }
+          window.open(res.data.account_link);
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
         });
     } else {
       if (express_login_link !== null) {

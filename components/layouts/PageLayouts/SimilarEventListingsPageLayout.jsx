@@ -46,14 +46,12 @@ const SimilarEventListingsPageLayout = () => {
   //
   useEffect(() => {
     setIsFetching(true);
-   axios.get('/api/l/similar', { params: router.query }).then((res) => {
-     if (!res.data.error) {
-       setIsFetching(false);
-       setSimilarListings(res.data.listings);
-       setPage(res.data.page);
-       setTotal_records(res.data.total_records);
-     }
-   });
+    axios.get('/api/l/similar', { params: router.query }).then((res) => {
+      setIsFetching(false);
+      setSimilarListings(res.data.listings);
+      setPage(res.data.page);
+      setTotal_records(res.data.total_records);
+    });
   }, [auth_key, dispatch, router]);
 
   //
@@ -123,14 +121,13 @@ const SimilarEventListingsPageLayout = () => {
         })
       ).then((res) => {
         if (!res.payload.code) {
-         axios.get('/api/l/similar', { params: router.query }).then((res) => {
-           setIsFetching(false);
-           if (!res.data.error) {
-             setSimilarListings(res.data.listings);
-             setPage(res.data.page);
-             setTotal_records(res.data.total_records);
-           }
-         });
+          axios.get('/api/l/similar', { params: router.query }).then((res) => {
+            setIsFetching(false);
+
+            setSimilarListings(res.data.listings);
+            setPage(res.data.page);
+            setTotal_records(res.data.total_records);
+          });
         }
       });
     }

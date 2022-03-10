@@ -20,9 +20,7 @@ const Banner = ({ banners }) => {
   const [appPromoBanners, setAppsPromoBanners] = useState(null);
   useEffect(() => {
     axios.get(`/api/banners`, { params: { medium: 'app' } }).then((res) => {
-      if (!res.data.error) {
-        setAppsPromoBanners(res.data.promo_banners);
-      }
+      setAppsPromoBanners(res.data.promo_banners);
     });
   }, []);
   return (

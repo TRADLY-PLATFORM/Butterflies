@@ -34,33 +34,31 @@ const AddressBox = ({ order_details }) => {
         },
       })
       .then((res) => {
-        if (!res.data.error) {
-          axios
-            .post('/api/orders/update_order', {
-              id: order_details.id,
-              data: {
-                operation: 'update_pickup_address',
-                order: { pickup_address_id: res.data.address.id },
-              },
-            })
-            .then((res) => {
-              if (!res.data.error) {
-                dispatch(
-                  get_order_details({
-                    authKey: auth_key,
-                    id: order_details.id,
-                    bodyParam: { account_id: router.query.store_id },
-                  })
-                );
-                setShowShippingAddressForm(false);
-                setIsLoading(false);
-              } else {
-                setIsLoading(false);
-              }
-            });
-        } else {
-          setIsLoading(false);
-        }
+        axios
+          .post('/api/orders/update_order', {
+            id: order_details.id,
+            data: {
+              operation: 'update_pickup_address',
+              order: { pickup_address_id: res.data.address.id },
+            },
+          })
+          .then((res) => {
+            dispatch(
+              get_order_details({
+                authKey: auth_key,
+                id: order_details.id,
+                bodyParam: { account_id: router.query.store_id },
+              })
+            );
+            setShowShippingAddressForm(false);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            setIsLoading(false);
+          });
+      })
+      .catch((error) => {
+        setIsLoading(false);
       });
   };
 

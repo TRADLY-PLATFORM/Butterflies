@@ -57,9 +57,7 @@ const AddCustomProductForm = () => {
 
   useEffect(() => {
     axios.get('/api/variant').then((res) => {
-      if (!res.data.error) {
-        setVariantsType(res.data.variant_types);
-      }
+      setVariantsType(res.data.variant_types);
     });
   }, [auth_key]);
 

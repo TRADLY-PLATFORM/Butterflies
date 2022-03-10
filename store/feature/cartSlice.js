@@ -6,8 +6,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import tradly from 'tradly';
- 
- 
+
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
   async ({ authKey, data }, thunkAPI) => {
@@ -336,6 +335,7 @@ export const cartSlice = createSlice({
     [addToCart.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [getCurrencies.fulfilled]: (state, { payload }) => {
@@ -360,6 +360,7 @@ export const cartSlice = createSlice({
     [getCurrencies.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [save_address.fulfilled]: (state, { payload }) => {
@@ -383,6 +384,7 @@ export const cartSlice = createSlice({
     [save_address.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [getStorageHubAddress.fulfilled]: (state, { payload }) => {
@@ -407,6 +409,7 @@ export const cartSlice = createSlice({
     [getStorageHubAddress.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [getAddress.fulfilled]: (state, { payload }) => {
@@ -431,6 +434,7 @@ export const cartSlice = createSlice({
     [getAddress.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [cartList.fulfilled]: (state, { payload }) => {
@@ -456,6 +460,7 @@ export const cartSlice = createSlice({
     [cartList.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [shippingMethods.fulfilled]: (state, { payload }) => {
@@ -480,6 +485,7 @@ export const cartSlice = createSlice({
     [shippingMethods.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [paymentMethods.fulfilled]: (state, { payload }) => {
@@ -504,6 +510,7 @@ export const cartSlice = createSlice({
     [paymentMethods.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [checkout.fulfilled]: (state, { payload }) => {
@@ -526,8 +533,9 @@ export const cartSlice = createSlice({
       state.errorMessage = '';
     },
     [checkout.rejected]: (state, { payload }) => {
-      state.isFetching = false;
+      state.isCheckoutFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [directCheckout.fulfilled]: (state, { payload }) => {
@@ -550,8 +558,9 @@ export const cartSlice = createSlice({
       state.errorMessage = '';
     },
     [directCheckout.rejected]: (state, { payload }) => {
-      state.isFetching = false;
+      state.isCheckoutFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [paymentIntent.fulfilled]: (state, { payload }) => {
@@ -574,8 +583,9 @@ export const cartSlice = createSlice({
       state.errorMessage = '';
     },
     [paymentIntent.rejected]: (state, { payload }) => {
-      state.isFetching = false;
+      state.isCheckoutFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
   },

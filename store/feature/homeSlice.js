@@ -87,9 +87,9 @@ export const homeSlice = createSlice({
     },
   
     [homeCollections.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+     state.isFetching = false;
+     state.isError = true;
+     state.errorMessage = payload?.message;
     },
     [AllPromoBanners.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -111,9 +111,9 @@ export const homeSlice = createSlice({
     },
   
     [AllPromoBanners.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = payload?.message;
+       state.isFetching = false;
+       state.isError = true;
+       state.errorMessage = payload?.message;
     },
   },
 });

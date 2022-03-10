@@ -16,7 +16,6 @@ export const get_orders = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -35,7 +34,6 @@ export const get_order_details = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -54,7 +52,6 @@ export const changeOrderStatus = createAsyncThunk(
         const { error } = await response.data;
         return error;
       }
-      return error;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -116,6 +113,7 @@ export const orderSlice = createSlice({
     [get_orders.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [get_order_details.fulfilled]: (state, { payload }) => {
@@ -140,6 +138,7 @@ export const orderSlice = createSlice({
     [get_order_details.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
     [changeOrderStatus.fulfilled]: (state, { payload }) => {
@@ -163,6 +162,7 @@ export const orderSlice = createSlice({
     [changeOrderStatus.rejected]: (state, { payload }) => {
       state.isChangeStatusFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
   },

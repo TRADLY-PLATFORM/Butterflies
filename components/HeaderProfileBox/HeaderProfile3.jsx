@@ -20,7 +20,11 @@ import {
   store_icon,
 } from '../Shared/Constant/Icons/AllIcons';
 import { myStore, storeSelector } from '../../store/feature/storeSlice';
-import { account_menus, customer_menus, custom_customer_menus } from './desktopMenu';
+import {
+  account_menus,
+  customer_menus,
+  custom_customer_menus,
+} from './desktopMenu';
 import CustomDropdown from '../Shared/utils/CustomDropdown';
 import axios from 'axios';
 
@@ -31,9 +35,7 @@ const HeaderProfile3 = ({ showUserMenus, setShowUserMenus }) => {
   useEffect(() => {
     setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
     axios.get('/api/configs/general').then((res) => {
-      if (!res.data.error) {
-        setGeneral_configs(res?.data?.configs);
-      }
+      setGeneral_configs(res?.data?.configs);
     });
   }, [0]);
 

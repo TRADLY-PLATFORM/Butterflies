@@ -22,21 +22,23 @@ const AccountProfile = ({
     if (check_login(router)) {
       setIsDataLoading(true);
 
-      axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
-        if (!res.code) {
-          axios.get(`/api/a/${router.query.id.split('-')[0]}`).then((res) => {
-            if (!res.data.error) {
+      axios
+        .post('/api/a/follow_account', { id, isFollow })
+        .then((res) => {
+          axios
+            .get(`/api/a/${router.query.id.split('-')[0]}`)
+            .then((res) => {
               setAccount_details(res.data.account);
               setIsDataLoading(false);
-            } else {
+            })
+            .catch((error) => {
               setIsDataLoading(false);
-            }
-          });
-        } else {
+            });
+        })
+        .catch((error) => {
           setIsDataLoading(false);
-        }
-      });
-    }  
+        });
+    }
   };
 
   return (

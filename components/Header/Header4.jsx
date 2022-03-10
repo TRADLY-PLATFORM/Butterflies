@@ -68,9 +68,7 @@ function Header4() {
     axios
       .get('/api/categories', { params: { parent: 0, type: 'listings' } })
       .then((res) => {
-        if (!res.data.error) {
-          setAllCategories(res.data.categories);
-        }
+        setAllCategories(res.data.categories);
       });
   }, [0]);
 

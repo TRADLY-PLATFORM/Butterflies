@@ -65,18 +65,17 @@ export const editVariantButton = (
                 },
               })
               .then((res) => {
-                if (!res.data.error) {
-                  setShowVariantForm(false);
-                  setIsEditVariant(false);
-                  setEditVariantData(null);
-                  setShowSuccessMessage(true);
-                  setEditVariantLoading(false);
-                } else {
-                  setShowError(true);
-                  setError_message(res?.data?.error?.message);
-                  setEditVariantLoading(false);
-                  // setAddProductLoading(false);
-                }
+                setShowVariantForm(false);
+                setIsEditVariant(false);
+                setEditVariantData(null);
+                setShowSuccessMessage(true);
+                setEditVariantLoading(false);
+              })
+              .catch((error) => {
+                setShowError(true);
+                setError_message(error.response.data.message);
+                setEditVariantLoading(false);
+                // setAddProductLoading(false);
               });
           });
         } else {
@@ -113,19 +112,16 @@ export const editVariantButton = (
         },
       })
       .then((res) => {
-        if (!res.data.error) {
-          setShowVariantForm(false);
-          setIsEditVariant(false);
-          setEditVariantData(null);
-          setShowSuccessMessage(true);
-          setEditVariantLoading(false);
-        } else {
-          setShowError(true);
-          setError_message(res?.data?.error?.message);
-          setEditVariantLoading(false);
-
-          // setAddProductLoading(false);
-        }
+        setShowVariantForm(false);
+        setIsEditVariant(false);
+        setEditVariantData(null);
+        setShowSuccessMessage(true);
+        setEditVariantLoading(false);
+      })
+      .catch((error) => {
+        setShowError(true);
+        setError_message(error.response.data.message);
+        setEditVariantLoading(false);
       });
   }
 };
@@ -134,9 +130,7 @@ export const deleteVariant = (variantID, productId, auth_key, dispatch) => {
   axios
     .post('/api/variant/delete_variant', { variantID, productId })
     .then((res) => {
-      if (!res.data.error) {
-        dispatch(myAccountListingDetails({ id: productId, authKey: auth_key }));
-      }
+      dispatch(myAccountListingDetails({ id: productId, authKey: auth_key }));
     });
 };
 
@@ -203,18 +197,17 @@ export const addNewVariant = (
               },
             })
             .then((res) => {
-              if (!res.data.error) {
-                setShowVariantForm(false);
-                setIsEditVariant(false);
-                setEditVariantData(null);
-                setShowSuccessMessage(true);
-                setAddVariantLoading(false);
-              } else {
-                setShowError(true);
-                setError_message(res?.data?.error?.message);
-                setAddVariantLoading(false);
-                // setAddProductLoading(false);
-              }
+              setShowVariantForm(false);
+              setIsEditVariant(false);
+              setEditVariantData(null);
+              setShowSuccessMessage(true);
+              setAddVariantLoading(false);
+            })
+            .catch((error) => {
+              setShowError(true);
+              setError_message(error.response.data.message);
+              setAddVariantLoading(false);
+              // setAddProductLoading(false);
             });
         });
       } else {

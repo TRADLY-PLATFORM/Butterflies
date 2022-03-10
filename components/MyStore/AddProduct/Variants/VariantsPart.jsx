@@ -79,9 +79,7 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
   const { auth_key } = useSelector(authSelector);
   useEffect(() => {
     axios.get('/api/variant').then((res) => {
-      if (!res.data.error) {
-        setVariantsType(res.data.variant_types);
-      }
+      setVariantsType(res.data.variant_types);
     });
   }, [auth_key]);
 

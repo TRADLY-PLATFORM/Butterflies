@@ -41,7 +41,7 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
           id: id,
         })
         .then((res) => {
-          if (!res.data.error) {
+           
             dispatch(
               listingDetails({
                 id: router?.query.id.split('-')[0],
@@ -59,10 +59,10 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
                 },
               })
             );
-          }
+         
         })
         .catch((error) => {
-          alert(error.message);
+          alert(error.response.data.message);
         });
     }
   };

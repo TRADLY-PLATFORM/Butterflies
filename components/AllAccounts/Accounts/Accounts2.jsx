@@ -21,8 +21,9 @@ const Accounts2 = ({ accounts }) => {
   const dispatch = useDispatch();
   const follow = (id, isFollow) => {
     if (check_login(router)) {
-      axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
-        if (!res.code) {
+      axios
+        .post('/api/a/follow_account', { id, isFollow })
+        .then((res) => {
           dispatch(
             get_all_accounts({
               bodyParam: {
@@ -33,8 +34,10 @@ const Accounts2 = ({ accounts }) => {
               authKey: auth_key,
             })
           );
-        }
-      });
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
+        });
     }
   };
 

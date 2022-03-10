@@ -29,25 +29,24 @@ export const changeSchedule = (
       data: { schedules: [...filter, schedulesObject] },
     })
     .then((res) => {
-      if (!res.data.error) {
-        setIsEditSchedule(false), setEditScheduleData(null);
-        setIsScheduleFormOpen(false);
-        setEditScheduleIndex(null);
-        setSchedulesObject({
-          start_date: null,
-          start_time: null,
-          end_time: null,
-          schedule_type: 2,
-          repeat_days: null,
-          active: true,
-        });
-        setEditScheduleLoading(false);
-        setShowSuccessMessage(true);
-      } else {
-        setShowError(true);
-        setError_message(res.data.error.message);
-        setEditScheduleLoading(false);
-      }
+      setIsEditSchedule(false), setEditScheduleData(null);
+      setIsScheduleFormOpen(false);
+      setEditScheduleIndex(null);
+      setSchedulesObject({
+        start_date: null,
+        start_time: null,
+        end_time: null,
+        schedule_type: 2,
+        repeat_days: null,
+        active: true,
+      });
+      setEditScheduleLoading(false);
+      setShowSuccessMessage(true);
+    })
+    .catch((error) => {
+      setShowError(true);
+      setError_message(error.response.data.message);
+      setEditScheduleLoading(false);
     });
 };
 
@@ -75,24 +74,22 @@ export const addNewSchedule = (
       data: { schedules: [...schedulesArray, schedulesObject] },
     })
     .then((res) => {
-      if (!res.data.error) {
-        setIsScheduleFormOpen(false);
-
-        setSchedulesObject({
-          start_date: null,
-          start_time: null,
-          end_time: null,
-          schedule_type: 2,
-          repeat_days: null,
-          active: true,
-        });
-        setEditScheduleLoading(false);
-        setShowSuccessMessage(true);
-      } else {
-        setShowError(true);
-        setError_message(res.data.error.message);
-        setEditScheduleLoading(false);
-      }
+      setIsScheduleFormOpen(false);
+      setSchedulesObject({
+        start_date: null,
+        start_time: null,
+        end_time: null,
+        schedule_type: 2,
+        repeat_days: null,
+        active: true,
+      });
+      setEditScheduleLoading(false);
+      setShowSuccessMessage(true);
+    })
+    .catch((error) => {
+      setShowError(true);
+      setError_message(error.response.data.message);
+      setEditScheduleLoading(false);
     });
 };
 
@@ -118,14 +115,13 @@ export const deleteSchedule = (
         data: { schedules: filter },
       })
       .then((res) => {
-        if (!res.data.error) {
-          setEditScheduleLoading(false);
-          setShowSuccessMessage(true);
-        } else {
-          setShowError(true);
-          setError_message(res.data.error.message);
-          setEditScheduleLoading(false);
-        }
+        setEditScheduleLoading(false);
+        setShowSuccessMessage(true);
+      })
+      .catch((error) => {
+        setShowError(true);
+        setError_message(error.response.data.message);
+        setEditScheduleLoading(false);
       });
   } else {
     setShowError(true);

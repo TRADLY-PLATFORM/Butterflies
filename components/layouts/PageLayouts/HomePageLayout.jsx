@@ -28,7 +28,7 @@ const HomePageLayout = () => {
     dispatch(
       AllPromoBanners({
         authKey: localStorage.getItem('auth_key'),
-        bodyParam: { placement: 'footer'},
+        bodyParam: { placement: 'footer' },
       })
     );
   }, [auth_key, dispatch]);
@@ -45,6 +45,8 @@ const HomePageLayout = () => {
 
   const { general_configs, marketplace_type, marketplace_module } =
     useSelector(configsSelector);
+
+  
 
   return (
     <div className="">
@@ -74,7 +76,7 @@ const HomePageLayout = () => {
           );
         }
       })}
-      <div className='mt-9'>
+      <div className="mt-9">
         <Banner3 />
       </div>
     </div>

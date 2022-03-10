@@ -31,22 +31,26 @@ const Footer = () => {
     axios
       .get('/api/categories', { params: { parent: 0, type: 'listings' } })
       .then((res) => {
-        if (!res.data.error) {
-          setAllCategories(res.data.categories);
-        }
+        setAllCategories(res.data.categories);
       });
 
-    axios.get('/api/configs/general').then((res) => {
-      if (!res.data.error) {
+    axios
+      .get('/api/configs/general')
+      .then((res) => {
         setGeneral_configs(res.data.configs);
-      }
-    });
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
 
-    axios.get('/api/configs/social').then((res) => {
-      if (!res.data.error) {
+    axios
+      .get('/api/configs/social')
+      .then((res) => {
         setSocial_configs(res.data.configs);
-      }
-    });
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
   }, [0]);
   return (
     <>
@@ -60,7 +64,7 @@ const Footer = () => {
             </Link>
           )}
 
-          <div className='flex items-center justify-start flex-wrap gap-3'>
+          <div className="flex items-center justify-start flex-wrap gap-3">
             {general_configs?.android_app_download_link && (
               <Link href={general_configs?.android_app_download_link}>
                 <a className=" block mt-4 " target="_blank">
@@ -370,8 +374,8 @@ const Footer = () => {
 
           {isSeeAllCategories &&
             allCategories?.map((item, index, array) => {
-              if (array.length > 4) {
-                if (index + 1 > 4) {
+              if (array.length >3) {
+                if (index + 1 >= 4) {
                   return (
                     <div className="mb-4 " key={Math.random()}>
                       {' '}

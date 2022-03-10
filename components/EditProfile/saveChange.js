@@ -68,19 +68,20 @@ export const saveChange = (
             axios
               .post('/api/user/update_user', { userId, userData })
               .then((res) => {
-                if (!res.data.error) {
-                  dispatch(UserInfo({ userId, auth_key })).then((res) => {
-                    if (!res.payload.code) {
-                      setLoading(false);
-                      setShowSuccess(true);
-                      setSuccess_message('Your profile updated successfully');
-                    } else {
-                      setShowError(true);
-                      setError_message(response.payload.message);
-                      setLoading(false);
-                    }
-                  });
-                }
+                dispatch(UserInfo({ userId, auth_key })).then((res) => {
+                  if (!res.payload.code) {
+                    setLoading(false);
+                    setShowSuccess(true);
+                    setSuccess_message('Your profile updated successfully');
+                  } else {
+                    setShowError(true);
+                    setError_message(response.payload.message);
+                    setLoading(false);
+                  }
+                });
+              })
+              .catch((error) => {
+                alert(error.response.data.message);
               });
           });
         } else {
@@ -97,8 +98,9 @@ export const saveChange = (
         profile_pic: imagePath.path,
       },
     };
-    axios.post('/api/user/update_user', { id, userData }).then((res) => {
-      if (!res.data.error) {
+    axios
+      .post('/api/user/update_user', { id, userData })
+      .then((res) => {
         dispatch(UserInfo({ userId, auth_key })).then((res) => {
           if (!res.payload.code) {
             setLoading(false);
@@ -110,7 +112,9 @@ export const saveChange = (
             setLoading(false);
           }
         });
-      }
-    });
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
   }
 };

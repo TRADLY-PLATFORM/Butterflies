@@ -29,12 +29,9 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
 
   useEffect(() => {
     setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
-    axios.get('/api/configs/general')
-      .then((res) => {
-        if (!res.data.error) {
-          setGeneral_configs(res?.data?.configs);
-        }
-      });
+    axios.get('/api/configs/general').then((res) => {
+      setGeneral_configs(res?.data?.configs);
+    });
   }, [0]);
 
   useEffect(() => {
@@ -128,7 +125,11 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
           }
         >
           {login && (
-            <div className={["bg-[#fff] rounded-lg   mt-[15px]  pt-[20px] pb-[15px]   min-h-[100px]  border border-[rgba(250, 250, 250, 0.93)]  shadow-sm  relative"]}>
+            <div
+              className={[
+                'bg-[#fff] rounded-lg   mt-[15px]  pt-[20px] pb-[15px]   min-h-[100px]  border border-[rgba(250, 250, 250, 0.93)]  shadow-sm  relative',
+              ]}
+            >
               {login && (
                 <>
                   {my_stores?.length > 0 ? (

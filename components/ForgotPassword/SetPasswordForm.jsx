@@ -91,17 +91,18 @@ const SetPasswordForm = ({ general_configs }) => {
       code: verificationCode,
       password: pass,
     };
-    axios.post('/api/auth/set_password', { users }).then((res) => {
-      if (!res.data.error) {
+    axios
+      .post('/api/auth/set_password', { users })
+      .then((res) => {
         setIsLoading(false);
         setShowSuccess(true);
         setSuccess_message('Password updated successfully ');
-      } else {
+      })
+      .catch((error) => {
         setShowError(true);
-        setError_message(res.data.error.message);
+        setError_message(error.response.data.message);
         setIsLoading(false);
-      }
-    });
+      });
   };
 
   return (

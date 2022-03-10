@@ -61,17 +61,13 @@ const Filter = () => {
     axios
       .get('/api/categories', { params: { parent: 0, type: 'listings' } })
       .then((res) => {
-        if (!res.data.error) {
-          setAllCategories(res.data.categories);
-        }
+        setAllCategories(res.data.categories);
       });
 
     axios
       .get('/api/attributes', { params: { type: 'listings' } })
       .then((res) => {
-        if (!res.data.error) {
-          setAllAttributes(res.data.attributes);
-        }
+        setAllAttributes(res.data.attributes);
       });
 
     if (category_id) {
@@ -633,7 +629,12 @@ const Filter = () => {
       </div>
       {/* Dates Array */}
       {marketplace_type === 2 && (
-           <div className={["  hidden md:block w-full  pr-72",isFilterOpen && "ml-[245px]"].join(" ")}>
+        <div
+          className={[
+            '  hidden md:block w-full  pr-72',
+            isFilterOpen && 'ml-[245px]',
+          ].join(' ')}
+        >
           <Swiper
             slidesPerView="auto"
             slidesPerGroup={1}

@@ -26,7 +26,6 @@ const AccountListingsItem = ({
   const dispatch = useDispatch();
   const router = useRouter();
 
-
   // like listing
   const like = (id, isLiked) => {
     if (check_login(router)) {
@@ -39,14 +38,15 @@ const AccountListingsItem = ({
         })
       ).then((res) => {
         if (!res.payload.code) {
-          axios.get(`/api/a/${router.query.id.split('-')[0]}`).then((res) => {
-            if (!res.data.error) {
+          axios
+            .get(`/api/a/${router.query.id.split('-')[0]}`)
+            .then((res) => {
               setAccount_details(res.data.account);
               setIsDataLoading(false);
-            } else {
+            })
+            .catch((error) => {
               setIsDataLoading(false);
-            }
-          });
+            });
         } else {
           setIsDataLoading(false);
         }

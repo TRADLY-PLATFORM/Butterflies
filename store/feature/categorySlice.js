@@ -90,6 +90,7 @@ export const categorySlice = createSlice({
     [categories.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
 
@@ -118,6 +119,7 @@ export const categorySlice = createSlice({
     [categoryListings.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
+      state.isSuccess = false;
       state.errorMessage = payload?.message;
     },
   },
