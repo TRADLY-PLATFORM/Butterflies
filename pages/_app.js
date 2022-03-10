@@ -1,3 +1,4 @@
+
 /* eslint-disable react/prop-types */
 import '../styles/globals.scss';
 import store from '../store/store';
