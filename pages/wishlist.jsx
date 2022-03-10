@@ -8,12 +8,9 @@ import WishListPageLayout from '../components/layouts/PageLayouts/WishListPageLa
 import { TYPE_CONSTANT } from '../constant/Web_constant';
 import { refreshPage } from '../store/feature/authSlice';
 import { clearWishState } from '../store/feature/wishSlice';
-import axios from 'axios';
-
+ 
 import { check_login } from '../constant/check_auth';
-import { refreshPage } from '../store/feature/authSlice';
-import { clearWishState } from '../store/feature/wishSlice';
-
+ 
 const WishList = (props) => {
   const router = useRouter();
   const dispatch = useDispatch();
