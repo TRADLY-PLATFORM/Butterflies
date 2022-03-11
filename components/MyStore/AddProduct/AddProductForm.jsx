@@ -25,6 +25,7 @@ import Attribute3 from './Attribute3';
 
 const AddProductForm = () => {
   const [title, setTitle] = useState('');
+  const [slug, setSlug] = useState('');
   const [description, setDescription] = useState(' ');
   const [price, setPrice] = useState(0);
   const [shippingCharge, setShippingCharge] = useState(0);
@@ -249,6 +250,22 @@ const AddProductForm = () => {
               />
             </label>
             <label className="block">
+              <span className="text-gray-700">Listing Slug</span>
+              <input
+                type="text"
+                className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+                placeholder=""
+                onChange={(e) => setSlug(e.target.value)}
+              />
+            </label>
+            <label className="block">
               <span className="text-gray-700">Listing Description</span>
               <Markdown_Editor
                 oldValue={description}
@@ -450,6 +467,7 @@ const AddProductForm = () => {
                   files,
                   fullFile,
                   title,
+                  slug,
                   description,
                   price,
                   shippingCharge,

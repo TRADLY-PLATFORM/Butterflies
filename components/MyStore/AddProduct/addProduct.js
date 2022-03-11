@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { set } from 'react-hook-form';
 import tradly from 'tradly';
+var slugify = require('slugify');
+
 
 export const add_product_click = (
   files,
   fullFile,
   title,
+  slug,
   description,
   price,
   shippingCharge,
@@ -33,7 +36,7 @@ export const add_product_click = (
     setAddProductLoading(false);
     return false;
   }
-  if (title === '') {
+  if (title?.replace(/\s/g, '').length <= 0) {
     setShowError(true);
     setError_message('Title is required');
     setAddProductLoading(false);
@@ -136,6 +139,19 @@ export const add_product_click = (
                       }
                       if (!description?.replace(/\s/g, '').length <= 0) {
                         listingData['description'] = description;
+                      }
+                      if (!slug?.replace(/\s/g, '').length <= 0) {
+                        listingData['slug'] = slugify(slug, {
+                          remove: undefined,
+                          lower: true,
+                          strict: true,
+                        });
+                      } else {
+                        listingData['slug'] = slugify(title, {
+                          remove: undefined,
+                          lower: true,
+                          strict: true,
+                        });
                       }
 
                       // ekhane
@@ -325,6 +341,19 @@ export const add_product_click = (
                                 ) {
                                   listingData['description'] = description;
                                 }
+                                if (!slug?.replace(/\s/g, '').length <= 0) {
+                                  listingData['slug'] = slugify(slug, {
+                                    remove: undefined,
+                                    lower: true,
+                                    strict: true,
+                                  });
+                                } else {
+                                  listingData['slug'] = slugify(title, {
+                                    remove: undefined,
+                                    lower: true,
+                                    strict: true,
+                                  });
+                                }
 
                                 // ekhane
 
@@ -446,7 +475,8 @@ export const add_product_click = (
                                                   .catch((error) => {
                                                     setShowError(true);
                                                     setError_message(
-                                                      error.response.data?.message
+                                                      error.response.data
+                                                        ?.message
                                                     );
                                                     setAddProductLoading(false);
                                                   });
@@ -479,7 +509,6 @@ export const add_product_click = (
                               })
                               .catch((error) => {
                                 setAddProductLoading(false);
-                                
                               });
                           } else {
                             setShowError(true);
@@ -510,6 +539,19 @@ export const add_product_click = (
                     }
                     if (!description?.replace(/\s/g, '').length <= 0) {
                       listingData['description'] = description;
+                    }
+                    if (!slug?.replace(/\s/g, '').length <= 0) {
+                      listingData['slug'] = slugify(slug, {
+                        remove: undefined,
+                        lower: true,
+                        strict: true,
+                      });
+                    } else {
+                      listingData['slug'] = slugify(title, {
+                        remove: undefined,
+                        lower: true,
+                        strict: true,
+                      });
                     }
 
                     // ekhane

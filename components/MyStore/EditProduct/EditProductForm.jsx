@@ -24,6 +24,7 @@ import Attribute3 from './Attribute3';
 
 const EditProductForm = () => {
   const [title, setTitle] = useState('');
+  const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
   const [shippingCharge, setShippingCharge] = useState(0);
@@ -68,6 +69,7 @@ const EditProductForm = () => {
   useEffect(() => {
     if (my_account_listing_details) {
       setTitle(my_account_listing_details.title);
+      setSlug(my_account_listing_details?.slug);
       setDescription(my_account_listing_details.description);
       setPrice(Number(my_account_listing_details.list_price.amount));
       setShippingCharge(
@@ -331,6 +333,23 @@ const EditProductForm = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
+        <label className="block">
+          <span className="text-gray-700">Listing Slug</span>
+          <input
+            value={slug}
+            type="text"
+            className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+            placeholder=""
+            onChange={(e) => setSlug(e.target.value)}
+          />
+        </label>
 
         <label className="block">
           <span className="text-gray-700">Listing Description</span>
@@ -526,6 +545,7 @@ const EditProductForm = () => {
               files,
               fullFile,
               title,
+              slug,
               description,
               price,
               shippingCharge,

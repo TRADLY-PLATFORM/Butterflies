@@ -6,6 +6,7 @@ export const edit_product_click = (
   files,
   fullFile,
   title,
+  slug,
   description,
   price,
   shippingCharge,
@@ -144,6 +145,19 @@ export const edit_product_click = (
                         if (!description?.replace(/\s/g, '').length <= 0) {
                           listingData['description'] = description;
                         }
+                        if (!slug?.replace(/\s/g, '').length <= 0) {
+                          listingData['slug'] = slugify(slug, {
+                            remove: undefined,
+                            lower: true,
+                            strict: true,
+                          });
+                        } else {
+                          listingData['slug'] = slugify(title, {
+                            remove: undefined,
+                            lower: true,
+                            strict: true,
+                          });
+                        }
 
                         // ekhane
 
@@ -224,6 +238,19 @@ export const edit_product_click = (
                                   ) {
                                     listingData['description'] = description;
                                   }
+                                  if (!slug?.replace(/\s/g, '').length <= 0) {
+                                    listingData['slug'] = slugify(slug, {
+                                      remove: undefined,
+                                      lower: true,
+                                      strict: true,
+                                    });
+                                  } else {
+                                    listingData['slug'] = slugify(title, {
+                                      remove: undefined,
+                                      lower: true,
+                                      strict: true,
+                                    });
+                                  }
 
                                   // ekhane
                                   axios
@@ -277,6 +304,19 @@ export const edit_product_click = (
                       }
                       if (!description?.replace(/\s/g, '').length <= 0) {
                         listingData['description'] = description;
+                      }
+                      if (!slug?.replace(/\s/g, '').length <= 0) {
+                        listingData['slug'] = slugify(slug, {
+                          remove: undefined,
+                          lower: true,
+                          strict: true,
+                        });
+                      } else {
+                        listingData['slug'] = slugify(title, {
+                          remove: undefined,
+                          lower: true,
+                          strict: true,
+                        });
                       }
 
                       // ekhane
@@ -342,6 +382,19 @@ export const edit_product_click = (
         }
         if (!description?.replace(/\s/g, '').length <= 0) {
           listingData['description'] = description;
+        }
+        if (!slug?.replace(/\s/g, '').length <= 0) {
+          listingData['slug'] = slugify(slug, {
+            remove: undefined,
+            lower: true,
+            strict: true,
+          });
+        } else {
+          listingData['slug'] = slugify(title, {
+            remove: undefined,
+            lower: true,
+            strict: true,
+          });
         }
 
         // ekhane
@@ -415,6 +468,19 @@ export const edit_product_click = (
                   if (!description?.replace(/\s/g, '').length <= 0) {
                     listingData['description'] = description;
                   }
+                  if (!slug?.replace(/\s/g, '').length <= 0) {
+                    listingData['slug'] = slugify(slug, {
+                      remove: undefined,
+                      lower: true,
+                      strict: true,
+                    });
+                  } else {
+                    listingData['slug'] = slugify(title, {
+                      remove: undefined,
+                      lower: true,
+                      strict: true,
+                    });
+                  }
                   // ekhane
                   axios
                     .post('/api/l/edit_listing', {
@@ -461,6 +527,19 @@ export const edit_product_click = (
       }
       if (!description?.replace(/\s/g, '').length <= 0) {
         listingData['description'] = description;
+      }
+      if (!slug?.replace(/\s/g, '').length <= 0) {
+        listingData['slug'] = slugify(slug, {
+          remove: undefined,
+          lower: true,
+          strict: true,
+        });
+      } else {
+        listingData['slug'] = slugify(title, {
+          remove: undefined,
+          lower: true,
+          strict: true,
+        });
       }
       // ekhane
       axios

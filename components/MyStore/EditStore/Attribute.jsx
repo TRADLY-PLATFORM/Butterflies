@@ -287,7 +287,6 @@ const Attribute = ({ attributeData, setAttributeData }) => {
                             type="file"
                             id={`attachmentClick-${attr.id}`}
                             name="imageUpload"
-                            accept="image/*"
                             onChange={(e) => {
                               attributeData?.length > 0
                                 ? setAttributeData([
