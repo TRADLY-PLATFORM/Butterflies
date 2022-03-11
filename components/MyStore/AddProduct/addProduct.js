@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import axios from 'axios';
 import { set } from 'react-hook-form';
 import tradly from 'tradly';

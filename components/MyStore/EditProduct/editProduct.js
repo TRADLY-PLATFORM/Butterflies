@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import axios from 'axios';
 import trady from 'tradly';
+var slugify = require('slugify');
+
 
 export const edit_product_click = (
   imagePath,
