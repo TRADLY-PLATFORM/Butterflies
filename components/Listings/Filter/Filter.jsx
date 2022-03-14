@@ -33,7 +33,7 @@ import 'rc-slider/assets/index.css';
 import axios from 'axios';
 
 const Filter = () => {
-  const [marketplace_type, setMarketplace_type] = useState();
+  const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSeeAllCategories, setIsSeeAllCategories] = useState(false);
   const [allCategories, setAllCategories] = useState(null);
@@ -79,7 +79,7 @@ const Filter = () => {
   }, [router.query]);
 
   useEffect(() => {
-    setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
     if (start_at !== undefined) {
       setChanged_value([
         start_at.split('T')[1].replace('Z', ''),
@@ -279,7 +279,7 @@ const Filter = () => {
                   : ' hidden'
               }
             >
-              {marketplace_type === 2 && (
+              {MARKETPLACE_MODULES === 2 && (
                 <div className=" md:hidden mb-3">
                   <Swiper
                     slidesPerView="auto"
@@ -348,7 +348,7 @@ const Filter = () => {
               )}
 
               {/* Time picker */}
-              {marketplace_type === 2 && (
+              {MARKETPLACE_MODULES === 2 && (
                 <div className="pr-2 mb-3">
                   <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
                     <span className=" cursor-pointer">Time</span>
@@ -628,7 +628,7 @@ const Filter = () => {
         </OutsideClickHandler>
       </div>
       {/* Dates Array */}
-      {marketplace_type === 2 && (
+      {MARKETPLACE_MODULES === 2 && (
         <div
           className={[
             '  hidden md:block w-full  pr-72',

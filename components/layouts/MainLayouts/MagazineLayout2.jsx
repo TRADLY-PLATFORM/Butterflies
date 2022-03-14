@@ -6,12 +6,12 @@ import Head from 'next/head';
 import ProductSideMenubar from '../../SideMenubar/ProductSideMenubar';
 
 const MainLayout2 = ({ children, pageTitle, pageDescription }) => {
-  const [marketplace_type, setMarketplace_type] = useState(null);
+  const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
   useEffect(() => {
-    setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
   }, [0]);
   const selectmenubar = () => {
-    if (!marketplace_type === 1) {
+    if (!MARKETPLACE_MODULES === 1) {
       return <ProductSideMenubar />;
     } else {
       return <SideMenubar />;

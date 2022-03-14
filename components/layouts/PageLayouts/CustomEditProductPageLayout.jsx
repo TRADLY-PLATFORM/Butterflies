@@ -20,7 +20,7 @@ const CustomEditProductPageLayout = () => {
   const productId = router.query.product_id;
 
   const { listing_configs } = useSelector(storeSelector);
-  const { genral_configs, marketplace_type, marketplace_module } =
+  const { genral_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
     useSelector(configsSelector);
 
   const dispatch = useDispatch();

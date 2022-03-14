@@ -29,7 +29,7 @@ const explore = (props) => {
   }, [dispatch]);
   const pageTitle = TYPE_CONSTANT.META_TITLE;
   const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
-  return TYPE_CONSTANT.MARKETPLACE_TYPE == 2 ? (
+  return TYPE_CONSTANT.MARKETPLACE_MODULES == 2 ? (
     <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
       <ExplorePageLayout />
     </MainLayout>

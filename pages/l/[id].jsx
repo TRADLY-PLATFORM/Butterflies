@@ -18,7 +18,7 @@ import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import axios from 'axios';
 
 function Details(props) {
-  const [marketplace_type, setmarketplace_type] = useState(null);
+  const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,26 +36,25 @@ function Details(props) {
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
 
-     
-      dispatch(
-        setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
-      );
-   
-    setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    dispatch(
+      setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
+    );
+
+    setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
   }, [dispatch]);
 
   const pageTitle = TYPE_CONSTANT.META_LISTING_TITLE;
   const pageDescription = TYPE_CONSTANT.META_LISTING_DESCRIPTION;
 
   const selectLayout = () => {
-    if (marketplace_type === 1) {
+    if (MARKETPLACE_MODULES === 1) {
       return (
         <ProductDetailsPageLayout
           pageTitle={pageTitle}
           pageDescription={pageDescription}
         />
       );
-    } else if (marketplace_type === 2) {
+    } else if (MARKETPLACE_MODULES === 2) {
       return (
         <EventDetailsPageLayout
           pageTitle={pageTitle}

@@ -12,7 +12,7 @@ const AddVariantsForm = ({
   addVariantClick,
   setShowError,
   setError_message,
-  marketplace_type,
+  MARKETPLACE_MODULES,
 }) => {
   const [imagePath, setImagePath] = useState(null);
   const [files, setFiles] = useState(null);
@@ -278,7 +278,9 @@ const AddVariantsForm = ({
           </label>
         )}
         <label className="block">
-          <span className="text-gray-700">{stock_text(marketplace_type)}</span>
+          <span className="text-gray-700">
+            {stock_text(MARKETPLACE_MODULES)}
+          </span>
           <input
             type="number"
             className="

@@ -12,7 +12,7 @@ const ProfileMenus = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { my_stores } = useSelector(storeSelector);
-  const { general_configs, accounts_configs, marketplace_type } =
+  const { general_configs, accounts_configs, MARKETPLACE_MODULES } =
     useSelector(configsSelector);
 
   return (
@@ -50,7 +50,7 @@ const ProfileMenus = () => {
             </button>
           </Link>
         </div>
-        {marketplace_type === 1 && (
+        {MARKETPLACE_MODULES === 1 && (
           <div className=" border-b border-[#EBECEF] py-4">
             <Link href="/checkout" passHref={true}>
               <button className=" text-base text-[#4F4F4F] font-medium">

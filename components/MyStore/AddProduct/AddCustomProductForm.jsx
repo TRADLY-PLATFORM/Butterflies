@@ -44,7 +44,7 @@ const AddCustomProductForm = () => {
   const [variantsType, setVariantsType] = useState(null);
 
   const { auth_key } = useSelector(authSelector);
-  const { genral_configs, marketplace_type, marketplace_module } =
+  const { genral_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
     useSelector(configsSelector);
 
   const {
@@ -386,7 +386,7 @@ const AddCustomProductForm = () => {
               {listing_configs.enable_stock && (
                 <label className="block">
                   <span className="text-gray-700">
-                    {stock_text(marketplace_type)}
+                    {stock_text(MARKETPLACE_MODULES)}
                   </span>
                   <input
                     value={quantity}

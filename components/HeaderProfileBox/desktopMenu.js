@@ -12,7 +12,7 @@ import {
 
 export const customer_menus = (
   Link,
-  marketplace_type,
+  MARKETPLACE_MODULES,
   general_configs,
   router,
   dispatch
@@ -45,13 +45,13 @@ export const customer_menus = (
           </span>
         </a>
       </Link>
-      {marketplace_type !== null && (
+      {MARKETPLACE_MODULES !== null && (
         <Link href="/orders?page=1" passHref={true}>
-          {marketplace_type === 1 ? order : booking}
+          {MARKETPLACE_MODULES === 1 ? order : booking}
         </Link>
       )}
 
-      {/* {marketplace_type === 1 && (
+      {/* {MARKETPLACE_MODULES === 1 && (
         <Link href="/checkout" passHref={true}>
           <div className="   flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
             <svg
@@ -252,7 +252,7 @@ export const account_menus = (Link, router, my_stores) => {
 
 export const custom_customer_menus = (
   Link,
-  marketplace_type,
+  MARKETPLACE_MODULES,
   general_configs,
   router,
   dispatch
@@ -282,13 +282,13 @@ export const custom_customer_menus = (
           </span>
         </a>
       </Link>
-      {/* {marketplace_type !== null && (
+      {/* {MARKETPLACE_MODULES !== null && (
         <Link href="/orders?page=1" passHref={true}>
-          {marketplace_type === 1 ? order : booking}
+          {MARKETPLACE_MODULES === 1 ? order : booking}
         </Link>
       )} */}
 
-      {/* {marketplace_type === 1 && (
+      {/* {MARKETPLACE_MODULES === 1 && (
         <Link href="/checkout" passHref={true}>
           <div className="   flex items-center cursor-pointer w-auto  px-[10px] sm:px-[25px] py-2  hover:bg-[#f2f4f4] group">
             <svg

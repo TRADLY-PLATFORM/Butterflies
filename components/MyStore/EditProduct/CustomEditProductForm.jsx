@@ -52,7 +52,7 @@ const CustomEditProductForm = () => {
     listing_categories,
     my_account_listing_details,
   } = useSelector(storeSelector);
-  const { genral_configs, marketplace_type, marketplace_module } =
+  const { genral_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
     useSelector(configsSelector);
 
   const dispatch = useDispatch();
@@ -465,7 +465,7 @@ const CustomEditProductForm = () => {
           {listing_configs.enable_stock && (
             <label className="block">
               <span className="text-gray-700">
-                {stock_text(marketplace_type)}
+                {stock_text(MARKETPLACE_MODULES)}
               </span>
               <input
                 value={quantity}

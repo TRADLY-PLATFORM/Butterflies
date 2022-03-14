@@ -25,7 +25,8 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
     (item) => item.id === Number(variant_id)
   );
 
-  const { marketplace_type, listings_configs } = useSelector(configsSelector);
+  const { MARKETPLACE_MODULES, listings_configs } =
+    useSelector(configsSelector);
 
   const dispatch = useDispatch();
   const { login, auth_key } = useSelector(authSelector);
@@ -84,7 +85,7 @@ const EventCartItemBox = ({ listing_details, quantity, setQuantity }) => {
       )}
 
       <div className=" w-full border border-primary rounded-lg px-[24px] py-[16px]  flex items center gap-3">
-        <div className=' flex-grow'>
+        <div className=" flex-grow">
           {listings_configs?.enable_stock && (
             <p className=" text-xs  font-semibold leading-6 text-primary">
               {`${

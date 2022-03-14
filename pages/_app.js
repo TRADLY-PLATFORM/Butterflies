@@ -1,4 +1,3 @@
-
 /* eslint-disable react/prop-types */
 import '../styles/globals.scss';
 import store from '../store/store';
@@ -40,7 +39,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     // set configs
-    axios.get('/api/configs/payment').then((res) => {
+    axios.get('/api/configs/payments').then((res) => {
       TYPE_CONSTANT.PAYMENT_CONFIGS = res?.data.configs || '';
     });
     axios.get('/api/configs/listings').then((res) => {
@@ -87,13 +86,13 @@ function MyApp({ Component, pageProps }) {
           set_primary_font_name(primary_font);
 
           // type and module set
-          localStorage.setItem('marketplace_type', res.data.configs?.type);
+          localStorage.setItem('MARKETPLACE_MODULES', res.data.configs?.type);
           localStorage.setItem(
-            'marketplace_module',
+            'MARKETPLACE_FLAVOURS',
             res.data.configs?.sub_type
           );
-          TYPE_CONSTANT.MARKETPLACE_TYPE = res.data.configs?.type;
-          TYPE_CONSTANT.MARKETPLACE_MODULE = res.data.configs?.sub_type;
+          TYPE_CONSTANT.MARKETPLACE_MODULES = res.data.configs?.type;
+          TYPE_CONSTANT.MARKETPLACE_FLAVOURS = res.data.configs?.sub_type;
 
           // favicon set
           setFavicon(res?.data?.configs?.web_icon);

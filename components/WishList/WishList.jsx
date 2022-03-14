@@ -11,17 +11,22 @@ import {
   getThumbnailImage,
 } from '../Shared/Constant/Constant';
 import { authSelector } from '../../store/feature/authSlice';
- 
+
 import favorite from '../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../assets/Images/Home/heartIcon@3x.png';
 import ListingCard from '../Shared/Cards/ListingCard';
 import { configsSelector } from '../../store/feature/configsSlice';
-import { getWishListListings, listingLike, wishSelector } from '../../store/feature/wishSlice';
+import {
+  getWishListListings,
+  listingLike,
+  wishSelector,
+} from '../../store/feature/wishSlice';
 import { check_login } from '../../constant/check_auth';
 
 const WishList = ({ Products }) => {
   const { login, auth_key } = useSelector(authSelector);
-  const { marketplace_type, marketplace_module } = useSelector(configsSelector);
+  const { MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
+    useSelector(configsSelector);
   // const { isSuccess } = useSelector(listingSelector);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -45,7 +50,7 @@ const WishList = ({ Products }) => {
           );
         }
       });
-    } 
+    }
   };
   return (
     <div className="grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">
@@ -54,7 +59,7 @@ const WishList = ({ Products }) => {
           <ListingCard
             item={item}
             like={like}
-            marketplace_type={marketplace_type}
+            MARKETPLACE_MODULES={MARKETPLACE_MODULES}
           />
         </div>
       ))}
@@ -63,5 +68,3 @@ const WishList = ({ Products }) => {
 };
 
 export default WishList;
-
- 

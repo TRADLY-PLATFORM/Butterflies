@@ -11,19 +11,23 @@ import { all_accounts_page } from '../../themes/Theme1';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
 const Stores = (props) => {
-  const [marketplace_module, setmarketplace_module] = useState(null);
+  const [MARKETPLACE_FLAVOURS, setMARKETPLACE_FLAVOURS] = useState(null);
 
   const dispatch = useDispatch();
   useEffect(() => {
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
-    if (localStorage.getItem('refresh_key')) {dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    ); }
-    
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+
     dispatch(setGeneralConfig({ general_configs: general_configs }));
-    setmarketplace_module(Number(localStorage.getItem('marketplace_module')));
+    setMARKETPLACE_FLAVOURS(
+      Number(localStorage.getItem('MARKETPLACE_FLAVOURS'))
+    );
   }, [dispatch]);
 
   const pageTitle = TYPE_CONSTANT.META_TITLE;
@@ -33,5 +37,3 @@ const Stores = (props) => {
 };
 
 export default Stores;
-
- 

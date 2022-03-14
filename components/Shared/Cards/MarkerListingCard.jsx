@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { time_icon } from '../Constant/Icons/AllIcons';
 import moment from 'moment';
 
-const MarkerListingCard = ({ item, like, marketplace_type, map_card }) => {
+const MarkerListingCard = ({ item, like, MARKETPLACE_MODULES, map_card }) => {
   const router = useRouter();
   return (
     <div className="  relative">
@@ -32,7 +32,7 @@ const MarkerListingCard = ({ item, like, marketplace_type, map_card }) => {
           </div>
 
           <div className="mt-2 pl-2">
-            {marketplace_type == 2 && (
+            {MARKETPLACE_MODULES == 2 && (
               <p className=" mt-2   text-[12px] leading-3 text-gray-900  font-bold flex items-center ">
                 {item.schedules && time_icon}
                 <span className="ml-[6px]">

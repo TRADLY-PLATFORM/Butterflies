@@ -19,7 +19,7 @@ const EditProductPageLayout = () => {
   const productId = router.query.product_id;
 
   const { listing_configs } = useSelector(storeSelector);
-  const { genral_configs, marketplace_type, marketplace_module } =
+  const { genral_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
     useSelector(configsSelector);
 
   const dispatch = useDispatch();
@@ -41,13 +41,13 @@ const EditProductPageLayout = () => {
         <div className=" bg-white  w-full  p-5 shadow-c-sm rounded-lg">
           {listing_configs !== null && <EditProductForm />}
         </div>
-        {marketplace_type == 2 && (
+        {MARKETPLACE_MODULES == 2 && (
           <div className="    w-[full  mt-9">
             {listing_configs !== null && <EditVariantsPart />}
           </div>
         )}
       </div>
-      {marketplace_type == 2 && (
+      {MARKETPLACE_MODULES == 2 && (
         <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full   c-lg:w-[30%]">
           <EditSchedulePart />
         </div>

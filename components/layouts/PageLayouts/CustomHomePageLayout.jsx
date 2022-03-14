@@ -27,7 +27,7 @@ const CustomHomePageLayout = ({ pageTitle, pageDescription }) => {
     dispatch(
       AllPromoBanners({
         authKey: localStorage.getItem('auth_key'),
-        bodyParam:{medium:"web"},
+        bodyParam: { medium: 'web' },
       })
     );
   }, [auth_key, dispatch]);
@@ -42,7 +42,7 @@ const CustomHomePageLayout = ({ pageTitle, pageDescription }) => {
     page_promo_banners,
   } = useSelector(homeSelector);
 
-  const { general_configs, marketplace_type, marketplace_module } =
+  const { general_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
     useSelector(configsSelector);
   return (
     <>

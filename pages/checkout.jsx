@@ -18,7 +18,7 @@ import axios from 'axios';
 import { check_login } from '../constant/check_auth';
 
 const Checkout = (props) => {
-  const [marketplace_type, setmarketplace_type] = useState(null);
+  const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const Checkout = (props) => {
       setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
     );
 
-    setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
   }, [dispatch]);
 
   const pageTitle = TYPE_CONSTANT.META_TITLE;
@@ -53,7 +53,7 @@ const Checkout = (props) => {
 
   const selectLayout = () => {
     if (check_login(router)) {
-      if (marketplace_type === 1) {
+      if (MARKETPLACE_MODULES === 1) {
         return <CheckoutPageLayout />;
       } else {
         return <EventCheckoutPageLayout />;
@@ -62,7 +62,7 @@ const Checkout = (props) => {
   };
 
   return (
-    marketplace_type && (
+    MARKETPLACE_MODULES && (
       <>
         <div className="">
           <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>

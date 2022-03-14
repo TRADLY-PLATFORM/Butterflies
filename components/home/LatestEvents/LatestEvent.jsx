@@ -31,7 +31,8 @@ SwiperCore.use([Navigation, Pagination]);
 
 const LatestEvent = ({ products }) => {
   const { login, auth_key } = useSelector(authSelector);
-  const { marketplace_type, marketplace_module } = useSelector(configsSelector);
+  const { MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
+    useSelector(configsSelector);
   // const { isSuccess } = useSelector(listingSelector);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -105,7 +106,7 @@ const LatestEvent = ({ products }) => {
                         objectFit="cover"
                       />
                     </div>
-                    {/* {marketplace_type === 2 && (
+                    {/* {MARKETPLACE_MODULES === 2 && (
                     <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
                       {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
                     </p>

@@ -12,7 +12,7 @@ import { accounts_details_page } from '../../themes/Theme1';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
 const StoreDetails = (props) => {
-  const [marketplace_module, setmarketplace_module] = useState(null);
+  const [MARKETPLACE_FLAVOURS, setMARKETPLACE_FLAVOURS] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -27,15 +27,17 @@ const StoreDetails = (props) => {
     }
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
-    setmarketplace_module(Number(localStorage.getItem('marketplace_module')));
+    setMARKETPLACE_FLAVOURS(
+      Number(localStorage.getItem('MARKETPLACE_FLAVOURS'))
+    );
   }, [dispatch]);
 
   const pageTitle = TYPE_CONSTANT.META_ACCOUNT_TITLE;
   const pageDescription = TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS;
 
   return (
-    marketplace_module &&
-    (marketplace_module === 1 ? (
+    MARKETPLACE_FLAVOURS &&
+    (MARKETPLACE_FLAVOURS === 1 ? (
       accounts_details_page(pageTitle, pageDescription)
     ) : (
       <DefaultErrorPage statusCode={404} />

@@ -10,11 +10,12 @@ const Variants = ({
   selectedVariant,
   listing_details,
 }) => {
-  const { marketplace_type, listings_configs } = useSelector(configsSelector);
+  const { MARKETPLACE_MODULES, listings_configs } =
+    useSelector(configsSelector);
   return (
     <div className="bg-white rounded  w-full min-h-[66px]    p-[16px]   ">
       <p className="text-[#121212] text-sm  font-semibold leading-4 ">
-        {constant.variant_title(marketplace_type)}
+        {constant.variant_title(MARKETPLACE_MODULES)}
       </p>
       <div className="  mt-5     ">
         {variants.map((item) => {
@@ -38,7 +39,10 @@ const Variants = ({
               <div className=" ml-3">
                 {listings_configs?.enable_stock && (
                   <p className=" text-sm text-primary font-normal">
-                    {constant.variant_stock_text(marketplace_type, item.stock)}
+                    {constant.variant_stock_text(
+                      MARKETPLACE_MODULES,
+                      item.stock
+                    )}
                   </p>
                 )}
                 <p className="text-black font-semibold">{item.title}</p>

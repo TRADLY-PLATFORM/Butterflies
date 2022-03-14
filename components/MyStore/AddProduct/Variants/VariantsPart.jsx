@@ -21,7 +21,7 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
 
   const { currencies } = useSelector(storeSelector);
 
-  const { genral_configs, marketplace_type, marketplace_module } =
+  const { genral_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
     useSelector(configsSelector);
 
   const [variantsObject, setVariantsObject] = useState({
@@ -122,7 +122,7 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
                   <div className=" ml-6 w-3/6 md:w-4/6">
                     <p className=" text-sm text-primary font-normal">
                       {' '}
-                      {stock_card_text(marketplace_type, item.stock)}
+                      {stock_card_text(MARKETPLACE_MODULES, item.stock)}
                     </p>
                     <p className="text-black font-semibold">{item.title}</p>
                     <p className=" flex items-center  ">
@@ -233,7 +233,7 @@ const VariantsPart = ({ variantsArray, setVariantsArray, currency }) => {
             addVariantClick={addVariantClick}
             setError_message={setError_message}
             setShowError={setShowError}
-            marketplace_type={marketplace_type}
+            MARKETPLACE_MODULES={MARKETPLACE_MODULES}
           />
         </div>
       )}

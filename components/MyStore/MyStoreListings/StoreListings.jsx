@@ -19,10 +19,10 @@ import { configsSelector } from '../../../store/feature/configsSlice';
 import axios from 'axios';
 
 const StoreListings = ({ my_store_listings, my_stores }) => {
-  const [marketplace_type, setMarketplace_type] = useState(null);
+  const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
 
   useEffect(() => {
-    setMarketplace_type(localStorage.getItem('marketplace_type'));
+    setMARKETPLACE_MODULES(localStorage.getItem('MARKETPLACE_MODULES'));
   }, [0]);
 
   const [showWarning, setShowWarning] = useState(false);
@@ -97,7 +97,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
                   objectFit="cover"
                 />
               </div>
-              {marketplace_type === 2 && (
+              {MARKETPLACE_MODULES === 2 && (
                 <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
                   {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
                 </p>
@@ -109,7 +109,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
                     : item.title}
                 </p>
                 <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-1">
-                  {marketplace_type == 3
+                  {MARKETPLACE_MODULES == 3
                     ? `By ${item.account.name}`
                     : item.list_price.formatted}
                 </p>

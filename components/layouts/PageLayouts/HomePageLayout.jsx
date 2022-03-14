@@ -43,10 +43,8 @@ const HomePageLayout = () => {
     page_promo_banners,
   } = useSelector(homeSelector);
 
-  const { general_configs, marketplace_type, marketplace_module } =
+  const { general_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
     useSelector(configsSelector);
-
-  
 
   return (
     <div className="">
@@ -61,7 +59,7 @@ const HomePageLayout = () => {
       )}
       {collections?.map((collection) => {
         const scope_type = collection.scope_type;
-        if (scope_type === 1 && marketplace_module === 1) {
+        if (scope_type === 1 && MARKETPLACE_FLAVOURS === 1) {
           return (
             <div key={Math.random()}>
               <StoresForFollow stores={collection} />

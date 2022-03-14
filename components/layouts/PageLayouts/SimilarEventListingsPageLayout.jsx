@@ -41,7 +41,7 @@ const SimilarEventListingsPageLayout = () => {
   const dispatch = useDispatch();
   const { login, auth_key, first_name } = useSelector(authSelector);
 
-  const { general_configs, marketplace_type } = useSelector(configsSelector);
+  const { general_configs, MARKETPLACE_MODULES } = useSelector(configsSelector);
 
   //
   useEffect(() => {
@@ -96,7 +96,7 @@ const SimilarEventListingsPageLayout = () => {
   };
 
   const opened_list_view = () => {
-    if (marketplace_type == 2 && !router?.query?.start_at) {
+    if (MARKETPLACE_MODULES == 2 && !router?.query?.start_at) {
       router.push({
         query: {
           ...router.query,
