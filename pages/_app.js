@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     // set configs
-    axios.get('/api/configs/payment').then((res) => {
+    axios.get('/api/configs/payments').then((res) => {
       TYPE_CONSTANT.PAYMENT_CONFIGS = res?.data.configs || '';
     });
     axios.get('/api/configs/listings').then((res) => {
