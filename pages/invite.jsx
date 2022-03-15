@@ -1,13 +1,8 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import MainLayout from '../components/layouts/MainLayouts/MainLayout';
-import ProfilePageLayout from '../components/layouts/PageLayouts/ProfilePageLayout';
-import { authSelector, refreshPage } from '../store/feature/authSlice';
-import { myStore } from '../store/feature/storeSlice';
-import tradly from 'tradly';
+import { refreshPage } from '../store/feature/authSlice';
+import { Invite_page } from '../tradly.config';
 import { setGeneralConfig } from '../store/feature/configsSlice';
-import InvitePageLayout from '../components/layouts/PageLayouts/InvitePageLayout';
 
 const Invite = (props) => {
   const dispatch = useDispatch();
@@ -25,11 +20,7 @@ const Invite = (props) => {
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
 
-  return (
-    <MainLayout>
-      <InvitePageLayout />
-    </MainLayout>
-  );
+  return Invite_page();
 };
 
 export default Invite;

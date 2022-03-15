@@ -157,7 +157,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
               onClick={() => {
                 if (item.active) {
                   router.push({
-                    pathname: '/a/edit-product',
+                    pathname: '/a/edit-listing',
                     query: { product_id: item.id, account_id: my_stores[0].id },
                   });
                 } else {

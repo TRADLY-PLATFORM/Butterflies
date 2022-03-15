@@ -12,7 +12,7 @@ import AddProductForm from '../../components/MyStore/AddProduct/AddProductForm';
 import SchedulePart from '../../components/MyStore/AddProduct/schedule/SchedulePart';
 import VariantsPart from '../../components/MyStore/AddProduct/Variants/VariantsPart';
 
-const AddEventPageLayout = () => {
+const AddListingPageLayout = () => {
   const { auth_key } = useSelector(authSelector);
   const { listing_configs } = useSelector(storeSelector);
 
@@ -40,4 +40,4 @@ const AddEventPageLayout = () => {
   );
 };
 
-export default AddEventPageLayout;
+export default AddListingPageLayout;

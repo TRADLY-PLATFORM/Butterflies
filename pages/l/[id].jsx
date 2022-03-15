@@ -1,23 +1,17 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useEffect, useState } from 'react';
-import MainLayout from '../../components/layouts/MainLayouts/MainLayout';
-import MagazineLayout from '../../components/layouts/MainLayouts/MagazineLayout';
-import EventDetailsPageLayout from '../../components/layouts/PageLayouts/EventDetailsPageLayout';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshPage } from '../../store/feature/authSlice';
-import tradly from 'tradly';
 import { clearListingDetails } from '../../store/feature/listingSlice';
-import ProductDetailsPageLayout from '../../components/layouts/PageLayouts/ProductDetailsPageLayout';
 import {
   setGeneralConfig,
   setListingConfig,
 } from '../../store/feature/configsSlice';
-import { listing_details_page } from '../../themes/Theme1';
+import { listing_details_page } from '../../tradly.config';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
-import axios from 'axios';
 
-function Details(props) {
+function Details() {
   const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
 
   const dispatch = useDispatch();
@@ -43,28 +37,7 @@ function Details(props) {
     setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
   }, [dispatch]);
 
-  const pageTitle = TYPE_CONSTANT.META_LISTING_TITLE;
-  const pageDescription = TYPE_CONSTANT.META_LISTING_DESCRIPTION;
-
-  const selectLayout = () => {
-    if (MARKETPLACE_MODULES === 1) {
-      return (
-        <ProductDetailsPageLayout
-          pageTitle={pageTitle}
-          pageDescription={pageDescription}
-        />
-      );
-    } else if (MARKETPLACE_MODULES === 2) {
-      return (
-        <EventDetailsPageLayout
-          pageTitle={pageTitle}
-          pageDescription={pageDescription}
-        />
-      );
-    }
-  };
-
-  return listing_details_page(pageTitle, pageDescription);
+  return listing_details_page();
 }
 
 export default Details;

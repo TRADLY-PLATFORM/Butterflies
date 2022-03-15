@@ -2,13 +2,12 @@
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import SignInPageLayout from '../components/layouts/PageLayouts/SignInPageLayout';
+import SignInPageLayout from '../themes/common_layouts/SignInPageLayout';
 import { authSelector } from '../store/feature/authSlice';
-import tradly from 'tradly';
 import { useDispatch } from 'react-redux';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 
-const SignIn = (props) => {
+const SignIn = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { login } = useSelector(authSelector);
@@ -20,11 +19,11 @@ const SignIn = (props) => {
         router.push('/');
       }
     } else {
-        const general_configs = JSON.parse(
-          localStorage.getItem('general_configs')
-        );
+      const general_configs = JSON.parse(
+        localStorage.getItem('general_configs')
+      );
 
-        dispatch(setGeneralConfig({ general_configs: general_configs }));
+      dispatch(setGeneralConfig({ general_configs: general_configs }));
     }
   }, [login, router]);
   return (
@@ -35,5 +34,3 @@ const SignIn = (props) => {
 };
 
 export default SignIn;
-
- 

@@ -1,16 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import MainLayout from '../../components/layouts/MainLayouts/MainLayout';
 import { refreshPage } from '../../store/feature/authSlice';
-import tradly from 'tradly';
-import AllAccountsPageLayout from '../../components/layouts/PageLayouts/AllAccountsPageLayout';
-import { setGeneralConfig } from '../../store/feature/configsSlice';
-import DefaultErrorPage from 'next/error';
-import { all_accounts_page } from '../../themes/Theme1';
-import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
-const Stores = (props) => {
+import { setGeneralConfig } from '../../store/feature/configsSlice';
+import { all_accounts_page } from '../../tradly.config';
+
+const Stores = () => {
   const [MARKETPLACE_FLAVOURS, setMARKETPLACE_FLAVOURS] = useState(null);
 
   const dispatch = useDispatch();
@@ -30,10 +26,7 @@ const Stores = (props) => {
     );
   }, [dispatch]);
 
-  const pageTitle = TYPE_CONSTANT.META_TITLE;
-  const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
-
-  return all_accounts_page(pageTitle, pageDescription);
+  return all_accounts_page();
 };
 
 export default Stores;

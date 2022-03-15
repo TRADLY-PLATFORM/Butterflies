@@ -224,7 +224,7 @@ export const account_menus = (Link, router, my_stores) => {
       {my_stores?.length > 0 && (
         <Link
           href={{
-            pathname: '/a/add-product',
+            pathname: '/a/add-listing',
             query: { account_id: my_stores[0].id },
           }}
         >
@@ -234,7 +234,7 @@ export const account_menus = (Link, router, my_stores) => {
               <p
                 // onClick={() =>
                 //   router.push({
-                //     pathname: '/a/add-product',
+                //     pathname: '/a/add-listing',
                 //     query: { account_id: my_stores[0].id },
                 //   })
                 // }

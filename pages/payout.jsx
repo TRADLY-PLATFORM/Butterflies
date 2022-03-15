@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshPage } from '../store/feature/authSlice';
-import MainLayout from '../components/layouts/MainLayouts/MainLayout';
-import PayoutPageLayout from '../components/layouts/PageLayouts/PayoutPageLayout';
+import { payout_page } from '../tradly.config';
 import { myStore } from '../store/feature/storeSlice';
 import { check_login } from '../constant/check_auth';
 import { useRouter } from 'next/router';
@@ -35,13 +34,7 @@ const Payout = () => {
       );
     }
   }, [localStorage.getItem('auth_key')]);
-  return (
-    check_login(router) && (
-      <MainLayout>
-        <PayoutPageLayout />
-      </MainLayout>
-    )
-  );
+  return check_login(router) && payout_page();
 };
 
 export default Payout;

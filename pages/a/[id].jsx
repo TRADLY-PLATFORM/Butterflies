@@ -1,17 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import MainLayout from '../../components/layouts/MainLayouts/MainLayout';
 import { refreshPage } from '../../store/feature/authSlice';
-import tradly from 'tradly';
-import AllAccountsPageLayout from '../../components/layouts/PageLayouts/AllAccountsPageLayout';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
 import DefaultErrorPage from 'next/error';
-import AccountDetailsPageLayout from '../../components/layouts/PageLayouts/AccountDetailsPageLayout';
-import { accounts_details_page } from '../../themes/Theme1';
-import { TYPE_CONSTANT } from '../../constant/Web_constant';
+import { accounts_details_page } from '../../tradly.config';
 
-const StoreDetails = (props) => {
+const StoreDetails = () => {
   const [MARKETPLACE_FLAVOURS, setMARKETPLACE_FLAVOURS] = useState(null);
 
   const dispatch = useDispatch();
@@ -32,13 +27,10 @@ const StoreDetails = (props) => {
     );
   }, [dispatch]);
 
-  const pageTitle = TYPE_CONSTANT.META_ACCOUNT_TITLE;
-  const pageDescription = TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS;
-
   return (
     MARKETPLACE_FLAVOURS &&
     (MARKETPLACE_FLAVOURS === 1 ? (
-      accounts_details_page(pageTitle, pageDescription)
+      accounts_details_page()
     ) : (
       <DefaultErrorPage statusCode={404} />
     ))

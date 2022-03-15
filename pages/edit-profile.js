@@ -1,30 +1,26 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import MainLayout from '../components/layouts/MainLayouts/MainLayout';
-import ProfilePageLayout from '../components/layouts/PageLayouts/ProfilePageLayout';
-import { authSelector, refreshPage } from '../store/feature/authSlice';
+import { refreshPage } from '../store/feature/authSlice';
 import { myStore } from '../store/feature/storeSlice';
-import tradly from 'tradly';
 import { setGeneralConfig } from '../store/feature/configsSlice';
-import EditProfilePageLayout from '../components/layouts/PageLayouts/EditProfilePageLayout';
-import { edit_profile_page } from '../themes/Theme1';
-import axios from 'axios';
+import { edit_profile_page } from '../tradly.config';
 import { check_login } from '../constant/check_auth';
 import { useRouter } from 'next/router';
 
-const EditProfile = (props) => {
+const EditProfile = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
-    if (localStorage.getItem('refresh_key')) {  dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    );}
-   
+    if (localStorage.getItem('refresh_key')) {
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
+
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
 
@@ -49,5 +45,3 @@ const EditProfile = (props) => {
 };
 
 export default EditProfile;
-
- 

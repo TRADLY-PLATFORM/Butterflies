@@ -1,20 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import MainLayout from '../../components/layouts/MainLayouts/MainLayout';
-import AddProductPageLayout from '../../components/layouts/PageLayouts/AddProductPageLayout';
-import { authSelector, refreshPage } from '../../store/feature/authSlice';
-import tradly from 'tradly';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { refreshPage } from '../../store/feature/authSlice';
 import { setListingConfig } from '../../store/feature/storeSlice';
-import AddEventPageLayout from '../../components/layouts/PageLayouts/AddEventPageLayout';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
 import { useRouter } from 'next/dist/client/router';
-import { add_listing_page } from '../../themes/Theme1';
-import axios from 'axios';
+import { add_listing_page } from '../../tradly.config';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import { check_login } from '../../constant/check_auth';
 
-const AddProduct = (props) => {
+const AddListing = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem('refresh_key')) {
@@ -39,4 +34,4 @@ const AddProduct = (props) => {
   return check_login(router) && add_listing_page();
 };
 
-export default AddProduct;
+export default AddListing;

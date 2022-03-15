@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import tradly from 'tradly';
-import ForgotPasswordPageLayout from '../../components/layouts/PageLayouts/ForgotPasswordPageLayout';
+ import ForgotPasswordPageLayout from '../../themes/common_layouts/ForgotPasswordPageLayout';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
 
 const ForgotPassword = (props) => {
