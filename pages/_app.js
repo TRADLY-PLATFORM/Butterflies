@@ -14,14 +14,12 @@ import axios from 'axios';
 
 function MyApp({ Component, pageProps }) {
   const [is_connected, setIs_connected] = useState(false);
-
   const [is_onboarding, setIs_onboarding] = useState(false);
   const [is_general, setIs_general] = useState(false);
   const [isExtension, setIsExtension] = useState(false);
   const [start, setStart] = useState(false);
   const [favicon, setFavicon] = useState(false);
   const [hideFooter_note, setHidFooter_note] = useState(false);
-  const [generalCf, setGeneralCf] = useState(null);
   const [primary_font_name, set_primary_font_name] = useState('Montserrat');
   const router = useRouter();
   const [searchConsole, setSearchConsole] = useState(null);
@@ -270,10 +268,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-
-// export async function getServerSideProps(context) {
-//   axios.post('/api', {
-//     token: process.env.API_KEY,
-//     environment: process.env.ENVIRONMENT,
-//   });
-// }

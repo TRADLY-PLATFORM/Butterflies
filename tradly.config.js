@@ -356,7 +356,7 @@ module.exports = {
   },
 
   // all_accounts_page:
-  listing_details_page: () => {
+  all_accounts_page: () => {
     switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
       case 1:
         return (
