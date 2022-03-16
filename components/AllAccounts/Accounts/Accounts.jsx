@@ -1,9 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import Image from 'next/image';
-import { getThumbnailImage } from '../../Shared/Constant/Constant';
-import demoImage from '../../../assets/Images/store/avatar1.png';
-import tradly from 'tradly';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import {
@@ -36,7 +32,7 @@ const Accounts = ({ accounts }) => {
           );
         })
         .catch((error) => {
-          alert(error.response.data.message)
+          alert(error.response.data.message);
         });
     }
   };

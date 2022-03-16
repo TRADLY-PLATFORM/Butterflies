@@ -1,13 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import banner from '../../../assets/Images/store/banner.png';
-import Image from 'next/image';
-import { getThumbnailImage } from '../../Shared/Constant/Constant';
-import { useRouter } from 'next/dist/client/router';
+ import { useRouter } from 'next/dist/client/router';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
-import tradly from 'tradly';
-import axios from 'axios';
+ import axios from 'axios';
 import { check_login } from '../../../constant/check_auth';
 
 const AccountProfile = ({
@@ -44,17 +41,20 @@ const AccountProfile = ({
   return (
     <div>
       <div className=" hidden md:block  absolute w-[100%] h-[200px] right-0 top-0 mt-[160px]">
-        <Image src={banner} layout="fill" objectFit="cover" alt="banner" />
+        <img
+          src={banner}
+          className="w-[100%] h-[200px] object-cover"
+          alt="banner"
+        />
       </div>
       <div className=" relative  w-full  min-h-[126px] px-[10px] sm:px-[40px] py-[20px] bg-white flex flex-col  xs:flex-row justify-between md:items-center rounded-[10px] shadow-c-xsm  md:mt-[130px]">
         <div className=" flex items-center">
           <div className=" w-[70px] h-[70px] rounded-full overflow-hidden  relative   mr-6 ">
             {account_details?.images.length > 0 && (
-              <Image
+              <img
                 src={account_details?.images[0]}
-                layout="fill"
-                objectFit="cover"
-                alt="banner"
+                className="w-[70px] h-[70px] rounded-full  object-cover"
+                  alt="banner"
               />
             )}
           </div>

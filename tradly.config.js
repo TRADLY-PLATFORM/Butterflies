@@ -55,7 +55,7 @@ import EventPayoutPageLayout from './themes/event/PayoutPageLayout';
 import EventWishListPageLayout from './themes/event/WishListPageLayout';
 
 // SAAS
-import SaasHomePageLayout from './themes/product/CustomHomePageLayout';
+import SaasHomePageLayout from './themes/saas/CustomHomePageLayout';
 import SaasMainLayout from './themes/saas/CustomLayout';
 import SaasCategoriesPageLayout from './themes/saas/CategoriesPageLayout';
 import CustomListingsPageLayout from './themes/saas/CustomListingPageLayout';
