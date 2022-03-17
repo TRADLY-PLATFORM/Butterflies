@@ -43,10 +43,17 @@ const SimilarEventListingsPageLayout = () => {
 
   const { general_configs, MARKETPLACE_MODULES } = useSelector(configsSelector);
 
-  //
+  //fetch similar listings
   useEffect(() => {
+    const start_time = router?.query?.start_at;
+    let available_params = start_time
+      ? { ...router.query }
+      : {
+          ...router.query,
+          start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
+        };
     setIsFetching(true);
-    axios.get('/api/l/similar', { params: router.query }).then((res) => {
+    axios.get('/api/l/similar', { params: available_params }).then((res) => {
       setIsFetching(false);
       setSimilarListings(res.data.listings);
       setPage(res.data.page);
@@ -61,7 +68,7 @@ const SimilarEventListingsPageLayout = () => {
     });
   };
 
-  //
+  //coordinates listings
 
   useEffect(() => {
     if (similar_listings && similar_listings.length > 0) {
@@ -95,19 +102,19 @@ const SimilarEventListingsPageLayout = () => {
     height: '100%',
   };
 
-  const opened_list_view = () => {
-    if (MARKETPLACE_MODULES == 2 && !router?.query?.start_at) {
-      router.push({
-        query: {
-          ...router.query,
-          start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
-          end_at: `${moment(new Date())
-            .add(1, 'days')
-            .format('YYYY-MM-DD')}T23:59:59Z`,
-        },
-      });
-    }
-  };
+  // const opened_list_view = () => {
+  //   if (MARKETPLACE_MODULES == 2 && !router?.query?.start_at) {
+  //     router.push({
+  //       query: {
+  //         ...router.query,
+  //         start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
+  //         end_at: `${moment(new Date())
+  //           .add(1, 'days')
+  //           .format('YYYY-MM-DD')}T23:59:59Z`,
+  //       },
+  //     });
+  //   }
+  // };
 
   //
   const like = (id, isLiked) => {
@@ -151,7 +158,6 @@ const SimilarEventListingsPageLayout = () => {
             )}
             {selected_type == 'list_view' && (
               <>
-                {!router?.query?.start_at && opened_list_view()}
                 <ListListings
                   Products={similar_listings}
                   map_view={false}
@@ -164,69 +170,62 @@ const SimilarEventListingsPageLayout = () => {
                 googleMapsApiKey={general_configs?.google_map_api_key}
                 loadingElement={CustomLoading}
               >
-                {!router?.query?.start_at && opened_list_view()}
-                {router?.query?.start_at && (
-                  <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[75vh]     lg:overflow-hidden">
-                    <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto  md:pb-96">
-                      <ListListings
-                        Products={similar_listings}
-                        map_view={true}
-                        like_listing={like}
-                      />
-                    </div>
-                    {router?.query?.start_at && (
-                      <div className="  h-[100%] lg:col-span-2 pt-3">
-                        <GoogleMap
-                          mapContainerStyle={containerStyle}
-                          center={{
-                            lat: coordinates_listings[0]?.coordinates?.latitude,
-                            lng: coordinates_listings[0]?.coordinates
-                              ?.longitude,
-                          }}
-                          zoom={10}
-                        >
-                          {coordinates_listings?.map((item) => {
-                            return (
-                              item?.coordinates?.latitude && (
-                                <>
-                                  <Marker
-                                    key={item.id}
-                                    position={{
-                                      lat: item?.coordinates?.latitude,
-                                      lng: item?.coordinates?.longitude,
-                                    }}
-                                    clickable
-                                    onClick={() =>
-                                      setSelected_marker(
-                                        item?.coordinates?.latitude
-                                      )
-                                    }
-                                  />
-                                  {Number(selected_marker) ==
-                                    Number(item.coordinates.latitude) && (
-                                    <InfoWindow
-                                      position={{
-                                        lat: item.coordinates.latitude,
-                                        lng: item.coordinates.longitude,
-                                      }}
-                                      onCloseClick={() =>
-                                        setSelected_marker(null)
-                                      }
-                                    >
-                                      <div className=" max-w-[350px] p-0 relative">
-                                        <MarkerListing item={item} />
-                                      </div>
-                                    </InfoWindow>
-                                  )}
-                                </>
-                              )
-                            );
-                          })}
-                        </GoogleMap>
-                      </div>
-                    )}
+                <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[75vh]     lg:overflow-hidden">
+                  <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto  md:pb-96">
+                    <ListListings
+                      Products={similar_listings}
+                      map_view={true}
+                      like_listing={like}
+                    />
                   </div>
-                )}
+
+                  <div className="  h-[100%] lg:col-span-2 pt-3">
+                    <GoogleMap
+                      mapContainerStyle={containerStyle}
+                      center={{
+                        lat: coordinates_listings[0]?.coordinates?.latitude,
+                        lng: coordinates_listings[0]?.coordinates?.longitude,
+                      }}
+                      zoom={10}
+                    >
+                      {coordinates_listings?.map((item) => {
+                        return (
+                          item?.coordinates?.latitude && (
+                            <>
+                              <Marker
+                                key={item.id}
+                                position={{
+                                  lat: item?.coordinates?.latitude,
+                                  lng: item?.coordinates?.longitude,
+                                }}
+                                clickable
+                                onClick={() =>
+                                  setSelected_marker(
+                                    item?.coordinates?.latitude
+                                  )
+                                }
+                              />
+                              {Number(selected_marker) ==
+                                Number(item.coordinates.latitude) && (
+                                <InfoWindow
+                                  position={{
+                                    lat: item.coordinates.latitude,
+                                    lng: item.coordinates.longitude,
+                                  }}
+                                  onCloseClick={() => setSelected_marker(null)}
+                                >
+                                  <div className=" max-w-[350px] p-0 relative">
+                                    <MarkerListing item={item} />
+                                  </div>
+                                </InfoWindow>
+                              )}
+                            </>
+                          )
+                        );
+                      })}
+                    </GoogleMap>
+                  </div>
+                </div>
               </LoadScript>
             )}
           </div>

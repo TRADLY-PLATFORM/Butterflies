@@ -158,7 +158,7 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         </OutsideClickHandler>
       )}
 
-      <div className="   grid grid-cols-1  md:grid-cols-2 gap-5   md:pt-[20px] pb-20    ">
+      <div className="   grid grid-cols-1  md:grid-cols-2 gap-5   md:pt-[20px] pb-[20px]    ">
         <div className="  ">
           <div>
             <CustomImagePart images={listing_details?.images} />

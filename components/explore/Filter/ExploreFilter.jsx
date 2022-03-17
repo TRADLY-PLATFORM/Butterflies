@@ -88,6 +88,9 @@ const ExploreFilter = ({ hidden_category, reset_filter }) => {
     }
   }, [0]);
 
+
+
+  // Toggle function in arrow icon
   const toggleChildren = (e, id, children) => {
     e.stopPropagation();
 
@@ -102,6 +105,8 @@ const ExploreFilter = ({ hidden_category, reset_filter }) => {
     );
   };
 
+
+  // filter by category
   const filter_by_category = (id) => {
     const check = selectedCategories?.find((ct) => ct == id);
     if (check === undefined) {
@@ -132,6 +137,8 @@ const ExploreFilter = ({ hidden_category, reset_filter }) => {
     }
   };
 
+
+  // filter by attribute
   const filter_by_attribute_value = (id) => {
     const check = selectedAtValues?.find((at) => at == id);
     if (check === undefined) {
@@ -162,6 +169,7 @@ const ExploreFilter = ({ hidden_category, reset_filter }) => {
     }
   };
 
+  // filter by price rang
   const filter_by_price_rang = (value) => {
     if (sort == value) {
       const queries = { ...router.query };
@@ -178,6 +186,8 @@ const ExploreFilter = ({ hidden_category, reset_filter }) => {
       });
     }
   };
+
+  // filter by rating
   const filter_by_rating = (rating_value) => {
     if (rating == rating_value) {
       const queries = { ...router.query };
@@ -194,6 +204,8 @@ const ExploreFilter = ({ hidden_category, reset_filter }) => {
       });
     }
   };
+
+  // filter by date
   const filter_by_date = (sdate, edate) => {
     if (sdate == start_at) {
       const queries = { ...router.query };
