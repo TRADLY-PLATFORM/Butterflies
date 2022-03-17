@@ -102,20 +102,7 @@ const SimilarEventListingsPageLayout = () => {
     height: '100%',
   };
 
-  // const opened_list_view = () => {
-  //   if (MARKETPLACE_MODULES == 2 && !router?.query?.start_at) {
-  //     router.push({
-  //       query: {
-  //         ...router.query,
-  //         start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
-  //         end_at: `${moment(new Date())
-  //           .add(1, 'days')
-  //           .format('YYYY-MM-DD')}T23:59:59Z`,
-  //       },
-  //     });
-  //   }
-  // };
-
+   
   //
   const like = (id, isLiked) => {
     if (check_login(router)) {
