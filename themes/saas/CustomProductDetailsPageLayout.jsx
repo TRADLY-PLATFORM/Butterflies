@@ -25,6 +25,7 @@ import CustomImagePart from '../../components/ListingDetails/ImagePart/CustomIma
 import CustomProductButton from '../../components/ListingDetails/ProductButtons/CustomProductButton';
 import RelatedListings from '../../components/ListingDetails/RelatedListing/RelatedListings';
 import { check_login } from '../../components/../constant/check_auth';
+import AccountListings from '../../components/ListingDetails/AccountListings/AccountListings';
 
 const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -156,77 +157,70 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           </div>
         </OutsideClickHandler>
       )}
-      {
-        <div className="   grid grid-cols-1  md:grid-cols-2 gap-5   md:pt-[20px] pb-20    ">
-          <div className="  ">
-            <div>
-              <CustomImagePart images={listing_details?.images} />
-            </div>
-            {listing_details?.description !== '' && (
-              <div className="mt-6 hidden md:block">
-                <DescriptionPart description={listing_details?.description} />
-              </div>
-            )}
-            <div className=" hidden c-md:block  mt-6">
-              <RelatedListings />
-            </div>
+
+      <div className="   grid grid-cols-1  md:grid-cols-2 gap-5   md:pt-[20px] pb-20    ">
+        <div className="  ">
+          <div>
+            <CustomImagePart images={listing_details?.images} />
           </div>
-          <div className="">
-            <div>
-              <MainBox
-                listing_details={listing_details}
-                rating_data={rating_data}
-                like={like}
+          {listing_details?.description !== '' && (
+            <div className="mt-6 hidden md:block">
+              <DescriptionPart description={listing_details?.description} />
+            </div>
+          )}
+        </div>
+        <div className="">
+          <div>
+            <MainBox
+              listing_details={listing_details}
+              rating_data={rating_data}
+              like={like}
+            />
+          </div>
+          {listing_details?.variants?.length > 0 && (
+            <div className="mt-6">
+              <Variants
+                variants={listing_details.variants}
+                setSelectedVariant={setSelectedVariant}
+                selectedVariant={selectedVariant}
               />
             </div>
-            {listing_details?.variants?.length > 0 && (
-              <div className="mt-6">
-                <Variants
-                  variants={listing_details.variants}
-                  setSelectedVariant={setSelectedVariant}
-                  selectedVariant={selectedVariant}
-                />
-              </div>
-            )}
+          )}
 
-            <div className=" fixed bottom-0 w-full left-0 right-0 bg-white sm:relative md:bg-transparent z-[60] sm:z-30 md:mt-6">
-              {/* <ProductButtons
+          <div className=" fixed bottom-0 w-full left-0 right-0 bg-white sm:relative md:bg-transparent z-[60] sm:z-30 md:mt-6">
+            {/* <ProductButtons
                 listing_details={listing_details}
                 selectedVariant={selectedVariant}
               /> */}
-              <CustomProductButton attributes={listing_details?.attributes} />
+            <CustomProductButton attributes={listing_details?.attributes} />
+          </div>
+          {listing_details?.account && (
+            <div className="mt-6">
+              <StoreNameBox account={listing_details?.account} />
             </div>
-            {listing_details?.account && (
+          )}
+
+          {listing_details?.location &&
+            Object.keys(listing_details?.location).length > 0 && (
               <div className="mt-6">
-                <StoreNameBox account={listing_details?.account} />
+                <AddressBox location={listing_details?.location} />
               </div>
             )}
 
-            {listing_details?.location &&
-              Object.keys(listing_details?.location).length > 0 && (
-                <div className="mt-6">
-                  <AddressBox location={listing_details?.location} />
-                </div>
-              )}
-
-            {listing_details?.attributes &&
-              listing_details?.attributes.length > 0 && (
-                <div className="mt-6">
-                  <AttributeDetails attributes={listing_details?.attributes} />
-                </div>
-              )}
-
-            {listing_details?.description !== '' && (
-              <div className="mt-6 md:hidden">
-                <DescriptionPart description={listing_details?.description} />
+          {listing_details?.attributes &&
+            listing_details?.attributes.length > 0 && (
+              <div className="mt-6">
+                <AttributeDetails attributes={listing_details?.attributes} />
               </div>
             )}
 
-            <div className=" c-md:hidden    mt-6">
-              <RelatedListings />
+          {listing_details?.description !== '' && (
+            <div className="mt-6 md:hidden">
+              <DescriptionPart description={listing_details?.description} />
             </div>
+          )}
 
-            {/* <div className="mt-6">
+          {/* <div className="mt-6">
 							<StoreNameBox
 								account={
 									listing_details?.account
@@ -234,12 +228,24 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 							/>
 						</div> */}
 
-            {/* <div className="mt-6">
+          {/* <div className="mt-6">
 							<ShareButtons />
 						</div> */}
-          </div>
         </div>
-      }
+      </div>
+
+      <div className="pb-10  flex flex-col justify-center items-center   c-md:mx-auto        c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px]  ">
+
+        <div className="w-[100vw] ms:w-[400px] md:w-full   mt-6">
+          <RelatedListings />
+        </div>
+        <div className=" w-[100vw] ms:w-[400px] md:w-full mt-6  ">
+          <AccountListings
+            account_id={listing_details?.account_id}
+            account={listing_details?.account}
+          />
+        </div>
+      </div>
     </>
   );
 };

@@ -202,9 +202,6 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
               <DescriptionPart description={listing_details?.description} />
             </div>
           )}
-          <div className=" hidden c-md:block  mt-6">
-            <RelatedListings />
-          </div>
         </div>
         <div className="  w-[100vw] ms:w-[400px] lg:w-[500px] xl:w-[600px] mt-6 c-md:mt-0">
           <div>
@@ -328,10 +325,6 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
             </div>
           )}
 
-          <div className="  c-md:hidden  mt-6">
-            <RelatedListings />
-          </div>
-
           {/* <div className="mt-6">
 							<StoreNameBox
 								account={
@@ -345,7 +338,10 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         </div>
       </div>
       <div className="pb-10  flex flex-col justify-center items-center   c-md:mx-auto        c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px]  ">
-        <div className=" w-[100vw] ms:w-[400px] md:w-full   ">
+        <div className="w-[100vw] ms:w-[400px] md:w-full   mt-6">
+          <RelatedListings />
+        </div>
+        <div className=" w-[100vw] ms:w-[400px] md:w-full mt-6  ">
           <AccountListings
             account_id={listing_details?.account_id}
             account={listing_details?.account}

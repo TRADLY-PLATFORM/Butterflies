@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
  import axios from 'axios';
 import { check_login } from '../../../constant/check_auth';
+import Image from 'next/image';
 
 const AccountProfile = ({
   account_details,
@@ -41,10 +42,11 @@ const AccountProfile = ({
   return (
     <div>
       <div className=" hidden md:block  absolute w-[100%] h-[200px] right-0 top-0 mt-[160px]">
-        <img
+        <Image
           src={banner}
-          className="w-[100%] h-[200px] object-cover"
-          alt="banner"
+           alt="banner"
+          layout='fill'
+          objectFit='cover'
         />
       </div>
       <div className=" relative  w-full  min-h-[126px] px-[10px] sm:px-[40px] py-[20px] bg-white flex flex-col  xs:flex-row justify-between md:items-center rounded-[10px] shadow-c-xsm  md:mt-[130px]">

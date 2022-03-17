@@ -36,6 +36,7 @@ env/.env.sandbox
 env/.env.dev
 .env.ah
 ah.md
+note.md
 
 # vercel
 .vercel

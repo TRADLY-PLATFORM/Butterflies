@@ -335,7 +335,7 @@ module.exports = {
           <SaasMainLayout>
             <CustomProductDetailsPageLayout
               pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
-              pageDescription={pageDescription}
+              pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
             />
           </SaasMainLayout>
         );
