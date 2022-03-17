@@ -35,15 +35,27 @@ const EventListingsPageLayout = () => {
 
   const { general_configs, MARKETPLACE_MODULES } = useSelector(configsSelector);
 
+  // fetch listings
   useEffect(() => {
+    const start_time = router?.query?.start_at;
+    let available_params = start_time
+      ? { ...router.query }
+      : {
+          ...router.query,
+          start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
+        };
+
     dispatch(
       getAllListings({
-        prams: router.query,
+        prams: {
+          ...available_params,
+        },
         authKey: auth_key,
       })
     );
   }, [auth_key, dispatch, router]);
 
+  // pagination
   const moreListings = (data) => {
     router.push({
       query: { ...router.query, page: Number(data.selected) + 1 },
@@ -53,6 +65,7 @@ const EventListingsPageLayout = () => {
   const { listings, total_records, page, isFetching } =
     useSelector(listingSelector);
 
+  // coordinates listings
   useEffect(() => {
     if (listings && listings.length > 0) {
       setCoordinates_listings(
@@ -79,19 +92,19 @@ const EventListingsPageLayout = () => {
     height: '100%',
   };
 
-  const opened_list_view = () => {
-    if (MARKETPLACE_MODULES == 2 && !router?.query?.start_at) {
-      router.push({
-        query: {
-          ...router.query,
-          start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
-          end_at: `${moment(new Date())
-            .add(1, 'days')
-            .format('YYYY-MM-DD')}T23:59:59Z`,
-        },
-      });
-    }
-  };
+  // const opened_list_view = () => {
+  //   if (MARKETPLACE_MODULES == 2 && !router?.query?.start_at) {
+  //     router.push({
+  //       query: {
+  //         ...router.query,
+  //         start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
+  //         end_at: `${moment(new Date())
+  //           .add(1, 'days')
+  //           .format('YYYY-MM-DD')}T23:59:59Z`,
+  //       },
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -111,7 +124,6 @@ const EventListingsPageLayout = () => {
             )}
             {selected_type == 'list_view' && (
               <>
-                {!router?.query?.start_at && opened_list_view()}
                 <ListListings Products={listings} />
               </>
             )}
@@ -120,65 +132,58 @@ const EventListingsPageLayout = () => {
                 googleMapsApiKey={general_configs?.google_map_api_key}
                 loadingElement={CustomLoading}
               >
-                {!router?.query?.start_at && opened_list_view()}
-                {router?.query?.start_at && (
-                  <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[75vh]     lg:overflow-hidden">
-                    <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto  md:pb-96">
-                      <ListListings Products={listings} map_view={true} />
-                    </div>
-                    {router?.query?.start_at && (
-                      <div className="  h-[100%] lg:col-span-2 pt-3">
-                        <GoogleMap
-                          mapContainerStyle={containerStyle}
-                          center={{
-                            lat: coordinates_listings[0]?.coordinates?.latitude,
-                            lng: coordinates_listings[0]?.coordinates
-                              ?.longitude,
-                          }}
-                          zoom={10}
-                        >
-                          {coordinates_listings?.map((item) => {
-                            return (
-                              item?.coordinates?.latitude && (
-                                <>
-                                  <Marker
-                                    key={item.id}
-                                    position={{
-                                      lat: item?.coordinates?.latitude,
-                                      lng: item?.coordinates?.longitude,
-                                    }}
-                                    clickable
-                                    onClick={() =>
-                                      setSelected_marker(
-                                        item?.coordinates?.latitude
-                                      )
-                                    }
-                                  />
-                                  {Number(selected_marker) ==
-                                    Number(item.coordinates.latitude) && (
-                                    <InfoWindow
-                                      position={{
-                                        lat: item.coordinates.latitude,
-                                        lng: item.coordinates.longitude,
-                                      }}
-                                      onCloseClick={() =>
-                                        setSelected_marker(null)
-                                      }
-                                    >
-                                      <div className=" max-w-[350px] p-0 relative">
-                                        <MarkerListing item={item} />
-                                      </div>
-                                    </InfoWindow>
-                                  )}
-                                </>
-                              )
-                            );
-                          })}
-                        </GoogleMap>
-                      </div>
-                    )}
+                <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[75vh]     lg:overflow-hidden">
+                  <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto  md:pb-96">
+                    <ListListings Products={listings} map_view={true} />
                   </div>
-                )}
+
+                  <div className="  h-[100%] lg:col-span-2 pt-3">
+                    <GoogleMap
+                      mapContainerStyle={containerStyle}
+                      center={{
+                        lat: coordinates_listings[0]?.coordinates?.latitude,
+                        lng: coordinates_listings[0]?.coordinates?.longitude,
+                      }}
+                      zoom={10}
+                    >
+                      {coordinates_listings?.map((item) => {
+                        return (
+                          item?.coordinates?.latitude && (
+                            <>
+                              <Marker
+                                key={item.id}
+                                position={{
+                                  lat: item?.coordinates?.latitude,
+                                  lng: item?.coordinates?.longitude,
+                                }}
+                                clickable
+                                onClick={() =>
+                                  setSelected_marker(
+                                    item?.coordinates?.latitude
+                                  )
+                                }
+                              />
+                              {Number(selected_marker) ==
+                                Number(item.coordinates.latitude) && (
+                                <InfoWindow
+                                  position={{
+                                    lat: item.coordinates.latitude,
+                                    lng: item.coordinates.longitude,
+                                  }}
+                                  onCloseClick={() => setSelected_marker(null)}
+                                >
+                                  <div className=" max-w-[350px] p-0 relative">
+                                    <MarkerListing item={item} />
+                                  </div>
+                                </InfoWindow>
+                              )}
+                            </>
+                          )
+                        );
+                      })}
+                    </GoogleMap>
+                  </div>
+                </div>
               </LoadScript>
             )}
           </div>
