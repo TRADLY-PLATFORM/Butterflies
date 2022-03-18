@@ -7,8 +7,7 @@ import { get_orders, orderSelector } from '../../../store/feature/orderSlice';
 import Header3 from '../../Header/Header3';
 import OrdersItem from '../../PaymentCard/OrdersItem';
 import PaymentCard from '../../PaymentCard/PaymentCard';
-import MagazineLayout from '../MainLayouts/MagazineLayout';
-
+ 
 const PaymentPageLayout = () => {
   const dispatch = useDispatch();
   const { login, auth_key } = useSelector(authSelector);

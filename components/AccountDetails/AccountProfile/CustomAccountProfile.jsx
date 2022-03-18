@@ -2,11 +2,9 @@
 import React from 'react';
 import banner from '../../../assets/Images/store/banner.png';
 import Image from 'next/image';
-import { getThumbnailImage } from '../../Shared/Constant/Constant';
 import { useRouter } from 'next/dist/client/router';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
-import tradly from 'tradly';
 import axios from 'axios';
 import { check_login } from '../../../constant/check_auth';
 
@@ -50,10 +48,9 @@ const CustomAccountProfile = ({
         <div className=" flex items-center">
           <div className=" w-[70px] h-[70px] rounded-full overflow-hidden  relative   mr-6 ">
             {account_details?.images.length > 0 && (
-              <Image
+              <img
                 src={account_details?.images[0]}
-                layout="fill"
-                objectFit="cover"
+                className=" w-[70px] h-[70px] rounded-full object-cover "
                 alt="banner"
               />
             )}

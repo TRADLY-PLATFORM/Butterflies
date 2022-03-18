@@ -11,17 +11,20 @@ import {
   getThumbnailImage,
 } from '../Shared/Constant/Constant';
 import { authSelector } from '../../store/feature/authSlice';
-import { getAllListings, listingLike, listingSelector } from '../../store/feature/listingSlice';
+import {
+  getAllListings,
+  listingLike,
+  listingSelector,
+} from '../../store/feature/listingSlice';
 import favorite from '../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../assets/Images/Home/heartIcon@3x.png';
 import { configsSelector } from '../../store/feature/configsSlice';
 import { check_login } from '../../constant/check_auth';
- 
 
 const Listings = ({ Products }) => {
   const { login, auth_key } = useSelector(authSelector);
-    const { marketplace_type, marketplace_module } =
-      useSelector(configsSelector);
+  const { MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
+    useSelector(configsSelector);
 
   // const { isSuccess } = useSelector(listingSelector);
   const dispatch = useDispatch();
@@ -49,7 +52,7 @@ const Listings = ({ Products }) => {
           );
         }
       });
-    }  
+    }
   };
   return (
     <div className="   grid grid-cols-2   gap-4  ms:gap-0  ms:grid-cols-[190px,190px] justify-around   xs:flex  xs:flex-wrap   xs:justify-center md:justify-center">
@@ -69,7 +72,7 @@ const Listings = ({ Products }) => {
                 objectFit="cover"
               />
             </div>
-            {marketplace_type === 2 && (
+            {MARKETPLACE_MODULES === 2 && (
               <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">
                 {changeDateFormat(item.start_at, 'dddd Do MMM YYYY')}
               </p>

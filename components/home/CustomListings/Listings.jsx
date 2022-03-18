@@ -31,7 +31,8 @@ SwiperCore.use([Navigation, Pagination]);
 
 const Listings = ({ products }) => {
   const { login, auth_key } = useSelector(authSelector);
-  const { marketplace_type, marketplace_module } = useSelector(configsSelector);
+  const { MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
+    useSelector(configsSelector);
   // const { isSuccess } = useSelector(listingSelector);
   const dispatch = useDispatch();
   const router = useRouter();

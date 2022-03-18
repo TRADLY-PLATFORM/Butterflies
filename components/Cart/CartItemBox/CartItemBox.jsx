@@ -18,7 +18,8 @@ const CartItemBox = ({ cart, cart_details }) => {
   const [showError, setShowError] = useState(false);
   const [error_message, setError_message] = useState('');
 
-  const { marketplace_type, listings_configs } = useSelector(configsSelector);
+  const { MARKETPLACE_MODULES, listings_configs } =
+    useSelector(configsSelector);
 
   const dispatch = useDispatch();
   const { login, auth_key } = useSelector(authSelector);

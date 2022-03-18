@@ -1,34 +1,25 @@
 import { useRouter } from 'next/dist/client/router';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import MainLayout from '../../components/layouts/MainLayouts/MainLayout';
-import AddReviewPageLayout from '../../components/layouts/PageLayouts/AddReviewPageLayout';
-import OrderDetailsPageLayout from '../../components/layouts/PageLayouts/OrderDetailsPageLayout';
-import { check_login } from '../../constant/check_auth';
-import { authSelector, refreshPage } from '../../store/feature/authSlice';
+import   { useEffect } from 'react';
+import { useDispatch,   } from 'react-redux';
+   import { check_login } from '../../constant/check_auth';
+import {   refreshPage } from '../../store/feature/authSlice';
+import { add_review } from '../../tradly.config';
 
 const review = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem('refresh_key')) {
-   dispatch(
-      refreshPage({
-        key: localStorage.getItem('refresh_key'),
-      })
-    ); }
-    
+      dispatch(
+        refreshPage({
+          key: localStorage.getItem('refresh_key'),
+        })
+      );
+    }
   }, [dispatch]);
 
   const router = useRouter();
 
-  return (
-    check_login(router) && (
-      <MainLayout>
-        {' '}
-        <AddReviewPageLayout />
-      </MainLayout>
-    )
-  );
+  return check_login(router) && add_review();
 };
 
 export default review;

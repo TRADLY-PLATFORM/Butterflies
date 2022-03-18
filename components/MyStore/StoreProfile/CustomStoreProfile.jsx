@@ -36,7 +36,7 @@ const CustomStoreProfile = ({ my_stores }) => {
             className="  w-[145px] h-[40px] flex justify-center items-center bg-primary rounded-md mb-2 text-white"
             onClick={() =>
               router.push({
-                pathname: '/a/edit-store',
+                pathname: '/a/edit-account',
                 query: { id: my_stores[0].id },
               })
             }

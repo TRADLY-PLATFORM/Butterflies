@@ -47,7 +47,7 @@ const AddProductForm = () => {
   const [variantsType, setVariantsType] = useState(null);
 
   const { auth_key } = useSelector(authSelector);
-  const { genral_configs, marketplace_type, marketplace_module } =
+  const { genral_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
     useSelector(configsSelector);
 
   const {
@@ -372,7 +372,7 @@ const AddProductForm = () => {
               {listing_configs.enable_stock && (
                 <label className="block">
                   <span className="text-gray-700">
-                    {stock_text(marketplace_type)}
+                    {stock_text(MARKETPLACE_MODULES)}
                   </span>
                   <input
                     value={quantity}
@@ -428,7 +428,7 @@ const AddProductForm = () => {
               />
             </div>
           </div>
-          {variantsType?.length > 0 && marketplace_type == 2 && (
+          {variantsType?.length > 0 && MARKETPLACE_MODULES == 2 && (
             <>
               <h3 className=" font-semibold mt-9 text-[#121212] text-xl mb-4">
                 Variants
@@ -444,7 +444,7 @@ const AddProductForm = () => {
             </>
           )}
         </div>
-        {marketplace_type == 2 && (
+        {MARKETPLACE_MODULES == 2 && (
           <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full c-lg:w-[30%]  ">
             <h3 className=" font-semibold text-[#121212] text-xl mb-4">
               Date & Time

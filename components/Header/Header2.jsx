@@ -8,13 +8,11 @@ import Image from 'next/image';
 import StoreButton from '../StoreButton/StoreButton';
 import ProductSideMenubar from '../SideMenubar/ProductSideMenubar';
 const Header2 = () => {
+  const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
 
-   const [marketplace_type, setMarketplace_type] = useState(null);
-
-   useEffect(() => {
-     setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
-   }, [0]);
-
+  useEffect(() => {
+    setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
+  }, [0]);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showUserMenus, setShowUserMenus] = useState(false);
@@ -44,9 +42,8 @@ const Header2 = () => {
     setIsDrawerOpen(false);
   };
 
-
   const selectmenubar = () => {
-    if (marketplace_type === 1) {
+    if (MARKETPLACE_MODULES === 1) {
       return <ProductSideMenubar />;
     } else {
       return <SideMenubar />;

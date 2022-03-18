@@ -10,6 +10,7 @@ import { listingDetails } from '../../../store/feature/listingSlice';
 import Link from 'next/link';
 import axios from 'axios';
 import { check_login } from '../../../constant/check_auth';
+import { getThumbnailImage } from '../../Shared/Constant/Constant';
 
 const StoreNameBox = ({ account }) => {
   const { login, auth_key } = useSelector(authSelector);
@@ -31,13 +32,14 @@ const StoreNameBox = ({ account }) => {
   return (
     <div className=" bg-white rounded  w-full  min-h-[81px] flex   justify-between items-center  p-[16px] shadow-c-sm">
       <div className="flex items-center">
-        <div className="flex justify-start items-start w-[32px] h-[32px] rounded-full overflow-hidden relative">
-          <Image
-            src={account?.images[0]}
-            alt="store Image"
-            layout="fill"
-            objectFit="cover"
-          />
+        <div className="flex justify-start items-start ">
+          {account?.images[0] && (
+            <img
+              src={getThumbnailImage(account?.images[0])}
+              alt="store Image"
+              className=" w-[32px] h-[32px] rounded-full overflow-hidden relative object-cover "
+            />
+          )}
         </div>
         <Link
           href={{

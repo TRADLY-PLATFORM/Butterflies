@@ -12,7 +12,7 @@ import { TYPE_CONSTANT } from '../../../constant/Web_constant';
 
 const ListListingCard = ({ item, like }) => {
   const router = useRouter();
-  const marketplace_type = TYPE_CONSTANT.MARKETPLACE_TYPE;
+  const MARKETPLACE_MODULES = TYPE_CONSTANT.MARKETPLACE_MODULES;
   return (
     <div className="  relative">
       <Link href={`/l/${item.id}-${item.title.replace(/\W/g, '-')}`}>
@@ -34,7 +34,7 @@ const ListListingCard = ({ item, like }) => {
           </div>
 
           <div className="mt-2 pl-2">
-            {marketplace_type == 2 && (
+            {MARKETPLACE_MODULES == 2 && (
               <p className=" mt-2   text-[12px] leading-3 text-gray-900  font-bold flex items-center ">
                 {item.schedules && time_icon}
                 <span className="ml-[6px]">
@@ -87,7 +87,7 @@ const ListListingCard = ({ item, like }) => {
               </p>
             )}
             <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-3">
-              {marketplace_type == 3
+              {MARKETPLACE_MODULES == 3
                 ? `By ${
                     item.account.name.length > 20
                       ? item.account.name.substring(0, 18) + '..'

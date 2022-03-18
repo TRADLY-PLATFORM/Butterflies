@@ -1,25 +1,20 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import MagazineLayout from '../components/layouts/MainLayouts/MagazineLayout';
-import MainLayout from '../components/layouts/MainLayouts/MainLayout';
-import CheckoutPageLayout from '../components/layouts/PageLayouts/CheckoutPageLayout';
-import { authSelector, refreshPage } from '../store/feature/authSlice';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { refreshPage } from '../store/feature/authSlice';
 import { getCurrencies } from '../store/feature/cartSlice';
-import tradly from 'tradly';
-import EventCheckoutPageLayout from '../components/layouts/PageLayouts/EventCheckoutPageLayout';
+
 import {
   setGeneralConfig,
   setListingConfig,
 } from '../store/feature/configsSlice';
-import { useRouter } from 'next/dist/client/router';
+import {} from 'next/dist/client/router';
 import { TYPE_CONSTANT } from '../constant/Web_constant';
-import axios from 'axios';
-import { check_login } from '../constant/check_auth';
+import { checkout_page } from '../tradly.config';
 
-const Checkout = (props) => {
-  const [marketplace_type, setmarketplace_type] = useState(null);
-  const router = useRouter();
+const Checkout = () => {
+  const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,33 +40,10 @@ const Checkout = (props) => {
       setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
     );
 
-    setmarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
   }, [dispatch]);
 
-  const pageTitle = TYPE_CONSTANT.META_TITLE;
-  const pageDescription = TYPE_CONSTANT.META_DESCRIPTIONS;
-
-  const selectLayout = () => {
-    if (check_login(router)) {
-      if (marketplace_type === 1) {
-        return <CheckoutPageLayout />;
-      } else {
-        return <EventCheckoutPageLayout />;
-      }
-    }
-  };
-
-  return (
-    marketplace_type && (
-      <>
-        <div className="">
-          <MainLayout pageTitle={pageTitle} pageDescription={pageDescription}>
-            {selectLayout()}
-          </MainLayout>
-        </div>
-      </>
-    )
-  );
+  return MARKETPLACE_MODULES && checkout_page();
 };
 
 export default Checkout;

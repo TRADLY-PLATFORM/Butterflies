@@ -13,9 +13,9 @@ import {
 import Image from 'next/image';
 
 const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
-  const [marketplace_type, setMarketplace_type] = useState(null);
+  const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
   useEffect(() => {
-    setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
   }, [0]);
 
   const dispatch = useDispatch();
@@ -104,9 +104,9 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
                     </span>
                   </a>
                 </Link>
-                {marketplace_type !== null && (
+                {MARKETPLACE_MODULES !== null && (
                   <Link href="/orders?page=1" passHref={true}>
-                    <a>{marketplace_type === 1 ? order : booking}</a>
+                    <a>{MARKETPLACE_MODULES === 1 ? order : booking}</a>
                   </Link>
                 )}
                 <div

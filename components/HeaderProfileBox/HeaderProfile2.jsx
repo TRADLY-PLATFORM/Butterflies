@@ -24,11 +24,11 @@ import { account_menus, customer_menus } from './desktopMenu';
 import axios from 'axios';
 
 const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
-  const [marketplace_type, setMarketplace_type] = useState(null);
+  const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
   const [general_configs, setGeneral_configs] = useState(null);
 
   useEffect(() => {
-    setMarketplace_type(Number(localStorage.getItem('marketplace_type')));
+    setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
     axios.get('/api/configs/general').then((res) => {
       setGeneral_configs(res?.data?.configs);
     });
@@ -136,7 +136,7 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
                     <div className="grid   grid-cols-2 ms:grid-cols-[200px,200px] sm:grid-cols-[250px,250px]">
                       {customer_menus(
                         Link,
-                        marketplace_type,
+                        MARKETPLACE_MODULES,
                         general_configs,
                         router,
                         dispatch
@@ -147,7 +147,7 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
                     <div className="grid grid-cols-[250px]">
                       {customer_menus(
                         Link,
-                        marketplace_type,
+                        MARKETPLACE_MODULES,
                         general_configs,
                         router,
                         dispatch
@@ -157,7 +157,7 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
                   {/* <div className="grid grid-cols-[250px,250px]">
                   {customer_menus(
                     Link,
-                    marketplace_type,
+                    MARKETPLACE_MODULES,
                     general_configs,
                     router,
                     dispatch

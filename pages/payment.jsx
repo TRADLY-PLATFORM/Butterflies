@@ -2,15 +2,13 @@
 import React, { useEffect } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import PaymentPageLayout from '../components/layouts/PageLayouts/PaymentPageLayout';
+import PaymentPageLayout from '../themes/common_layouts/PaymentPageLayout';
 import { useDispatch } from 'react-redux';
 import { refreshPage } from '../store/feature/authSlice';
-import tradly from 'tradly';
-import { TYPE_CONSTANT } from '../constant/Web_constant';
-import axios from 'axios';
+ import { TYPE_CONSTANT } from '../constant/Web_constant';
+ 
 
-
-const Payment = (props) => {
+const Payment = ( ) => {
   useEffect(() => {
     window.addEventListener('beforeunload', alertUser);
     return () => {

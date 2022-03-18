@@ -21,8 +21,8 @@ const EditVariantsForm = ({
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(null);
 
   const { currencies, listing_configs } = useSelector(storeSelector);
-    const { genral_configs, marketplace_type, marketplace_module } =
-      useSelector(configsSelector);
+  const { genral_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
+    useSelector(configsSelector);
 
   const clickAddButton = () => {
     if (variantsObject.images === null) {
@@ -325,7 +325,9 @@ const EditVariantsForm = ({
           </label>
         )}
         <label className="block">
-          <span className="text-gray-700">{ stock_text(marketplace_type)}</span>
+          <span className="text-gray-700">
+            {stock_text(MARKETPLACE_MODULES)}
+          </span>
           <input
             value={variantsObject.stock}
             type="number"
@@ -353,26 +355,28 @@ const EditVariantsForm = ({
           className=" bg-primary px-4 py-2 rounded-md text-white flex items-center"
           onClick={() => clickAddButton()}
         >
-          {editvariantLoading&&<svg
-            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>}
+          {editvariantLoading && (
+            <svg
+              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          )}
           Edit Variant
         </button>
       </div>

@@ -1,4 +1,3 @@
-
 /* eslint-disable react/prop-types */
 import '../styles/globals.scss';
 import store from '../store/store';
@@ -14,18 +13,28 @@ import Loading from '../components/Shared/Loading/Loading';
 import axios from 'axios';
 
 function MyApp({ Component, pageProps }) {
+  const [is_connected, setIs_connected] = useState(false);
   const [is_onboarding, setIs_onboarding] = useState(false);
   const [is_general, setIs_general] = useState(false);
   const [isExtension, setIsExtension] = useState(false);
   const [start, setStart] = useState(false);
   const [favicon, setFavicon] = useState(false);
   const [hideFooter_note, setHidFooter_note] = useState(false);
-  const [generalCf, setGeneralCf] = useState(null);
   const [primary_font_name, set_primary_font_name] = useState('Montserrat');
   const router = useRouter();
   const [searchConsole, setSearchConsole] = useState(null);
 
   const [loading, setLoading] = useState(false);
+
+  axios
+    .get('/api')
+    .then((res) => {
+      setIs_connected(true);
+    })
+    .catch((error) => {
+      setIs_connected(false);
+      alert('Domain not found please try later .');
+    });
 
   useEffect(() => {
     const handleStart = (url) => {
@@ -40,123 +49,125 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     // set configs
-    axios.get('/api/configs/payments').then((res) => {
-      TYPE_CONSTANT.PAYMENT_CONFIGS = res?.data.configs || '';
-    });
-    axios.get('/api/configs/listings').then((res) => {
-      TYPE_CONSTANT.LISTINGS_CONFIGS = res?.data.configs || '';
-    });
-    axios.get('/api/configs/accounts').then((res) => {
-      TYPE_CONSTANT.ACCOUNTS_CONFIGS = res?.data.configs || '';
-    });
-
-    // onboarding Configs
-    axios
-      .get('/api/configs/onboarding')
-      .then((res) => {
-        if (typeof window !== 'undefined') {
-          let root = document.documentElement;
-          const primary_color = res.data.configs?.app_color_primary;
-          const secondary_color = res.data.configs?.app_color_secondary;
-          const footer_color = res.data.configs.bg_footer_color;
-          root.style.setProperty('--primary_color', primary_color);
-          root.style.setProperty('--secondary_color', secondary_color);
-          root.style.setProperty('--footer_color', footer_color);
-          localStorage.setItem(
-            'onboarding_configs',
-            JSON.stringify(res.data.configs)
-          );
-
-          setIs_onboarding(true);
-        }
-      })
-      .catch((error) => {
-        setIs_onboarding(false);
+    if (is_connected) {
+      axios.get('/api/configs/payments').then((res) => {
+        TYPE_CONSTANT.PAYMENT_CONFIGS = res?.data.configs || '';
+      });
+      axios.get('/api/configs/listings').then((res) => {
+        TYPE_CONSTANT.LISTINGS_CONFIGS = res?.data.configs || '';
+      });
+      axios.get('/api/configs/accounts').then((res) => {
+        TYPE_CONSTANT.ACCOUNTS_CONFIGS = res?.data.configs || '';
       });
 
-    // General Configs
-    axios
-      .get('/api/configs/general')
-      .then((res) => {
-        if (typeof window !== 'undefined') {
-          // font set
-          let root = document.documentElement;
-          const primary_font =
-            res.data.configs.web_font_title || primary_font_name;
-          root.style.setProperty('--primary_font', primary_font);
-          set_primary_font_name(primary_font);
+      // onboarding Configs
+      axios
+        .get('/api/configs/onboarding')
+        .then((res) => {
+          if (typeof window !== 'undefined') {
+            let root = document.documentElement;
+            const primary_color = res.data.configs?.app_color_primary;
+            const secondary_color = res.data.configs?.app_color_secondary;
+            const footer_color = res.data.configs.bg_footer_color;
+            root.style.setProperty('--primary_color', primary_color);
+            root.style.setProperty('--secondary_color', secondary_color);
+            root.style.setProperty('--footer_color', footer_color);
+            localStorage.setItem(
+              'onboarding_configs',
+              JSON.stringify(res.data.configs)
+            );
 
-          // type and module set
-          localStorage.setItem('marketplace_type', res.data.configs?.type);
-          localStorage.setItem(
-            'marketplace_module',
-            res.data.configs?.sub_type
-          );
-          TYPE_CONSTANT.MARKETPLACE_TYPE = res.data.configs?.type;
-          TYPE_CONSTANT.MARKETPLACE_MODULE = res.data.configs?.sub_type;
-
-          // favicon set
-          setFavicon(res?.data?.configs?.web_icon);
-
-          // logo set
-          localStorage.setItem('logo', res?.data?.configs?.web_logo);
-
-          // hide footer note
-          setHidFooter_note(res?.data?.configs?.hide_tradly_footer_note);
-
-          localStorage.setItem(
-            'general_configs',
-            JSON.stringify(res.data.configs)
-          );
-          setIs_general(true);
-        }
-      })
-      .catch((error) => {
-        setIs_general(false);
-      });
-
-    // extensions config
-    axios
-      .get('/api/configs/extensions')
-      .then((res) => {
-        if (typeof window !== 'undefined') {
-          // GTM
-          if (res.data.configs?.gtm) {
-            TagManager.initialize({ gtmId: `GTM-${res.data.configs?.gtm}` });
+            setIs_onboarding(true);
           }
+        })
+        .catch((error) => {
+          setIs_onboarding(false);
+        });
 
-          // Search Console
-          if (res.data.configs?.searchconsole) {
-            setSearchConsole(res.data.configs?.searchconsole);
+      // General Configs
+      axios
+        .get('/api/configs/general')
+        .then((res) => {
+          if (typeof window !== 'undefined') {
+            // font set
+            let root = document.documentElement;
+            const primary_font =
+              res.data.configs.web_font_title || primary_font_name;
+            root.style.setProperty('--primary_font', primary_font);
+            set_primary_font_name(primary_font);
+
+            // type and module set
+            localStorage.setItem('MARKETPLACE_MODULES', res.data.configs?.type);
+            localStorage.setItem(
+              'MARKETPLACE_FLAVOURS',
+              res.data.configs?.sub_type
+            );
+            TYPE_CONSTANT.MARKETPLACE_MODULES = res.data.configs?.type;
+            TYPE_CONSTANT.MARKETPLACE_FLAVOURS = res.data.configs?.sub_type;
+
+            // favicon set
+            setFavicon(res?.data?.configs?.web_icon);
+
+            // logo set
+            localStorage.setItem('logo', res?.data?.configs?.web_logo);
+
+            // hide footer note
+            setHidFooter_note(res?.data?.configs?.hide_tradly_footer_note);
+
+            localStorage.setItem(
+              'general_configs',
+              JSON.stringify(res.data.configs)
+            );
+            setIs_general(true);
           }
+        })
+        .catch((error) => {
+          setIs_general(false);
+        });
 
-          setIsExtension(true);
-        }
-      })
-      .catch((error) => {
-        setIsExtension(false);
-      });
+      // extensions config
+      axios
+        .get('/api/configs/extensions')
+        .then((res) => {
+          if (typeof window !== 'undefined') {
+            // GTM
+            if (res.data.configs?.gtm) {
+              TagManager.initialize({ gtmId: `GTM-${res.data.configs?.gtm}` });
+            }
 
-    // SEO Configs
-    axios
-      .get('/api/configs/seo')
-      .then((res) => {
-        const { configs } = res?.data;
-        TYPE_CONSTANT.META_TITLE = configs?.meta_title || '';
-        TYPE_CONSTANT.META_DESCRIPTIONS = configs?.meta_description || '';
-        TYPE_CONSTANT.META_ACCOUNT_TITLE = configs?.meta_account_title || '';
-        TYPE_CONSTANT.META_LISTING_TITLE = configs?.meta_listing_title || '';
-        TYPE_CONSTANT.META_LISTING_DESCRIPTION =
-          configs?.meta_listing_description || '';
-        TYPE_CONSTANT.META_LISTING_CATEGORY_TITLE =
-          configs?.meta_listing_category_title || '';
-        TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION =
-          configs?.meta_listing_category_description || '';
-      })
-      .catch((error) => {
-        setIs_onboarding(false);
-      });
-  }, []);
+            // Search Console
+            if (res.data.configs?.searchconsole) {
+              setSearchConsole(res.data.configs?.searchconsole);
+            }
+
+            setIsExtension(true);
+          }
+        })
+        .catch((error) => {
+          setIsExtension(false);
+        });
+
+      // SEO Configs
+      axios
+        .get('/api/configs/seo')
+        .then((res) => {
+          const { configs } = res?.data;
+          TYPE_CONSTANT.META_TITLE = configs?.meta_title || '';
+          TYPE_CONSTANT.META_DESCRIPTIONS = configs?.meta_description || '';
+          TYPE_CONSTANT.META_ACCOUNT_TITLE = configs?.meta_account_title || '';
+          TYPE_CONSTANT.META_LISTING_TITLE = configs?.meta_listing_title || '';
+          TYPE_CONSTANT.META_LISTING_DESCRIPTION =
+            configs?.meta_listing_description || '';
+          TYPE_CONSTANT.META_LISTING_CATEGORY_TITLE =
+            configs?.meta_listing_category_title || '';
+          TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION =
+            configs?.meta_listing_category_description || '';
+        })
+        .catch((error) => {
+          setIs_onboarding(false);
+        });
+    }
+  }, [is_connected]);
 
   useEffect(() => {
     if (is_onboarding && is_general && isExtension) {
@@ -167,7 +178,8 @@ function MyApp({ Component, pageProps }) {
   }, [is_onboarding, is_general, isExtension]);
 
   return (
-    start && (
+    start &&
+    is_connected && (
       <>
         <Head>
           <link rel="icon" href={favicon} />
@@ -256,10 +268,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-
-export async function getServerSideProps(context) {
-  axios.post('/api', {
-    token: process.env.API_KEY,
-    environment: process.env.ENVIRONMENT,
-  });
-}

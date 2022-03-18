@@ -9,14 +9,14 @@ export const configsSlice = createSlice({
     general_configs: null,
     accounts_configs: null,
     listings_configs: null,
-    marketplace_type: null,
-    marketplace_module: null,
+    MARKETPLACE_MODULES: null,
+    MARKETPLACE_FLAVOURS: null,
   },
   reducers: {
     setGeneralConfig: (state, { payload }) => {
       state.general_configs = payload?.general_configs;
-      state.marketplace_type = payload?.general_configs?.type;
-      state.marketplace_module = payload?.general_configs?.sub_type;
+      state.MARKETPLACE_MODULES = payload?.general_configs?.type;
+      state.MARKETPLACE_FLAVOURS = payload?.general_configs?.sub_type;
       return state;
     },
     setAccountConfig: (state, { payload }) => {

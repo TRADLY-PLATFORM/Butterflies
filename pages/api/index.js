@@ -1,11 +1,16 @@
+import axios from 'axios';
 import tradly from 'tradly';
+import { base_url } from '../../constant/url';
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    tradly.init.config({
-      token: req.body.token,
-      environment: req.body.environment,
+  tradly.init
+    .config({
+      token: process.env.API_KEY,
+      environment: process.env.ENVIRONMENT,
+    })
+    .then((response) => {
+      res
+        .status(200)
+        .send({ status: 'connected', host_name: req.headers.host });
     });
-    res.send({status:"connected"})
-  }
 }

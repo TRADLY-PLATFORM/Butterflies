@@ -1,0 +1,44 @@
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { authSelector } from '../../store/feature/authSlice';
+import {
+  categories,
+  currencies,
+  listingCategories,
+  storeSelector,
+} from '../../store/feature/storeSlice';
+import AddCustomProductForm from '../../components/MyStore/AddProduct/AddCustomProductForm';
+import AddProductForm from '../../components/MyStore/AddProduct/AddProductForm';
+import SchedulePart from '../../components/MyStore/AddProduct/schedule/SchedulePart';
+import VariantsPart from '../../components/MyStore/AddProduct/Variants/VariantsPart';
+
+const AddCustomListingPageLayout = () => {
+  const { auth_key } = useSelector(authSelector);
+  const { listing_configs } = useSelector(storeSelector);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (auth_key) {
+      dispatch(currencies({ authKey: auth_key }));
+      dispatch(
+        listingCategories({
+          prams: { parent: 0, type: 'listings' },
+          authKey: auth_key,
+        })
+      );
+    }
+  }, [auth_key]);
+
+  return (
+    <>
+      <div className=" flex justify-center">
+        <div className=" w-full">
+          {listing_configs !== null && <AddCustomProductForm />}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default AddCustomListingPageLayout;

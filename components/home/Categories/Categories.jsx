@@ -46,26 +46,26 @@ const Categories = ({ categories }) => {
             <Link
               key={Math.random()}
               href={{
-                pathname: `${
-                  item.name !== 'All' ? '/lc/[name]' : '/lc'
-                }`,
+                pathname: `${item.name !== 'All' ? '/lc/[name]' : '/lc'}`,
                 query,
               }}
               passHref
             >
               <a className="  sm:mr-4  sm:mb-6  bg-[#ffffff] rounded-xl  py-4 flex flex-col  justify-between items-center border border-transparent  shadow-c-sm hover:border-primary hover:bg-primary_light  w-[80px] h-[80px] sm:w-[100px]  sm:h-[100px]  cursor-pointer">
                 <div className=" h-8 w-8 sm:w-[46px] sm:h-[46px] md:w-[32px] md:h-[32px] relative object-cover">
-                  <Image
-                    src={
-                      item.name !== 'All'
-                        ? getThumbnailImage(item.image_path)
-                        : item.image_path
-                    }
-                    alt={item.name}
-                    title={item.name}
-                    layout="fill"
-                    objectFit="cover"
-                  />
+                  {item.image_path && (
+                    <Image
+                      src={
+                        item.name !== 'All'
+                          ? getThumbnailImage(item.image_path)
+                          : item.image_path
+                      }
+                      alt={item.name}
+                      title={item.name}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  )}
                 </div>
                 <p className=" w-11/12 mx-auto min-h-[5px] text-primary  text-xs   font-medium flex justify-center items-center text-center">
                   {item.name === 'All Categories'

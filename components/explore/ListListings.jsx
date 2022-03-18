@@ -27,7 +27,8 @@ import { check_login } from '../../constant/check_auth';
 
 const ListListings = ({ Products, map_view, like_listing }) => {
   const { login, auth_key } = useSelector(authSelector);
-  const { marketplace_type, marketplace_module } = useSelector(configsSelector);
+  const { MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
+    useSelector(configsSelector);
   // const { isSuccess } = useSelector(listingSelector);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -66,13 +67,13 @@ const ListListings = ({ Products, map_view, like_listing }) => {
               <ListListingCard
                 item={item}
                 like={like}
-                marketplace_type={marketplace_type}
+                MARKETPLACE_MODULES={MARKETPLACE_MODULES}
               />
             ) : (
               <MarkerListingCard
                 item={item}
                 like={like}
-                marketplace_type={marketplace_type}
+                MARKETPLACE_MODULES={MARKETPLACE_MODULES}
               />
             )}
           </div>
