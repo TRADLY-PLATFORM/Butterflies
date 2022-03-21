@@ -13,7 +13,13 @@ const MarkerListingCard = ({ item, like, MARKETPLACE_MODULES, map_card }) => {
   const router = useRouter();
   return (
     <div className="  relative">
-      <Link href={`/l/${item.id}-${item.title.replace(/\W/g, '-')}`}>
+      <Link
+        href={
+          item.slug
+            ? `/l/${item.slug}?listing_id=${item.id}`
+            : `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
+        }
+      >
         <a
           className="  min-w-[350px]  min-h-[146px bg-[#FEFEFE]   rounded-lg overflow-hidden cursor-pointer  shadow-c-sm flex"
           // onClick={() =>

@@ -80,9 +80,11 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
               className=" w-full  min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
               onClick={() => {
                 if (item.active) {
-                  router.push(
-                    `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
-                  );
+                  item.slug
+                    ? router.push(`/l/${item.slug}?listing_id=${item.id}`)
+                    : router.push(
+                        `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
+                      );
                 } else {
                   setShowWarning(true);
                   setWarning_message('Product is under review.');

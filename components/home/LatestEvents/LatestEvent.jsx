@@ -89,7 +89,13 @@ const LatestEvent = ({ products }) => {
               }}
             >
               <div className=" relative">
-                <Link href={`/l/${item.id}-${item.title.replace(/\W/g, '-')}`}>
+                <Link
+                  href={
+                    item.slug
+                      ? `/l/${item.slug}?listing_id=${item.id}`
+                      : `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
+                  }
+                >
                   <a
                     className=" block w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded mr-4 overflow-hidden cursor-pointer shadow-c-xsm relative"
                     // onClick={() =>

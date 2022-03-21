@@ -47,7 +47,7 @@ const ProductButtons = ({ listing_details, selectedVariant }) => {
         if (!res.payload.code) {
           dispatch(
             listingDetails({
-              id: router?.query.id.split('-')[0],
+              id: router?.query.id,
               authKey: auth_key,
             })
           );

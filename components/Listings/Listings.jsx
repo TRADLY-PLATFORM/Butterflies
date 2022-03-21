@@ -61,7 +61,9 @@ const Listings = ({ Products }) => {
           <div
             className=" ms:w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
             onClick={() =>
-              router.push(`/l/${item.id}-${item.title.replace(/\W/g, '-')}`)
+              item.slug
+                ? router.push(`/l/${item.slug}?listing_id=${item.id}`)
+                : router.push(`/l/${item.id}-${item.title.replace(/\W/g, '-')}`)
             }
           >
             <div className=" ms:w-[190px]  h-[190px] relative">

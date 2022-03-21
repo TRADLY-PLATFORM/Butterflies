@@ -73,7 +73,11 @@ const Listings = ({ products }) => {
         {products?.listings?.map((item, index) => {
           return (
             <Link
-              href={`/l/${item.id}-${item.title.replace(/\W/g, '-')}`}
+              href={
+                item.slug
+                  ? `/l/${item.slug}?listing_id=${item.id}`
+                  : `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
+              }
               key={index}
             >
               <a className="  w-full   px-4  mb-1 flex  items-center justify-start border border-transparent hover:border-gray-300  rounded-lg p-4 cursor-pointer">
