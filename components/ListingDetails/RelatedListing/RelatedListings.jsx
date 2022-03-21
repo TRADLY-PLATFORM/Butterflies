@@ -41,7 +41,9 @@ const RelatedListings = () => {
         params: {
           page: 1,
           per_page: 30,
-          id: router?.query.id.split('-')[0],
+          id: router?.query?.listing_id
+            ? router?.query?.listing_id
+            : router?.query.id.split('-')[0],
         },
       })
       .then((res) => {
@@ -65,7 +67,9 @@ const RelatedListings = () => {
               params: {
                 page: 1,
                 per_page: 30,
-                id: router?.query.id.split('-')[0],
+                id: router?.query?.listing_id
+                  ? router?.query?.listing_id
+                  : router?.query.id.split('-')[0],
               },
             })
             .then((res) => {
@@ -87,7 +91,11 @@ const RelatedListings = () => {
               </p>
               <Link
                 href={{
-                  pathname: `/l/similar/${router?.query.id.split('-')[0]}`,
+                  pathname: `/l/similar/${
+                    router?.query?.listing_id
+                      ? router?.query?.listing_id
+                      : router?.query.id.split('-')[0]
+                  }`,
                   query: { page: 1 },
                 }}
               >

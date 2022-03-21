@@ -17,7 +17,13 @@ const ListingCard = ({ item, like }) => {
   const MARKETPLACE_MODULES = TYPE_CONSTANT.MARKETPLACE_MODULES;
   return (
     <div className="  relative">
-      <Link href={`/l/${item.id}-${item.title.replace(/\W/g, '-')}`}>
+      <Link
+        href={
+          item.slug
+            ? `/l/${item.slug}?listing_id=${item.id}`
+            : `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
+        }
+      >
         <a
           className=" block w-full  min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
           // onClick={() =>

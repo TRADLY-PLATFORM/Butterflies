@@ -22,7 +22,7 @@ const StoreNameBox = ({ account }) => {
       axios.post('/api/a/follow_account', { id, isFollow }).then((res) => {
         dispatch(
           listingDetails({
-            id: router?.query.id.split('-')[0],
+            id: router?.query.id,
             authKey: auth_key,
           })
         );

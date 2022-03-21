@@ -37,7 +37,11 @@ const Schedule = ({ schedules }) => {
     if (auth_key && selectedDate) {
       axios
         .post('/api/schedules', {
-          id: `${router?.query.id.split('-')[0]}`,
+          id: `${
+            router?.query?.listing_id
+              ? router?.query?.listing_id
+              : router?.query.id.split('-')[0]
+          }`,
           bodyParam: { days: 30, start_at: selectedDate },
         })
         .then((res) => {
