@@ -42,7 +42,7 @@ const RelatedListings = ({listing_details}) => {
           params: {
             page: 1,
             per_page: 30,
-            id: listing_details.id,
+            id: listing_details?.id,
           },
         })
         .then((res) => {
