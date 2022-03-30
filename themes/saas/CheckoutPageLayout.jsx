@@ -275,7 +275,7 @@ const CheckoutPageLayout = () => {
         </Modal>
       )}
 
-      {cart_details === null || cart_details.length > 0 ? (
+      {cart_details === null || cart_details?.length > 0 ? (
         <div className="  mx-auto w-full    sm:px-8 md:px-0 flex  flex-col justify-center c-md:flex-row c-md:justify-between    c-md:max-w-[824px]  lg:max-w-[1000px]  ">
           <div className="   c-md:w-[400px] lg:w-[600px] ">
             <div className="bg-[#FEFEFE] rounded-lg py-6 md:py-12  px-4 md:px-9">

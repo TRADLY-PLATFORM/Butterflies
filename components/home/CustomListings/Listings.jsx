@@ -26,6 +26,7 @@ import { homeCollections } from '../../../store/feature/homeSlice';
 import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
 import { check_login } from '../../../constant/check_auth';
+import { TYPE_CONSTANT } from '../../../constant/Web_constant';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
@@ -92,12 +93,14 @@ const Listings = ({ products }) => {
                       ? item.title.substring(0, 18) + '..'
                       : item.title}
                   </h4>
-                  <p className=" mt-2 mb-0 text-second text-sm truncate text-primary">
-                    By{' '}
-                    {item.account.name.length > 20
-                      ? item.account.name.substring(0, 18) + '..'
-                      : item.account.name}
-                  </p>
+                  {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 && (
+                    <p className=" mt-2 mb-0 text-second text-sm truncate text-primary">
+                      By{' '}
+                      {item.account.name.length > 20
+                        ? item.account.name.substring(0, 18) + '..'
+                        : item.account.name}
+                    </p>
+                  )}
                 </div>
               </a>
             </Link>

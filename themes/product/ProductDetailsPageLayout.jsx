@@ -28,6 +28,7 @@ import ReactPaginate from 'react-paginate';
 import RelatedListings from '../../components/ListingDetails/RelatedListing/RelatedListings';
 import AccountListings from '../../components/ListingDetails/AccountListings/AccountListings';
 import { check_login } from '../../components/../constant/check_auth';
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
 const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -328,12 +329,14 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         <div className=" w-[100vw] ms:w-[400px] md:w-full  mt-6">
           <RelatedListings />
         </div>
-        <div className=" w-[100vw] ms:w-[400px] md:w-full  mt-6 ">
-          <AccountListings
-            account_id={listing_details?.account_id}
-            account={listing_details?.account}
-          />
-        </div>
+        {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 && (
+          <div className=" w-[100vw] ms:w-[400px] md:w-full  mt-6 ">
+            <AccountListings
+              account_id={listing_details?.account_id}
+              account={listing_details?.account}
+            />
+          </div>
+        )}
       </div>
     </>
   );
