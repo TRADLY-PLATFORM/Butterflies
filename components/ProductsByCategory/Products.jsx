@@ -63,7 +63,7 @@ const Products = ({ Products }) => {
             className=" ms:w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
             onClick={() =>
               item.slug
-                ? router.push(`/l/${item.slug}?listing_id=${item.id}`)
+                ? router.push(`/l/${item.slug}`)
                 : router.push(`/l/${item.id}-${item.title.replace(/\W/g, '-')}`)
             }
           >

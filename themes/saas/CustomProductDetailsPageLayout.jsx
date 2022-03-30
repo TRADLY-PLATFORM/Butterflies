@@ -51,19 +51,7 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const { isSuccess, listing_details, rating_data, errorMessage, isError } =
     useSelector(listingSelector);
 
-  // useEffect(() => {
-  //   const handleRouteChange = (url, { shallow }) => {
-  //     dispatch(clearListingDetails());
-  //   };
-
-  //   router.events.on('routeChangeStart', handleRouteChange);
-
-  //   // If the component is unmounted, unsubscribe
-  //   // from the event with the `off` method:
-  //   // return () => {
-  //   //   router.events.off('routeChangeStart', handleRouteChange);
-  //   // };
-  // }, [dispatch, router.events]);
+  
 
   // Button Handle
   const like = (id, isLiked) => {
@@ -235,9 +223,8 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
       </div>
 
       <div className="pb-10  flex flex-col justify-center items-center   c-md:mx-auto        c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px]  ">
-
         <div className="w-[100vw] ms:w-[400px] md:w-full   mt-6">
-          <RelatedListings />
+          <RelatedListings listing_details={listing_details} />
         </div>
         <div className=" w-[100vw] ms:w-[400px] md:w-full mt-6  ">
           <AccountListings
