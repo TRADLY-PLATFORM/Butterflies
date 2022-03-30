@@ -22,6 +22,7 @@ const CreateStoreForm = ({ accounts_configs }) => {
   const [imagePath, setImagePath] = useState(null);
   const [files, setFiles] = useState(null);
   const [name, setName] = useState(null);
+  const [slug, setSlug] = useState('');
   const [coordinates, setCoordinates] = useState(null);
   const [category, setCategory] = useState(null);
   const [attributeData, setAttributeData] = useState(null);
@@ -163,6 +164,23 @@ const CreateStoreForm = ({ accounts_configs }) => {
           />
         </label>
         <label className="block">
+          <span className="text-gray-700">Account Slug</span>
+          <input
+            type="text"
+            className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+            placeholder=""
+            onChange={(e) => setSlug(e.target.value)}
+          />
+        </label>
+
+        <label className="block">
           <span className="text-gray-700">Description</span>
           <textarea
             className="
@@ -224,6 +242,7 @@ const CreateStoreForm = ({ accounts_configs }) => {
             create_store_click(
               files,
               name,
+              slug,
               description,
               coordinates,
               category,

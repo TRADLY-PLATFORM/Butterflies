@@ -333,12 +333,13 @@ const EditProductForm = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
-        <label className="block">
-          <span className="text-gray-700">Listing Slug</span>
-          <input
-            value={slug}
-            type="text"
-            className="
+        {listing_configs?.enable_slug && (
+          <label className="block">
+            <span className="text-gray-700">Listing Slug</span>
+            <input
+              value={slug}
+              type="text"
+              className="
                     mt-0
                     block
                     w-full
@@ -346,10 +347,11 @@ const EditProductForm = () => {
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-            placeholder=""
-            onChange={(e) => setSlug(e.target.value)}
-          />
-        </label>
+              placeholder=""
+              onChange={(e) => setSlug(e.target.value)}
+            />
+          </label>
+        )}
 
         <label className="block">
           <span className="text-gray-700">Listing Description</span>

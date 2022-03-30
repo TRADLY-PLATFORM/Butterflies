@@ -146,7 +146,7 @@ const AddProductForm = () => {
     setError_message('');
   };
 
-  console.log(imagePath);
+  // console.log(listing_configs);
 
   return (
     <>
@@ -249,11 +249,12 @@ const AddProductForm = () => {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </label>
-            <label className="block">
-              <span className="text-gray-700">Listing Slug</span>
-              <input
-                type="text"
-                className="
+            {listing_configs?.enable_slug && (
+              <label className="block">
+                <span className="text-gray-700">Listing Slug</span>
+                <input
+                  type="text"
+                  className="
                     mt-0
                     block
                     w-full
@@ -261,10 +262,11 @@ const AddProductForm = () => {
                     border-0 border-b-2 border-gray-200 transition  duration-700
                     focus:ring-0 focus:border-primary
                   "
-                placeholder=""
-                onChange={(e) => setSlug(e.target.value)}
-              />
-            </label>
+                  placeholder=""
+                  onChange={(e) => setSlug(e.target.value)}
+                />
+              </label>
+            )}
             <label className="block">
               <span className="text-gray-700">Listing Description</span>
               <Markdown_Editor

@@ -40,7 +40,7 @@ const AccountListingsItem = ({
       ).then((res) => {
         if (!res.payload.code) {
           axios
-            .get(`/api/a/${router.query.id.split('-')[0]}`)
+            .get(`/api/a/${router.query.id}`)
             .then((res) => {
               setAccount_details(res.data.account);
               setIsDataLoading(false);

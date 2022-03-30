@@ -24,7 +24,7 @@ const CustomAccountProfile = ({
         .post('/api/a/follow_account', { id, isFollow })
         .then((res) => {
           axios
-            .get(`/api/a/${router.query.id.split('-')[0]}`)
+            .get(`/api/a/${router.query.id}`)
             .then((res) => {
               setAccount_details(res.data.account);
               setIsDataLoading(false);

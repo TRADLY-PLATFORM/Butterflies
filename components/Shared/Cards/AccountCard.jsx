@@ -14,7 +14,9 @@ const AccountCard = ({ item, follow }) => {
         href={{
           pathname: '/a/[id]',
           query: {
-            id: `${item.id}-${item.name.replace(/\s/g, '-')}`,
+            id: item.slug
+              ? item.slug
+              : `${item.id}-${item.name.replace(/\s/g, '-')}`,
             page: 1,
           },
         }}

@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { postStore } from '../../../store/feature/storeSlice';
 import tradly from 'tradly';
 import axios from 'axios';
+var slugify = require('slugify');
 
 export const edit_store_click = (
   files,
   imagePath,
   name,
+  slug,
   description,
   coordinates,
   category,
@@ -20,13 +23,8 @@ export const edit_store_click = (
   accounts_configs
 ) => {
   setEditStoreLoading(true);
-  // if (files === null && imagePath === null) {
-  //   setShowError(true);
-  //   setError_message('Image is required');
-  //   setEditStoreLoading(false);
-  //   return false;
-  // }
-  if (name === null || name === '') {
+
+  if (name === null || description?.replace(/\s/g, '').length <= 0) {
     setShowError(true);
     setError_message('Store name is required');
     setEditStoreLoading(false);
@@ -39,13 +37,6 @@ export const edit_store_click = (
 
     return false;
   }
-  // else if (category === null) {
-  //   setShowError(true);
-  //   setError_message('Select one category');
-  //   setEditStoreLoading(false);
-
-  //   return false;
-  // }
 
   if (files !== null && imagePath === null) {
     axios
@@ -89,7 +80,10 @@ export const edit_store_click = (
                   if (category !== null) {
                     storesData['category_id'] = [category];
                   }
-                  if (description !== '' && description !== null) {
+                  if (
+                    !description?.replace(/\s/g, '').length <= 0 &&
+                    description !== null
+                  ) {
                     storesData['description'] = description;
                   }
                   dispatch(
@@ -155,8 +149,24 @@ export const edit_store_click = (
                             if (accounts_configs.account_address_enabled) {
                               storesData['coordinates'] = coordinates;
                             }
-                            if (description !== '' && description !== null) {
+                            if (
+                              !description?.replace(/\s/g, '').length <= 0 &&
+                              description !== null
+                            ) {
                               storesData['description'] = description;
+                            }
+                            if (!slug?.replace(/\s/g, '').length <= 0) {
+                              storesData['slug'] = slugify(slug, {
+                                remove: undefined,
+                                lower: true,
+                                strict: true,
+                              });
+                            } else {
+                              storesData['slug'] = slugify(name, {
+                                remove: undefined,
+                                lower: true,
+                                strict: true,
+                              });
                             }
 
                             dispatch(
@@ -204,8 +214,24 @@ export const edit_store_click = (
                 if (category !== null) {
                   storesData['category_id'] = [category];
                 }
-                if (description !== '' && description !== null) {
+                if (
+                  !description?.replace(/\s/g, '').length <= 0 &&
+                  description !== null
+                ) {
                   storesData['description'] = description;
+                }
+                if (!slug?.replace(/\s/g, '').length <= 0) {
+                  storesData['slug'] = slugify(slug, {
+                    remove: undefined,
+                    lower: true,
+                    strict: true,
+                  });
+                } else {
+                  storesData['slug'] = slugify(name, {
+                    remove: undefined,
+                    lower: true,
+                    strict: true,
+                  });
                 }
                 dispatch(
                   postStore({
@@ -258,8 +284,24 @@ export const edit_store_click = (
         if (category !== null) {
           storesData['category_id'] = [category];
         }
-        if (description !== '' && description !== null) {
+        if (
+          !description?.replace(/\s/g, '').length <= 0 &&
+          description !== null
+        ) {
           storesData['description'] = description;
+        }
+        if (!slug?.replace(/\s/g, '').length <= 0) {
+          storesData['slug'] = slugify(slug, {
+            remove: undefined,
+            lower: true,
+            strict: true,
+          });
+        } else {
+          storesData['slug'] = slugify(name, {
+            remove: undefined,
+            lower: true,
+            strict: true,
+          });
         }
         dispatch(
           postStore({
@@ -323,8 +365,24 @@ export const edit_store_click = (
                   if (category !== null) {
                     storesData['category_id'] = [category];
                   }
-                  if (description !== '' && description !== null) {
+                  if (
+                    !description?.replace(/\s/g, '').length <= 0 &&
+                    description !== null
+                  ) {
                     storesData['description'] = description;
+                  }
+                  if (!slug?.replace(/\s/g, '').length <= 0) {
+                    storesData['slug'] = slugify(slug, {
+                      remove: undefined,
+                      lower: true,
+                      strict: true,
+                    });
+                  } else {
+                    storesData['slug'] = slugify(name, {
+                      remove: undefined,
+                      lower: true,
+                      strict: true,
+                    });
                   }
                   dispatch(
                     postStore({
@@ -369,8 +427,24 @@ export const edit_store_click = (
       if (category !== null) {
         storesData['category_id'] = [category];
       }
-      if (description !== '' && description !== null) {
+      if (
+        !description?.replace(/\s/g, '').length <= 0 &&
+        description !== null
+      ) {
         storesData['description'] = description;
+      }
+      if (!slug?.replace(/\s/g, '').length <= 0) {
+        storesData['slug'] = slugify(slug, {
+          remove: undefined,
+          lower: true,
+          strict: true,
+        });
+      } else {
+        storesData['slug'] = slugify(name, {
+          remove: undefined,
+          lower: true,
+          strict: true,
+        });
       }
       dispatch(
         postStore({
@@ -409,9 +483,26 @@ export const edit_store_click = (
         if (category !== null) {
           storesData['category_id'] = [category];
         }
-        if (description !== '' && description !== null) {
+        if (
+          !description?.replace(/\s/g, '').length <= 0 &&
+          description !== null
+        ) {
           storesData['description'] = description;
         }
+        if (!slug?.replace(/\s/g, '').length <= 0) {
+          storesData['slug'] = slugify(slug, {
+            remove: undefined,
+            lower: true,
+            strict: true,
+          });
+        } else {
+          storesData['slug'] = slugify(name, {
+            remove: undefined,
+            lower: true,
+            strict: true,
+          });
+        }
+
         dispatch(
           postStore({
             id: accountId,
@@ -473,9 +564,26 @@ export const edit_store_click = (
                   if (category !== null) {
                     storesData['category_id'] = [category];
                   }
-                  if (description !== '' && description !== null) {
+                  if (
+                    !description?.replace(/\s/g, '').length <= 0 &&
+                    description !== null
+                  ) {
                     storesData['description'] = description;
                   }
+                  if (!slug?.replace(/\s/g, '').length <= 0) {
+                    storesData['slug'] = slugify(slug, {
+                      remove: undefined,
+                      lower: true,
+                      strict: true,
+                    });
+                  } else {
+                    storesData['slug'] = slugify(name, {
+                      remove: undefined,
+                      lower: true,
+                      strict: true,
+                    });
+                  }
+
                   dispatch(
                     postStore({
                       id: accountId,
@@ -518,9 +626,26 @@ export const edit_store_click = (
       if (category !== null) {
         storesData['category_id'] = [category];
       }
-      if (description !== '' && description !== null) {
+      if (
+        !description?.replace(/\s/g, '').length <= 0 &&
+        description !== null
+      ) {
         storesData['description'] = description;
       }
+      if (!slug?.replace(/\s/g, '').length <= 0) {
+        storesData['slug'] = slugify(slug, {
+          remove: undefined,
+          lower: true,
+          strict: true,
+        });
+      } else {
+        storesData['slug'] = slugify(name, {
+          remove: undefined,
+          lower: true,
+          strict: true,
+        });
+      }
+
       dispatch(
         postStore({
           id: accountId,
