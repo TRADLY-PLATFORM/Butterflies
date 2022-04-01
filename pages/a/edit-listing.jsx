@@ -7,6 +7,8 @@ import { useRouter } from 'next/dist/client/router';
 import { edit_listing_page } from '../../tradly.config';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import { check_login } from '../../constant/check_auth';
+import { check_flavours } from '../../constant/check_flavours';
+import Error from 'next/error';
 
 const EditListing = () => {
   const dispatch = useDispatch();
@@ -30,7 +32,11 @@ const EditListing = () => {
     );
   }, [dispatch]);
 
-  return check_login(router) && edit_listing_page();
+  return check_flavours(2) ? (
+    <Error statusCode={404} />
+  ) : (
+    check_login(router) && edit_listing_page()
+  );
 };
 
 export default EditListing;

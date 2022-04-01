@@ -5,6 +5,8 @@ import { payout_page } from '../tradly.config';
 import { myStore } from '../store/feature/storeSlice';
 import { check_login } from '../constant/check_auth';
 import { useRouter } from 'next/router';
+import { check_flavours } from '../constant/check_flavours';
+import Error from 'next/error';
 
 const Payout = () => {
   const router = useRouter();
@@ -34,7 +36,11 @@ const Payout = () => {
       );
     }
   }, [localStorage.getItem('auth_key')]);
-  return check_login(router) && payout_page();
+  return check_flavours(2) ? (
+    <Error statusCode={404} />
+  ) : (
+    check_login(router) && payout_page()
+  );
 };
 
 export default Payout;

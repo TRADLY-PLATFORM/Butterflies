@@ -106,12 +106,14 @@ const LatestEvent = ({ products }) => {
                     // }
                   >
                     <div className="w-[190px]  h-[190px] relative">
-                      <Image
-                        src={getThumbnailImage(item.images[0])}
-                        alt={item.title}
-                        layout="fill"
-                        objectFit="cover"
-                      />
+                      {item.images.length > 0 && (
+                        <Image
+                          src={getThumbnailImage(item.images[0])}
+                          alt={item.title}
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      )}
                     </div>
                     {/* {MARKETPLACE_MODULES === 2 && (
                     <p className=" mt-2 pl-2 text-[10px] leading-3 text-gray-900  font-medium">

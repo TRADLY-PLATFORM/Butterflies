@@ -344,12 +344,10 @@ module.exports = {
       default:
         return (
           <ProductMainLayout>
-            <ProductMainLayout>
-              <ProductDetailsPageLayout
-                pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
-                pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
-              />
-            </ProductMainLayout>
+            <ProductDetailsPageLayout
+              pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
+              pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
+            />
           </ProductMainLayout>
         );
     }
