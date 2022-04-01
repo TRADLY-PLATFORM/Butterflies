@@ -15,7 +15,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import SchedulesModal from './SchedulesModal';
 import axios from 'axios';
 
-const Schedule = ({ schedules }) => {
+const Schedule = ({ listing_details, schedules }) => {
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
   let dates = getDatesArray();
@@ -37,11 +37,7 @@ const Schedule = ({ schedules }) => {
     if (auth_key && selectedDate) {
       axios
         .post('/api/schedules', {
-          id: `${
-            router?.query?.listing_id
-              ? router?.query?.listing_id
-              : router?.query.id.split('-')[0]
-          }`,
+          id: `${listing_details.id}`,
           bodyParam: { days: 30, start_at: selectedDate },
         })
         .then((res) => {

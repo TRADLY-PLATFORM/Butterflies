@@ -76,7 +76,7 @@ const Listings = ({ products }) => {
             <Link
               href={
                 item.slug
-                  ? `/l/${item.slug}?listing_id=${item.id}`
+                  ? `/l/${item.slug}`
                   : `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
               }
               key={index}

@@ -96,14 +96,19 @@ function MyApp({ Component, pageProps }) {
             root.style.setProperty('--primary_font', primary_font);
             set_primary_font_name(primary_font);
 
-            // type and module set
+            // type, theme and module set
             localStorage.setItem('MARKETPLACE_MODULES', res.data.configs?.type);
             localStorage.setItem(
               'MARKETPLACE_FLAVOURS',
               res.data.configs?.sub_type
             );
+            localStorage.setItem(
+              'THEME',
+              res.data.configs?.theme
+            );
             TYPE_CONSTANT.MARKETPLACE_MODULES = res.data.configs?.type;
             TYPE_CONSTANT.MARKETPLACE_FLAVOURS = res.data.configs?.sub_type;
+            TYPE_CONSTANT.THEME = res.data.configs?.theme;
 
             // favicon set
             setFavicon(res?.data?.configs?.web_icon);

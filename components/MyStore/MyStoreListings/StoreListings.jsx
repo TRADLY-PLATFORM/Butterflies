@@ -81,7 +81,7 @@ const StoreListings = ({ my_store_listings, my_stores }) => {
               onClick={() => {
                 if (item.active) {
                   item.slug
-                    ? router.push(`/l/${item.slug}?listing_id=${item.id}`)
+                    ? router.push(`/l/${item.slug}`)
                     : router.push(
                         `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
                       );
