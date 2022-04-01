@@ -22,6 +22,7 @@ const AddListing = () => {
       );
     }
 
+    
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
