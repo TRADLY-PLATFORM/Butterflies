@@ -229,6 +229,8 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
             <ProductButtons
               listing_details={listing_details}
               selectedVariant={selectedVariant}
+              setError_message={setError_message}
+              setShowError={setShowError}
             />
           </div>
           {listing_details?.account && (

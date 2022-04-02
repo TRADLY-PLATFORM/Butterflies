@@ -55,7 +55,7 @@
     "react-select": "^5.2.1",
     "react-show-more-text": "^1.5.2",
     "react-time-picker": "^4.4.4",
-    "rich-markdown-editor": "^11.21.3",
+    "rich-markdown-editor": "11.20.0",
     "sass": "^1.43.4",
     "scss": "^0.2.4",
     "sharp": "^0.29.3",

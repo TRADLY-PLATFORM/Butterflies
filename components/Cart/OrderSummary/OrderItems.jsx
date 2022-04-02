@@ -10,11 +10,13 @@ const OrderItems = ({ cart_details }) => {
         key={item.id}
       >
         <div className=" flex-none  relative  min-h-[100px] ">
-          <img
-            src={getThumbnailImage(item.listing.images[0])}
-            className="w-[100px] h-full  object-fill"
-            alt="Order Items"
-          />
+          {item.listing?.images?.length > 0 && (
+            <img
+              src={getThumbnailImage(item.listing.images[0])}
+              className="w-[100px] h-full  object-fill"
+              alt="Order Items"
+            />
+          )}
         </div>
         <div className=" flex flex-grow flex-col justify-around py-2">
           <div>

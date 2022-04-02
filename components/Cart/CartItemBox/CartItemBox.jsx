@@ -13,6 +13,7 @@ import {
 import PopUp from '../../Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { configsSelector } from '../../../store/feature/configsSlice';
+import { TYPE_CONSTANT } from '../../../constant/Web_constant';
 
 const CartItemBox = ({ cart, cart_details }) => {
   const [showError, setShowError] = useState(false);
@@ -130,7 +131,7 @@ const CartItemBox = ({ cart, cart_details }) => {
               <p className=" text-base text-black font-semibold mt-[2px]">
                 {cartItem.listing.title}
               </p>
-              {!cartItem.listing?.account.name && (
+              { TYPE_CONSTANT.MARKETPLACE_FLAVOURS !== 2 && cartItem?.listing?.account.name && (
                 <p className=" mt-[8px] text-default_gray text-xs font-medium flex flex-wrap items-center">
                   {' '}
                   by {cartItem.listing?.account.name}

@@ -430,7 +430,7 @@ const AddProductForm = () => {
               />
             </div>
           </div>
-          {variantsType?.length > 0 && MARKETPLACE_MODULES == 2 && (
+          {variantsType?.length > 0 && (
             <>
               <h3 className=" font-semibold mt-9 text-[#121212] text-xl mb-4">
                 Variants

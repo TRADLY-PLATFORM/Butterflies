@@ -15,7 +15,7 @@ const MarkdownEditor = ({ oldValue, setMarkdownValue }) => {
       <div className="">
         <article className="prose  prose-red max-w-full	">
           <Editor
-            className="event
+            className="
                     relative mt-0
                     block
                     w-full
@@ -29,13 +29,13 @@ const MarkdownEditor = ({ oldValue, setMarkdownValue }) => {
               const text = value();
               setMarkdownValue(text);
             }, 250)}
-            tooltip={'right'}
-            placeholder="Write from here"
+             placeholder="Write from here"
             style={{
-              height: '220px',
+              height: '300px',
               overflow: 'auto',
               justifyContent: 'start',
             }}
+            autoFocus
           />
         </article>
       </div>
