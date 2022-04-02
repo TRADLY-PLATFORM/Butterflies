@@ -80,7 +80,7 @@ import SaasAddReviewPageLayout from './themes/saas/AddReviewPageLayout';
 module.exports = {
   // home Page
   home_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -126,7 +126,7 @@ module.exports = {
 
   //Listing Categories Page:
   all_listing_categories_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -171,7 +171,7 @@ module.exports = {
   },
   //all_listings_page Page:
   all_listings_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -217,7 +217,7 @@ module.exports = {
 
   // Similar All Listing Page:
   similar_all_listings_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -263,7 +263,7 @@ module.exports = {
 
   // Category Listings Page:
   category_listings_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout>
@@ -309,7 +309,7 @@ module.exports = {
 
   // listing_details_page:
   listing_details_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout>
@@ -344,12 +344,10 @@ module.exports = {
       default:
         return (
           <ProductMainLayout>
-            <ProductMainLayout>
-              <ProductDetailsPageLayout
-                pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
-                pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
-              />
-            </ProductMainLayout>
+            <ProductDetailsPageLayout
+              pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
+              pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
+            />
           </ProductMainLayout>
         );
     }
@@ -357,7 +355,7 @@ module.exports = {
 
   // all_accounts_page:
   all_accounts_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -403,7 +401,7 @@ module.exports = {
 
   // accounts_details_page:
   accounts_details_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -449,7 +447,7 @@ module.exports = {
 
   // accounts_details_page:
   checkout_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -485,7 +483,7 @@ module.exports = {
 
   // my_store_page
   my_store_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -531,7 +529,7 @@ module.exports = {
 
   // create_store_page
   create_store_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -577,7 +575,7 @@ module.exports = {
 
   // edit_store_page
   edit_store_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -623,7 +621,7 @@ module.exports = {
 
   // add_listing_page
   add_listing_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -669,7 +667,7 @@ module.exports = {
 
   // edit_listing_page
   edit_listing_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -715,7 +713,7 @@ module.exports = {
 
   // edit_profile_page
   edit_profile_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -760,7 +758,7 @@ module.exports = {
   },
   // search_page
   search_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -806,7 +804,7 @@ module.exports = {
 
   // account orders
   account_orders: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -852,7 +850,7 @@ module.exports = {
 
   // account order details
   account_order_details: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -898,7 +896,7 @@ module.exports = {
 
   // orders
   orders: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -944,7 +942,7 @@ module.exports = {
 
   // order details
   order_details: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -990,7 +988,7 @@ module.exports = {
 
   // Add review
   add_review: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -1036,7 +1034,7 @@ module.exports = {
 
   // Invite page
   Invite_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
@@ -1072,7 +1070,7 @@ module.exports = {
 
   // Payout  page
   payout_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout>
@@ -1101,7 +1099,7 @@ module.exports = {
   },
   // Wishlist  page
   wishlist_page: () => {
-    switch (Number(TYPE_CONSTANT.MARKETPLACE_MODULES)) {
+    switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout

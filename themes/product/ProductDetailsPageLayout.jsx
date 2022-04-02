@@ -28,6 +28,7 @@ import ReactPaginate from 'react-paginate';
 import RelatedListings from '../../components/ListingDetails/RelatedListing/RelatedListings';
 import AccountListings from '../../components/ListingDetails/AccountListings/AccountListings';
 import { check_login } from '../../components/../constant/check_auth';
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
 const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -47,18 +48,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           authKey: auth_key,
         })
       );
-      dispatch(
-        getListingReviews({
-          authKey: auth_key,
-          params: {
-            type: 'listings',
-            id: router?.query?.listing_id
-              ? router?.query?.listing_id
-              : router?.query.id.split('-')[0],
-            page: 1,
-          },
-        })
-      );
+      
     }
   }, [auth_key, dispatch, router?.query.id]);
 
@@ -73,6 +63,21 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     review_page,
     review_total_records,
   } = useSelector(listingSelector);
+
+  useEffect(() => {
+    if (listing_details) {
+      dispatch(
+        getListingReviews({
+          authKey: auth_key,
+          params: {
+            type: 'listings',
+            id: listing_details.id,
+            page: 1,
+          },
+        })
+      );
+    }
+  },[listing_details])
 
   // Button Handle
   const like = (id, isLiked) => {
@@ -147,9 +152,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         authKey: auth_key,
         params: {
           type: 'listings',
-          id: router?.query?.listing_id
-            ? router?.query?.listing_id
-            : router?.query.id.split('-')[0],
+          id: listing_details.id,
           page: Number(data.selected) + 1,
           per_page: 30,
         },
@@ -226,6 +229,8 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
             <ProductButtons
               listing_details={listing_details}
               selectedVariant={selectedVariant}
+              setError_message={setError_message}
+              setShowError={setShowError}
             />
           </div>
           {listing_details?.account && (
@@ -260,6 +265,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           {reviews && reviews?.length > 0 && (
             <div className="mt-6">
               <ReviewBox
+                listing_details={listing_details}
                 rating_data={rating_data}
                 reviews={reviews}
                 review_page={review_page}
@@ -326,14 +332,16 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
       </div>
       <div className="pb-10  flex flex-col justify-center items-center   c-md:mx-auto        c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px]  ">
         <div className=" w-[100vw] ms:w-[400px] md:w-full  mt-6">
-          <RelatedListings />
+          <RelatedListings listing_details={listing_details} />
         </div>
-        <div className=" w-[100vw] ms:w-[400px] md:w-full  mt-6 ">
-          <AccountListings
-            account_id={listing_details?.account_id}
-            account={listing_details?.account}
-          />
-        </div>
+        {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 && (
+          <div className=" w-[100vw] ms:w-[400px] md:w-full  mt-6 ">
+            <AccountListings
+              account_id={listing_details?.account_id}
+              account={listing_details?.account}
+            />
+          </div>
+        )}
       </div>
     </>
   );

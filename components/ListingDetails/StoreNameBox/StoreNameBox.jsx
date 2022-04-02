@@ -45,7 +45,7 @@ const StoreNameBox = ({ account }) => {
           href={{
             pathname: '/a/[id]',
             query: {
-              id: `${account?.id}-${account?.name.replace(/\s/g, '-')}`,
+              id: account?.slug?account?.slug:`${account?.id}-${account?.name.replace(/\s/g, '-')}`,
               page: 1,
             },
           }}

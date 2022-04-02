@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import Cookies from 'js-cookie'
 var CryptoJS = require('crypto-js')
 const { cookie_name } = require('./url')

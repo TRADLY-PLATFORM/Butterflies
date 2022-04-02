@@ -18,7 +18,7 @@ const ListListingCard = ({ item, like }) => {
       <Link
         href={
           item.slug
-            ? `/l/${item.slug}?listing_id=${item.id}`
+            ? `/l/${item.slug}`
             : `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
         }
       >
@@ -93,7 +93,7 @@ const ListListingCard = ({ item, like }) => {
               </p>
             )}
             <p className=" text-[14px]  ms:text-[16px] mb-[14px] leading-4 font-medium text-gray-500 mt-3">
-              {MARKETPLACE_MODULES == 3
+              {MARKETPLACE_MODULES == 3 && TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1  
                 ? `By ${
                     item.account.name.length > 20
                       ? item.account.name.substring(0, 18) + '..'

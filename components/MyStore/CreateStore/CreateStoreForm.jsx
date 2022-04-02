@@ -17,15 +17,17 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { create_store_click } from './createButton';
 import { useRouter } from 'next/dist/client/router';
 import { route } from 'next/dist/server/router';
+import Markdown_Editor from '../../Shared/MarkdownEditor';
 
 const CreateStoreForm = ({ accounts_configs }) => {
   const [imagePath, setImagePath] = useState(null);
   const [files, setFiles] = useState(null);
   const [name, setName] = useState(null);
+  const [slug, setSlug] = useState('');
   const [coordinates, setCoordinates] = useState(null);
   const [category, setCategory] = useState(null);
   const [attributeData, setAttributeData] = useState(null);
-  const [description, setDescription] = useState(null);
+  const [description, setDescription] = useState(" ");
 
   const [showError, setShowError] = useState(false);
   const [error_message, setError_message] = useState('');
@@ -163,8 +165,25 @@ const CreateStoreForm = ({ accounts_configs }) => {
           />
         </label>
         <label className="block">
+          <span className="text-gray-700">Account Slug</span>
+          <input
+            type="text"
+            className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+            placeholder=""
+            onChange={(e) => setSlug(e.target.value)}
+          />
+        </label>
+
+        <label className="block">
           <span className="text-gray-700">Description</span>
-          <textarea
+          {/* <textarea
             className="
                     mt-0
                     block
@@ -175,7 +194,11 @@ const CreateStoreForm = ({ accounts_configs }) => {
                   "
             rows="2"
             onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
+          ></textarea> */}
+          <Markdown_Editor
+            oldValue={description}
+            setMarkdownValue={setDescription}
+          />
         </label>
 
         {accounts_configs?.account_address_enabled && (
@@ -224,6 +247,7 @@ const CreateStoreForm = ({ accounts_configs }) => {
             create_store_click(
               files,
               name,
+              slug,
               description,
               coordinates,
               category,

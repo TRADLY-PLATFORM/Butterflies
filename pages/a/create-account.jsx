@@ -7,6 +7,8 @@ import { create_store_page } from '../../tradly.config';
  import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
 import { check_login } from '../../constant/check_auth';
+import { check_flavours } from '../../constant/check_flavours';
+import Error from 'next/error';
 
 const CreateAccount = ( ) => {
   const dispatch = useDispatch();
@@ -26,7 +28,11 @@ const CreateAccount = ( ) => {
 
   const router = useRouter();
 
-  return check_login(router) && create_store_page();
+  return check_flavours(2) ? (
+    <Error statusCode={404} />
+  ) : (
+    check_login(router) && create_store_page()
+  );
 };
 
 export default CreateAccount;

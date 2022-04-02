@@ -22,7 +22,7 @@ const AccountDetailsPageLayout = () => {
   const { auth_key } = useSelector(authSelector);
 
   useEffect(() => {
-    axios.get(`/api/a/${router.query.id.split('-')[0]}`).then((res) => {
+    axios.get(`/api/a/${router.query.id}`).then((res) => {
       setAccount_details(res.data.account);
     });
   }, [router.query]);

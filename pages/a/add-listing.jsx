@@ -8,6 +8,8 @@ import { useRouter } from 'next/dist/client/router';
 import { add_listing_page } from '../../tradly.config';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import { check_login } from '../../constant/check_auth';
+import Error from 'next/error';
+import { check_flavours } from '../../constant/check_flavours';
 
 const AddListing = () => {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const AddListing = () => {
       );
     }
 
+    
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
@@ -31,7 +34,11 @@ const AddListing = () => {
 
   const router = useRouter();
 
-  return check_login(router) && add_listing_page();
+  return check_flavours(2) ? (
+    <Error statusCode={404} />
+  ) : (
+    check_login(router) && add_listing_page()
+  );
 };
 
 export default AddListing;

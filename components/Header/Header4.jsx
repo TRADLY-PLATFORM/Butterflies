@@ -178,7 +178,7 @@ function Header4() {
             {login ? (
               <ul className="flex flex-grow justify-end flex-wrap items-center gap-3">
                 <SearchBox />
-                <StoreButton />
+               {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 && <StoreButton />}
                 <HeaderProfile />
               </ul>
             ) : (

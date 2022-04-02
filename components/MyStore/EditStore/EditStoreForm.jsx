@@ -26,6 +26,7 @@ const EditStoreForm = ({
   const [imagePath, setImagePath] = useState(null);
   const [files, setFiles] = useState(null);
   const [name, setName] = useState(null);
+  const [slug, setSlug] = useState('');
   const [coordinates, setCoordinates] = useState(null);
   const [category, setCategory] = useState(null);
   const [attributeData, setAttributeData] = useState(null);
@@ -46,13 +47,14 @@ const EditStoreForm = ({
   }, [0]);
 
   useEffect(() => {
-    my_account_details.images.length > 0 &&
+    my_account_details?.images.length > 0 &&
       setImagePath({
-        path: my_account_details.images[0],
+        path: my_account_details?.images[0],
       });
-    setName(my_account_details.name);
+    setName(my_account_details?.name);
+    setSlug(my_account_details?.slug);
     my_account_details?.description &&
-      setDescription(my_account_details.description);
+      setDescription(my_account_details?.description);
     setCoordinates({
       latitude: my_account_details?.coordinates?.latitude,
       longitude: my_account_details?.coordinates?.longitude,
@@ -72,7 +74,7 @@ const EditStoreForm = ({
         })
       );
 
-    if (my_account_details.attributes.length > 0) {
+    if (my_account_details?.attributes.length > 0) {
       setAttributeData(
         my_account_details?.attributes?.map((attr) => {
           if (attr.field_type === 1 || attr.field_type === 2) {
@@ -221,6 +223,23 @@ const EditStoreForm = ({
           />
         </label>
         <label className="block">
+          <span className="text-gray-700">Listing Slug</span>
+          <input
+            value={slug}
+            type="text"
+            className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+            placeholder=""
+            onChange={(e) => setSlug(e.target.value)}
+          />
+        </label>
+        <label className="block">
           <span className="text-gray-700">Description</span>
           <textarea
             value={description}
@@ -295,6 +314,7 @@ const EditStoreForm = ({
               files,
               imagePath,
               name,
+              slug,
               description,
               coordinates,
               category,

@@ -1,8 +1,10 @@
 import { useRouter } from 'next/dist/client/router';
-import  { useEffect } from 'react';
-import { useDispatch,   } from 'react-redux';
-  import { check_login } from '../../../constant/check_auth';
-import {  refreshPage } from '../../../store/feature/authSlice';
+import Error from 'next/error';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { check_login } from '../../../constant/check_auth';
+import { check_flavours } from '../../../constant/check_flavours';
+import { refreshPage } from '../../../store/feature/authSlice';
 import { account_order_details } from '../../../tradly.config';
 
 const OrderDetails = () => {
@@ -19,7 +21,11 @@ const OrderDetails = () => {
 
   const router = useRouter();
 
-  return check_login(router) && account_order_details();
+  return check_flavours(2) ? (
+    <Error statusCode={404} />
+  ) : (
+    check_login(router) && account_order_details()
+  );
 };
 
 export default OrderDetails;

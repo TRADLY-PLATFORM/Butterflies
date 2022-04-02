@@ -83,7 +83,9 @@ const AccountListings = ({ account_id, account }) => {
                 href={{
                   pathname: '/a/[id]',
                   query: {
-                    id: `${account_id}-${account?.name.replace(/\s/g, '-')}`,
+                    id: account?.slug
+                      ? account.slug
+                      : `${account_id}-${account?.name.replace(/\s/g, '-')}`,
                     page: 1,
                   },
                 }}

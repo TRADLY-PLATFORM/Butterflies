@@ -24,7 +24,7 @@ import {
 import { useRouter } from 'next/dist/client/router';
 import { check_login } from '../../../constant/check_auth';
 
-const ReviewBox = ({ rating_data, reviews, review_page }) => {
+const ReviewBox = ({listing_details, rating_data, reviews, review_page }) => {
   const { auth_key, login } = useSelector(authSelector);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -53,9 +53,7 @@ const ReviewBox = ({ rating_data, reviews, review_page }) => {
                 authKey: auth_key,
                 params: {
                   type: 'listings',
-                  id: router?.query?.listing_id
-                    ? router?.query?.listing_id
-                    : router?.query.id.split('-')[0],
+                  id: listing_details.id,
                   page: review_page,
                   per_page: 30,
                 },

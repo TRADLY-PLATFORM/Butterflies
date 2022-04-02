@@ -13,9 +13,13 @@ import PopUp from '../../Shared/PopUp/PopUp';
 import CustomLoading from '../../Shared/Loading/CustomLoading';
 import { listingDetails } from '../../../store/feature/listingSlice';
 
-const ProductButtons = ({ listing_details, selectedVariant }) => {
-  const [showError, setShowError] = useState(false);
-  const [error_message, setError_message] = useState('');
+const ProductButtons = ({
+  listing_details,
+  selectedVariant,
+  setError_message,
+  setShowError,
+}) => {
+  console.log(selectedVariant);
 
   const { login, auth_key } = useSelector(authSelector);
   const { isFetching, isSuccess, isError, errorMessage } =
@@ -30,6 +34,9 @@ const ProductButtons = ({ listing_details, selectedVariant }) => {
           quantity: 1,
         },
       };
+      if (selectedVariant !== null) {
+        cartData.cart['variant_id'] = selectedVariant;
+      }
       dispatch(addToCart({ authKey: auth_key, data: cartData })).then((res) => {
         if (!res.payload.code) {
           router.push('/checkout');
@@ -39,10 +46,12 @@ const ProductButtons = ({ listing_details, selectedVariant }) => {
       const cartData = {
         cart: {
           listing_id: listing_details.id,
-          variant_id: selectedVariant,
           quantity: 1,
         },
       };
+      if (selectedVariant !== null) {
+        cartData.cart['variant_id'] = selectedVariant;
+      }
       dispatch(addToCart({ authKey: auth_key, data: cartData })).then((res) => {
         if (!res.payload.code) {
           dispatch(
@@ -62,24 +71,6 @@ const ProductButtons = ({ listing_details, selectedVariant }) => {
   };
   return (
     <>
-      {(isError || showError) && (
-        <OutsideClickHandler
-          onOutsideClick={() => {
-            (isError || showError) && setShowError(false),
-              setError_message(''),
-              dispatch(clearCartState());
-          }}
-        >
-          <div className="fixed z-50 top-0 left-0  w-screen mt-5 ">
-            <div className="w-full  xs:w-[500px] mx-auto">
-              <PopUp
-                message={errorMessage || error_message}
-                closePopUP={closePopUP}
-              />
-            </div>
-          </div>
-        </OutsideClickHandler>
-      )}
       {isFetching && <CustomLoading />}
 
       <div className=" w-full  flex justify-between items-center">

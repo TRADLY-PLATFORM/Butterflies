@@ -29,27 +29,27 @@ import Link from 'next/link';
 import { check_login } from '../../../constant/check_auth';
 import axios from 'axios';
 
-const RelatedListings = () => {
+const RelatedListings = ({listing_details}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { auth_key, login } = useSelector(authSelector);
 
   const [related_listings, setRelated_listings] = useState(null);
   useEffect(() => {
-    axios
-      .get('/api/l/similar', {
-        params: {
-          page: 1,
-          per_page: 30,
-          id: router?.query?.listing_id
-            ? router?.query?.listing_id
-            : router?.query.id.split('-')[0],
-        },
-      })
-      .then((res) => {
-        setRelated_listings(res.data.listings);
-      });
-  }, [router]);
+    if (listing_details) {
+      axios
+        .get('/api/l/similar', {
+          params: {
+            page: 1,
+            per_page: 30,
+            id: listing_details?.id,
+          },
+        })
+        .then((res) => {
+          setRelated_listings(res.data.listings);
+        });
+    }
+  }, [listing_details]);
 
   // Button Handle
   const like = (id, isLiked) => {
@@ -67,9 +67,7 @@ const RelatedListings = () => {
               params: {
                 page: 1,
                 per_page: 30,
-                id: router?.query?.listing_id
-                  ? router?.query?.listing_id
-                  : router?.query.id.split('-')[0],
+                id: listing_details.id,
               },
             })
             .then((res) => {
@@ -91,11 +89,7 @@ const RelatedListings = () => {
               </p>
               <Link
                 href={{
-                  pathname: `/l/similar/${
-                    router?.query?.listing_id
-                      ? router?.query?.listing_id
-                      : router?.query.id.split('-')[0]
-                  }`,
+                  pathname: `/l/similar/${listing_details?.id}`,
                   query: { page: 1 },
                 }}
               >
