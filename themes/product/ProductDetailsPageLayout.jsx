@@ -221,6 +221,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
                 variants={listing_details.variants}
                 setSelectedVariant={setSelectedVariant}
                 selectedVariant={selectedVariant}
+                listing_details={listing_details}
               />
             </div>
           )}

@@ -30,7 +30,7 @@ const Variants = ({
               onClick={() => setSelectedVariant(item.id)}
             >
               <div className="h-[90px] w-[90px] relative">
-                {item.images.length > 0 ? (
+                {item?.images?.length > 0 ? (
                   <Image src={item.images[0]} layout="fill" />
                 ) : (
                   <Image src={listing_details.images[0]} layout="fill" />
