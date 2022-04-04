@@ -31,7 +31,11 @@ const AccountDetailsPageLayout = () => {
     if (account_details?.id) {
       axios
         .get('/api/l', {
-          params: { ...router.query, account_id: account_details.id },
+          params: {
+            ...router.query,
+            account_id: account_details.id,
+            status: 2,
+          },
         })
         .then((res) => {
           setListings(res.data.listings);
