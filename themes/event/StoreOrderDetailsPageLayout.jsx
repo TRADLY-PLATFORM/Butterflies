@@ -16,6 +16,7 @@ import PopUp from '../../components/Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
 import SuccessPopUp from '../../components/Shared/PopUp/Success';
 import Status from '../../components/MyStore/OrderDetails/StatusPart/Status';
+import Breadcrumb from '../../components/Shared/Breadcrumb';
 
 const StoreOrderDetailsPageLayout = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const StoreOrderDetailsPageLayout = () => {
     setSuccess_message('');
   };
 
-  return (
+  return order_details&&(
     <div>
       {showError && (
         <OutsideClickHandler
@@ -79,7 +80,19 @@ const StoreOrderDetailsPageLayout = () => {
           </div>
         </OutsideClickHandler>
       )}
-
+      {order_details && (
+        <div className="mb-2">
+          <Breadcrumb
+            lists={[
+              {
+                name: 'Orders',
+                link: `/a/orders?store_id=${router.query.store_id}&page=1`,
+              },
+              { name: `#${order_details?.reference_number}`, link: '' },
+            ]}
+          />
+        </div>
+      )}
       <div className=" flex">
         <h2 className=" text-xl sm:text-3xl font-semibold text-black">
           Order Reference{' '}
