@@ -109,8 +109,10 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           key="title"
         />
       </Head>
+
+      {/* Breadcrumb  */}
       {category_listings?.length > 0 && (
-        <div className='mb-2'>
+        <div className="mb-2">
           <Breadcrumb
             lists={[
               { name: 'Home', link: '/' },
@@ -123,9 +125,13 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           />
         </div>
       )}
+
+      {/* filter */}
       <div className=" mb-8 ">
         <Filter />
       </div>
+
+      {/* products */}
       {category_listings === null || category_listings?.length > 0 ? (
         <div>
           <NewProducts Products={category_listings} />

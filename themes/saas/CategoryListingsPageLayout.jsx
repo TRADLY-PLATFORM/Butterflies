@@ -109,6 +109,8 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           key="title"
         />
       </Head>
+
+           {/* Breadcrumb  */}
       {category_listings?.length > 0 && (
         <div className="mb-2">
           <Breadcrumb

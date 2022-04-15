@@ -126,8 +126,6 @@ const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
     }
   }, [coordinates_listings]);
 
- 
-
   //
   const reset_filter = () => {
     router.push({
@@ -160,6 +158,8 @@ const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           key="title"
         />
       </Head>
+
+      {/* Breadcrumb  */}
       {category_listings?.length > 0 && (
         <div className="mb-2">
           <Breadcrumb
@@ -174,6 +174,8 @@ const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           />
         </div>
       )}
+
+      {/* Filter */}
       <div className="mb-8 flex items-center justify-between ">
         <ExploreFilter hidden_category={true} reset_filter={reset_filter} />
         <ListingsView
@@ -181,6 +183,8 @@ const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           setSelected_type={setSelected_type}
         />
       </div>
+
+      
       {category_listings === null || category_listings?.length > 0 ? (
         <div>
           <div>

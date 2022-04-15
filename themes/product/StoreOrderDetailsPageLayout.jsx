@@ -85,6 +85,7 @@ const StoreOrderDetailsPageLayout = () => {
           </OutsideClickHandler>
         )}
 
+     {/* Breadcrumb  */}
         {order_details && (
           <div className="mb-2">
             <Breadcrumb
