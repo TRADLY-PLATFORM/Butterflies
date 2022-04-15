@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { storeSelector } from '../../../../store/feature/storeSlice';
+import { stock_text } from '../../../Shared/Constant/TextConstant/addlistingConstant';
+import { TYPE_CONSTANT } from '../../../../constant/Web_constant';
 
 const AddVariantsForm = ({
   variantsType,
@@ -277,7 +279,10 @@ const AddVariantsForm = ({
           </label>
         )}
         <label className="block">
-          <span className="text-gray-700">Tickets</span>
+          <span className="text-gray-700">
+            {' '}
+            {stock_text(TYPE_CONSTANT.MARKETPLACE_MODULES)}
+          </span>
           <input
             type="number"
             className="

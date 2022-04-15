@@ -117,7 +117,105 @@ const CartItemBox = ({ cart, cart_details }) => {
       )}
 
       {cart_details.map((cartItem) => {
-        return (
+        return cartItem.variant ? (
+          <div
+            className=" w-full border border-primary rounded-lg px-[24px] py-[16px] flex items-center  mb-4"
+            key={cartItem.id}
+          >
+            <div className="flex-grow">
+              {listings_configs?.enable_stock && (
+                <p className=" text-xs  font-semibold leading-6 text-primary">
+                  {cartItem?.variant.stock} products in stock
+                </p>
+              )}
+              <p className=" text-base text-black font-semibold mt-[2px]">
+                {cartItem.listing.title}
+              </p>
+
+              <div className='flex flex-wrap items-center justify-start' >
+                {cartItem?.variant?.variant_values?.map((vr_value, index) => {
+                  return (
+                    <p
+                      key={vr_value.variant_type.id}
+                      className=" mt-[8px] text-default_gray text-xs font-medium flex flex-wrap items-center"
+                    >
+                      {vr_value.variant_type.name}:
+                      {vr_value.variant_type_value.name} {index !== 0 && ','}
+                    </p>
+                  );
+                })}
+              </div>
+
+              {TYPE_CONSTANT.MARKETPLACE_FLAVOURS !== 2 &&
+                cartItem?.listing?.account.name && (
+                  <p className=" mt-[8px] text-default_gray text-xs font-medium flex flex-wrap items-center">
+                    {' '}
+                    by {cartItem.listing?.account.name}
+                  </p>
+                )}
+              <p className=" mt-[11px] text-primary text-xs font-bold flex flex-wrap items-center">
+                <span className=" text-xs leading-6 font-medium   mr-2">
+                  {cartItem?.variant?.list_price.currency}
+                </span>
+                <span className="text-sm  ">
+                  {cartItem?.variant?.list_price.amount}
+                </span>
+              </p>
+            </div>
+            <div className="  flex-none   flex   items-center  gap-3">
+              <div className="  min-w-[90px] h-[32px] border border-primary rounded-[2px]  flex justify-between items-center ">
+                <button
+                  onClick={() =>
+                    updateCartQuantity(
+                      cartItem.listing,
+                      cartItem.quantity,
+                      false
+                    )
+                  }
+                  className=" w-[32px] h-[32px] bg-primary  rounded-l-sm flex justify-center items-center text-xl leading-6 font-medium text-white"
+                >
+                  -
+                </button>
+                <span className=" text-sm leading-4 font-medium text-[#4A4A4A] mx-3">
+                  {cartItem.quantity}
+                </span>
+                <button
+                  onClick={() =>
+                    updateCartQuantity(
+                      cartItem.listing,
+                      cartItem.quantity,
+                      true
+                    )
+                  }
+                  className="w-[32px] h-[32px] bg-primary  rounded-r-sm flex justify-center items-center text-xl leading-6 font-medium  text-white "
+                >
+                  +
+                </button>
+              </div>
+              <div className=" ">
+                <button
+                  className="w-[32px] h-[32px] bg-primary   flex justify-center items-center text-xl leading-6 font-medium  text-white  rounded"
+                  onClick={() => delete_cart(cartItem.listing.id)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
           <div
             className=" w-full border border-primary rounded-lg px-[24px] py-[16px] flex items-center  mb-4"
             key={cartItem.id}
@@ -131,12 +229,13 @@ const CartItemBox = ({ cart, cart_details }) => {
               <p className=" text-base text-black font-semibold mt-[2px]">
                 {cartItem.listing.title}
               </p>
-              { TYPE_CONSTANT.MARKETPLACE_FLAVOURS !== 2 && cartItem?.listing?.account.name && (
-                <p className=" mt-[8px] text-default_gray text-xs font-medium flex flex-wrap items-center">
-                  {' '}
-                  by {cartItem.listing?.account.name}
-                </p>
-              )}
+              {TYPE_CONSTANT.MARKETPLACE_FLAVOURS !== 2 &&
+                cartItem?.listing?.account.name && (
+                  <p className=" mt-[8px] text-default_gray text-xs font-medium flex flex-wrap items-center">
+                    {' '}
+                    by {cartItem.listing?.account.name}
+                  </p>
+                )}
               <p className=" mt-[11px] text-default_gray text-xs font-medium flex flex-wrap items-center">
                 <span className=" text-xs leading-6 font-medium text-default_gray mr-2">
                   {cartItem.listing.list_price.currency}

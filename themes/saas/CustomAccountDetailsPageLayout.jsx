@@ -10,6 +10,7 @@ import AccountListingsItem from '../../components/AccountDetails/AccountListings
 import AccountProfile from '../../components/AccountDetails/AccountProfile/AccountProfile';
 import CustomAccountProfile from '../../components/AccountDetails/AccountProfile/CustomAccountProfile';
 import CustomLoading from '../../components/Shared/Loading/CustomLoading';
+import Head from 'next/head';
 
 const CustomAccountDetailsPageLayout = () => {
   const [account_details, setAccount_details] = useState(null);
@@ -64,6 +65,18 @@ const CustomAccountDetailsPageLayout = () => {
   return (
     <div>
       {isDataLoading && <CustomLoading />}
+      {account_details && (
+        <Head>
+          <title>{account_details?.name}</title>
+          <meta name="description" content={account_details?.description} />
+
+          <meta
+            property="og:title"
+            content={account_details?.name}
+            key="title"
+          />
+        </Head>
+      )}
       {account_details !== null && (
         <div>
           <div>
