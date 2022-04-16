@@ -33,7 +33,12 @@ const CustomAccountDetailsPageLayout = () => {
     if (account_details?.id) {
       axios
         .get('/api/l', {
-          params: { page: 1, per_page: 30, account_id: account_details.id },
+          params: {
+            page: 1,
+            per_page: 30,
+            account_id: account_details.id,
+            status: 2,
+          },
         })
         .then((res) => {
           setListings(res.data.listings);

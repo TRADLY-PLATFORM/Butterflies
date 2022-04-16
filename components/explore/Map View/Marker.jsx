@@ -42,7 +42,7 @@ const MarkerListing = ({ item }) => {
         if (!res.payload.code) {
           dispatch(
             getAllListings({
-              prams: router.query,
+              prams: { ...router.query, status: 2 },
               authKey: auth_key,
             })
           );

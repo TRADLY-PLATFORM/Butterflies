@@ -24,7 +24,7 @@ const WishListPageLayout = () => {
   useEffect(() => {
     dispatch(
       getWishListListings({
-        prams: router.query,
+        prams: { ...router.query, status: 2 },
         authKey: auth_key,
       })
     );
