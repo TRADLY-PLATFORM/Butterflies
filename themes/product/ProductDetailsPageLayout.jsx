@@ -29,6 +29,7 @@ import RelatedListings from '../../components/ListingDetails/RelatedListing/Rela
 import AccountListings from '../../components/ListingDetails/AccountListings/AccountListings';
 import { check_login } from '../../components/../constant/check_auth';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
+import Breadcrumb from '../../components/Shared/Breadcrumb';
 
 const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -48,7 +49,6 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           authKey: auth_key,
         })
       );
-      
     }
   }, [auth_key, dispatch, router?.query.id]);
 
@@ -77,7 +77,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         })
       );
     }
-  },[listing_details])
+  }, [listing_details]);
 
   // Button Handle
   const like = (id, isLiked) => {
@@ -164,14 +164,34 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     <>
       {listing_details && (
         <Head>
-          <title>{seoTitle(pageTitle)}</title>
+          <title>
+            {listing_details.meta_title
+              ? listing_details.meta_title
+              : listing_details.title}
+          </title>
           <meta
             name="description"
-            content={`${seoDescription(pageDescription)}`}
+            content={
+              listing_details.meta_description
+                ? listing_details.meta_description
+                : listing_details.description
+            }
+          />
+          <meta
+            name="keywords"
+            content={
+              listing_details.meta_keyword
+                ? listing_details.meta_keyword
+                : listing_details.title
+            }
           />
           <meta
             property="og:title"
-            content={`${seoTitle(pageTitle)}`}
+            content={
+              listing_details.meta_title
+                ? listing_details.meta_title
+                : listing_details.title
+            }
             key="title"
           />
         </Head>
@@ -195,7 +215,24 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
           </div>
         </OutsideClickHandler>
       )}
-
+      {listing_details && (
+        <div>
+          <Breadcrumb
+            lists={[
+              { name: 'Home', link: '/' },
+              { name: 'Categories', link: '/lc' },
+              {
+                name: listing_details?.categories[0].name,
+                link: `/lc/${listing_details?.categories[0].name}?category_id=${listing_details.category_id[0]}&page=1`,
+              },
+              {
+                name: listing_details?.title,
+                link: '',
+              },
+            ]}
+          />
+        </div>
+      )}
       <div className="flex flex-col justify-center items-center c-md:flex-row  c-md:justify-between c-md:items-start  c-md:mx-auto  md:pt-[20px]  md:pb-[20px] c-md:max-w-[824px]   lg:max-w-[1024px]  xl:max-w-[1224px] ">
         <div className=" w-screen ms:w-[400px] lg:w-[500px] xl:w-[600px]">
           <div>

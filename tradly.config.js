@@ -313,20 +313,14 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout>
-            <ProductDetailsPageLayout
-              pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
-              pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
-            />
+            <ProductDetailsPageLayout />
           </ProductMainLayout>
         );
         break;
       case 2:
         return (
           <EventMainLayout>
-            <EventDetailsPageLayout
-              pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
-              pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
-            />
+            <EventDetailsPageLayout />
           </EventMainLayout>
         );
         break;
@@ -404,30 +398,21 @@ module.exports = {
     switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
-          <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
-          >
+          <ProductMainLayout>
             <ProductAccountDetailsPageLayout />
           </ProductMainLayout>
         );
         break;
       case 2:
         return (
-          <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
-          >
+          <EventMainLayout>
             <EventAccountDetailsPageLayout />
           </EventMainLayout>
         );
         break;
       case 3:
         return (
-          <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
-          >
+          <SaasMainLayout>
             <CustomAccountDetailsPageLayout />
           </SaasMainLayout>
         );
@@ -445,14 +430,14 @@ module.exports = {
     }
   },
 
-  // accounts_details_page:
+  // checkout_page:
   checkout_page: () => {
     switch (Number(TYPE_CONSTANT.THEME)) {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
-            pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <CheckoutPageLayout />
           </ProductMainLayout>
@@ -461,8 +446,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
-            pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <EventCheckoutPageLayout />
           </EventMainLayout>
@@ -472,8 +457,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <CheckoutPageLayout />
           </ProductMainLayout>
@@ -487,8 +472,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductMyStorePageLayout />
           </ProductMainLayout>
@@ -533,8 +518,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductCreateStorePageLayout />
           </ProductMainLayout>
@@ -579,8 +564,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductEditStorePageLayout />
           </ProductMainLayout>
@@ -625,8 +610,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <AddListingPageLayout />
           </ProductMainLayout>
@@ -671,8 +656,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductEditProductPageLayout />
           </ProductMainLayout>
@@ -717,8 +702,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductEditProfilePageLayout />
           </ProductMainLayout>
@@ -762,8 +747,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductSearchPageLayout />
           </ProductMainLayout>
@@ -808,8 +793,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductStoreOrdersPageLayout />
           </ProductMainLayout>
@@ -854,8 +839,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductStoreOrderDetailsPageLayout />
           </ProductMainLayout>
@@ -900,8 +885,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductOrdersPageLayout />
           </ProductMainLayout>
@@ -946,8 +931,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductOrderDetailsPageLayout />
           </ProductMainLayout>
@@ -992,8 +977,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductAddReviewPageLayout />
           </ProductMainLayout>
@@ -1038,8 +1023,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_ACCOUNT_TITLE}
-            pageDescription={TYPE_CONSTANT.META_ACCOUNT_DESCRIPTIONS}
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
           >
             <ProductInvitePageLayout />
           </ProductMainLayout>

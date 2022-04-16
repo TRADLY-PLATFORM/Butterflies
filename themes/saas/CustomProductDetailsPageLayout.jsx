@@ -27,6 +27,7 @@ import RelatedListings from '../../components/ListingDetails/RelatedListing/Rela
 import { check_login } from '../../components/../constant/check_auth';
 import AccountListings from '../../components/ListingDetails/AccountListings/AccountListings';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
+import Breadcrumb from '../../components/Shared/Breadcrumb';
 
 const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
   const [showError, setShowError] = useState(false);
@@ -51,8 +52,6 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
 
   const { isSuccess, listing_details, rating_data, errorMessage, isError } =
     useSelector(listingSelector);
-
-  
 
   // Button Handle
   const like = (id, isLiked) => {
@@ -147,6 +146,24 @@ const CustomProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
         </OutsideClickHandler>
       )}
 
+      {listing_details && (
+        <div>
+          <Breadcrumb
+            lists={[
+              { name: 'Home', link: '/' },
+              { name: 'Categories', link: '/lc' },
+              {
+                name: listing_details?.categories[0].name,
+                link: `/lc/${listing_details?.categories[0].name}?category_id=${listing_details.category_id[0]}&page=1`,
+              },
+              {
+                name: listing_details?.title,
+                link: '',
+              },
+            ]}
+          />
+        </div>
+      )}
       <div className="   grid grid-cols-1  md:grid-cols-2 gap-5   md:pt-[20px] pb-[20px]    ">
         <div className="  ">
           <div>

@@ -14,6 +14,7 @@ import Head from 'next/head';
 import ReactPaginate from 'react-paginate';
 import NewProducts from '../../components/ProductsByCategory/NewProducts';
 import Filter from '../../components/ProductsByCategory/Filter';
+import Breadcrumb from '../../components/Shared/Breadcrumb';
 
 const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
   const [pageCount, setPageCount] = useState(0);
@@ -108,6 +109,22 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
           key="title"
         />
       </Head>
+
+           {/* Breadcrumb  */}
+      {category_listings?.length > 0 && (
+        <div className="mb-2">
+          <Breadcrumb
+            lists={[
+              { name: 'Home', link: '/' },
+              { name: 'Categories', link: '/lc' },
+              {
+                name: router.query.name,
+                link: ``,
+              },
+            ]}
+          />
+        </div>
+      )}
       <div className=" mb-8 ">
         <Filter />
       </div>

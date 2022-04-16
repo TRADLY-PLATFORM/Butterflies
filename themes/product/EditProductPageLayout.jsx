@@ -41,11 +41,11 @@ const EditProductPageLayout = () => {
         <div className=" bg-white  w-full  p-5 shadow-c-sm rounded-lg">
           {listing_configs !== null && <EditProductForm />}
         </div>
-        {MARKETPLACE_MODULES == 2 && (
+        {
           <div className="    w-[full  mt-9">
             {listing_configs !== null && <EditVariantsPart />}
           </div>
-        )}
+        }
       </div>
       {MARKETPLACE_MODULES == 2 && (
         <div className=" mt-9  c-lg:mt-0   c-lg:ml-[20px] w-full   c-lg:w-[30%]">
