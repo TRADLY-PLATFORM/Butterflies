@@ -22,6 +22,7 @@ import tradly from 'tradly';
 import axios from 'axios';
 import Markdown_Editor from '../../Shared/MarkdownEditor';
 import Attribute3 from './Attribute3';
+import { fetch_all_categories } from '../../../constant/fetch_all_categories';
 
 const AddProductForm = () => {
   const [title, setTitle] = useState('');
@@ -45,6 +46,7 @@ const AddProductForm = () => {
   const [schedulesArray, setSchedulesArray] = useState(null);
   const [variantsArray, setVariantsArray] = useState(null);
   const [variantsType, setVariantsType] = useState(null);
+  const [allCategories, setAllCategories] = useState(null);
 
   const { auth_key } = useSelector(authSelector);
   const { genral_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
@@ -58,6 +60,14 @@ const AddProductForm = () => {
     listing_categories,
   } = useSelector(storeSelector);
 
+  // all_categories
+  useEffect(() => {
+    if (listing_categories?.length > 0) {
+      setAllCategories(fetch_all_categories(listing_categories));
+    }
+  }, [listing_categories]);
+
+  // variants
   useEffect(() => {
     axios.get('/api/variant').then((res) => {
       setVariantsType(res.data.variant_types);
@@ -125,6 +135,7 @@ const AddProductForm = () => {
     }
   };
 
+  // delete image
   const imageDelete = async (id) => {
     const ImagePathFilter = imagePath.filter((image) => image.id !== id);
     const filesFilter = files.filter((file) => file.id !== id);
@@ -140,28 +151,12 @@ const AddProductForm = () => {
     // }
   };
 
+  // pop up close
   const closePopUP = () => {
     dispatch(clearStoreState());
     setShowError(false);
     setError_message('');
   };
-
-  // function countDown(number) {
-  //   // display the number
-  //   console.log(number);
-
-  //   // decrease the number value
-  //   const newNumber = number - 1;
-
-  //   // base case
-  //   if (newNumber > 0) {
-  //     countDown(newNumber);
-  //   }
-  // }
-
-  // countDown(4);
-
-  //   console.log(listing_categories);
 
   return (
     <>
@@ -431,7 +426,7 @@ const AddProductForm = () => {
                 <option hidden selected>
                   Select Category
                 </option>
-                {listing_categories?.map((category) => (
+                {allCategories?.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
                   </option>
