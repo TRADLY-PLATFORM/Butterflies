@@ -353,7 +353,7 @@ const CheckoutPageLayout = () => {
             {cart && (
               <div className="flex justify-center  mt-6">
                 <button
-                  className=" w-5/6 bg-primary  rounded-full py-[12px] text-center text-base  text-white flex justify-center items-center font-semibold"
+                  className=" w-5/6 bg-primary  rounded-md py-[12px] text-center text-base  text-white flex justify-center items-center font-semibold"
                   onClick={clickCheckOut}
                 >
                   {isCheckoutFetching && (

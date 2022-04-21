@@ -21,6 +21,7 @@ import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstan
 import Markdown_Editor from '../../Shared/MarkdownEditor';
 import dynamic from 'next/dynamic';
 import Attribute3 from './Attribute3';
+import { fetch_all_categories } from '../../../constant/fetch_all_categories';
 
 const EditProductForm = () => {
   const [title, setTitle] = useState('');
@@ -43,6 +44,7 @@ const EditProductForm = () => {
   const [error_message, setError_message] = useState('');
   const [editProductLoading, setEditProductLoading] = useState(false);
   const [addressSearchKey, setAddressSearchKey] = useState('');
+  const [allCategories, setAllCategories] = useState(null);
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -64,6 +66,13 @@ const EditProductForm = () => {
   const router = useRouter();
   const accountId = router.query.account_id;
   const productId = router.query.product_id;
+
+  // all_categories
+  useEffect(() => {
+    if (listing_categories?.length > 0) {
+      setAllCategories(fetch_all_categories(listing_categories));
+    }
+  }, [listing_categories]);
 
   // Use Effect functions
   useEffect(() => {
@@ -520,7 +529,7 @@ const EditProductForm = () => {
             {/* <option hidden selected>
               Select Category
             </option> */}
-            {listing_categories?.map((category) => (
+            {allCategories?.map((category) => (
               <option
                 selected={category.id === selectedCategory ? true : false}
                 key={category.id}
