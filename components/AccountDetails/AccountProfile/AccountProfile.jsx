@@ -62,7 +62,7 @@ const AccountProfile = ({
             <p className=" text-default_gray text-sm">
               @{account_details?.user?.first_name}
             </p>
-            <p className=" mt-3 font-medium text-lg text-black flex flex-wrap  gap-x-10 gap-y-3">
+            <p className=" mt-3 font-medium text-base text-black flex flex-wrap  gap-x-10 gap-y-3">
               {account_details?.location && (
                 <a
                   href={`https://maps.google.com/?q=${account_details?.coordinates?.latitude},${account_details?.coordinates?.longitude}`}
@@ -98,14 +98,24 @@ const AccountProfile = ({
                   </a>
                 </a>
               )}
-              {account_details?.categories[0]?.name && (
+              {/* {account_details?.categories[0]?.name && (
                 <span>{account_details?.categories[0]?.name}</span>
-              )}
+              )} */}
               {Number(account_details?.total_followers) > 0 && (
-                <span>{account_details?.total_followers} Followers</span>
+                <span>
+                  {account_details?.total_followers}{' '}
+                  {Number(account_details?.total_followers) > 1
+                    ? 'Followers'
+                    : 'Follower'}
+                </span>
               )}
               {Number(account_details?.total_listings) > 0 && (
-                <span>{account_details?.total_listings} Listings</span>
+                <span>
+                  {account_details?.total_listings}{' '}
+                  {Number(account_details?.total_listings) > 1
+                    ? 'Listings'
+                    : 'Listing'}
+                </span>
               )}
             </p>
           </div>
