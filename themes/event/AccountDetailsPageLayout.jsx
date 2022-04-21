@@ -10,6 +10,7 @@ import AccountListingsItem from '../../components/AccountDetails/AccountListings
 import AccountProfile from '../../components/AccountDetails/AccountProfile/AccountProfile';
 import CustomLoading from '../../components/Shared/Loading/CustomLoading';
 import Head from 'next/head';
+import Breadcrumb from '../../components/Shared/Breadcrumb';
 
 const AccountDetailsPageLayout = () => {
   const [account_details, setAccount_details] = useState(null);
@@ -74,6 +75,19 @@ const AccountDetailsPageLayout = () => {
             key="title"
           />
         </Head>
+      )}
+      {account_details && (
+        <div>
+          <Breadcrumb
+            lists={[
+              { name: 'Home', link: '/' },
+              {
+                name: account_details?.name,
+                link: '',
+              },
+            ]}
+          />
+        </div>
       )}
       {account_details !== null && (
         <div>

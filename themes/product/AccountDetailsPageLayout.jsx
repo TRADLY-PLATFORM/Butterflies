@@ -10,6 +10,7 @@ import AccountListingsItem from '../../components/AccountDetails/AccountListings
 import AccountProfile from '../../components/AccountDetails/AccountProfile/AccountProfile';
 import CustomLoading from '../../components/Shared/Loading/CustomLoading';
 import Head from 'next/head';
+import Breadcrumb from '../../components/Shared/Breadcrumb';
 
 const AccountDetailsPageLayout = () => {
   const [account_details, setAccount_details] = useState(null);
@@ -75,6 +76,19 @@ const AccountDetailsPageLayout = () => {
           />
         </Head>
       )}
+      {account_details && (
+        <div>
+          <Breadcrumb
+            lists={[
+              { name: 'Home', link: '/' },
+              {
+                name: account_details?.name,
+                link: '',
+              },
+            ]}
+          />
+        </div>
+      )}
       {account_details !== null && (
         <div>
           <div>
@@ -84,9 +98,9 @@ const AccountDetailsPageLayout = () => {
               setIsDataLoading={setIsDataLoading}
             />
           </div>
-          <div>
+          {/* <div>
             <AccountDescription account_details={account_details} />
-          </div>
+          </div> */}
 
           <div className="py-5">
             {listings === null || listings?.length > 0 ? (

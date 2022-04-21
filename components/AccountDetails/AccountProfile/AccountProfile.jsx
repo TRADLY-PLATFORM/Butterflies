@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import banner from '../../../assets/Images/store/banner.png';
- import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/dist/client/router';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
- import axios from 'axios';
+import axios from 'axios';
 import { check_login } from '../../../constant/check_auth';
 import Image from 'next/image';
 
@@ -41,13 +41,8 @@ const AccountProfile = ({
 
   return (
     <div>
-      <div className=" hidden md:block  absolute w-[100%] h-[200px] right-0 top-0 mt-[160px]">
-        <Image
-          src={banner}
-           alt="banner"
-          layout='fill'
-          objectFit='cover'
-        />
+      <div className=" hidden md:block  absolute w-[100%] h-[200px] right-0 top-0 mt-[190px]">
+        <Image src={banner} alt="banner" layout="fill" objectFit="cover" />
       </div>
       <div className=" relative  w-full  min-h-[126px] px-[10px] sm:px-[40px] py-[20px] bg-white flex flex-col  xs:flex-row justify-between md:items-center rounded-[10px] shadow-c-xsm  md:mt-[130px]">
         <div className=" flex items-center">
@@ -56,7 +51,7 @@ const AccountProfile = ({
               <img
                 src={account_details?.images[0]}
                 className="w-[70px] h-[70px] rounded-full  object-cover"
-                  alt="banner"
+                alt="banner"
               />
             )}
           </div>
@@ -66,6 +61,52 @@ const AccountProfile = ({
             </p>
             <p className=" text-default_gray text-sm">
               @{account_details?.user?.first_name}
+            </p>
+            <p className=" mt-3 font-medium text-lg text-black flex flex-wrap  gap-x-10 gap-y-3">
+              {account_details?.location && (
+                <a
+                  href={`https://maps.google.com/?q=${account_details?.coordinates?.latitude},${account_details?.coordinates?.longitude}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <a
+                    href={`https://maps.apple.com/maps?q=${account_details?.coordinates?.latitude},${account_details?.coordinates?.longitude}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex  items-center gap-1 hover:text-primary"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                    {account_details?.location?.city}
+                  </a>
+                </a>
+              )}
+              {account_details?.categories[0]?.name && (
+                <span>{account_details?.categories[0]?.name}</span>
+              )}
+              {Number(account_details?.total_followers) > 0 && (
+                <span>{account_details?.total_followers} Followers</span>
+              )}
+              {Number(account_details?.total_listings) > 0 && (
+                <span>{account_details?.total_listings} Listings</span>
+              )}
             </p>
           </div>
         </div>
