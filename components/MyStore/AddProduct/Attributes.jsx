@@ -9,8 +9,13 @@ import Markdown_Editor from '../../Shared/MarkdownEditor';
 import { MultiSelect } from 'react-multi-select-component';
 import Editor from 'rich-markdown-editor';
 import debounce from 'lodash/debounce';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
+import { Switch } from '@headlessui/react';
 
-const Attribute3 = ({ attributeData, setAttributeData }) => {
+const Attributes = ({ attributeData, setAttributeData }) => {
   const { attributes } = useSelector(storeSelector);
 
   const { my_account_listing_details } = useSelector(storeSelector);
@@ -415,28 +420,74 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                   >
                     {attr.name}
                   </span>
-                  <article className="prose  prose-red	">
-                    <Editor
-                      className="event
-                    relative mt-0
+                  <Markdown_Editor
+                    oldValue={
+                      attributeData?.filter(
+                        (atData) => atData?.id === attr?.id
+                      )[0]?.values[0] || ' '
+                    }
+                    setMarkdownValue={(text) => {
+                      attributeData?.length > 0
+                        ? text.replace(/ /g, '').length > 0
+                          ? setAttributeData([
+                              { values: [text], id: attr?.id },
+                              ...attributeData?.filter(
+                                (filter_att) => filter_att?.id !== attr?.id
+                              ),
+                            ])
+                          : setAttributeData([
+                              ...attributeData?.filter(
+                                (filter_att) => filter_att?.id !== attr?.id
+                              ),
+                            ])
+                        : setAttributeData([{ values: [text], id: attr?.id }]);
+                    }}
+                  />
+                </label>
+              )}
+
+              {/* Field type 7 */}
+              {attr.field_type === 7 && (
+                <div className="  mt-6 ">
+                  <label className="block">
+                    <span
+                      className={
+                        attr.optional
+                          ? 'mb-3'
+                          : " after:content-['*'] text-red-500 after:-top-[5px] after:-right-[10px] "
+                      }
+                    >
+                      {attr.name}
+                    </span>
+                    <DatePicker
+                      selected={
+                        moment(
+                          attributeData
+                            ?.filter((atData) => atData?.id === attr?.id)[0]
+                            ?.values.toString()
+                        ).toDate() || new Date()
+                      }
+                      timeInputLabel="Time:"
+                      dateFormat="MM/dd/yyyy h:mm:ss"
+                      showTimeInput={true}
+                      className="
+                    mt-0
                     block
                     w-full
-                    px-0.5
+                    px-0.5 
                     border-0 border-b-2 border-gray-200 transition  duration-700
-                    hover:ring-0 hover:border-primary
-
+                    focus:ring-0 focus:border-primary
                   "
-                      defaultValue={
-                        attributeData?.filter(
-                          (atData) => atData?.id === attr?.id
-                        )[0]?.values[0] || ''
-                      }
-                      onChange={debounce((value) => {
-                        const text = value();
+                      onChange={(date) => {
                         attributeData?.length > 0
-                          ? text.replace(/ /g, '').length > 0
+                          ? date
                             ? setAttributeData([
-                                { values: [text], id: attr?.id },
+                                {
+                                  values: [
+                                    moment(date).format('yyyy-MM-DD HH:mm:ss'),
+                                  ],
+                                  id: attr?.id,
+                                },
                                 ...attributeData?.filter(
                                   (filter_att) => filter_att?.id !== attr?.id
                                 ),
@@ -447,19 +498,148 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
                                 ),
                               ])
                           : setAttributeData([
-                              { values: [text], id: attr?.id },
+                              {
+                                values: [
+                                  moment(date).format('yyyy-MM-DD HH:mm:ss'),
+                                ],
+                                id: attr?.id,
+                              },
                             ]);
-                      }, 250)}
-                      tooltip={'right'}
-                      placeholder="Write from here"
-                      style={{
-                        height: '150px',
-                        overflow: 'auto',
-                        justifyContent: 'start',
                       }}
                     />
-                  </article>
-                </label>
+                  </label>
+                </div>
+              )}
+
+              {/* Field type 8 */}
+
+              {attr.field_type === 8 && (
+                <div className=" mt-6 ">
+                  <label className="block">
+                    <span
+                      className={
+                        attr.optional
+                          ? ''
+                          : "after:content-['*'] text-red-500 after:-top-[5px] after:-right-[10px] "
+                      }
+                    >
+                      {' '}
+                      {attr.name}
+                    </span>
+                    <input
+                      value={attributeData
+                        ?.filter((atData) => atData?.id === attr?.id)[0]
+                        ?.values.toString()}
+                      type="number"
+                      className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+                      placeholder={'1234'}
+                      onChange={(e) => {
+                        attributeData?.length > 0
+                          ? e.target.value.replace(/ /g, '').length > 0
+                            ? setAttributeData([
+                                {
+                                  values: [e.target.value],
+                                  id: attr?.id,
+                                },
+                                ...attributeData?.filter(
+                                  (filter_att) => filter_att?.id !== attr?.id
+                                ),
+                              ])
+                            : setAttributeData([
+                                ...attributeData?.filter(
+                                  (filter_att) => filter_att?.id !== attr?.id
+                                ),
+                              ])
+                          : setAttributeData([
+                              {
+                                values: [e.target.value],
+                                id: attr?.id,
+                              },
+                            ]);
+                      }}
+                    />
+                  </label>
+                </div>
+              )}
+
+              {/* Field type 9*/}
+
+              {attr.field_type === 9 && (
+                <div className=" mt-6 ">
+                  <label className="block">
+                    <span
+                      className={
+                        attr.optional
+                          ? ''
+                          : "after:content-['*'] text-red-500 after:-top-[5px] after:-right-[10px] "
+                      }
+                    >
+                      {' '}
+                      {attr.name}
+                    </span>
+                    <div className="mt-2">
+                      <Switch
+                        checked={
+                          attributeData?.filter(
+                            (atData) => atData?.id === attr?.id
+                          )[0]?.values[0]
+                        }
+                        onChange={(value) => {
+                          attributeData?.length > 0
+                            ? value === true
+                              ? setAttributeData([
+                                  {
+                                    values: [value],
+                                    id: attr?.id,
+                                  },
+                                  ...attributeData?.filter(
+                                    (filter_att) => filter_att?.id !== attr?.id
+                                  ),
+                                ])
+                              : setAttributeData([
+                                  ...attributeData?.filter(
+                                    (filter_att) => filter_att?.id !== attr?.id
+                                  ),
+                                ])
+                            : value === true &&
+                              setAttributeData([
+                                {
+                                  values: [value],
+                                  id: attr?.id,
+                                },
+                              ]);
+                        }}
+                        className={`${
+                          attributeData?.filter(
+                            (atData) => atData?.id === attr?.id
+                          )[0]?.values[0]
+                            ? 'bg-primary'
+                            : 'bg-gray-400'
+                        }
+          relative inline-flex flex-shrink-0 h-[28px] w-[64px] border-2 border-primary rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`${
+                            attributeData?.filter(
+                              (atData) => atData?.id === attr?.id
+                            )[0]?.values[0]
+                              ? 'translate-x-9'
+                              : 'translate-x-0'
+                          }
+            pointer-events-none inline-block h-[24px] w-[24px] rounded-full bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
+                        />
+                      </Switch>
+                    </div>
+                  </label>
+                </div>
               )}
             </div>
           </>
@@ -469,4 +649,4 @@ const Attribute3 = ({ attributeData, setAttributeData }) => {
   );
 };
 
-export default Attribute3;
+export default Attributes;
