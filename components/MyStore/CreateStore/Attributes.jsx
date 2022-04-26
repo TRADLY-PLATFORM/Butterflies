@@ -10,13 +10,8 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import { Switch } from '@headlessui/react';
-import { SketchPicker, PhotoshopPicker } from 'react-color';
+import { SketchPicker } from 'react-color';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import { TYPE_CONSTANT } from '../../../constant/Web_constant';
-import CustomLoading from '../../Shared/Loading/CustomLoading';
-import Map from '../../Shared/Map';
-import MapPicker from 'react-google-map-picker';
 import Address_search from '../../Shared/Address_search';
 
 const Attributes = ({ attributeData, setAttributeData }) => {
