@@ -126,7 +126,10 @@ const EditProductForm = () => {
               attr.field_type === 6 ||
               attr.field_type === 7 ||
               attr.field_type === 8 ||
-              attr.field_type === 9
+              attr.field_type === 9 ||
+              attr.field_type === 10 ||
+              attr.field_type === 11 ||
+              attr.field_type === 12
             ) {
               return {
                 values: attr.values,

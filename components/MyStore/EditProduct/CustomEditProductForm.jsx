@@ -490,7 +490,7 @@ const CustomEditProductForm = () => {
         </div>
 
         <div>
-          <Attribute
+          <Attributes
             attributeData={attributeData}
             setAttributeData={setAttributeData}
           />
