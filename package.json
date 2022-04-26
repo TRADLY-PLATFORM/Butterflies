@@ -40,6 +40,8 @@
     "next-sitemap": "^1.6.203",
     "rc-slider": "^9.7.5",
     "react": "^17.0.2",
+    "react-color": "^2.19.3",
+    "react-datepicker": "^4.7.0",
     "react-dom": "^17.0.2",
     "react-gtm-module": "^2.0.11",
     "react-hook-form": "^7.18.1",
@@ -63,7 +65,7 @@
     "slugify": "^1.6.3",
     "styled-components": "^5.3.3",
     "swiper": "^6.8.3",
-    "tradly": "^1.0.49",
+    "tradly": "^1.0.50",
     "unified": "^10.1.0",
     "uuidv4": "^6.2.12"
   },

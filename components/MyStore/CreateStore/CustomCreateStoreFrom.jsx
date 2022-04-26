@@ -11,7 +11,7 @@ import {
 } from '../../../store/feature/storeSlice';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
-import Attribute from './Attribute';
+import Attributes from './Attributes';
 import PopUp from '../../Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { create_store_click } from './createButton';
@@ -213,7 +213,7 @@ const CustomCreateStoreForm = ({ accounts_configs }) => {
         )}
 
         <div>
-          <Attribute
+          <Attributes
             attributeData={attributeData}
             setAttributeData={setAttributeData}
           />
