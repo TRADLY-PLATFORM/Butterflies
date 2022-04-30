@@ -12,7 +12,7 @@ import moment from 'moment';
 import { Switch } from '@headlessui/react';
 import { SketchPicker, PhotoshopPicker } from 'react-color';
 import OutsideClickHandler from 'react-outside-click-handler';
- import Address_search from '../../Shared/Address_search';
+import Address_search from '../../Shared/Address_search';
 
 const Attributes = ({ attributeData, setAttributeData }) => {
   const { attributes } = useSelector(storeSelector);
@@ -22,8 +22,8 @@ const Attributes = ({ attributeData, setAttributeData }) => {
 
   // functions
 
-  const imageUploadClick = (id) => {
-    let fileInput = document.getElementById(`attachmentClick-${id}`);
+  const fileUploadClick = (id) => {
+    let fileInput = document.getElementById(`fileUploadClick-${id}`);
     fileInput.click();
   };
 
@@ -299,7 +299,7 @@ const Attributes = ({ attributeData, setAttributeData }) => {
                         <div className=" h-0 overflow-hidden">
                           <input
                             type="file"
-                            id={`attachmentClick-${attr.id}`}
+                            id={`fileUploadClick-${attr.id}`}
                             name="imageUpload"
                             onChange={(e) => {
                               attributeData?.length > 0
@@ -326,7 +326,7 @@ const Attributes = ({ attributeData, setAttributeData }) => {
                         </div>
                         <button
                           className=" flex flex-col items-center justify-center w-full p-3 border-2 border-dashed border-primary  "
-                          onClick={() => imageUploadClick(attr.id)}
+                          onClick={() => fileUploadClick(attr.id)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -463,12 +463,17 @@ const Attributes = ({ attributeData, setAttributeData }) => {
                     </span>
                     <DatePicker
                       selected={
-                        moment(
-                          attributeData
-                            ?.filter((atData) => atData?.id === attr?.id)[0]
-                            ?.values.toString()
-                        ).toDate() || new Date()
+                        attributeData
+                          ?.filter((atData) => atData?.id === attr?.id)[0]
+                          ?.values.toString()
+                          ? moment(
+                              attributeData
+                                ?.filter((atData) => atData?.id === attr?.id)[0]
+                                ?.values.toString()
+                            ).toDate()
+                          : null
                       }
+                      placeholderText="Set date and time"
                       timeInputLabel="Time:"
                       dateFormat="MM/dd/yyyy h:mm:ss"
                       showTimeInput={true}
@@ -753,7 +758,7 @@ const Attributes = ({ attributeData, setAttributeData }) => {
                         <div className=" h-0 overflow-hidden">
                           <input
                             type="file"
-                            id={`attachmentClick-${attr.id}`}
+                            id={`fileUploadClick-${attr.id}`}
                             name="imageUpload"
                             accept=".json"
                             onChange={(e) => {
@@ -794,7 +799,7 @@ const Attributes = ({ attributeData, setAttributeData }) => {
                         </div>
                         <button
                           className=" flex flex-col items-center justify-center w-full p-3 border-2 border-dashed border-primary  "
-                          onClick={() => imageUploadClick(attr.id)}
+                          onClick={() => fileUploadClick(attr.id)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
