@@ -11,7 +11,6 @@ import SearchAddress from './SearchAddress';
 import Image from 'next/image';
 import PopUp from '../../Shared/PopUp/PopUp';
 import { authSelector } from '../../../store/feature/authSlice';
-import Attribute from './Attribute';
 import { useRouter } from 'next/dist/client/router';
 import { edit_product_click } from './editProduct';
 import EditListingSuccess from './EditListingSuccess';
@@ -20,7 +19,7 @@ import { configsSelector } from '../../../store/feature/configsSlice';
 import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstant';
 import Markdown_Editor from '../../Shared/MarkdownEditor';
 import dynamic from 'next/dynamic';
-import Attribute3 from './Attribute3';
+import Attributes from './Attributes';
 import { fetch_all_categories } from '../../../constant/fetch_all_categories';
 
 const EditProductForm = () => {
@@ -116,13 +115,22 @@ const EditProductForm = () => {
                 id: attr.id,
                 values: attr.values.map((item) => item.id),
               };
-            } else if (
-              attr.field_type === 3 ||
-              attr.field_type === 4 ||
-              attr.field_type === 6
-            ) {
+            } else if (attr.field_type === 3 || attr.field_type === 4) {
               return { id: attr.id, values: attr.values.map((item) => item) };
             } else if (attr.field_type === 5) {
+              return {
+                values: attr.values,
+                id: attr.id,
+              };
+            } else if (
+              attr.field_type === 6 ||
+              attr.field_type === 7 ||
+              attr.field_type === 8 ||
+              attr.field_type === 9 ||
+              attr.field_type === 10 ||
+              attr.field_type === 11 ||
+              attr.field_type === 12
+            ) {
               return {
                 values: attr.values,
                 id: attr.id,
@@ -541,7 +549,7 @@ const EditProductForm = () => {
           </select>
         </label>
         <div>
-          <Attribute3
+          <Attributes
             attributeData={attributeData}
             setAttributeData={setAttributeData}
           />

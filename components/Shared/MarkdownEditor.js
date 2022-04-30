@@ -5,7 +5,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 const MarkdownEditor = ({ oldValue, setMarkdownValue }) => {
-  console.log(oldValue);
   const [default_value, setdefault_value] = useState(null);
   useEffect(() => {
     setdefault_value(oldValue);
@@ -29,7 +28,7 @@ const MarkdownEditor = ({ oldValue, setMarkdownValue }) => {
               const text = value();
               setMarkdownValue(text);
             }, 250)}
-             placeholder="Write from here"
+            placeholder="Write from here"
             style={{
               height: '300px',
               overflow: 'auto',

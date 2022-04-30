@@ -10,8 +10,7 @@ import SearchAddress from './SearchAddress';
 import Image from 'next/image';
 import PopUp from '../../Shared/PopUp/PopUp';
 import { authSelector } from '../../../store/feature/authSlice';
-import Attribute from './Attribute';
-import { useRouter } from 'next/dist/client/router';
+ import { useRouter } from 'next/dist/client/router';
 import { add_product_click } from './addProduct';
 import SchedulePart from './schedule/SchedulePart';
 import AddVariantForm from './Variants/AddVariantsForm';
@@ -21,7 +20,7 @@ import { stock_text } from '../../Shared/Constant/TextConstant/addlistingConstan
 import tradly from 'tradly';
 import axios from 'axios';
 import Markdown_Editor from '../../Shared/MarkdownEditor';
-import Attribute3 from './Attribute3';
+import Attributes from './Attributes';
 import { fetch_all_categories } from '../../../constant/fetch_all_categories';
 
 const AddProductForm = () => {
@@ -434,7 +433,7 @@ const AddProductForm = () => {
               </select>
             </label>
             <div>
-              <Attribute3
+              <Attributes
                 attributeData={attributeData}
                 setAttributeData={setAttributeData}
               />

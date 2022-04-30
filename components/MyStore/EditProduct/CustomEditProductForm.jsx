@@ -11,7 +11,7 @@ import SearchAddress from './SearchAddress';
 import Image from 'next/image';
 import PopUp from '../../Shared/PopUp/PopUp';
 import { authSelector } from '../../../store/feature/authSlice';
-import Attribute from './Attribute';
+import Attributes from './Attributes';
 import { useRouter } from 'next/dist/client/router';
 import { edit_product_click } from './editProduct';
 import EditListingSuccess from './EditListingSuccess';
@@ -490,7 +490,7 @@ const CustomEditProductForm = () => {
         </div>
 
         <div>
-          <Attribute
+          <Attributes
             attributeData={attributeData}
             setAttributeData={setAttributeData}
           />
