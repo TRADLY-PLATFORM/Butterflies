@@ -63,7 +63,7 @@ const AccountProfile = ({
               @{account_details?.user?.first_name}
             </p>
             <p className=" mt-3 font-medium text-base text-black flex flex-wrap  gap-x-10 gap-y-3">
-              {account_details?.location?city && (
+              {account_details?.location?.city && (
                 <a
                   href={`https://maps.google.com/?q=${account_details?.coordinates?.latitude},${account_details?.coordinates?.longitude}`}
                   target="_blank"
