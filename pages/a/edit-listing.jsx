@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshPage } from '../../store/feature/authSlice';
-import { setListingConfig } from '../../store/feature/storeSlice';
+import {
+  clearAccountListingDetails,
+  setListingConfig,
+} from '../../store/feature/storeSlice';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
 import { useRouter } from 'next/dist/client/router';
 import { edit_listing_page } from '../../tradly.config';
@@ -26,11 +29,18 @@ const EditListing = () => {
     const general_configs = JSON.parse(localStorage.getItem('general_configs'));
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
-
     dispatch(
       setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
     );
   }, [dispatch]);
+
+  useEffect(() => {
+    const handleStart = (url) => {
+      dispatch(clearAccountListingDetails());
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+  }, [router]);
 
   return check_flavours(2) ? (
     <Error statusCode={404} />

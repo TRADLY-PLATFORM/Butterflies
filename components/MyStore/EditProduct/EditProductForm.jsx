@@ -21,6 +21,7 @@ import Markdown_Editor from '../../Shared/MarkdownEditor';
 import dynamic from 'next/dynamic';
 import Attributes from './Attributes';
 import { fetch_all_categories } from '../../../constant/fetch_all_categories';
+import { ReactSortable } from 'react-sortablejs';
 
 const EditProductForm = () => {
   const [title, setTitle] = useState('');
@@ -30,12 +31,16 @@ const EditProductForm = () => {
   const [shippingCharge, setShippingCharge] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [offerPercent, setOfferPercent] = useState(0);
+  const [meta_title, setMetaTitle] = useState('');
+  const [meta_keyword, setMetaKeyword] = useState('');
+  const [meta_description, setMetaDescription] = useState(' ');
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [attributeData, setAttributeData] = useState(null);
   const [currency, setCurrency] = useState(null);
   const [product_address, setProduct_address] = useState('');
   const [coordinates, setCoordinates] = useState(null);
+  const [all_images, setAll_images] = useState([]);
   const [imagePath, setImagePath] = useState([]);
   const [files, setFiles] = useState([]);
   const [fullFile, setFullFile] = useState(null);
@@ -57,6 +62,7 @@ const EditProductForm = () => {
     currencies,
     listing_categories,
     my_account_listing_details,
+    attributes,
   } = useSelector(storeSelector);
   const { genral_configs, MARKETPLACE_MODULES, MARKETPLACE_FLAVOURS } =
     useSelector(configsSelector);
@@ -85,7 +91,7 @@ const EditProductForm = () => {
       );
       setQuantity(Number(my_account_listing_details.stock));
       setOfferPercent(Number(my_account_listing_details.offer_percent));
-      setImagePath(
+      setAll_images(
         my_account_listing_details.images.map((item, index) => {
           return { id: index, path: item };
         })
@@ -169,50 +175,36 @@ const EditProductForm = () => {
     }
   };
 
+  // imageUpload
   const imageUpload = async (e) => {
     if (e.target.files.length > 0) {
-      const file = e.target.files[0];
-      setImagePath([
-        ...imagePath,
-        { id: imagePath.length + 1, path: URL.createObjectURL(file) },
-      ]);
-      // setFile(e.target.files[0]);
+      let images = [];
 
-      if (files.length > 0) {
-        setFiles([
-          ...files,
-          { id: imagePath.length + 1, name: file.name, type: file.type },
-        ]);
-      } else {
-        setFiles([
-          { id: imagePath.length + 1, name: file.name, type: file.type },
-        ]);
-      }
-      if (fullFile?.length > 0) {
-        setFullFile([...fullFile, file]);
-      } else {
-        setFullFile([file]);
+      for (let i = 0; i < e.target.files.length; i++) {
+        const file = e.target.files[i];
+
+        images.push({
+          id: file.lastModified,
+          path: URL.createObjectURL(file),
+          name: file.name,
+          type: file.type,
+          full_file: file,
+        });
+
+        if (i === e.target.files.length - 1) {
+          if (all_images.length > 0) {
+            setAll_images([...all_images, ...images]);
+          } else {
+            setAll_images([...images]);
+          }
+        }
       }
     }
   };
 
   const imageDelete = async (id) => {
-    if (fullFile !== null) {
-      const ImagePathFilter = imagePath.filter((image) => image.id !== id);
-      const filesFilter = files.filter((file) => file.id !== id);
-      const full_filesFilter = fullFile.filter((file, i) => i + 1 !== id);
-      setImagePath(ImagePathFilter);
-      setFiles(filesFilter);
-      setFullFile(full_filesFilter);
-    } else {
-      if (imagePath?.length === 1) {
-        setImagePath([]);
-        setFullFile([]);
-      } else {
-        const ImagePathFilter = imagePath.filter((image) => image.id !== id);
-        setImagePath(ImagePathFilter);
-      }
-    }
+    const all_images_filter = all_images.filter((image) => image.id !== id);
+    setAll_images(all_images_filter);
   };
 
   const closePopUP = () => {
@@ -281,48 +273,58 @@ const EditProductForm = () => {
             accept=".png , .jpg"
             placeholder=""
             onChange={(e) => imageUpload(e)}
+            multiple
           />
-          <div className="flex justify-start items-center">
-            {imagePath !== null &&
-              imagePath?.map((singleImage) => {
-                return (
-                  <div
-                    key={singleImage.id}
-                    className=" relative w-[100px] mt-4 mr-3"
-                  >
-                    <Image
-                      src={singleImage.path}
-                      alt="store image"
-                      width={100}
-                      height={100}
-                      objectFit="cover"
-                    />
-                    <button
-                      className=" absolute -top-2 -right-2 text-primary "
-                      onClick={() => imageDelete(singleImage.id)}
+          <div className=" mt-1 flex flex-col  gap-3">
+            <ReactSortable
+              list={all_images}
+              setList={setAll_images}
+              animation={150}
+              group="cards"
+              // onChange={(order, sortable, evt) => {}}
+              // onEnd={(evt) => {}}
+              className="flex   items-center flex-wrap gap-4"
+            >
+              {all_images.length !== 0 &&
+                all_images?.map((singleImage) => {
+                  return (
+                    <div
+                      key={singleImage.id}
+                      className=" relative w-[100px] cursor-move"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                      <img
+                        src={singleImage.path}
+                        alt="store image"
+                        className="w-[100px] h-[100px]  object-cover shadow-c-xsm"
+                      />
+                      <button
+                        className=" absolute -top-2 -right-2 text-primary "
+                        onClick={() => imageDelete(singleImage.id)}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                );
-              })}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  );
+                })}
+            </ReactSortable>
 
-            {fullFile && (
+            {(all_images.length === 0 ||
+              all_images[0]?.full_file !== undefined) && (
               <button
-                className=" w-[100px]  h-[100px] flex justify-center items-center  mt-3  bg-gray-100 text-sm rounded "
+                className=" w-[100px]  h-[100px] flex justify-center items-center    bg-gray-100 text-sm rounded "
                 onClick={() => imageButtonClick()}
               >
                 Add Image
@@ -391,6 +393,65 @@ const EditProductForm = () => {
             onChange={(e) => e.target.value}
           ></textarea> */}
         </label>
+
+        {listing_configs?.meta_title && (
+          <label className="block">
+            <span className="text-gray-700">Listing Meta Title</span>
+            <input
+              type="text"
+              value={meta_title}
+              className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+              placeholder="Set meta title for seo "
+              onChange={(e) => setMetaTitle(e.target.value)}
+            />
+          </label>
+        )}
+        {listing_configs?.meta_description && (
+          <label className="block">
+            <span className="text-gray-700">Listing Meta Description</span>
+            <textarea
+              value={meta_description}
+              type="text"
+              row={7}
+              className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+              placeholder="Set meta description for listing"
+              onChange={(e) => setMetaDescription(e.target.value)}
+            />
+          </label>
+        )}
+        {listing_configs?.meta_keyword && (
+          <label className="block">
+            <span className="text-gray-700">Listing Meta Keyword</span>
+            <input
+              type="text"
+              value={meta_keyword}
+              className="
+                    mt-0
+                    block
+                    w-full
+                    px-0.5 
+                    border-0 border-b-2 border-gray-200 transition  duration-700
+                    focus:ring-0 focus:border-primary
+                  "
+              placeholder="Set listing meta tags for seo"
+              onChange={(e) => setMetaKeyword(e.target.value)}
+            />
+          </label>
+        )}
 
         {listing_configs?.listing_address_enabled && (
           <label className="block ">
@@ -560,11 +621,20 @@ const EditProductForm = () => {
           className="text-white px-7 py-2 rounded-md bg-primary  flex items-center justify-center  "
           onClick={() =>
             edit_product_click(
-              imagePath,
-              files,
-              fullFile,
+              all_images?.map((image) => {
+                return image.path;
+              }) || null,
+              all_images?.map((image) => {
+                return { name: image.name, type: image.type };
+              }) || [], //this is files value , this is mapped from all_images state
+
+              all_images?.map((image) => image.full_file) || [], //this is fullFile value, this is mapped from all_images state
+
               title,
               slug,
+              meta_title,
+              meta_description,
+              meta_keyword,
               description,
               price,
               shippingCharge,
@@ -583,7 +653,8 @@ const EditProductForm = () => {
               accountId,
               productId,
               setEditProductLoading,
-              setShowSuccessMessage
+              setShowSuccessMessage,
+              attributes
             )
           }
         >

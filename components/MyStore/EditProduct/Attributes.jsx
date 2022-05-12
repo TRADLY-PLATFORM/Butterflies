@@ -18,8 +18,7 @@ const Attributes = ({ attributeData, setAttributeData }) => {
   const { attributes } = useSelector(storeSelector);
 
   const [displayColorPicker, setdisplayColorPicker] = useState(null);
-  const [displayMap, setdisplayMap] = useState(null);
-
+ 
   // functions
 
   const fileUploadClick = (id) => {
@@ -27,16 +26,8 @@ const Attributes = ({ attributeData, setAttributeData }) => {
     fileInput.click();
   };
 
-  //const containerStyle for map
-
-  const containerStyle = {
-    width: '100%',
-    height: '100%',
-  };
-
-  console.log('====================================');
-  console.log(attributeData);
-  console.log('====================================');
+ 
+ 
 
   return (
     <>
