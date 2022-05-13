@@ -11,6 +11,7 @@ import SearchBox from '../SearchBox/SearchBox';
 import CustomSearchBox from '../SearchBox/CustomSearchBox';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
+import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
 function Header4() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -79,21 +80,37 @@ function Header4() {
       }`}
     >
       <div className=" relative max-w-6xl mx-auto px-5 sm:px-6">
-        <div className="flex items-center justify-between h-16  ">
+        <div
+          className="flex items-center justify-between  "
+          style={{
+            height: `calc(${
+              TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height || 50
+            }px + 14px)`,
+          }}
+        >
           {/* Site branding */}
           <div className="flex-shrink-0 mr-4">
             {/* Logo */}
             <Link href="/">
-              <div className="block" aria-label="Cruip">
+              <div className="block" aria-label="">
                 {logo && (
                   <Link href="/" passHref={true}>
                     <a className=" flex items-center   relative cursor-pointer ">
-                      <Image
+                      <img
                         src={logo}
-                        height={50}
-                        width={50}
-                        objectFit="contain"
-                        alt="logo"
+                        className={
+                          TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height ===
+                            undefined ||
+                          (TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width ===
+                            undefined &&
+                            ' object-contain ')
+                        }
+                        style={{
+                          height: `${
+                            TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height || 50
+                          }px`,
+                          width: `${TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width}px`,
+                        }}
                       />
                     </a>
                   </Link>
@@ -178,7 +195,7 @@ function Header4() {
             {login ? (
               <ul className="flex flex-grow justify-end flex-wrap items-center gap-3">
                 <SearchBox />
-               {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 && <StoreButton />}
+                {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 && <StoreButton />}
                 <HeaderProfile />
               </ul>
             ) : (

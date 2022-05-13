@@ -46,12 +46,32 @@ const Header3 = () => {
           className="   min-h-[70px] px-[25px] 2xl:px-[10%]  shadow-c-sm   bg-white top-0    overflow-x-hidden relative "
           id="header_section"
         >
-          <div className="flex pt-[10px] min-h-[50px]  w-full">
+          <div
+            className="flex pt-[10px] min-h-[50px] w-full "
+            style={{
+              height: `${TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height || 50}px`,
+            }}
+          >
             <div className="  absolute left-0 right-0    flex  justify-center     ">
               {logo && (
                 <Link href="/" passHref={true}>
                   <a className=" flex items-center   relative cursor-pointer ">
-                    <img src={logo} className="h-[50px] object-contain" />
+                    <img
+                      src={logo}
+                      className={
+                        TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height ===
+                          undefined ||
+                        (TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width ===
+                          undefined &&
+                          ' object-contain ')
+                      }
+                      style={{
+                        height: `${
+                          TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height || 50
+                        }px`,
+                        width: `${TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width}px`,
+                      }}
+                    />
                   </a>
                 </Link>
               )}
@@ -62,14 +82,16 @@ const Header3 = () => {
                 id="header_nav_items"
               >
                 {login && (
-                  <div className="  ms:mr-2 ">
+                  <div className="  mr-2 ">
                     <Notifications />
                   </div>
                 )}
-                {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 &&<div className="  ms:mr-2 ">
-                  <StoreButton />
-                </div>}
-                <div className="  ms:mr-2  ">
+                {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 && (
+                  <div className="  mr-2 ">
+                    <StoreButton />
+                  </div>
+                )}
+                <div className="  mr-2  ">
                   <WishListButton />
                 </div>
                 <div>
@@ -104,7 +126,7 @@ const Header3 = () => {
         )}
 
         <div className="  px-[16px] xs:px-[35px]  ">
-          <div className="flex justify-between items-center py-[10px]  relative">
+          <div className="flex justify-between items-center py-[10px] gap-2  relative">
             <div className="  flex items-center">
               <button className="outline-none" onClick={drawerOpen}>
                 <svg
@@ -140,9 +162,11 @@ const Header3 = () => {
                   <Notifications />
                 </div>
               )}
-             { TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 &&<div className="   mr-3 ">
-                <StoreButton />
-              </div>}
+              {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 && (
+                <div className="   mr-3 ">
+                  <StoreButton />
+                </div>
+              )}
               <div className=" mr-3  ">
                 <WishListButton />
               </div>

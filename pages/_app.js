@@ -102,13 +102,11 @@ function MyApp({ Component, pageProps }) {
               'MARKETPLACE_FLAVOURS',
               res.data.configs?.sub_type
             );
-            localStorage.setItem(
-              'THEME',
-              res.data.configs?.theme
-            );
+            localStorage.setItem('THEME', res.data.configs?.theme);
             TYPE_CONSTANT.MARKETPLACE_MODULES = res.data.configs?.type;
             TYPE_CONSTANT.MARKETPLACE_FLAVOURS = res.data.configs?.sub_type;
             TYPE_CONSTANT.THEME = res.data.configs?.theme;
+            TYPE_CONSTANT.GENERAL_CONFIGS = res.data.configs;
 
             // favicon set
             setFavicon(res?.data?.configs?.web_icon);
