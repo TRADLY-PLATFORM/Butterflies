@@ -4,12 +4,14 @@ import { set } from 'react-hook-form';
 import tradly from 'tradly';
 var slugify = require('slugify');
 
-
 export const add_product_click = (
   files,
   fullFile,
   title,
   slug,
+  meta_title,
+  meta_description,
+  meta_keyword,
   description,
   price,
   shippingCharge,
@@ -28,7 +30,8 @@ export const add_product_click = (
   accountId,
   setAddProductLoading,
   schedulesArray,
-  variantsArray
+  variantsArray,
+  attributes
 ) => {
   setAddProductLoading(true);
   if (files === null || !files.length > 0) {
@@ -43,12 +46,7 @@ export const add_product_click = (
     setAddProductLoading(false);
     return false;
   }
-  // if (description === '') {
-  //   setShowError(true);
-  //   setError_message('Description is required');
-  //   setAddProductLoading(false);
-  //   return false;
-  // }
+
   if (price === '') {
     setShowError(true);
     setError_message('Price is required');
@@ -86,6 +84,25 @@ export const add_product_click = (
     setError_message('Category is required');
     setAddProductLoading(false);
     return false;
+  }
+
+  if (attributes.length > 0) {
+    for (let i = 0; i < attributes.length; i++) {
+      const attribute = attributes[i];
+      if (!attribute.optional) {
+        if (
+          !attributeData?.filter((at_data) => at_data.id === attribute.id)
+            ?.length > 0 ||
+          attributeData === null
+        ) {
+          setShowError(true);
+          setError_message(`${attribute.name} is required`);
+          setAddProductLoading(false);
+          return false;
+          break;
+        }
+      }
+    }
   }
 
   axios
@@ -140,6 +157,15 @@ export const add_product_click = (
                       }
                       if (!description?.replace(/\s/g, '').length <= 0) {
                         listingData['description'] = description;
+                      }
+                      if (!meta_title?.replace(/\s/g, '').length <= 0) {
+                        listingData['meta_title'] = meta_title;
+                      }
+                      if (!meta_keyword?.replace(/\s/g, '').length <= 0) {
+                        listingData['meta_keyword'] = meta_keyword;
+                      }
+                      if (!meta_description?.replace(/\s/g, '').length <= 0) {
+                        listingData['meta_description'] = meta_description;
                       }
                       if (!slug?.replace(/\s/g, '').length <= 0) {
                         listingData['slug'] = slugify(slug, {
@@ -342,6 +368,23 @@ export const add_product_click = (
                                 ) {
                                   listingData['description'] = description;
                                 }
+                                if (
+                                  !meta_title?.replace(/\s/g, '').length <= 0
+                                ) {
+                                  listingData['meta_title'] = meta_title;
+                                }
+                                if (
+                                  !meta_keyword?.replace(/\s/g, '').length <= 0
+                                ) {
+                                  listingData['meta_keyword'] = meta_keyword;
+                                }
+                                if (
+                                  !meta_description?.replace(/\s/g, '')
+                                    .length <= 0
+                                ) {
+                                  listingData['meta_description'] =
+                                    meta_description;
+                                }
                                 if (!slug?.replace(/\s/g, '').length <= 0) {
                                   listingData['slug'] = slugify(slug, {
                                     remove: undefined,
@@ -540,6 +583,15 @@ export const add_product_click = (
                     }
                     if (!description?.replace(/\s/g, '').length <= 0) {
                       listingData['description'] = description;
+                    }
+                    if (!meta_title?.replace(/\s/g, '').length <= 0) {
+                      listingData['meta_title'] = meta_title;
+                    }
+                    if (!meta_keyword?.replace(/\s/g, '').length <= 0) {
+                      listingData['meta_keyword'] = meta_keyword;
+                    }
+                    if (!meta_description?.replace(/\s/g, '').length <= 0) {
+                      listingData['meta_description'] = meta_description;
                     }
                     if (!slug?.replace(/\s/g, '').length <= 0) {
                       listingData['slug'] = slugify(slug, {

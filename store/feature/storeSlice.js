@@ -252,6 +252,10 @@ export const storeSlice = createSlice({
     clearAccountDetails: (state) => {
       state.my_account_details = null;
     },
+    clearAccountListingDetails: (state) => {
+      state.my_account_listing_details = null;
+      state.attributes = null;
+    },
   },
   extraReducers: {
     [myStore.fulfilled]: (state, { payload }) => {
@@ -299,10 +303,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [getAddressSearch.rejected]: (state, { payload }) => {
-       state.addressFetching = false;
-       state.isError = true;
-       state.isSuccess = false;
-       state.errorMessage = payload?.message;
+      state.addressFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
     [categories.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -324,10 +328,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [categories.rejected]: (state, { payload }) => {
-       state.isFetching = false;
-       state.isError = true;
-       state.isSuccess = false;
-       state.errorMessage = payload?.message;
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
     [listingCategories.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -374,10 +378,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [myAccountListingDetails.rejected]: (state, { payload }) => {
-       state.isFetching = false;
-       state.isError = true;
-       state.isSuccess = false;
-       state.errorMessage = payload?.message;
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
     [accountAttribute.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -399,10 +403,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [accountAttribute.rejected]: (state, { payload }) => {
-     state.isFetching = false;
-     state.isError = true;
-     state.isSuccess = false;
-     state.errorMessage = payload?.message;
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
     [myAccountListings.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -426,10 +430,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [myAccountListings.rejected]: (state, { payload }) => {
-       state.isFetching = false;
-       state.isError = true;
-       state.isSuccess = false;
-       state.errorMessage = payload?.message;
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
     [currencies.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -451,10 +455,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [currencies.rejected]: (state, { payload }) => {
-     state.isFetching = false;
-     state.isError = true;
-     state.isSuccess = false;
-     state.errorMessage = payload?.message;
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
     [get_all_accounts.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -478,10 +482,10 @@ export const storeSlice = createSlice({
       state.errorMessage = '';
     },
     [get_all_accounts.rejected]: (state, { payload }) => {
-        state.isAllAccountsFetching = false;
-        state.isError = true;
-        state.isSuccess = false;
-        state.errorMessage = payload?.message;
+      state.isAllAccountsFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
     [account_full_details.fulfilled]: (state, { payload }) => {
       if (payload.code) {
@@ -498,20 +502,24 @@ export const storeSlice = createSlice({
       }
     },
     [account_full_details.pending]: (state) => {
-    state.isFetching = false;
-    state.isError = true;
-    state.isSuccess = false;
-    state.errorMessage = payload?.message;
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
     [account_full_details.rejected]: (state, { payload }) => {
-       state.isFetching = false;
-       state.isError = true;
-       state.isSuccess = false;
-       state.errorMessage = payload?.message;
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+      state.errorMessage = payload?.message;
     },
   },
 });
 
-export const { clearStoreState, setListingConfig, clearAccountDetails } =
-  storeSlice.actions;
+export const {
+  clearStoreState,
+  setListingConfig,
+  clearAccountDetails,
+  clearAccountListingDetails,
+} = storeSlice.actions;
 export const storeSelector = (state) => state.store;

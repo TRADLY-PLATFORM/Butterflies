@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import axios from 'axios';
-import trady from 'tradly';
 var slugify = require('slugify');
-
 
 export const edit_product_click = (
   imagePath,
@@ -10,6 +8,9 @@ export const edit_product_click = (
   fullFile,
   title,
   slug,
+  meta_title,
+  meta_description,
+  meta_keyword,
   description,
   price,
   shippingCharge,
@@ -28,11 +29,13 @@ export const edit_product_click = (
   accountId,
   productId,
   setEditProductLoading,
-  setShowSuccessMessage
+  setShowSuccessMessage,
+  attributes
 ) => {
   setEditProductLoading(true);
-  if (fullFile !== null) {
-    if (files === null || !files.length > 0) {
+ 
+  if (imagePath.length === 0 || imagePath.length === null) {
+    if (files.length === 0) {
       setShowError(true);
       setError_message('Image is required');
       setEditProductLoading(false);
@@ -90,7 +93,26 @@ export const edit_product_click = (
     return false;
   }
 
-  if (fullFile !== null) {
+  if (attributes.length > 0) {
+    for (let i = 0; i < attributes.length; i++) {
+      const attribute = attributes[i];
+      if (!attribute.optional) {
+        if (
+          !attributeData?.filter((at_data) => at_data.id === attribute.id)
+            ?.length > 0 ||
+          attributeData === null
+        ) {
+          setShowError(true);
+          setError_message(`${attribute.name} is required`);
+          setEditProductLoading(false);
+          return false;
+          break;
+        }
+      }
+    }
+  }
+
+  if (fullFile.length > 0) {
     axios
       .post('/api/generateS3ImageURL', {
         data: {
@@ -124,17 +146,15 @@ export const edit_product_click = (
                       );
                       if (check === undefined) {
                         const listingData = {
-                          listing: {
-                            list_price: price,
-                            account_id: accountId,
-                            currency_id: currency,
-                            attributes: attributeData,
-                            title: title,
-                            offer_percent: offerPercent,
-                            images: responseFiles.map((res) => res.fileUri),
-                            category_id: [selectedCategory],
-                            type: 'listings',
-                          },
+                          list_price: price,
+                          account_id: accountId,
+                          currency_id: currency,
+                          attributes: attributeData,
+                          title: title,
+                          offer_percent: offerPercent,
+                          images: responseFiles.map((res) => res.fileUri),
+                          category_id: [selectedCategory],
+                          type: 'listings',
                         };
                         if (listing_configs.listing_address_enabled) {
                           listingData['coordinates'] = coordinates;
@@ -147,6 +167,15 @@ export const edit_product_click = (
                         }
                         if (!description?.replace(/\s/g, '').length <= 0) {
                           listingData['description'] = description;
+                        }
+                        if (!meta_title?.replace(/\s/g, '').length <= 0) {
+                          listingData['meta_title'] = meta_title;
+                        }
+                        if (!meta_keyword?.replace(/\s/g, '').length <= 0) {
+                          listingData['meta_keyword'] = meta_keyword;
+                        }
+                        if (!meta_description?.replace(/\s/g, '').length <= 0) {
+                          listingData['meta_description'] = meta_description;
                         }
                         if (!slug?.replace(/\s/g, '').length <= 0) {
                           listingData['slug'] = slugify(slug, {
@@ -162,7 +191,7 @@ export const edit_product_click = (
                           });
                         }
 
-                        // ekhane
+                        // post data
 
                         axios
                           .post('/api/l/edit_listing', {
@@ -211,19 +240,17 @@ export const edit_product_click = (
                                     { values: [ImagePath2], id: check.id },
                                   ];
                                   const listingData = {
-                                    listing: {
-                                      list_price: price,
-                                      account_id: accountId,
-                                      currency_id: currency,
-                                      attributes: attributeUpdate,
-                                      title: title,
-                                      offer_percent: offerPercent,
-                                      images: responseFiles.map(
-                                        (res) => res.fileUri
-                                      ),
-                                      category_id: [selectedCategory],
-                                      type: 'listings',
-                                    },
+                                    list_price: price,
+                                    account_id: accountId,
+                                    currency_id: currency,
+                                    attributes: attributeUpdate,
+                                    title: title,
+                                    offer_percent: offerPercent,
+                                    images: responseFiles.map(
+                                      (res) => res.fileUri
+                                    ),
+                                    category_id: [selectedCategory],
+                                    type: 'listings',
                                   };
 
                                   if (listing_configs.listing_address_enabled) {
@@ -241,6 +268,24 @@ export const edit_product_click = (
                                   ) {
                                     listingData['description'] = description;
                                   }
+                                  if (
+                                    !meta_title?.replace(/\s/g, '').length <= 0
+                                  ) {
+                                    listingData['meta_title'] = meta_title;
+                                  }
+                                  if (
+                                    !meta_keyword?.replace(/\s/g, '').length <=
+                                    0
+                                  ) {
+                                    listingData['meta_keyword'] = meta_keyword;
+                                  }
+                                  if (
+                                    !meta_description?.replace(/\s/g, '')
+                                      .length <= 0
+                                  ) {
+                                    listingData['meta_description'] =
+                                      meta_description;
+                                  }
                                   if (!slug?.replace(/\s/g, '').length <= 0) {
                                     listingData['slug'] = slugify(slug, {
                                       remove: undefined,
@@ -255,7 +300,7 @@ export const edit_product_click = (
                                     });
                                   }
 
-                                  // ekhane
+                                  // post listing data
                                   axios
                                     .post('/api/l/edit_listing', {
                                       productId,
@@ -308,6 +353,15 @@ export const edit_product_click = (
                       if (!description?.replace(/\s/g, '').length <= 0) {
                         listingData['description'] = description;
                       }
+                      if (!meta_title?.replace(/\s/g, '').length <= 0) {
+                        listingData['meta_title'] = meta_title;
+                      }
+                      if (!meta_keyword?.replace(/\s/g, '').length <= 0) {
+                        listingData['meta_keyword'] = meta_keyword;
+                      }
+                      if (!meta_description?.replace(/\s/g, '').length <= 0) {
+                        listingData['meta_description'] = meta_description;
+                      }
                       if (!slug?.replace(/\s/g, '').length <= 0) {
                         listingData['slug'] = slugify(slug, {
                           remove: undefined,
@@ -322,7 +376,7 @@ export const edit_product_click = (
                         });
                       }
 
-                      // ekhane
+                      // post listing data
                       axios
                         .post('/api/l/edit_listing', {
                           productId,
@@ -370,7 +424,7 @@ export const edit_product_click = (
           attributes: attributeData,
           title: title,
           offer_percent: offerPercent,
-          images: imagePath.map((item) => item.path),
+          images: imagePath.map((item) => item),
           category_id: [selectedCategory],
           type: 'listings',
         };
@@ -386,6 +440,15 @@ export const edit_product_click = (
         if (!description?.replace(/\s/g, '').length <= 0) {
           listingData['description'] = description;
         }
+        if (!meta_title?.replace(/\s/g, '').length <= 0) {
+          listingData['meta_title'] = meta_title;
+        }
+        if (!meta_keyword?.replace(/\s/g, '').length <= 0) {
+          listingData['meta_keyword'] = meta_keyword;
+        }
+        if (!meta_description?.replace(/\s/g, '').length <= 0) {
+          listingData['meta_description'] = meta_description;
+        }
         if (!slug?.replace(/\s/g, '').length <= 0) {
           listingData['slug'] = slugify(slug, {
             remove: undefined,
@@ -400,7 +463,7 @@ export const edit_product_click = (
           });
         }
 
-        // ekhane
+        // post listing data
         axios
           .post('/api/l/edit_listing', {
             productId,
@@ -454,7 +517,7 @@ export const edit_product_click = (
                     attributes: attributeUpdate,
                     title: title,
                     offer_percent: offerPercent,
-                    images: imagePath.map((item) => item.path),
+                    images: imagePath.map((item) => item),
                     category_id: [selectedCategory],
                     type: 'listings',
                   };
@@ -471,6 +534,15 @@ export const edit_product_click = (
                   if (!description?.replace(/\s/g, '').length <= 0) {
                     listingData['description'] = description;
                   }
+                  if (!meta_title?.replace(/\s/g, '').length <= 0) {
+                    listingData['meta_title'] = meta_title;
+                  }
+                  if (!meta_keyword?.replace(/\s/g, '').length <= 0) {
+                    listingData['meta_keyword'] = meta_keyword;
+                  }
+                  if (!meta_description?.replace(/\s/g, '').length <= 0) {
+                    listingData['meta_description'] = meta_description;
+                  }
                   if (!slug?.replace(/\s/g, '').length <= 0) {
                     listingData['slug'] = slugify(slug, {
                       remove: undefined,
@@ -484,7 +556,7 @@ export const edit_product_click = (
                       strict: true,
                     });
                   }
-                  // ekhane
+                  // post listing data
                   axios
                     .post('/api/l/edit_listing', {
                       productId,
@@ -515,7 +587,7 @@ export const edit_product_click = (
         currency_id: currency,
         title: title,
         offer_percent: offerPercent,
-        images: imagePath.map((item) => item.path),
+        images: imagePath.map((item) => item),
         category_id: [selectedCategory],
         type: 'listings',
       };
@@ -531,6 +603,15 @@ export const edit_product_click = (
       if (!description?.replace(/\s/g, '').length <= 0) {
         listingData['description'] = description;
       }
+      if (!meta_title?.replace(/\s/g, '').length <= 0) {
+        listingData['meta_title'] = meta_title;
+      }
+      if (!meta_keyword?.replace(/\s/g, '').length <= 0) {
+        listingData['meta_keyword'] = meta_keyword;
+      }
+      if (!meta_description?.replace(/\s/g, '').length <= 0) {
+        listingData['meta_description'] = meta_description;
+      }
       if (!slug?.replace(/\s/g, '').length <= 0) {
         listingData['slug'] = slugify(slug, {
           remove: undefined,
@@ -544,7 +625,7 @@ export const edit_product_click = (
           strict: true,
         });
       }
-      // ekhane
+      // post listing data
       axios
         .post('/api/l/edit_listing', {
           productId,
