@@ -14,6 +14,7 @@ import tradly from 'tradly';
 import CustomLoading from '../../components/Shared/Loading/CustomLoading';
 import { check_login } from '../../components/../constant/check_auth';
 import axios from 'axios';
+import Listing_Filter from '../../components/Shared/Listing_Filter';
 
 const SimilarCustomListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -106,18 +107,14 @@ const SimilarCustomListingsPageLayout = () => {
     height: '100%',
   };
 
-  const opened_list_view = () => {
-    if (MARKETPLACE_MODULES == 2 && !router?.query?.start_at) {
-      router.push({
-        query: {
-          ...router.query,
-          start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
-          end_at: `${moment(new Date())
-            .add(1, 'days')
-            .format('YYYY-MM-DD')}T23:59:59Z`,
-        },
-      });
-    }
+  //reset_filter
+  const reset_filter = () => {
+    router.push({
+      query: {
+        id: router.query.id,
+        page: router.query.page,
+      },
+    });
   };
 
   return (
@@ -125,7 +122,7 @@ const SimilarCustomListingsPageLayout = () => {
       {isFetching && <CustomLoading />}
       <div>
         <div className=" mb-4 flex items-center justify-between">
-          <ExploreFilter />
+          <Listing_Filter hidden_category={false} reset_filter={reset_filter} />
           <CustomListingsView
             selected_type={selected_type}
             setSelected_type={setSelected_type}
@@ -138,7 +135,6 @@ const SimilarCustomListingsPageLayout = () => {
             )}
             {selected_type == 'list_view' && (
               <>
-                {!router?.query?.start_at && opened_list_view()}
                 <ListListings
                   Products={similar_listings}
                   map_view={false}

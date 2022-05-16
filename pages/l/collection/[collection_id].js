@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshPage } from '../../../store/feature/authSlice';
 import { clearListings } from '../../../store/feature/listingSlice';
-import { similar_all_listings_page } from '../../../tradly.config';
+import { collection_listings_page } from '../../../tradly.config';
 import { setGeneralConfig } from '../../../store/feature/configsSlice';
 
-const SimilarAllListings = ( ) => {
+const CollectionListings = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearListings());
@@ -22,7 +22,7 @@ const SimilarAllListings = ( ) => {
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
 
-  return similar_all_listings_page();
+  return collection_listings_page();
 };
 
-export default SimilarAllListings;
+export default CollectionListings;

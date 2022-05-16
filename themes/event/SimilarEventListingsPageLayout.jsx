@@ -25,6 +25,7 @@ import moment from 'moment';
 import tradly from 'tradly';
 import { check_login } from '../../components/../constant/check_auth';
 import axios from 'axios';
+import Listing_Filter from '../../components/Shared/Listing_Filter';
 
 const SimilarEventListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -102,7 +103,6 @@ const SimilarEventListingsPageLayout = () => {
     height: '100%',
   };
 
-   
   //
   const like = (id, isLiked) => {
     if (check_login(router)) {
@@ -127,12 +127,22 @@ const SimilarEventListingsPageLayout = () => {
     }
   };
 
+  //reset_filter
+  const reset_filter = () => {
+    router.push({
+      query: {
+        id: router.query.id,
+        page: router.query.page,
+      },
+    });
+  };
+
   return (
     <>
       {isFetching && <CustomLoading />}
       <div>
         <div className=" mb-4 flex items-center justify-between">
-          <ExploreFilter />
+          <Listing_Filter hidden_category={false} reset_filter={reset_filter} />
           <ListingsView
             selected_type={selected_type}
             setSelected_type={setSelected_type}

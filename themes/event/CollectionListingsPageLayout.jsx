@@ -22,8 +22,9 @@ import MarkerListing from '../../components/explore/Map View/Marker';
 import { configsSelector } from '../../store/feature/configsSlice';
 import moment from 'moment';
 import Listing_Filter from '../../components/Shared/Listing_Filter';
+import Breadcrumb from '../../components/Shared/Breadcrumb';
 
-const EventListingsPageLayout = () => {
+const CollectionListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
   const [selected_type, setSelected_type] = useState('gallery_view');
   const [selected_marker, setSelected_marker] = useState(null);
@@ -64,10 +65,11 @@ const EventListingsPageLayout = () => {
     });
   };
 
+  // Listings and others data from store
   const { listings, total_records, page, isFetching } =
     useSelector(listingSelector);
 
-  // coordinates listings
+  // coordinates listings finding
   useEffect(() => {
     if (listings && listings.length > 0) {
       setCoordinates_listings(
@@ -89,18 +91,40 @@ const EventListingsPageLayout = () => {
     }
   }, [total_records]);
 
+  //reset_filter
+  const reset_filter = () => {
+    router.push({
+      query: {
+        collection_id: router.query.collection_id,
+        collection_name: router.query.collection_name,
+        page: router.query.page,
+      },
+    });
+  };
+
   const containerStyle = {
     width: '100%',
     height: '100%',
   };
- 
 
   return (
     <>
       {isFetching && <CustomLoading />}
       <div>
+        <div className="mb-2">
+          <Breadcrumb
+            lists={[
+              { name: 'Home', link: '/' },
+              { name: 'All Listings', link: '/l?page=1' },
+              {
+                name: router.query.collection_name,
+                link: ``,
+              },
+            ]}
+          />
+        </div>
         <div className=" mb-4 flex items-center justify-between">
-          <Listing_Filter hidden_category={false} />
+          <Listing_Filter hidden_category={false} reset_filter={reset_filter} />
           <ListingsView
             selected_type={selected_type}
             setSelected_type={setSelected_type}
@@ -263,4 +287,4 @@ const EventListingsPageLayout = () => {
   );
 };
 
-export default EventListingsPageLayout;
+export default CollectionListingsPageLayout;

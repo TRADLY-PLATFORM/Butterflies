@@ -26,6 +26,7 @@ import { InfoWindow } from '@react-google-maps/api';
 import moment from 'moment';
 import CustomLoading from '../../components/Shared/Loading/CustomLoading';
 import Breadcrumb from '../../components/Shared/Breadcrumb';
+import Listing_Filter from '../../components/Shared/Listing_Filter';
 
 const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
   const [pageCount, setPageCount] = useState(0);
@@ -177,14 +178,13 @@ const EventCategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
 
       {/* Filter */}
       <div className="mb-8 flex items-center justify-between ">
-        <ExploreFilter hidden_category={true} reset_filter={reset_filter} />
+        <Listing_Filter hidden_category={true} reset_filter={reset_filter} />
         <ListingsView
           selected_type={selected_type}
           setSelected_type={setSelected_type}
         />
       </div>
 
-      
       {category_listings === null || category_listings?.length > 0 ? (
         <div>
           <div>

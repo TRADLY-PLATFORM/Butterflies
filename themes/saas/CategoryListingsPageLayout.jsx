@@ -15,6 +15,7 @@ import ReactPaginate from 'react-paginate';
 import NewProducts from '../../components/ProductsByCategory/NewProducts';
 import Filter from '../../components/ProductsByCategory/Filter';
 import Breadcrumb from '../../components/Shared/Breadcrumb';
+import Listing_Filter from '../../components/Shared/Listing_Filter';
 
 const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
   const [pageCount, setPageCount] = useState(0);
@@ -32,33 +33,12 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
     );
   }, [router.query, auth_key, dispatch]);
 
+  // Pagination (more listings by page)
   const moreListings = (data) => {
     router.push({
       query: { ...router.query, page: Number(data.selected) + 1 },
     });
   };
-  // const moreListings = (data) => {
-  //   dispatch(
-  //     categoryListings({
-  //       prams: {
-  //         page: Number(data.selected) + 1,
-  //         per_page: 30,
-  //         category_id: router.query.id,
-  //       },
-  //       authKey: auth_key,
-  //     })
-  //   ).then((res) => {
-  //     if (!res.payload.code) {
-  //       router.push({
-  //         query: {
-  //           id: router.query.id,
-  //           name: router.query.name,
-  //           page: Number(data.selected) + 1,
-  //         },
-  //       });
-  //     }
-  //   });
-  // };
 
   // seo title
   const seoTitle = (text) => {
@@ -95,6 +75,17 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
     }
   }, [total_records]);
 
+  // reset_filter
+  const reset_filter = () => {
+    router.push({
+      query: {
+        name: router.query.name,
+        category_id: router.query.category_id,
+        page: router.query.page,
+      },
+    });
+  };
+
   return (
     <>
       <Head>
@@ -110,7 +101,7 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
         />
       </Head>
 
-           {/* Breadcrumb  */}
+      {/* Breadcrumb  */}
       {category_listings?.length > 0 && (
         <div className="mb-2">
           <Breadcrumb
@@ -126,7 +117,7 @@ const CategoryListingsPageLayout = ({ pageTitle, pageDescription }) => {
         </div>
       )}
       <div className=" mb-8 ">
-        <Filter />
+        <Listing_Filter hidden_category={true} reset_filter={reset_filter} />
       </div>
       {category_listings === null || category_listings?.length > 0 ? (
         <div>
