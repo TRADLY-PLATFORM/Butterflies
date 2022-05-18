@@ -26,6 +26,7 @@ import CheckoutPageLayout from './themes/product/CheckoutPageLayout';
 import ProductInvitePageLayout from './themes/product/InvitePageLayout';
 import ProductPayoutPageLayout from './themes/product/PayoutPageLayout';
 import ProductWishListPageLayout from './themes/product/WishListPageLayout';
+import CollectionListingsPageLayout from './themes/product/CollectionListingsPageLayout';
 
 // Event
 import EventHomePageLayout from './themes/event/HomePageLayout';
@@ -53,6 +54,7 @@ import EventCheckoutPageLayout from './themes/event/EventCheckoutPageLayout';
 import EventInvitePageLayout from './themes/event/InvitePageLayout';
 import EventPayoutPageLayout from './themes/event/PayoutPageLayout';
 import EventWishListPageLayout from './themes/event/WishListPageLayout';
+import EventCollectionListingsPageLayout from './themes/event/CollectionListingsPageLayout';
 
 // SAAS
 import SaasHomePageLayout from './themes/saas/CustomHomePageLayout';
@@ -76,6 +78,7 @@ import SaasStoreOrderDetailsPageLayout from './themes/saas/StoreOrderDetailsPage
 import SaasOrdersPageLayout from './themes/saas/OrdersPageLayout';
 import SaasOrderDetailsPageLayout from './themes/saas/OrderDetailsPageLayout';
 import SaasAddReviewPageLayout from './themes/saas/AddReviewPageLayout';
+import SaasCollectionListingsPageLayout from './themes/saas/CollectionListingsPageLayout';
 
 module.exports = {
   // home Page
@@ -256,6 +259,52 @@ module.exports = {
             pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
           >
             <SimilarListingsPageLayout />
+          </ProductMainLayout>
+        );
+    }
+  },
+
+  // Collection Listings Page:
+  collection_listings_page: () => {
+    switch (Number(TYPE_CONSTANT.THEME)) {
+      case 1:
+        return (
+          <ProductMainLayout
+            pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
+            pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
+          >
+            <CollectionListingsPageLayout />
+          </ProductMainLayout>
+        );
+        break;
+      case 2:
+        return (
+          <EventMainLayout
+            pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
+            pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
+          >
+            <EventCollectionListingsPageLayout />
+          </EventMainLayout>
+        );
+        break;
+      case 3:
+        return (
+          <SaasMainLayout
+            pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
+            pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
+          >
+            <SaasCollectionListingsPageLayout />
+          </SaasMainLayout>
+        );
+        break;
+
+      default:
+        return (
+          <ProductMainLayout
+            pageTitle={TYPE_CONSTANT.META_LISTING_TITLE}
+            pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
+          >
+            <CollectionListingsPageLayout />
           </ProductMainLayout>
         );
     }

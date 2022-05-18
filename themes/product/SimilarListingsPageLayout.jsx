@@ -16,6 +16,7 @@ import Filter from '../../components/Listings/Filter/Filter';
 import tradly from 'tradly';
 import { check_login } from '../../components/../constant/check_auth';
 import axios from 'axios';
+import Listing_Filter from '../../components/Shared/Listing_Filter';
 
 const SimilarListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -54,7 +55,7 @@ const SimilarListingsPageLayout = () => {
     }
   }, [total_records]);
 
-  //
+  //Like listing
   const like = (id, isLiked) => {
     if (check_login(router)) {
       setIsFetching(true);
@@ -77,12 +78,22 @@ const SimilarListingsPageLayout = () => {
     }
   };
 
+  //reset_filter
+  const reset_filter = () => {
+    router.push({
+      query: {
+        id: router.query.id,
+        page: router.query.page,
+      },
+    });
+  };
+
   return (
     <>
       {isFetching && <CustomLoading />}
       <div>
         <div className=" mb-8 ">
-          <Filter />
+          <Listing_Filter hidden_category={false} reset_filter={reset_filter} />
         </div>
         {similar_listings === null || similar_listings?.length > 0 ? (
           <div>

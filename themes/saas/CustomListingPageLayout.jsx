@@ -21,6 +21,7 @@ import { InfoWindow } from '@react-google-maps/api';
 import MarkerListing from '../../components/explore/Map View/Marker';
 import { configsSelector } from '../../store/feature/configsSlice';
 import moment from 'moment';
+import Listing_Filter from '../../components/Shared/Listing_Filter';
 
 const CustomListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -98,7 +99,7 @@ const CustomListingsPageLayout = () => {
       {isFetching && <CustomLoading />}
       <div>
         <div className=" mb-4 flex items-center justify-between">
-          <ExploreFilter />
+          <Listing_Filter hidden_category={false} />
           <CustomListingsView
             selected_type={selected_type}
             setSelected_type={setSelected_type}

@@ -83,7 +83,9 @@ const Listings = ({ products }) => {
             >
               <a className="  w-full   px-4  mb-1 flex  items-center justify-start border border-transparent hover:border-gray-300  rounded-lg p-4 cursor-pointer">
                 <img
-                  src={getThumbnailImage(item.images[0])}
+                  src={
+                    item.images.lenth > 0 && getThumbnailImage(item.images[0])
+                  }
                   alt="image"
                   className=" w-16 h-16 "
                 />
@@ -96,9 +98,9 @@ const Listings = ({ products }) => {
                   {TYPE_CONSTANT.MARKETPLACE_FLAVOURS === 1 && (
                     <p className=" mt-2 mb-0 text-second text-sm truncate text-primary">
                       By{' '}
-                      {item.account.name.length > 20
-                        ? item.account.name.substring(0, 18) + '..'
-                        : item.account.name}
+                      {item?.account?.name.length > 20
+                        ? item?.account?.name.substring(0, 18) + '..'
+                        : item?.account?.name}
                     </p>
                   )}
                 </div>

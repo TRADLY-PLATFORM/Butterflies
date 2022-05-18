@@ -10,78 +10,39 @@ import {
 import Listings from '../../components/Listings/Listings';
 import ReactPaginate from 'react-paginate';
 import CustomLoading from '../../components/Shared/Loading/CustomLoading';
-import NewListings from '../../components/explore/NewListings';
-import ListingsView from '../../components/explore/ListingsView';
-import ExploreFilter from '../../components/explore/Filter/ExploreFilter';
-import ListListingCard from '../../components/Shared/Cards/ListListingCard';
-import ListListings from '../../components/explore/ListListings';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import { Marker } from '@react-google-maps/api';
-import { InfoWindow } from '@react-google-maps/api';
-import MarkerListing from '../../components/explore/Map View/Marker';
-import { configsSelector } from '../../store/feature/configsSlice';
-import moment from 'moment';
+import NewListings from '../../components/Listings/NewListings';
+import Filter from '../../components/Listings/Filter/Filter';
 import Listing_Filter from '../../components/Shared/Listing_Filter';
+import Breadcrumb from '../../components/Shared/Breadcrumb';
 
-const EventListingsPageLayout = () => {
+const CollectionListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
-  const [selected_type, setSelected_type] = useState('gallery_view');
-  const [selected_marker, setSelected_marker] = useState(null);
-  const [coordinates_listings, setCoordinates_listings] = useState(null);
-
   const router = useRouter();
-
   const dispatch = useDispatch();
   const { auth_key, first_name } = useSelector(authSelector);
 
-  const { general_configs, MARKETPLACE_MODULES } = useSelector(configsSelector);
-
-  // fetch listings
+  // Get Lsitings:
   useEffect(() => {
-    const start_time = router?.query?.start_at;
-    let available_params = start_time
-      ? { ...router.query }
-      : {
-          ...router.query,
-          start_at: `${moment(new Date()).format('YYYY-MM-DD')}T00:00:00Z`,
-        };
-
     dispatch(
       getAllListings({
-        prams: {
-          ...available_params,
-          status: 2,
-        },
+        prams: { ...router.query, status: 2 },
         authKey: auth_key,
       })
     );
   }, [auth_key, dispatch, router]);
 
-  // pagination
+  // Pagination (Get listings by page)
   const moreListings = (data) => {
     router.push({
       query: { ...router.query, page: Number(data.selected) + 1 },
     });
   };
 
+  // Listings and other data from store
   const { listings, total_records, page, isFetching } =
     useSelector(listingSelector);
 
-  // coordinates listings
-  useEffect(() => {
-    if (listings && listings.length > 0) {
-      setCoordinates_listings(
-        listings.filter((listing) => listing.coordinates?.latitude != undefined)
-      );
-    }
-  }, [listings]);
-
-  useEffect(() => {
-    if (listings && coordinates_listings?.length > 0) {
-      setSelected_marker(coordinates_listings[0].coordinates.latitude);
-    }
-  }, [coordinates_listings]);
-
+  // Set total page
   useEffect(() => {
     const totalpage = Math.ceil(total_records / 30);
     if (Number(total_records) > 30) {
@@ -89,92 +50,39 @@ const EventListingsPageLayout = () => {
     }
   }, [total_records]);
 
-  const containerStyle = {
-    width: '100%',
-    height: '100%',
+  //reset_filter
+  const reset_filter = () => {
+    router.push({
+      query: {
+        collection_id: router.query.collection_id,
+        collection_name: router.query.collection_name,
+        page: router.query.page,
+      },
+    });
   };
- 
 
   return (
     <>
       {isFetching && <CustomLoading />}
       <div>
-        <div className=" mb-4 flex items-center justify-between">
-          <Listing_Filter hidden_category={false} />
-          <ListingsView
-            selected_type={selected_type}
-            setSelected_type={setSelected_type}
+        <div className="mb-2">
+          <Breadcrumb
+            lists={[
+              { name: 'Home', link: '/' },
+              { name: 'All Listings', link: '/l?page=1' },
+              {
+                name: router.query.collection_name,
+                link: ``,
+              },
+            ]}
           />
+        </div>
+        <div className=" mb-8 ">
+          <Listing_Filter hidden_category={false} reset_filter={reset_filter} />
         </div>
         {listings === null || listings?.length > 0 ? (
           <div>
-            {selected_type == 'gallery_view' && (
-              <NewListings Products={listings} />
-            )}
-            {selected_type == 'list_view' && (
-              <>
-                <ListListings Products={listings} />
-              </>
-            )}
-            {selected_type == 'map_view' && general_configs && (
-              <LoadScript
-                googleMapsApiKey={general_configs?.google_map_api_key}
-                loadingElement={CustomLoading}
-              >
-                <div className="grid  lg:grid-cols-3 gap-3  lg:max-h-[75vh]     lg:overflow-hidden">
-                  <div className=" order-last lg:order-first  lg:max-h-[80%]   lg:overflow-auto  md:pb-96">
-                    <ListListings Products={listings} map_view={true} />
-                  </div>
-
-                  <div className="  h-[100%] lg:col-span-2 pt-3">
-                    <GoogleMap
-                      mapContainerStyle={containerStyle}
-                      center={{
-                        lat: coordinates_listings[0]?.coordinates?.latitude,
-                        lng: coordinates_listings[0]?.coordinates?.longitude,
-                      }}
-                      zoom={10}
-                    >
-                      {coordinates_listings?.map((item) => {
-                        return (
-                          item?.coordinates?.latitude && (
-                            <>
-                              <Marker
-                                key={item.id}
-                                position={{
-                                  lat: item?.coordinates?.latitude,
-                                  lng: item?.coordinates?.longitude,
-                                }}
-                                clickable
-                                onClick={() =>
-                                  setSelected_marker(
-                                    item?.coordinates?.latitude
-                                  )
-                                }
-                              />
-                              {Number(selected_marker) ==
-                                Number(item.coordinates.latitude) && (
-                                <InfoWindow
-                                  position={{
-                                    lat: item.coordinates.latitude,
-                                    lng: item.coordinates.longitude,
-                                  }}
-                                  onCloseClick={() => setSelected_marker(null)}
-                                >
-                                  <div className=" max-w-[350px] p-0 relative">
-                                    <MarkerListing item={item} />
-                                  </div>
-                                </InfoWindow>
-                              )}
-                            </>
-                          )
-                        );
-                      })}
-                    </GoogleMap>
-                  </div>
-                </div>
-              </LoadScript>
-            )}
+            <NewListings Products={listings} />
           </div>
         ) : (
           <div className=" w-full h-[200px] mt-5 flex justify-center items-start">
@@ -263,4 +171,4 @@ const EventListingsPageLayout = () => {
   );
 };
 
-export default EventListingsPageLayout;
+export default CollectionListingsPageLayout;

@@ -60,8 +60,8 @@ const LatestEvent = ({ products }) => {
         <h2 className=" text-2xl text-black font-semibold">{products.title}</h2>
         <Link
           href={{
-            pathname: '/l',
-            query: { page: 1 },
+            pathname: `/l/collection/${products.id}`,
+            query: { page: 1, collection_name: products.title },
           }}
           passHref
         >

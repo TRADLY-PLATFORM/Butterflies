@@ -12,6 +12,7 @@ import ReactPaginate from 'react-paginate';
 import CustomLoading from '../../components/Shared/Loading/CustomLoading';
 import NewListings from '../../components/Listings/NewListings';
 import Filter from '../../components/Listings/Filter/Filter';
+import Listing_Filter from '../../components/Shared/Listing_Filter';
 
 const ListingsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -19,8 +20,9 @@ const ListingsPageLayout = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
-  const { auth_key, first_name } = useSelector(authSelector);
+  const { auth_key } = useSelector(authSelector);
 
+  // get listings
   useEffect(() => {
     dispatch(
       getAllListings({
@@ -30,28 +32,18 @@ const ListingsPageLayout = () => {
     );
   }, [auth_key, dispatch, router]);
 
+  // get more listings by page
   const moreListings = (data) => {
     router.push({
       query: { ...router.query, page: Number(data.selected) + 1 },
     });
-    // dispatch(
-    //   getAllListings({
-    //     prams: {
-    //       page: Number(data.selected) + 1,
-    //       per_page: 30,
-    //     },
-    //     authKey: auth_key,
-    //   })
-    // ).then((res) => {
-    //   if (!res.payload.code) {
-    //     router.push({ query: { page: Number(data.selected) + 1 } });
-    //   }
-    // });
   };
 
+  // listings from store:
   const { listings, total_records, page, isFetching } =
     useSelector(listingSelector);
 
+  // Count and set total page
   useEffect(() => {
     const totalpage = Math.ceil(total_records / 30);
     if (Number(total_records) > 30) {
@@ -64,7 +56,7 @@ const ListingsPageLayout = () => {
       {isFetching && <CustomLoading />}
       <div>
         <div className=" mb-8 ">
-          <Filter />
+          <Listing_Filter hidden_category={false} />
         </div>
         {listings === null || listings?.length > 0 ? (
           <div>
