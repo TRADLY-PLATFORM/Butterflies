@@ -38,7 +38,7 @@ const CustomEditProductPageLayout = () => {
   }, [auth_key]);
   return (
     <div className="  w-full pt-2  pb-20 flex items-center c-lg:items-start  flex-col gap-8 md:gap-2   c-lg:flex-row justify-center">
-      <div className="w-full  xs:w-[500px]  c-lg:w-[450px] xl:w-[500px]  2xl:w-[600px] ">
+      <div className="w-full  c-lg:w-[60%]  ">
         <div className=" bg-white  w-full  p-5 shadow-c-sm rounded-lg">
           {listing_configs !== null && <CustomEditProductForm />}
         </div>

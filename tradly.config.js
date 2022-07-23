@@ -79,6 +79,7 @@ import SaasOrdersPageLayout from './themes/saas/OrdersPageLayout';
 import SaasOrderDetailsPageLayout from './themes/saas/OrderDetailsPageLayout';
 import SaasAddReviewPageLayout from './themes/saas/AddReviewPageLayout';
 import SaasCollectionListingsPageLayout from './themes/saas/CollectionListingsPageLayout';
+import { seo_text } from './constant/static_text';
 
 module.exports = {
   // home Page
@@ -133,8 +134,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.listing_categories_page_title}
+            pageDescription={seo_text.listing_categories_page_description}
           >
             <ProductCategoriesPageLayout />
           </ProductMainLayout>
@@ -143,8 +144,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.listing_categories_page_title}
+            pageDescription={seo_text.listing_categories_page_description}
           >
             <EventCategoriesPageLayout />
           </EventMainLayout>
@@ -153,8 +154,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.listing_categories_page_title}
+            pageDescription={seo_text.listing_categories_page_description}
           >
             <SaasCategoriesPageLayout />
           </SaasMainLayout>
@@ -164,14 +165,15 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.listing_categories_page_title}
+            pageDescription={seo_text.listing_categories_page_description}
           >
             <ProductCategoriesPageLayout />
           </ProductMainLayout>
         );
     }
   },
+
   //all_listings_page Page:
   all_listings_page: () => {
     switch (Number(TYPE_CONSTANT.THEME)) {
@@ -485,8 +487,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.checkout_page_title}
+            pageDescription={seo_text.checkout_page_description}
           >
             <CheckoutPageLayout />
           </ProductMainLayout>
@@ -495,8 +497,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.checkout_page_title}
+            pageDescription={seo_text.checkout_page_description}
           >
             <EventCheckoutPageLayout />
           </EventMainLayout>
@@ -506,8 +508,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.checkout_page_title}
+            pageDescription={seo_text.checkout_page_description}
           >
             <CheckoutPageLayout />
           </ProductMainLayout>
@@ -521,8 +523,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.my_account_page_title}
+            pageDescription={seo_text.my_account_page_description}
           >
             <ProductMyStorePageLayout />
           </ProductMainLayout>
@@ -531,8 +533,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.my_account_page_title}
+            pageDescription={seo_text.my_account_page_description}
           >
             <EventMyStorePageLayout />
           </EventMainLayout>
@@ -541,8 +543,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.my_account_page_title}
+            pageDescription={seo_text.my_account_page_description}
           >
             <CustomMyStorePageLayout />
           </SaasMainLayout>
@@ -552,8 +554,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.my_account_page_title}
+            pageDescription={seo_text.my_account_page_description}
           >
             <ProductMyStorePageLayout />
           </ProductMainLayout>
@@ -567,8 +569,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_account_page_title}
+            pageDescription={seo_text.add_account_page_description}
           >
             <ProductCreateStorePageLayout />
           </ProductMainLayout>
@@ -577,8 +579,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_account_page_title}
+            pageDescription={seo_text.add_account_page_description}
           >
             <EventCreateStorePageLayout />
           </EventMainLayout>
@@ -587,8 +589,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_account_page_title}
+            pageDescription={seo_text.add_account_page_description}
           >
             <CustomCreateStorePageLayout />
           </SaasMainLayout>
@@ -598,8 +600,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_account_page_title}
+            pageDescription={seo_text.add_account_page_description}
           >
             <ProductCreateStorePageLayout />
           </ProductMainLayout>
@@ -613,8 +615,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_account_page_title}
+            pageDescription={seo_text.edit_account_page_description}
           >
             <ProductEditStorePageLayout />
           </ProductMainLayout>
@@ -623,8 +625,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_account_page_title}
+            pageDescription={seo_text.edit_account_page_description}
           >
             <EventEditStorePageLayout />
           </EventMainLayout>
@@ -633,8 +635,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_account_page_title}
+            pageDescription={seo_text.edit_account_page_description}
           >
             <CustomEditStorePageLayout />
           </SaasMainLayout>
@@ -644,8 +646,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_account_page_title}
+            pageDescription={seo_text.edit_account_page_description}
           >
             <ProductEditStorePageLayout />
           </ProductMainLayout>
@@ -659,8 +661,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_account_page_title}
+            pageDescription={seo_text.add_account_page_description}
           >
             <AddListingPageLayout />
           </ProductMainLayout>
@@ -669,8 +671,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_account_page_title}
+            pageDescription={seo_text.add_account_page_description}
           >
             <AddEventPageLayout />
           </EventMainLayout>
@@ -679,8 +681,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_account_page_title}
+            pageDescription={seo_text.add_account_page_description}
           >
             <AddCustomListingPageLayout />
           </SaasMainLayout>
@@ -690,8 +692,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_account_page_title}
+            pageDescription={seo_text.add_account_page_description}
           >
             <AddListingPageLayout />
           </ProductMainLayout>
@@ -705,8 +707,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_listing_page_title}
+            pageDescription={seo_text.edit_listing_page_description}
           >
             <ProductEditProductPageLayout />
           </ProductMainLayout>
@@ -715,8 +717,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_listing_page_title}
+            pageDescription={seo_text.edit_listing_page_description}
           >
             <EventEditProductPageLayout />
           </EventMainLayout>
@@ -725,8 +727,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_listing_page_title}
+            pageDescription={seo_text.edit_listing_page_description}
           >
             <CustomEditProductPageLayout />
           </SaasMainLayout>
@@ -736,8 +738,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_listing_page_title}
+            pageDescription={seo_text.edit_listing_page_description}
           >
             <ProductEditProductPageLayout />
           </ProductMainLayout>
@@ -751,8 +753,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_profile_page_title}
+            pageDescription={seo_text.edit_profile_page_description}
           >
             <ProductEditProfilePageLayout />
           </ProductMainLayout>
@@ -761,8 +763,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_profile_page_title}
+            pageDescription={seo_text.edit_profile_page_description}
           >
             <EventEditProfilePageLayout />
           </EventMainLayout>
@@ -771,8 +773,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_profile_page_title}
+            pageDescription={seo_text.edit_profile_page_description}
           >
             <SaasEditProfilePageLayout />
           </SaasMainLayout>
@@ -782,8 +784,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.edit_profile_page_title}
+            pageDescription={seo_text.edit_profile_page_description}
           >
             <ProductEditProfilePageLayout />
           </ProductMainLayout>
@@ -796,8 +798,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.search_page_title}
+            pageDescription={seo_text.search_page_description}
           >
             <ProductSearchPageLayout />
           </ProductMainLayout>
@@ -806,8 +808,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.search_page_title}
+            pageDescription={seo_text.search_page_description}
           >
             <EventSearchPageLayout />
           </EventMainLayout>
@@ -816,8 +818,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.search_page_title}
+            pageDescription={seo_text.search_page_description}
           >
             <SaasSearchPageLayout />
           </SaasMainLayout>
@@ -827,8 +829,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.search_page_title}
+            pageDescription={seo_text.search_page_description}
           >
             <ProductSearchPageLayout />
           </ProductMainLayout>
@@ -842,8 +844,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.account_orders_page_title}
+            pageDescription={seo_text.account_orders_page_description}
           >
             <ProductStoreOrdersPageLayout />
           </ProductMainLayout>
@@ -852,8 +854,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.account_orders_page_title}
+            pageDescription={seo_text.account_orders_page_description}
           >
             <EventStoreOrdersPageLayout />
           </EventMainLayout>
@@ -862,8 +864,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.account_orders_page_title}
+            pageDescription={seo_text.account_orders_page_description}
           >
             <SaasStoreOrdersPageLayout />
           </SaasMainLayout>
@@ -873,8 +875,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.account_orders_page_title}
+            pageDescription={seo_text.account_orders_page_description}
           >
             <ProductStoreOrdersPageLayout />
           </ProductMainLayout>
@@ -888,8 +890,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.account_order_details_page_title}
+            pageDescription={seo_text.account_order_details_page_description}
           >
             <ProductStoreOrderDetailsPageLayout />
           </ProductMainLayout>
@@ -898,8 +900,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.account_order_details_page_title}
+            pageDescription={seo_text.account_order_details_page_description}
           >
             <EventStoreOrderDetailsPageLayout />
           </EventMainLayout>
@@ -908,8 +910,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.account_order_details_page_title}
+            pageDescription={seo_text.account_order_details_page_description}
           >
             <SaasStoreOrderDetailsPageLayout />
           </SaasMainLayout>
@@ -919,8 +921,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.account_order_details_page_title}
+            pageDescription={seo_text.account_order_details_page_description}
           >
             <ProductStoreOrderDetailsPageLayout />
           </ProductMainLayout>
@@ -934,8 +936,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.orders_page_title}
+            pageDescription={seo_text.orders_page_description}
           >
             <ProductOrdersPageLayout />
           </ProductMainLayout>
@@ -944,8 +946,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.orders_page_title}
+            pageDescription={seo_text.orders_page_description}
           >
             <EventOrdersPageLayout />
           </EventMainLayout>
@@ -954,8 +956,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.orders_page_title}
+            pageDescription={seo_text.orders_page_description}
           >
             <SaasOrdersPageLayout />
           </SaasMainLayout>
@@ -965,8 +967,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.orders_page_title}
+            pageDescription={seo_text.orders_page_description}
           >
             <ProductOrdersPageLayout />
           </ProductMainLayout>
@@ -980,8 +982,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.order_details_page_title}
+            pageDescription={seo_text.order_details_page_description}
           >
             <ProductOrderDetailsPageLayout />
           </ProductMainLayout>
@@ -990,8 +992,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.order_details_page_title}
+            pageDescription={seo_text.order_details_page_description}
           >
             <EventOrderDetailsPageLayout />
           </EventMainLayout>
@@ -1000,8 +1002,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.order_details_page_title}
+            pageDescription={seo_text.order_details_page_description}
           >
             <SaasOrderDetailsPageLayout />
           </SaasMainLayout>
@@ -1011,8 +1013,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.order_details_page_title}
+            pageDescription={seo_text.order_details_page_description}
           >
             <ProductOrderDetailsPageLayout />
           </ProductMainLayout>
@@ -1026,8 +1028,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_review_page_title}
+            pageDescription={seo_text.add_review_page_description}
           >
             <ProductAddReviewPageLayout />
           </ProductMainLayout>
@@ -1036,8 +1038,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_review_page_title}
+            pageDescription={seo_text.add_review_page_description}
           >
             <EventAddReviewPageLayout />
           </EventMainLayout>
@@ -1046,8 +1048,8 @@ module.exports = {
       case 3:
         return (
           <SaasMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_review_page_title}
+            pageDescription={seo_text.add_review_page_description}
           >
             <SaasAddReviewPageLayout />
           </SaasMainLayout>
@@ -1057,8 +1059,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.add_review_page_title}
+            pageDescription={seo_text.add_review_page_description}
           >
             <ProductAddReviewPageLayout />
           </ProductMainLayout>
@@ -1072,8 +1074,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.invite_page_title}
+            pageDescription={seo_text.invite_page_description}
           >
             <ProductInvitePageLayout />
           </ProductMainLayout>
@@ -1082,8 +1084,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.invite_page_title}
+            pageDescription={seo_text.invite_page_description}
           >
             <EventInvitePageLayout />
           </EventMainLayout>
@@ -1093,8 +1095,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.invite_page_title}
+            pageDescription={seo_text.invite_page_description}
           >
             <ProductInvitePageLayout />
           </ProductMainLayout>
@@ -1137,8 +1139,8 @@ module.exports = {
       case 1:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.wishlist_page_title}
+            pageDescription={seo_text.wishlist_page_description}
           >
             <ProductWishListPageLayout />
           </ProductMainLayout>
@@ -1147,8 +1149,8 @@ module.exports = {
       case 2:
         return (
           <EventMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.wishlist_page_title}
+            pageDescription={seo_text.wishlist_page_description}
           >
             <EventWishListPageLayout />
           </EventMainLayout>
@@ -1158,8 +1160,8 @@ module.exports = {
       default:
         return (
           <ProductMainLayout
-            pageTitle={TYPE_CONSTANT.META_TITLE}
-            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+            pageTitle={seo_text.wishlist_page_title}
+            pageDescription={seo_text.wishlist_page_description}
           >
             <ProductWishListPageLayout />
           </ProductMainLayout>
