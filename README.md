@@ -23,7 +23,7 @@
      An open source NextJS Template with Tailwind UI. Contents served from Tradly Headless API. 
    Use cases (Product Marketplaces, Event Marketplace, SaaS App Directory / Partner Pages, Single D2C / B2C Store) 
     <br />
-    <a href="https://portal.tradly.app/docs/introduction"><strong>Explore the docs »</strong></a>
+    <a href="https://tradly.app/docs/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/TRADLY-PLATFORM/Butterflies/issues">Report Bug</a>
@@ -76,7 +76,9 @@
 ![Snip20210920_26](https://user-images.githubusercontent.com/61427976/133940948-09361d1c-08b3-43e3-b588-ac1dd3ff3e0c.png)
 ![Snip20210920_27](https://user-images.githubusercontent.com/61427976/133940957-e8905cd8-2ece-46ee-800a-e07546950b60.png)
 
-This is an open source business web site. Which you can easily use for your business platform by changing a little bit.It has all the features of a business website. The benefits of SEO have also been added. Which is Google friendly. And you can easily optimize your website.
+This is an open source business web site. Which you can easily use for your business platform by changing a little bit.It has all the features of a business website. Advanced SEO methods to change all pages meta programmatically(templated) also available. Yes it is Google friendly. 
+
+Note: Design screenshots you see in the repo and in the end product might vary. We do optimise them based on feedback, etc. 
 
 Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
