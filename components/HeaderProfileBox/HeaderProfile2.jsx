@@ -27,6 +27,7 @@ import { TYPE_CONSTANT } from '../../constant/Web_constant';
 const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
   const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
   const [general_configs, setGeneral_configs] = useState(null);
+  let userDetails = JSON.parse(localStorage.getItem('user_details'));
 
   useEffect(() => {
     setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
@@ -36,8 +37,6 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
   }, [0]);
 
   useEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem('user_details'));
-
     if (localStorage.getItem('auth_key')) {
       dispatch(
         myStore({
@@ -138,6 +137,7 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
                     <div className="grid   grid-cols-2 ms:grid-cols-[200px,200px] sm:grid-cols-[250px,250px]">
                       {customer_menus(
                         Link,
+                        userDetails,
                         MARKETPLACE_MODULES,
                         general_configs,
                         router,
@@ -149,6 +149,7 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
                     <div className="grid grid-cols-[250px]">
                       {customer_menus(
                         Link,
+                        userDetails,
                         MARKETPLACE_MODULES,
                         general_configs,
                         router,
