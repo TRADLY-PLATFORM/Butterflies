@@ -129,10 +129,16 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    npm install
    ```
-4. Enter your API in `env/.env.dev`
+4. Enter your PUBLIC KEY in `env/.env.prod` (Visit Superadmin > Settings > API) 
    ```js
-     ENVIRONMENT = "development"
-     API_KEY  = 'ENTER YOUR API';
+     ENVIRONMENT = "production"
+     API_KEY  = 'ENTER YOUR PRODUCTION KEY';
+   ```
+   or
+   Enter your API in `env/.env.sandbox`
+   ```js
+     ENVIRONMENT = "sandbox"
+     API_KEY  = 'ENTER YOUR SANDBOX KEY';
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
