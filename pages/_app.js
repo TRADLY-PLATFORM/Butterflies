@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }) {
     })
     .catch((error) => {
       setIs_connected(false);
-      alert('Domain not found please try later .');
+      // alert('Domain not found please try later .');
     });
 
   useEffect(() => {
