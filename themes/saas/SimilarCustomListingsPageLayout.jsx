@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../store/feature/authSlice';
 import { listingLike } from '../../store/feature/listingSlice';

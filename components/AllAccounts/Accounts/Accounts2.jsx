@@ -10,7 +10,7 @@ import {
   get_all_accounts,
   storeSelector,
 } from '../../../store/feature/storeSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import { check_login } from '../../../constant/check_auth';

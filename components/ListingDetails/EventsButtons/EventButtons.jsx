@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { cartSelector } from '../../../store/feature/cartSlice';
 import { authSelector } from '../../../store/feature/authSlice';
 

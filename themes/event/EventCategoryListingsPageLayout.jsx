@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable camelcase */
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../store/feature/authSlice';

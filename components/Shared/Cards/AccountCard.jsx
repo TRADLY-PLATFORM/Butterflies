@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import tradly from 'tradly';
 import { getThumbnailImage } from '../Constant/Constant';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const AccountCard = ({ item, follow }) => {
   const router = useRouter();

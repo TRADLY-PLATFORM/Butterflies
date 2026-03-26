@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import {
   addToCart,
   cartSelector,

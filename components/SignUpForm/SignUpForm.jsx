@@ -12,7 +12,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../Shared/PopUp/PopUp';
 import * as EmailValidator from 'email-validator';
 import { uuid } from 'uuidv4';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const SignUpForm = ({ general_configs }) => {
   const [firstName, setFirstName] = useState(null);

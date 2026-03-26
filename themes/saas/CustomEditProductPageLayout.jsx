@@ -1,4 +1,4 @@
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../store/feature/authSlice';

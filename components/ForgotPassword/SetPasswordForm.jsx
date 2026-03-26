@@ -14,10 +14,10 @@ import PopUp from '../Shared/PopUp/PopUp';
 import * as EmailValidator from 'email-validator';
 import { useSelector } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import tradly from 'tradly';
 import SuccessPopUp from '../Shared/PopUp/Success';
-import { route } from 'next/dist/server/router';
+;
 import CustomLoading from '../Shared/Loading/CustomLoading';
 import axios from 'axios';
 

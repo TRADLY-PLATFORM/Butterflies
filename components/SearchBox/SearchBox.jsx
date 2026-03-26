@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
-import { route } from 'next/dist/server/router';
+import { useRouter } from 'next/router';
+;
 
 const SearchBox = () => {
   const [searchKey, setSearchKey] = useState(null)

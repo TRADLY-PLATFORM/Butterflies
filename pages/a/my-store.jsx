@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import Error from 'next/error';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

@@ -3,7 +3,7 @@ import React from 'react';
 import banner from '../../../assets/Images/store/banner.png';
 import Image from 'next/image';
 import { getThumbnailImage } from '../../Shared/Constant/Constant';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const StoreProfile = ({ my_stores }) => {
   const router = useRouter();

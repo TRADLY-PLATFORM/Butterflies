@@ -4,14 +4,12 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/swiper.min.css';
-import 'swiper/components/pagination/pagination.min.css';
-import 'swiper/components/navigation/navigation.min.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 // import Swiper core and required modules
-import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
 import Image from 'next/image'; // install Swiper modules
-SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const ImagePart = ({ images }) => {
   return (

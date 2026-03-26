@@ -3,9 +3,9 @@ User-agent: *
 Allow: /
 
 # Host
-Host: 
+Host: https://zscommerce.my
 
 # Sitemaps
-Sitemap: //sitemap.xml
-Sitemap: /listing-sitemap.xml
-Sitemap: /category-sitemap.xml
+Sitemap: https://zscommerce.my/sitemap.xml
+Sitemap: https://zscommerce.my/listing-sitemap.xml
+Sitemap: https://zscommerce.my/category-sitemap.xml

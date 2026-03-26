@@ -2,7 +2,7 @@ import   { useEffect } from 'react';
 import { useDispatch   } from 'react-redux';
  import {    refreshPage } from '../../store/feature/authSlice';
  import { setAccountConfig } from '../../store/feature/configsSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { create_store_page } from '../../tradly.config';
  import { TYPE_CONSTANT } from '../../constant/Web_constant';
 

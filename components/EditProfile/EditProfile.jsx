@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { saveChange } from './saveChange';
 import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../Shared/PopUp/PopUp';

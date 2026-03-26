@@ -7,7 +7,7 @@ import {
   getThumbnailImage,
 } from '../../../Shared/Constant/Constant';
 import { orderStatus } from '../../../Shared/Constant/Status';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const OrdersItem = ({ orders, accountId }) => {
   const router = useRouter();

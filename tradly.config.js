@@ -81,7 +81,7 @@ import SaasAddReviewPageLayout from './themes/saas/AddReviewPageLayout';
 import SaasCollectionListingsPageLayout from './themes/saas/CollectionListingsPageLayout';
 import { seo_text } from './constant/static_text';
 
-module.exports = {
+const config = {
   // home Page
   home_page: () => {
     switch (Number(TYPE_CONSTANT.THEME)) {
@@ -1169,3 +1169,29 @@ module.exports = {
     }
   },
 };
+
+export const home_page = config.home_page;
+export const all_listing_categories_page = config.all_listing_categories_page;
+export const edit_profile_page = config.edit_profile_page;
+export const accounts_details_page = config.accounts_details_page;
+export const all_accounts_page = config.all_accounts_page;
+export const add_listing_page = config.add_listing_page;
+export const my_store_page = config.my_store_page;
+export const create_store_page = config.create_store_page;
+export const edit_listing_page = config.edit_listing_page;
+export const account_order_details = config.account_order_details;
+export const account_orders = config.account_orders;
+export const edit_store_page = config.edit_store_page;
+export const search_page = config.search_page;
+export const wishlist_page = config.wishlist_page;
+export const payout_page = config.payout_page;
+export const add_review = config.add_review;
+export const orders = config.orders;
+export const checkout_page = config.checkout_page;
+export const category_listings_page = config.category_listings_page;
+export const Invite_page = config.Invite_page;
+export const listing_details_page = config.listing_details_page;
+export const collection_listings_page = config.collection_listings_page;
+export const all_listings_page = config.all_listings_page;
+export const similar_all_listings_page = config.similar_all_listings_page;
+

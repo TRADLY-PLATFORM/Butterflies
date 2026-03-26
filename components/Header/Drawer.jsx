@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import SearchBox from '../SearchBox/SearchBox';
 import axios from 'axios';
 

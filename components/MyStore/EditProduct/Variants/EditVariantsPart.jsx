@@ -17,7 +17,7 @@ import {
   deleteVariant,
   editVariantButton,
 } from './variantButton';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { getThumbnailImage } from '../../../Shared/Constant/Constant';
 import Modal from '../../../Shared/Modal.jsx/Modal';
 import VariantSuccess from './VariantSuccess/VariantSuccess';

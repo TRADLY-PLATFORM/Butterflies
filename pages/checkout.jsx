@@ -9,7 +9,7 @@ import {
   setGeneralConfig,
   setListingConfig,
 } from '../store/feature/configsSlice';
-import {} from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { TYPE_CONSTANT } from '../constant/Web_constant';
 import { checkout_page } from '../tradly.config';
 

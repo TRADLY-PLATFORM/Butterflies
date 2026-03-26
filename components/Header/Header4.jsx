@@ -10,7 +10,7 @@ import StoreButton from '../StoreButton/StoreButton';
 import SearchBox from '../SearchBox/SearchBox';
 import CustomSearchBox from '../SearchBox/CustomSearchBox';
 import axios from 'axios';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 
 function Header4() {

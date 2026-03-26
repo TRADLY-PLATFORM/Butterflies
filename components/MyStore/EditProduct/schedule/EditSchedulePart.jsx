@@ -22,7 +22,7 @@ import {
   deleteSchedule,
 } from './scheduleButton';
 import PopUp from '../../../Shared/PopUp/PopUp';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import ScheduleSuccess from './scheduleSuccess/scheduleSuccess';
 import { useDispatch } from 'react-redux';
 import AddScheduleForm from './AddScheduleForm';

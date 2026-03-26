@@ -11,7 +11,7 @@ import {
   order_notification_text,
 } from '../Shared/Constant/TextConstant/NotificationsText';
 import { changeDateFormat } from '../Shared/Constant/Constant';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { myStore, storeSelector } from '../../store/feature/storeSlice';
 import {
   notification_icon_without_hover,

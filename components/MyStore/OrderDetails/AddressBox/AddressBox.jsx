@@ -6,7 +6,7 @@ import Modal from '../../../Shared/Modal.jsx/Modal';
 import AddressForm from './AddressForm/AddressForm';
 import tradly from 'tradly';
 import { get_order_details } from '../../../../store/feature/store_orderSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../../store/feature/authSlice';
 import { useDispatch } from 'react-redux';

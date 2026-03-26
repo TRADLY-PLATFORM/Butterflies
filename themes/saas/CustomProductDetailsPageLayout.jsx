@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import DescriptionPart from '../../components/ListingDetails/DescriptionPart/DescriptionPart';
 import ImagePart from '../../components/ListingDetails/ImagePart/ImagePart';
 import MainBox from '../../components/ListingDetails/MainBox/MainBox';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../store/feature/authSlice';

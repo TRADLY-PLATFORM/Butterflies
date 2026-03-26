@@ -14,7 +14,7 @@ import PopUp from '../Shared/PopUp/PopUp';
 import * as EmailValidator from 'email-validator';
 import { useSelector } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const ForgotPasswordForm = ({ general_configs }) => {
   const [email, setEmail] = useState(null);

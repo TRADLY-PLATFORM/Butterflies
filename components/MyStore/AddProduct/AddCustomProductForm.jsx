@@ -11,7 +11,7 @@ import Image from 'next/image';
 import PopUp from '../../Shared/PopUp/PopUp';
 import { authSelector } from '../../../store/feature/authSlice';
 import Attributes from './Attributes';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { add_product_click } from './addProduct';
 import SchedulePart from './schedule/SchedulePart';
 import AddVariantForm from './Variants/AddVariantsForm';

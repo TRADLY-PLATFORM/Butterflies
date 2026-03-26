@@ -3,7 +3,7 @@ import React from 'react';
 import ItemQuantity from './ItemQuantity';
 import Image from 'next/image';
 import { getThumbnailImage } from '../../Shared/Constant/Constant';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const EventOrderSummary = ({ listing_details, quantity }) => {
   const router = useRouter();

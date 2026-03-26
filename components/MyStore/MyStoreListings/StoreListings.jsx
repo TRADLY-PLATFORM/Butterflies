@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import tradly from 'tradly';
 import { authSelector } from '../../../store/feature/authSlice';

@@ -5,7 +5,7 @@ import ItemsSummary from '../../components/MyStore/OrderDetails/ItemsSummary/Ite
 import OrderSummary from '../../components/MyStore/OrderDetails/OrderSummary/OrderSummary';
 import TotalAmountBox from '../../components/MyStore/OrderDetails/TotalBox/TotalAmountBox';
 import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../store/feature/authSlice';
 import {

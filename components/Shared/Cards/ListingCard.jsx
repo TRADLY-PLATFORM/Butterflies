@@ -8,7 +8,7 @@ import {
   getThumbnailImage,
   getThumbnailImage2,
 } from '../Constant/Constant';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { TYPE_CONSTANT } from '../../../constant/Web_constant';
 

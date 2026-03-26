@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/feature/authSlice';
 import { storeSelector } from '../../store/feature/storeSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { configsSelector } from '../../store/feature/configsSlice';
 
 const ProfileMenus = () => {

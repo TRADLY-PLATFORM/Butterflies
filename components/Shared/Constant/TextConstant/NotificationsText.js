@@ -1,19 +1,4 @@
  
-module.exports = {
-  account_follow_notification_text: (name) => {
-    return `${name} following your account`;
-  },
-  listing_like_notification_text: (name) => {
-    return `${name} liked your listing`;
-  },
-  account_order_notification_text: (status) => {
-    return ` Order is ${orderStatus(Number(status))} `;
-  },
-  order_notification_text: (status) => {
-    return ` Your order is ${orderStatus(Number(status))} `;
-  },
-};
-
 export const orderStatus = (id) => {
   if (id === 1) {
     return 'incomplete';
@@ -66,4 +51,20 @@ export const orderStatus = (id) => {
   if (id === 17) {
     return 'ready for pickup';
   }
+};
+
+export const account_follow_notification_text = (name) => {
+  return `${name} following your account`;
+};
+
+export const listing_like_notification_text = (name) => {
+  return `${name} liked your listing`;
+};
+
+export const account_order_notification_text = (status) => {
+  return ` Order is ${orderStatus(Number(status))} `;
+};
+
+export const order_notification_text = (status) => {
+  return ` Your order is ${orderStatus(Number(status))} `;
 };

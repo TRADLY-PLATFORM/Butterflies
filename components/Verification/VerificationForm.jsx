@@ -9,7 +9,7 @@ import {
   verifyUser,
 } from '../../store/feature/authSlice';
 import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import tradly from 'tradly';
 import SuccessPopUp from '../Shared/PopUp/Success';
 import CustomLoading from '../Shared/Loading/CustomLoading';

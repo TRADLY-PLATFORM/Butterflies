@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';

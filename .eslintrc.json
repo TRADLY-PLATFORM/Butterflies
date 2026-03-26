@@ -11,8 +11,10 @@
     "rules": {
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off",
-        " react/jsx-key": "off",
-        "@next/next/no-img-element": "off"
+        "react/jsx-key": "warn",
+        "@next/next/no-img-element": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-explicit-any": "warn"
     },
     "globals": {
         "React": "writable"

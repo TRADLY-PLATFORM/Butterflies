@@ -4,7 +4,7 @@ import Image from 'next/image';
 import favorite from '../../../assets/Images/Home/favourite@3x.png';
 import heartIcon from '../../../assets/Images/Home/heartIcon@3x.png';
 import { changeDateFormat, getThumbnailImage } from '../Constant/Constant';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { time_icon } from '../Constant/Icons/AllIcons';
 import moment from 'moment';

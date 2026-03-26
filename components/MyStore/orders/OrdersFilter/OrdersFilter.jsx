@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { Router, useRouter } from 'next/dist/client/router';
-import { route } from 'next/dist/server/router';
+;
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';

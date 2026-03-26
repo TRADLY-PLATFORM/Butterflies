@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { refreshPage } from '../../store/feature/authSlice';
 import { setAccountConfig } from '../../store/feature/configsSlice';
 import { clearAccountDetails } from '../../store/feature/storeSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { edit_store_page } from '../../tradly.config';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import { check_login } from '../../constant/check_auth';

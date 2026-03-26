@@ -15,7 +15,7 @@ import Attributes from './Attributes';
 import PopUp from '../../Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { edit_store_click } from './editButton';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const CustomEditStoreForm = ({
   my_stores,

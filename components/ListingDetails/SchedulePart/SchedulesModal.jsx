@@ -8,13 +8,12 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/swiper.min.css';
-import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination } from 'swiper/core';
 import Warning from '../../Shared/PopUp/Warning';
 import { authSelector } from '../../../store/feature/authSlice';
 

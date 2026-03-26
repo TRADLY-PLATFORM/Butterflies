@@ -4,7 +4,7 @@ import CustomerDetails from '../../components/OrderDetails/CustomerDetails/Custo
 import OrderSummary from '../../components/OrderDetails/OrderSummary/OrderSummary';
 import TotalAmountBox from '../../components/OrderDetails/TotalBox/TotalAmountBox';
 import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../store/feature/authSlice';
 import {

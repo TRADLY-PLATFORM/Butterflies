@@ -12,7 +12,7 @@ import {
 } from '../../../store/feature/cartSlice';
 import PopUp from '../../Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { configsSelector } from '../../../store/feature/configsSlice';
 import { TYPE_CONSTANT } from '../../../constant/Web_constant';
 

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 
 import logo from '../../assets/Images/SideMenubarImages/Tradly Logo.png';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { authSelector } from '../../store/feature/authSlice';
 
 const ProductSideMenubar = () => {

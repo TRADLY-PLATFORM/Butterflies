@@ -9,18 +9,16 @@ import { svgHeartIcon } from '../../Shared/Constant/Icons/Icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/swiper.min.css';
-import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination } from 'swiper/core';
 
 // install Swiper modules
-SwiperCore.use([Navigation, Pagination]);
 import tradly from 'tradly';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import ListingCard from '../../Shared/Cards/ListingCard';

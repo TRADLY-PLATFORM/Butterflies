@@ -11,7 +11,7 @@ import SearchAddress from './SearchAddress';
 import Image from 'next/image';
 import PopUp from '../../Shared/PopUp/PopUp';
 import { authSelector } from '../../../store/feature/authSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { edit_product_click } from './editProduct';
 import EditListingSuccess from './EditListingSuccess';
 import Modal from '../../Shared/Modal.jsx/Modal';

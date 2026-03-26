@@ -2,7 +2,7 @@
 import React from 'react';
 import banner from '../../../assets/Images/store/banner.png';
 import Image from 'next/image';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
 import axios from 'axios';

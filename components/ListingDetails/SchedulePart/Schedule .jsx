@@ -9,7 +9,7 @@ import moment from 'moment';
 import tradly from 'tradly';
 import { authSelector } from '../../../store/feature/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import Modal from '../../Shared/Modal.jsx/Modal';
 import OutsideClickHandler from 'react-outside-click-handler';
 import SchedulesModal from './SchedulesModal';

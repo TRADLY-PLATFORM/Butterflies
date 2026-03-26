@@ -21,7 +21,7 @@ import {
   getListingReviews,
   listingDetails,
 } from '../../../store/feature/listingSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { check_login } from '../../../constant/check_auth';
 
 const ReviewBox = ({listing_details, rating_data, reviews, review_page }) => {

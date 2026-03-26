@@ -1,7 +1,7 @@
 import React from 'react';
 import storeIcon from "../../../assets/Images/store/store.png"
 import Image from "next/image";
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const NoStore = () => {
     const router = useRouter()

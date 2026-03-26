@@ -5,7 +5,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { authSelector, logout } from '../../store/feature/authSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import {
   booking,
   order,

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getThumbnailImage } from '../Shared/Constant/Constant';
 import tradly from 'tradly';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import googleplayImage from '../../assets/Images/play-store-image.png';
 import { angle_down } from '../Shared/Constant/Icons/AllIcons';
 import {

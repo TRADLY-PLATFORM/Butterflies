@@ -1,4 +1,4 @@
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';

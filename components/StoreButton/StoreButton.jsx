@@ -3,7 +3,7 @@ import React from 'react';
 import Link from "next/link";
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../store/feature/authSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 
 const StoreButton = () => {

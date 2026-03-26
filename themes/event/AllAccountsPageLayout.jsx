@@ -9,7 +9,7 @@ import {
 import Accounts from '../../components/AllAccounts/Accounts/Accounts';
 import CustomLoading from '../../components/Shared/Loading/CustomLoading';
 import ReactPaginate from 'react-paginate';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const AllAccountsPageLayout = () => {
   const [pageCount, setPageCount] = useState(0);

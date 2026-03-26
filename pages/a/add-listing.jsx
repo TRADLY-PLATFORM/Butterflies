@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { refreshPage } from '../../store/feature/authSlice';
 import { setListingConfig } from '../../store/feature/storeSlice';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { add_listing_page } from '../../tradly.config';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import { check_login } from '../../constant/check_auth';

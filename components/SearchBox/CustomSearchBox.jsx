@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
-import { route } from 'next/dist/server/router';
+import { useRouter } from 'next/router';
+;
 import OutsideClickHandler from 'react-outside-click-handler';
 
 const CustomSearchBox = () => {

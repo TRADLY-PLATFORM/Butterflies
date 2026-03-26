@@ -12,7 +12,7 @@ import {
 } from '../../Shared/Constant/Icons/AllIcons';
 import tradly from 'tradly';
 import { useEffect } from 'react';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import {
   convertTimeinto12Hrs,
   getDatesArray2,
@@ -25,10 +25,10 @@ import {
 } from '../../Shared/Constant/Constant';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
-import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import moment from 'moment';
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import axios from 'axios';
 
@@ -368,7 +368,7 @@ const ExploreFilter = ({ hidden_category, reset_filter }) => {
                   <h4 className=" text-sm text-[#121212] font-bold py-[7px]  flex justify-between items-center  ">
                     <span className=" cursor-pointer">Time</span>
                   </h4>
-                  <Range
+                  <Slider.Range
                     className="text-primary"
                     allowCross={false}
                     max={23}

@@ -15,8 +15,8 @@ import Attributes from './Attributes';
 import PopUp from '../../Shared/PopUp/PopUp';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { create_store_click } from './createButton';
-import { useRouter } from 'next/dist/client/router';
-import { route } from 'next/dist/server/router';
+import { useRouter } from 'next/router';
+;
 import Markdown_Editor from '../../Shared/MarkdownEditor';
 
 const CreateStoreForm = ({ accounts_configs }) => {

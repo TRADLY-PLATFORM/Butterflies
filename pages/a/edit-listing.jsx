@@ -6,7 +6,7 @@ import {
   setListingConfig,
 } from '../../store/feature/storeSlice';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { edit_listing_page } from '../../tradly.config';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import { check_login } from '../../constant/check_auth';

@@ -1,4 +1,4 @@
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import   { useEffect } from 'react';
 import { useDispatch,   } from 'react-redux';
    import { check_login } from '../../constant/check_auth';

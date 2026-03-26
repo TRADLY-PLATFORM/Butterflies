@@ -7,13 +7,12 @@ import tradly from 'tradly';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/swiper.min.css';
-import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination } from 'swiper/core';
 import {
   changeDateFormat,
   getThumbnailImage,
@@ -28,7 +27,6 @@ import AccountCard from '../../Shared/Cards/AccountCard';
 import axios from 'axios';
 import { check_login } from '../../../constant/check_auth';
 // install Swiper modules
-SwiperCore.use([Navigation, Pagination]);
 
 const StoresForFollow = ({ stores }) => {
   const { login, auth_key } = useSelector(authSelector);
