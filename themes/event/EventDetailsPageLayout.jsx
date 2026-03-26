@@ -163,6 +163,10 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     }
   };
 
+  if (!listing_details) {
+    return null;
+  }
+
   return (
     <>
       {listing_details && (
