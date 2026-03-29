@@ -5,10 +5,11 @@ import { refreshPage } from '../store/feature/authSlice';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 import { setHomeData } from '../store/feature/homeSlice';
 import { home_page } from '../tradly.config';
+import { getHomeData } from '../lib/serverData';
 import type { GetServerSideProps } from 'next';
 import type { HomePageProps } from '../types';
 
-const Index = ({ initialHomeData, initialBanners }: HomePageProps) => {
+const Index = ({ initialHomeData }: HomePageProps) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -26,18 +27,8 @@ const Index = ({ initialHomeData, initialBanners }: HomePageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const BASE = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  try {
-    const [homeRes, bannersRes] = await Promise.all([
-      fetch(`${BASE}/api/home`),
-      fetch(`${BASE}/api/banners`),
-    ]);
-    const homeData = homeRes.ok ? await homeRes.json() : null;
-    const bannersData = bannersRes.ok ? await bannersRes.json() : null;
-    return { props: { initialHomeData: homeData ?? null, initialBanners: bannersData ?? null } };
-  } catch {
-    return { props: { initialHomeData: null, initialBanners: null } };
-  }
+  const homeData = await getHomeData();
+  return { props: { initialHomeData: homeData ?? null } };
 };
 
 export default Index;

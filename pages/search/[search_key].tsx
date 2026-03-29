@@ -24,21 +24,16 @@ const Search = ({ initialListings, initialTotalRecords, searchKey }: SearchPageP
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { getSearchListings } = await import('../../lib/serverData');
   const search_key = params?.search_key as string;
-  const BASE = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  try {
-    const res = await fetch(`${BASE}/api/search?search_key=${encodeURIComponent(search_key)}`);
-    const data = res.ok ? await res.json() : null;
-    return {
-      props: {
-        initialListings: data?.listings ?? null,
-        initialTotalRecords: data?.total_records ?? null,
-        searchKey: search_key,
-      },
-    };
-  } catch {
-    return { props: { initialListings: null, initialTotalRecords: null, searchKey: search_key } };
-  }
+  const data = await getSearchListings({ search_key });
+  return {
+    props: {
+      initialListings: data?.listings ?? null,
+      initialTotalRecords: data?.total_records ?? null,
+      searchKey: search_key,
+    },
+  };
 };
 
 export default Search;

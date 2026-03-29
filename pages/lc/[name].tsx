@@ -24,21 +24,16 @@ const CategoryListings = ({ initialListings, initialCategories, initialTotalReco
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { getCategoryListings } = await import('../../lib/serverData');
   const name = params?.name as string;
-  const BASE = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  try {
-    const res = await fetch(`${BASE}/api/lc/${name}`);
-    const data = res.ok ? await res.json() : null;
-    return {
-      props: {
-        initialListings: data?.listings ?? null,
-        initialCategories: data?.categories ?? null,
-        initialTotalRecords: data?.total_records ?? null,
-      },
-    };
-  } catch {
-    return { props: { initialListings: null, initialCategories: null, initialTotalRecords: null } };
-  }
+  const data = await getCategoryListings({ category_id: name });
+  return {
+    props: {
+      initialListings: data?.listings ?? null,
+      initialTotalRecords: data?.total_records ?? null,
+      initialCategories: null,
+    },
+  };
 };
 
 export default CategoryListings;

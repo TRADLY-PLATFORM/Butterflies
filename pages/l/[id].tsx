@@ -34,15 +34,10 @@ function Details({ initialListing, initialSimilar }: ListingDetailProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { getListingDetail } = await import('../../lib/serverData');
   const id = params?.id as string;
-  const BASE = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  try {
-    const res = await fetch(`${BASE}/api/l/${id}`);
-    const data = res.ok ? await res.json() : null;
-    return { props: { initialListing: data?.listing ?? null, initialSimilar: data?.similar_listings ?? null } };
-  } catch {
-    return { props: { initialListing: null, initialSimilar: null } };
-  }
+  const data = await getListingDetail(id);
+  return { props: { initialListing: data?.listing ?? null, initialSimilar: data?.similar_listings ?? null } };
 };
 
 export default Details;

@@ -32,20 +32,15 @@ const StoreDetails = ({ initialAccount, initialListings }: AccountDetailProps) =
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { getAccountDetail } = await import('../../lib/serverData');
   const id = params?.id as string;
-  const BASE = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  try {
-    const res = await fetch(`${BASE}/api/a/${id}`);
-    const data = res.ok ? await res.json() : null;
-    return {
-      props: {
-        initialAccount: data?.account ?? null,
-        initialListings: data?.listings ?? null,
-      },
-    };
-  } catch {
-    return { props: { initialAccount: null, initialListings: null } };
-  }
+  const data = await getAccountDetail(id);
+  return {
+    props: {
+      initialAccount: data?.account ?? null,
+      initialListings: data?.listings ?? null,
+    },
+  };
 };
 
 export default StoreDetails;
