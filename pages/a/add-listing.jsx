@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../../components/Shared/Constant/Constant';
 /* eslint-disable react/prop-types */
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -23,12 +24,23 @@ const AddListing = () => {
     }
 
     
-    const general_configs = JSON.parse(localStorage.getItem('general_configs'));
+    const general_configs = safeJSONParse(localStorage.getItem('general_configs'));
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
 
+    const DEFAULT_LISTING_CONFIGS = {
+      listing_pictures_count: 5,
+      enable_slug: false,
+      meta_title: false,
+      meta_description: false,
+      meta_keyword: false,
+      listing_address_enabled: false,
+      show_shipping_charges: false,
+      hide_offer_percent: false,
+      enable_stock: false,
+    };
     dispatch(
-      setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS })
+      setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS || DEFAULT_LISTING_CONFIGS })
     );
   }, [dispatch]);
 

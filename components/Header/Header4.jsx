@@ -94,16 +94,14 @@ function Header4() {
             <Link href="/">
               <div className="block" aria-label="">
                 {logo && (
-                  <Link href="/" passHref={true}>
-                    <a className=" flex items-center   relative cursor-pointer ">
+                  <Link href="/" className=" flex items-center   relative cursor-pointer ">
                       <img
                         src={logo}
                         className={
-                          TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height ===
-                            undefined ||
-                          (TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width ===
-                            undefined &&
-                            ' object-contain ')
+                          TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height === undefined ||
+                          TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width === undefined
+                            ? 'object-contain'
+                            : ''
                         }
                         style={{
                           height: `${
@@ -112,7 +110,6 @@ function Header4() {
                           width: `${TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width}px`,
                         }}
                       />
-                    </a>
                   </Link>
                 )}
               </div>
@@ -129,11 +126,9 @@ function Header4() {
                     pathname: '/l',
                     query: { page: 1 },
                   }}
-                  passHref
+                  className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
                 >
-                  <a className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
-                    All Listings
-                  </a>
+                  All Listings
                 </Link>
               </li>
               <li className="hidden lg:block">
@@ -142,11 +137,9 @@ function Header4() {
                     pathname: '/l',
                     query: { page: 1, sort: 'newest_first' },
                   }}
-                  passHref
+                  className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
                 >
-                  <a className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
-                    Newest
-                  </a>
+                  Newest
                 </Link>
               </li>
               <li>
@@ -155,11 +148,9 @@ function Header4() {
                     pathname: '/a',
                     query: { page: 1 },
                   }}
-                  passHref
+                  className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out"
                 >
-                  <a className="text-gray-800 hover:text-primary px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
-                    All accounts
-                  </a>
+                  All accounts
                 </Link>
               </li>
 
@@ -178,12 +169,11 @@ function Header4() {
                             page: 1,
                           },
                         }}
+                        className="font-medium text-sm text-gray-800 hover:text-primary flex py-2 px-5 leading-tight"
                       >
-                        <a className="font-medium text-sm text-gray-800 hover:text-primary flex py-2 px-5 leading-tight">
-                          {item.name.length > 20
-                            ? item.name.substring(0, 19) + '.'
-                            : item.name}
-                        </a>
+                        {item.name.length > 20
+                          ? item.name.substring(0, 19) + '.'
+                          : item.name}
                       </Link>
                     </li>
                   );
@@ -201,27 +191,23 @@ function Header4() {
             ) : (
               <ul className="flex flex-grow justify-end flex-wrap items-center">
                 <li>
-                  <Link href={`/sign-in?to=${router.asPath}`}>
-                    <a className="font-medium text-gray-800 hover:text-primary px-5 py-3 flex items-center transition duration-150 ease-in-out">
-                      Sign in
-                    </a>
+                  <Link href={`/sign-in?to=${router.asPath}`} className="font-medium text-gray-800 hover:text-primary px-5 py-3 flex items-center transition duration-150 ease-in-out">
+                    Sign in
                   </Link>
                 </li>
                 <li>
-                  <Link href="/sign-up">
-                    <a className="btn-sm text-gray-200 bg-primary hover:bg-gray-800 ml-3">
-                      <span>Sign up</span>
-                      <svg
-                        className="w-3 h-3 fill-current text-gray-400 flex-shrink-0 ml-2 -mr-1"
-                        viewBox="0 0 12 12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
-                          fillRule="nonzero"
-                        />
-                      </svg>
-                    </a>
+                  <Link href="/sign-up" className="btn-sm text-gray-200 bg-primary hover:bg-gray-800 ml-3">
+                    <span>Sign up</span>
+                    <svg
+                      className="w-3 h-3 fill-current text-gray-400 flex-shrink-0 ml-2 -mr-1"
+                      viewBox="0 0 12 12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
+                        fillRule="nonzero"
+                      />
+                    </svg>
                   </Link>
                 </li>
               </ul>
@@ -277,11 +263,9 @@ function Header4() {
                         pathname: '/l',
                         query: { page: 1 },
                       }}
-                      passHref
+                      className="flex text-gray-800 hover:text-primary py-2"
                     >
-                      <a className="flex text-gray-800 hover:text-primary py-2">
-                        All Listings
-                      </a>
+                      All Listings
                     </Link>
                   </li>
                   <li>
@@ -290,11 +274,9 @@ function Header4() {
                         pathname: '/l',
                         query: { page: 1, sort: 'newest_first' },
                       }}
-                      passHref
+                      className="flex text-gray-800 hover:text-primary py-2"
                     >
-                      <a className="flex text-gray-800 hover:text-primary py-2">
-                        Newest
-                      </a>
+                      Newest
                     </Link>
                   </li>
                   <li>
@@ -303,11 +285,9 @@ function Header4() {
                         pathname: '/a',
                         query: { page: 1 },
                       }}
-                      passHref
+                      className="flex text-gray-800 hover:text-primary py-2"
                     >
-                      <a className="flex text-gray-800 hover:text-primary py-2">
-                        All accounts
-                      </a>
+                      All accounts
                     </Link>
                   </li>
 
@@ -328,12 +308,11 @@ function Header4() {
                                   page: 1,
                                 },
                               }}
+                              className="text-sm flex font-medium text-gray-800 hover:text-primary py-2"
                             >
-                              <a className="text-sm flex font-medium text-gray-800 hover:text-primary py-2">
-                                {item.name.length > 20
-                                  ? item.name.substring(0, 19) + '.'
-                                  : item.name}
-                              </a>
+                              {item.name.length > 20
+                                ? item.name.substring(0, 19) + '.'
+                                : item.name}
                             </Link>
                           </li>
                         );
@@ -343,28 +322,24 @@ function Header4() {
                   {!login && (
                     <>
                       <li>
-                        <Link href={`/sign-in?to=${router.asPath}`}>
-                          <a className="flex font-medium w-full text-gray-800 hover:text-primary py-2 justify-center">
-                            Sign in
-                          </a>
+                        <Link href={`/sign-in?to=${router.asPath}`} className="flex font-medium w-full text-gray-800 hover:text-primary py-2 justify-center">
+                          Sign in
                         </Link>
                       </li>
                       <li>
-                        <Link href="/sign-up">
-                          <a className="btn-sm text-gray-200 bg-primary hover:bg-gray-800 w-full my-2">
-                            <span>Sign up</span>
-                            <svg
-                              className="w-3 h-3 fill-current text-gray-400 flex-shrink-0 ml-2 -mr-1"
-                              viewBox="0 0 12 12"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
-                                fill="#999"
-                                fillRule="nonzero"
-                              />
-                            </svg>
-                          </a>
+                        <Link href="/sign-up" className="btn-sm text-gray-200 bg-primary hover:bg-gray-800 w-full my-2">
+                          <span>Sign up</span>
+                          <svg
+                            className="w-3 h-3 fill-current text-gray-400 flex-shrink-0 ml-2 -mr-1"
+                            viewBox="0 0 12 12"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
+                              fill="#999"
+                              fillRule="nonzero"
+                            />
+                          </svg>
                         </Link>
                       </li>
                     </>

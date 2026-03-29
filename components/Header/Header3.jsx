@@ -54,25 +54,22 @@ const Header3 = () => {
           >
             <div className="  absolute left-0 right-0    flex  justify-center     ">
               {logo && (
-                <Link href="/" passHref={true}>
-                  <a className=" flex items-center   relative cursor-pointer ">
-                    <img
-                      src={logo}
-                      className={
-                        TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height ===
-                          undefined ||
-                        (TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width ===
-                          undefined &&
-                          ' object-contain ')
-                      }
-                      style={{
-                        height: `${
-                          TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height || 50
-                        }px`,
-                        width: `${TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width}px`,
-                      }}
-                    />
-                  </a>
+                <Link href="/" className=" flex items-center   relative cursor-pointer ">
+                  <img
+                    src={logo}
+                    className={
+                      TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height === undefined ||
+                      TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width === undefined
+                        ? 'object-contain'
+                        : ''
+                    }
+                    style={{
+                      height: `${
+                        TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height || 50
+                      }px`,
+                      width: `${TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width}px`,
+                    }}
+                  />
                 </Link>
               )}
             </div>
@@ -145,14 +142,12 @@ const Header3 = () => {
                 </svg>
               </button>
               {logo && (
-                <Link href="/" passHref={true}>
-                  <a>
-                    <img
-                      src={logo}
-                      className="  h-[50px]  object-contain"
-                      alt="logo"
-                    />
-                  </a>
+                <Link href="/">
+                  <img
+                    src={logo}
+                    className="  h-[50px]  object-contain"
+                    alt="logo"
+                  />
                 </Link>
               )}
             </div>

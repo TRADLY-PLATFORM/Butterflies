@@ -37,7 +37,7 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
         className="bg-transparent flex items-center  cursor-pointer relative  "
         onClick={openUserMenu}
       >
-        {profile_pic !== undefined && profile_pic !== '' ? (
+        {profile_pic ? (
           <div className=" w-10 h-10 relative rounded-full overflow-hidden">
             <Image src={profile_pic} objectFit="cover" width={40} height={40} />
           </div>
@@ -83,8 +83,7 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
             {login ? (
               <>
                 <div className="w-[15px] h-[15px] bg-[#fff] absolute   right-0  transform rotate-45  -top-2  mr-4  md:mr-8 border-l border-t border-[rgba(250, 250, 250, 0.93)]  z-[50]" />
-                <Link href="/profile" passHref={true}>
-                  <a className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4] group">
+                <Link href="/profile" className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4] group">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6 mr-5 text-[#6e686e]"
@@ -102,11 +101,10 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
                     <span className=" text-sm  text-[#222222]  font-semibold  transition duration-500 group-hover:text-primary">
                       Profile
                     </span>
-                  </a>
                 </Link>
                 {MARKETPLACE_MODULES !== null && (
-                  <Link href="/orders?page=1" passHref={true}>
-                    <a>{MARKETPLACE_MODULES === 1 ? order : booking}</a>
+                  <Link href="/orders?page=1">
+                    {MARKETPLACE_MODULES === 1 ? order : booking}
                   </Link>
                 )}
                 <div
@@ -138,8 +136,7 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
             ) : (
               <>
                 <div className="w-[15px] h-[15px] bg-[#fff] absolute right-0   transform rotate-45  -top-2   mr-4  lg:mr-10 border-l border-t border-[rgba(250, 250, 250, 0.93)]  z-[50]" />
-                <Link href={`/sign-in?to=${router.asPath}`} passHref={true}>
-                  <a className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4] group">
+                <Link href={`/sign-in?to=${router.asPath}`} className="flex items-center cursor-pointer w-auto  px-[25px] py-2  hover:bg-[#f2f4f4] group">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6 mr-5 text-[#6e686e] mt-[2px]"
@@ -157,7 +154,6 @@ const HeaderProfile = ({ showUserMenus, setShowUserMenus }) => {
                     <span className=" text-sm  text-[#222222]  font-semibold transition duration-500 group-hover:text-primary">
                       Log In
                     </span>
-                  </a>
                 </Link>
               </>
             )}

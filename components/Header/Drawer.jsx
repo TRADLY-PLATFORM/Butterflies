@@ -31,14 +31,12 @@ const Drawer = () => {
     <div>
       <div className="    left-0 right-0    flex-col  justify-center     mb-2">
         {logo && (
-          <Link href="/" passHref={true}>
-            <a className=" w-auto block px-2      cursor-pointer py-4">
-              <img
-                src={logo}
-                className="   h-[50px] object-contain"
-                alt="logo"
-              />
-            </a>
+          <Link href="/" className=" w-auto block px-2      cursor-pointer py-4">
+            <img
+              src={logo}
+              className="   h-[50px] object-contain"
+              alt="logo"
+            />
           </Link>
         )}
 

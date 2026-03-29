@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../../components/Shared/Constant/Constant';
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-else-return */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
@@ -179,9 +180,9 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.login = true;
         state.errorMessage = '';
-        state.user_email = payload?.user.email;
-        state.first_name = payload?.user.first_name;
-        state.last_name = payload?.user.last_name;
+        state.user_email = payload?.user?.email;
+        state.first_name = payload?.user?.first_name;
+        state.last_name = payload?.user?.last_name;
         state.profile_pic = payload?.user?.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;
         TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
@@ -214,12 +215,12 @@ export const authSlice = createSlice({
         // state.isSuccess = false;
         // state.errorMessage = payload?.message;
       } else {
-        const userDetails = JSON.parse(localStorage.getItem('user_details'));
+        const userDetails = safeJSONParse(localStorage.getItem('user_details'));
         state.login = true;
         state.user_email = userDetails?.email;
         state.first_name = userDetails?.first_name;
-        state.last_name = userDetails.last_name;
-        state.profile_pic = userDetails.profile_pic;
+        state.last_name = userDetails?.last_name;
+        state.profile_pic = userDetails?.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;
         TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
         state.refresh_key = payload?.user?.key.refresh_key;
@@ -273,9 +274,9 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.login = true;
         state.errorMessage = '';
-        state.user_email = payload?.user.email;
-        state.first_name = payload?.user.first_name;
-        state.last_name = payload?.user.last_name;
+        state.user_email = payload?.user?.email;
+        state.first_name = payload?.user?.first_name;
+        state.last_name = payload?.user?.last_name;
         state.profile_pic = payload?.user?.profile_pic;
         state.auth_key = payload?.user?.key.auth_key;
         TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
@@ -334,9 +335,9 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isFetching = false;
         state.isSuccess = true;
-        state.user_email = payload?.user.email;
-        state.first_name = payload?.user.first_name;
-        state.last_name = payload?.user.last_name;
+        state.user_email = payload?.user?.email;
+        state.first_name = payload?.user?.first_name;
+        state.last_name = payload?.user?.last_name;
         state.profile_pic = payload?.user?.profile_pic;
         state.user_details = payload?.user;
         localStorage.setItem('user_details', JSON.stringify(payload?.user));

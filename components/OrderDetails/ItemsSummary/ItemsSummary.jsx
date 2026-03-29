@@ -31,14 +31,12 @@ const ItemsSummary = ({ order_details }) => {
                 /\W/g,
                 '+'
               )}`}
+              className={[
+                '  grid  grid-cols-[50%,20%,30%]   md:grid-cols-[40%,20%,20%,20%] items-center py-3  cursor-pointer',
+                index !== OrderDetails.length - 1 &&
+                  'border-b-2 border-gray-400 border-opacity-20',
+              ].join(' ')}
             >
-              <a
-                className={[
-                  '  grid  grid-cols-[50%,20%,30%]   md:grid-cols-[40%,20%,20%,20%] items-center py-3  cursor-pointer',
-                  index !== OrderDetails.length - 1 &&
-                    'border-b-2 border-gray-400 border-opacity-20',
-                ].join(' ')}
-              >
                 <div className=" flex items-center pl-1" key={item.id}>
                   {item?.listing?.images?.length > 0 && (
                     <Image
@@ -73,16 +71,13 @@ const ItemsSummary = ({ order_details }) => {
                     <span className=" ml-1">{item.list_price.amount}</span>
                   </p>
                 </div>
-              </a>
             </Link>
           );
         })}
       </div>
       <div className="flex justify-end mt-2">
-        <Link href={`/review/${order_details?.id}`}>
-          <a className="  bg-primary py-1 px-3  text-white rounded-md ">
-            Review Products
-          </a>
+        <Link href={`/review/${order_details?.id}`} className="  bg-primary py-1 px-3  text-white rounded-md ">
+          Review Products
         </Link>
       </div>
     </div>

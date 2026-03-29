@@ -61,11 +61,9 @@ const LatestEvent = ({ products }) => {
             pathname: `/l/collection/${products.id}`,
             query: { page: 1, collection_name: products.title },
           }}
-          passHref
+          className=" block text-base text-primary font-semibold cursor-pointer"
         >
-          <a className=" block text-base text-primary font-semibold cursor-pointer">
-            View All
-          </a>
+          View All
         </Link>
       </div>
       <div className=" mt-4 flex  justify-start ">
@@ -94,15 +92,8 @@ const LatestEvent = ({ products }) => {
                       ? `/l/${item.slug}`
                       : `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
                   }
+                  className=" block w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded mr-4 overflow-hidden cursor-pointer shadow-c-xsm relative"
                 >
-                  <a
-                    className=" block w-[190px] min-h-[210px] bg-[#FEFEFE]   rounded mr-4 overflow-hidden cursor-pointer shadow-c-xsm relative"
-                    // onClick={() =>
-                    //   router.push(
-                    //     `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
-                    //   )
-                    // }
-                  >
                     <div className="w-[190px]  h-[190px] relative">
                       {item.images.length > 0 && (
                         <Image
@@ -172,8 +163,7 @@ const LatestEvent = ({ products }) => {
                         </div>
                       </div>
                     )}
-                  </a>
-                </Link>
+                  </Link>
                 <div
                   className=" h-[40px] w-[40px]   cursor-pointer  [z-100] absolute top-0 right-0"
                   onClick={() => like(item.id, item.liked)}

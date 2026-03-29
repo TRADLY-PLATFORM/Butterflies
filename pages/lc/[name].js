@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../../components/Shared/Constant/Constant';
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import { useEffect } from 'react';
@@ -20,7 +21,7 @@ const CategoryListings = ( ) => {
     }
 
     dispatch(clearCategoryListings());
-    const general_configs = JSON.parse(localStorage.getItem('general_configs'));
+    const general_configs = safeJSONParse(localStorage.getItem('general_configs'));
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);
 

@@ -53,11 +53,9 @@ const StoresForFollow = ({ stores }) => {
             pathname: '/a',
             query: { page: 1 },
           }}
-          passHref
+          className=" block text-base text-primary font-semibold cursor-pointer"
         >
-          <a className=" block text-base text-primary font-semibold cursor-pointer">
-            View All
-          </a>
+          View All
         </Link>
       </div>
       <div className=" mt-4 flex  justify-start ">

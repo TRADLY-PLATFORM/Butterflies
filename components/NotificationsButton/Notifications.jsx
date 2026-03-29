@@ -114,12 +114,11 @@ const Notifications = () => {
                   {notifications?.map((nt, index) => {
                     if (nt.type == 1) {
                       return (
-                        <Link href={'a/my-store?page=1'}>
-                          <a
-                            key={Math.random()}
-                            className="px-4 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                            // onClick={() => router.push('a/my-store?page=1')}
-                          >
+                        <Link
+                          key={Math.random()}
+                          href={'a/my-store?page=1'}
+                          className="px-4 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
+                        >
                             <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden ">
                               {nt?.account?.images.length > 0 && (
                                 <img
@@ -141,28 +140,18 @@ const Notifications = () => {
                                 )}
                               </p>
                             </div>
-                          </a>
                         </Link>
                       );
                     }
                     if (nt.type == 2) {
                       return (
                         <Link
+                          key={Math.random()}
                           href={`/l/${
                             nt?.listing?.id
                           }-${nt?.listing?.title.replace(/\W/g, '+')}`}
+                          className="px-4 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
                         >
-                          <a
-                            key={Math.random()}
-                            className="px-4 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                            // onClick={() =>
-                            //   router.push(
-                            //     `/l/${
-                            //       nt?.listing?.id
-                            //     }-${nt?.listing?.title.replace(/\W/g, '+')}`
-                            //   )
-                            // }
-                          >
                             <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden ">
                               {nt?.listing?.images.length > 0 && (
                                 <img
@@ -184,7 +173,6 @@ const Notifications = () => {
                                 )}
                               </p>
                             </div>
-                          </a>
                         </Link>
                       );
                     }
@@ -196,18 +184,10 @@ const Notifications = () => {
                       ) {
                         return (
                           <Link
+                            key={Math.random()}
                             href={`/a/orders/${nt?.reference_id}?store_id=${my_stores[0].id}`}
+                            className="px-4 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
                           >
-                            <a
-                              key={Math.random()}
-                              className="px-4 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                              // onClick={() =>
-                              //   account_order_link(
-                              //     nt?.reference_id,
-                              //     my_stores[0].id
-                              //   )
-                              // }
-                            >
                               <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  flex justify-center  ">
                                 <p>{order_icon}</p>
                               </div>
@@ -224,7 +204,6 @@ const Notifications = () => {
                                   )}
                                 </p>
                               </div>
-                            </a>
                           </Link>
                         );
                       } else if (
@@ -232,12 +211,11 @@ const Notifications = () => {
                         nt?.metadata.account_id != my_stores[0].id
                       ) {
                         return (
-                          <Link href={`/orders/${nt?.reference_id}`}>
-                            <a
-                              key={Math.random()}
-                              className="  px-4 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                              // onClick={() => order_link(nt?.reference_id)}
-                            >
+                          <Link
+                            key={Math.random()}
+                            href={`/orders/${nt?.reference_id}`}
+                            className="  px-4 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
+                          >
                               <div className=" w-[36px] h-[36px]   sm:w-[56px]  sm:h-[56px] relative rounded-full overflow-hidden  flex justify-center  ">
                                 <p>{order_icon}</p>
                               </div>
@@ -254,7 +232,6 @@ const Notifications = () => {
                                   )}
                                 </p>
                               </div>
-                            </a>
                           </Link>
                         );
                       }

@@ -61,11 +61,9 @@ const Listings = ({ products }) => {
             pathname: '/l',
             query: { page: 1 },
           }}
-          passHref
+          className=" block text-base text-primary font-semibold cursor-pointer"
         >
-          <a className=" block text-base text-primary font-semibold cursor-pointer">
-            View All
-          </a>
+          View All
         </Link>
       </div>
       <div className="grid  sm:grid-cols-2 gap-5 mt-5">
@@ -78,11 +76,11 @@ const Listings = ({ products }) => {
                   : `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
               }
               key={index}
+              className="  w-full   px-4  mb-1 flex  items-center justify-start border border-transparent hover:border-gray-300  rounded-lg p-4 cursor-pointer"
             >
-              <a className="  w-full   px-4  mb-1 flex  items-center justify-start border border-transparent hover:border-gray-300  rounded-lg p-4 cursor-pointer">
                 <img
                   src={
-                    item.images.lenth > 0 && getThumbnailImage(item.images[0])
+                    item.images.length > 0 && getThumbnailImage(item.images[0])
                   }
                   alt="image"
                   className=" w-16 h-16 "
@@ -102,8 +100,7 @@ const Listings = ({ products }) => {
                     </p>
                   )}
                 </div>
-              </a>
-            </Link>
+              </Link>
           );
         })}
       </div>

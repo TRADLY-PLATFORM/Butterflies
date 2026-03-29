@@ -33,7 +33,9 @@ function MyApp({ Component, pageProps }) {
     })
     .catch((error) => {
       setIs_connected(false);
-      alert('Domain not found please try later .');
+      if (typeof window !== 'undefined') {
+        console.error('Domain not found:', error);
+      }
     });
 
   useEffect(() => {
@@ -66,12 +68,6 @@ function MyApp({ Component, pageProps }) {
         .then((res) => {
           if (typeof window !== 'undefined') {
             let root = document.documentElement;
-            const primary_color = res.data.configs?.app_color_primary;
-            const secondary_color = res.data.configs?.app_color_secondary;
-            const footer_color = res.data.configs.bg_footer_color;
-            root.style.setProperty('--primary_color', primary_color);
-            root.style.setProperty('--secondary_color', secondary_color);
-            root.style.setProperty('--footer_color', footer_color);
             localStorage.setItem(
               'onboarding_configs',
               JSON.stringify(res.data.configs)

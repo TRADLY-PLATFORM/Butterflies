@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../components/Shared/Constant/Constant';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshPage } from '../store/feature/authSlice';
@@ -21,7 +22,7 @@ const Payout = () => {
     }
   }, [dispatch]);
   useEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem('user_details'));
+    const userDetails = safeJSONParse(localStorage.getItem('user_details'));
 
     if (localStorage.getItem('auth_key')) {
       dispatch(

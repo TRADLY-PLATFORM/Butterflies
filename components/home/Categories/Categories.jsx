@@ -49,9 +49,8 @@ const Categories = ({ categories }) => {
                 pathname: `${item.name !== 'All' ? '/lc/[name]' : '/lc'}`,
                 query,
               }}
-              passHref
+              className="  sm:mr-4  sm:mb-6  bg-[#ffffff] rounded-xl  py-4 flex flex-col  justify-between items-center border border-transparent  shadow-c-sm hover:border-primary hover:bg-primary_light  w-[80px] h-[80px] sm:w-[100px]  sm:h-[100px]  cursor-pointer"
             >
-              <a className="  sm:mr-4  sm:mb-6  bg-[#ffffff] rounded-xl  py-4 flex flex-col  justify-between items-center border border-transparent  shadow-c-sm hover:border-primary hover:bg-primary_light  w-[80px] h-[80px] sm:w-[100px]  sm:h-[100px]  cursor-pointer">
                 <div className=" h-8 w-8 sm:w-[46px] sm:h-[46px] md:w-[32px] md:h-[32px] relative object-cover">
                   {item.image_path && (
                     <Image
@@ -74,7 +73,6 @@ const Categories = ({ categories }) => {
                     ? item.name.substring(0, 10)
                     : item.name}
                 </p>
-              </a>
             </Link>
           );
         })}

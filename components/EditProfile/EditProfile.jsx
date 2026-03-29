@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../Shared/Constant/Constant';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -28,7 +29,7 @@ const EditProfile = () => {
   const { auth_key } = useSelector(authSelector);
 
   useEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem('user_details'));
+    const userDetails = safeJSONParse(localStorage.getItem('user_details'));
     setFirstName(userDetails.first_name);
     setLastName(userDetails.last_name);
     if (userDetails.profile_pic) {

@@ -71,26 +71,24 @@ const HeaderCategories = () => {
                 pathname: `${item.name !== 'More' ? '/lc/[name]' : '/lc'}`,
                 query,
               }}
-              passHref
+              className="block"
             >
-              <a className="block">
-                <p
-                  className={[
-                    ' min-h-[44px] px-3 flex justify-center items-center cursor-pointer transition duration-300 hover:text-primary ',
-                    router?.query?.name === item.name.replace(/\s/g, '-')
-                      ? 'text-primary'
-                      : '',
-                  ].join(' ')}
-                >
-                  {item.name}
+              <p
+                className={[
+                  ' min-h-[44px] px-3 flex justify-center items-center cursor-pointer transition duration-300 hover:text-primary ',
+                  router?.query?.name === item.name.replace(/\s/g, '-')
+                    ? 'text-primary'
+                    : '',
+                ].join(' ')}
+              >
+                {item.name}
 
-                  {/* {item.name === 'More'
+                {/* {item.name === 'More'
                     ? item.name
                     : item.name.length > 12
                     ? item.name.substring(0, 11)+'.'
                     : item.name} */}
-                </p>
-              </a>
+              </p>
             </Link>
           );
         })}

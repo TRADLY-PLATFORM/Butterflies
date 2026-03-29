@@ -28,7 +28,7 @@ const WishListPageLayout = () => {
         authKey: auth_key,
       })
     );
-  }, [auth_key, dispatch, router]);
+  }, [auth_key, dispatch, router.query]);
 
   const moreListings = (data) => {
     router.push({

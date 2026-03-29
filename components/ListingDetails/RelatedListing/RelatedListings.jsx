@@ -90,10 +90,9 @@ const RelatedListings = ({listing_details}) => {
                   pathname: `/l/similar/${listing_details?.id}`,
                   query: { page: 1 },
                 }}
+                className="px-8 py-2 flex justify-center items-center bg-primary text-[14px] text-[#FEFEFE] rounded"
               >
-                <a className="  px-8 py-2 flex  justify-center items-center  bg-primary text-[14px] text-[#FEFEFE]  rounded">
-                  See All
-                </a>
+                See All
               </Link>
             </div>
             <div className="mt-8 ">

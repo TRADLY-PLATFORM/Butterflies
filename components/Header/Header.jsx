@@ -112,16 +112,14 @@ const Header = () => {
                 </svg>
               </button>
               {logo && (
-                <Link href="/" passHref={true}>
-                  <a>
-                    <Image
-                      src={logo}
-                      alt="logo"
-                      height={40}
-                      width={150}
-                      objectFit="contain"
-                    />
-                  </a>
+                <Link href="/">
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    height={40}
+                    width={150}
+                    objectFit="contain"
+                  />
                 </Link>
               )}
             </div>

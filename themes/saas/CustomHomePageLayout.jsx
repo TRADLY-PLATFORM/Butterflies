@@ -93,12 +93,11 @@ const CustomHomePageLayout = ({ pageTitle, pageDescription }) => {
                             page: 1,
                           },
                         }}
+                        className="text-sm block text-left w-full  "
                       >
-                        <a className="text-sm block text-left w-full  ">
                           {item.name.length > 20
                             ? item.name.substring(0, 19) + '.'
                             : item.name}
-                        </a>
                       </Link>
                     </li>
                   );

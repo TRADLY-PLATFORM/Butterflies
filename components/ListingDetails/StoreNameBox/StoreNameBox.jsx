@@ -49,23 +49,11 @@ const StoreNameBox = ({ account }) => {
               page: 1,
             },
           }}
+          className="block ml-[10px] cursor-pointer"
         >
-          <a
-            className=" block ml-[10px] cursor-pointer "
-            // onClick={() =>
-            //   router.push({
-            //     pathname: '/a/[id]',
-            //     query: {
-            //       id: `${account?.id}-${account?.name.replace(/\s/g, '-')}`,
-            //       page: 1,
-            //     },
-            //   })
-            // }
-          >
-            <p className="text-base leading-4 text-[#121212] font-medium">
-              {account?.name}
-            </p>
-          </a>
+          <p className="text-base leading-4 text-[#121212] font-medium">
+            {account?.name}
+          </p>
         </Link>
       </div>
       <div className="  flex justify-center  float-right">

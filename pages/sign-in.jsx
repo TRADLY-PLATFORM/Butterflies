@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../components/Shared/Constant/Constant';
 /* eslint-disable react/prop-types */
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -19,7 +20,7 @@ const SignIn = () => {
         router.push('/');
       }
     } else {
-      const general_configs = JSON.parse(
+      const general_configs = safeJSONParse(
         localStorage.getItem('general_configs')
       );
 

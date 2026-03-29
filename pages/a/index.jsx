@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../../components/Shared/Constant/Constant';
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -14,7 +15,7 @@ const Stores = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    const general_configs = JSON.parse(localStorage.getItem('general_configs'));
+    const general_configs = safeJSONParse(localStorage.getItem('general_configs'));
     if (localStorage.getItem('refresh_key')) {
       dispatch(
         refreshPage({

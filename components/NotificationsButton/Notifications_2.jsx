@@ -130,12 +130,11 @@ const Notifications2 = () => {
                         return (
                           <Menu.Item>
                             {({ active }) => (
-                              <Link href={'a/my-store?page=1'}>
-                                <a
-                                  key={Math.random()}
-                                  className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                                  // onClick={() => router.push('a/my-store?page=1')}
-                                >
+                              <Link
+                                key={Math.random()}
+                                href={'a/my-store?page=1'}
+                                className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
+                              >
                                   <div className=" w-[16px] h-[16px]   sm:w-[26px]  sm:h-[26px] relative rounded-full overflow-hidden ">
                                     {nt?.account?.images.length > 0 && (
                                       <Image
@@ -158,7 +157,6 @@ const Notifications2 = () => {
                                       )}
                                     </p>
                                   </div>
-                                </a>
                               </Link>
                             )}
                           </Menu.Item>
@@ -169,14 +167,12 @@ const Notifications2 = () => {
                           <Menu.Item>
                             {({ active }) => (
                               <Link
+                                key={Math.random()}
                                 href={`/l/${
                                   nt?.listing?.id
                                 }-${nt?.listing?.title.replace(/\W/g, '+')}`}
+                                className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
                               >
-                                <a
-                                  key={Math.random()}
-                                  className="px-2 py-3 w-full min-h-[60px] my-2  flex gap-3  items-start cursor-pointer"
-                                >
                                   <div className=" w-[16px] h-[16px]   sm:w-[26px]  sm:h-[26px] relative rounded-full overflow-hidden ">
                                     {nt?.listing?.images.length > 0 && (
                                       <Image
@@ -199,7 +195,6 @@ const Notifications2 = () => {
                                       )}
                                     </p>
                                   </div>
-                                </a>
                               </Link>
                             )}
                           </Menu.Item>

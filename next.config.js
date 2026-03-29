@@ -22,6 +22,10 @@ hostname: 'media.tradly.app',
 protocol: 'https',
 hostname: 'media-sandbox.tradly.app',
 },
+{
+protocol: 'https',
+hostname: 'via.placeholder.com',
+},
 ],
 },
 env: {

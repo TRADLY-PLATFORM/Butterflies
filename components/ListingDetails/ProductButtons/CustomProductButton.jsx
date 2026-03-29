@@ -22,7 +22,7 @@ const CustomProductButton = ({ attributes }) => {
     link?.length > 0 && (
       <>
         <div className=" w-full flex justify-center items-center">
-          <Link href={link[0].values[0]}>
+          <Link href={link[0].values[0]} legacyBehavior passHref>
             <a
               className=" w-full text-center py-3 px-10 bg-primary rounded-lg text-white"
               target="_blank"

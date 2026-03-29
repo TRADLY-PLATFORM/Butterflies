@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../Shared/Constant/Constant';
 /* eslint-disable react/prop-types */
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -40,7 +41,7 @@ const HeaderProfile3 = ({ showUserMenus, setShowUserMenus }) => {
   }, [0]);
 
   useEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem('user_details'));
+    const userDetails = safeJSONParse(localStorage.getItem('user_details'));
 
     if (localStorage.getItem('auth_key')) {
       dispatch(
@@ -74,7 +75,7 @@ const HeaderProfile3 = ({ showUserMenus, setShowUserMenus }) => {
           <CustomDropdown
             title={
               <div className="flex items-center ">
-                {profile_pic !== undefined && profile_pic !== '' ? (
+                {profile_pic ? (
                   <div className=" w-10 h-10 relative rounded-full overflow-hidden">
                     <Image
                       src={profile_pic}
