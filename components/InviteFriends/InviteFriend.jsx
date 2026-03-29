@@ -53,7 +53,6 @@ const InviteFriend = ({ general_configs }) => {
             target="_blank"
             href={`whatsapp://send?text=${general_configs?.branch_link_domain}`}
             data-action="share/whatsapp/share"
-            target="_blank"
             rel="noreferrer"
           >
             <div className="w-[40px] h-[40px] relative  ">
