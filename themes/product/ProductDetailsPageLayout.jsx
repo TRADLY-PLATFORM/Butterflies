@@ -160,10 +160,6 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
     );
   };
 
-  if (!listing_details) {
-    return null;
-  }
-
   return (
     <>
       {listing_details && (
@@ -227,7 +223,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
               { name: 'Categories', link: '/lc' },
               {
                 name: listing_details?.categories[0].name,
-                link: `/lc/${listing_details?.categories[0].name}?category_id=${listing_details.category_id[0]}&page=1`,
+                link: `/lc/${listing_details?.categories?.[0]?.name}?category_id=${listing_details?.category_id?.[0]}&page=1`,
               },
               {
                 name: listing_details?.title,

@@ -11,7 +11,7 @@ import EmailForm from './EmailForm';
 import OutsideClickHandler from 'react-outside-click-handler';
 import PopUp from '../Shared/PopUp/PopUp';
 import * as EmailValidator from 'email-validator';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router';
 
 const SignUpForm = ({ general_configs }) => {

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 ;
 
 const SearchBox = () => {
-  const [searchKey, setSearchKey] = useState(null)
+  const [searchKey, setSearchKey] = useState('')
 const router = useRouter()
  
   const handleKeypress = (e) => {

@@ -27,7 +27,7 @@ const CustomStoreProfile = ({ my_stores }) => {
               {my_stores[0].name}
             </p>
             <p className=" text-default_gray text-sm">
-              @{my_stores[0].user.first_name}
+              @{my_stores[0]?.user?.first_name}
             </p>
           </div>
         </div>

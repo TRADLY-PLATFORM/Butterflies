@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import EmailForm from './EmailForm';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import {
   authSelector,

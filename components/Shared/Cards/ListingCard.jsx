@@ -23,13 +23,8 @@ const ListingCard = ({ item, like }) => {
             ? `/l/${item.slug}`
             : `/l/${item.id}-${item.title.replace(/\W/g, '-')}`
         }
+        className=" block w-full  min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
       >
-        <a
-          className=" block w-full  min-h-[210px] bg-[#FEFEFE]   rounded overflow-hidden cursor-pointer  shadow-c-sm"
-          // onClick={() =>
-          //   router.push(`/l/${item.id}-${item.title.replace(/\W/g, '-')}`)
-          // }
-        >
           <div className="   aspect-w-1 aspect-h-1 relative  mb-4 ">
             {item?.images?.length > 0 && (
               <Image
@@ -61,7 +56,6 @@ const ListingCard = ({ item, like }) => {
                 : item.list_price.formatted}
             </p>
           </div>
-        </a>
       </Link>
 
       <div

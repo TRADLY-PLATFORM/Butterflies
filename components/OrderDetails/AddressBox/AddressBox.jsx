@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import OrderDetails from "../../../pages/orders/[id]";
 
 const AddressBox = ({ order_details }) => {
 	const type = order_details?.shipping_method.type;

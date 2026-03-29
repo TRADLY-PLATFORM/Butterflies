@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../components/Shared/Constant/Constant';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshPage } from '../store/feature/authSlice';
@@ -15,7 +16,7 @@ const Invite = (props) => {
       );
     }
 
-    const general_configs = JSON.parse(localStorage.getItem('general_configs'));
+    const general_configs = safeJSONParse(localStorage.getItem('general_configs'));
 
     dispatch(setGeneralConfig({ general_configs: general_configs }));
   }, [dispatch]);

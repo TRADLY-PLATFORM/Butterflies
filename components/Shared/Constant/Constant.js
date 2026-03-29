@@ -1,10 +1,21 @@
 import axios from 'axios';
 import moment from 'moment';
 
+export function safeJSONParse(value, fallback = null) {
+  if (!value || value === 'undefined' || value === 'null') return fallback;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return fallback;
+  }
+}
+
 export function getThumbnailImage(file) {
+  if (!file || typeof file !== 'string') return file;
+  // Return external URLs as-is (placeholder, CDN links, etc.)
+  if (file.startsWith('http://') || file.startsWith('https://')) return file;
   let filename = file.split('/').pop();
   let fileURl = file.replace(filename, 'thumb_' + filename);
-
   return fileURl;
 }
 

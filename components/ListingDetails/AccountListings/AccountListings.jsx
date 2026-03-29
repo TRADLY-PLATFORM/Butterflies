@@ -92,10 +92,9 @@ const AccountListings = ({ account_id, account }) => {
                     page: 1,
                   },
                 }}
+                className="  px-8 py-2 flex  justify-center items-center  bg-primary text-[14px] text-[#FEFEFE]  rounded"
               >
-                <a className="  px-8 py-2 flex  justify-center items-center  bg-primary text-[14px] text-[#FEFEFE]  rounded">
-                  See All
-                </a>
+                See All
               </Link>
             </div>
             <div className="mt-8 grid grid-cols-listing_card_2  md:grid-cols-listing_card_3   lg:grid-cols-listing_card_4  xl:grid-cols-listing_card_5  gap-5 justify-center">

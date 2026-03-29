@@ -1,0 +1,302 @@
+/* eslint-disable react/prop-types */
+import '../styles/globals.scss';
+import { wrapper } from '../store/store';
+import tradly from 'tradly';
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import TagManager from 'react-gtm-module';
+import { TYPE_CONSTANT } from '../constant/Web_constant';
+import Router, { useRouter } from 'next/router';
+import Loading from '../components/Shared/Loading/Loading';
+import type { AppProps } from 'next/app';
+
+import axios from 'axios';
+
+function MyApp({ Component, pageProps }: AppProps) {
+  // If appConfigs were pre-fetched server-side, bootstrap immediately (enables SSR rendering)
+  const ssrConfigs = pageProps?.appConfigs;
+
+  const [is_connected, setIs_connected] = useState(Boolean(ssrConfigs));
+  const [is_onboarding, setIs_onboarding] = useState(Boolean(ssrConfigs));
+  const [is_general, setIs_general] = useState(Boolean(ssrConfigs));
+  const [isExtension, setIsExtension] = useState(Boolean(ssrConfigs));
+  const [start, setStart] = useState(Boolean(ssrConfigs));
+  const [favicon, setFavicon] = useState<string | false>(
+    ssrConfigs?.general?.web_icon || false
+  );
+  const [hideFooter_note, setHidFooter_note] = useState(
+    Boolean(ssrConfigs?.general?.hide_tradly_footer_note)
+  );
+  const [primary_font_name, set_primary_font_name] = useState(
+    ssrConfigs?.general?.web_font_title || 'Montserrat'
+  );
+  const router = useRouter();
+  const [searchConsole, setSearchConsole] = useState<string | null>(null);
+
+  const [loading, setLoading] = useState(false);
+
+  // Apply SSR configs to TYPE_CONSTANT and localStorage on first mount
+  useEffect(() => {
+    if (ssrConfigs) {
+      const g = ssrConfigs.general || {};
+      TYPE_CONSTANT.MARKETPLACE_MODULES = g.type;
+      TYPE_CONSTANT.MARKETPLACE_FLAVOURS = g.sub_type;
+      TYPE_CONSTANT.THEME = g.theme;
+      TYPE_CONSTANT.GENERAL_CONFIGS = g;
+      localStorage.setItem('MARKETPLACE_MODULES', g.type);
+      localStorage.setItem('MARKETPLACE_FLAVOURS', g.sub_type);
+      localStorage.setItem('THEME', g.theme);
+      localStorage.setItem('logo', g.web_logo);
+      localStorage.setItem('general_configs', JSON.stringify(g));
+      if (ssrConfigs.seo) {
+        TYPE_CONSTANT.META_TITLE = ssrConfigs.seo.meta_title || '';
+        TYPE_CONSTANT.META_DESCRIPTIONS = ssrConfigs.seo.meta_description || '';
+        TYPE_CONSTANT.META_LISTING_TITLE = ssrConfigs.seo.meta_listing_title || '';
+        TYPE_CONSTANT.META_LISTING_DESCRIPTION = ssrConfigs.seo.meta_listing_description || '';
+        TYPE_CONSTANT.META_ACCOUNT_TITLE = ssrConfigs.seo.meta_account_title || '';
+        TYPE_CONSTANT.META_LISTING_CATEGORY_TITLE = ssrConfigs.seo.meta_listing_category_title || '';
+        TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION = ssrConfigs.seo.meta_listing_category_description || '';
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  axios
+    .get('/api')
+    .then((res: any) => {
+      setIs_connected(true);
+    })
+    .catch((error) => {
+      setIs_connected(false);
+      if (typeof window !== 'undefined') {
+        console.error('Domain not found:', error);
+      }
+    });
+
+  useEffect(() => {
+    const handleStart = (url: string) => {
+      url !== router.pathname ? setLoading(true) : setLoading(false);
+    };
+    const handleComplete = (url: string) => setLoading(false);
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+  }, [router]);
+
+  useEffect(() => {
+    // set configs
+    if (is_connected) {
+      axios.get('/api/configs/payments').then((res: any) => {
+        TYPE_CONSTANT.PAYMENT_CONFIGS = res?.data.configs || '';
+      });
+      axios.get('/api/configs/listings').then((res: any) => {
+        TYPE_CONSTANT.LISTINGS_CONFIGS = res?.data.configs || '';
+      });
+      axios.get('/api/configs/accounts').then((res: any) => {
+        TYPE_CONSTANT.ACCOUNTS_CONFIGS = res?.data.configs || '';
+      });
+
+      // onboarding Configs
+      axios
+        .get('/api/configs/onboarding')
+        .then((res: any) => {
+          if (typeof window !== 'undefined') {
+            let root = document.documentElement;
+            localStorage.setItem(
+              'onboarding_configs',
+              JSON.stringify(res.data.configs)
+            );
+
+            setIs_onboarding(true);
+          }
+        })
+        .catch((error) => {
+          setIs_onboarding(false);
+        });
+
+      // General Configs
+      axios
+        .get('/api/configs/general')
+        .then((res: any) => {
+          if (typeof window !== 'undefined') {
+            // font set
+            let root = document.documentElement;
+            const primary_font =
+              res.data.configs.web_font_title || primary_font_name;
+            root.style.setProperty('--primary_font', primary_font);
+            set_primary_font_name(primary_font);
+
+            // type, theme and module set
+            localStorage.setItem('MARKETPLACE_MODULES', res.data.configs?.type);
+            localStorage.setItem(
+              'MARKETPLACE_FLAVOURS',
+              res.data.configs?.sub_type
+            );
+            localStorage.setItem('THEME', res.data.configs?.theme);
+            TYPE_CONSTANT.MARKETPLACE_MODULES = res.data.configs?.type;
+            TYPE_CONSTANT.MARKETPLACE_FLAVOURS = res.data.configs?.sub_type;
+            TYPE_CONSTANT.THEME = res.data.configs?.theme;
+            TYPE_CONSTANT.GENERAL_CONFIGS = res.data.configs;
+
+            // favicon set
+            setFavicon(res?.data?.configs?.web_icon);
+
+            // logo set
+            localStorage.setItem('logo', res?.data?.configs?.web_logo);
+
+            // hide footer note
+            setHidFooter_note(res?.data?.configs?.hide_tradly_footer_note);
+
+            localStorage.setItem(
+              'general_configs',
+              JSON.stringify(res.data.configs)
+            );
+            setIs_general(true);
+          }
+        })
+        .catch((error) => {
+          setIs_general(false);
+        });
+
+      // extensions config
+      axios
+        .get('/api/configs/extensions')
+        .then((res: any) => {
+          if (typeof window !== 'undefined') {
+            // GTM
+            if (res.data.configs?.gtm) {
+              TagManager.initialize({ gtmId: `GTM-${res.data.configs?.gtm}` });
+            }
+
+            // Search Console
+            if (res.data.configs?.searchconsole) {
+              setSearchConsole(res.data.configs?.searchconsole);
+            }
+
+            setIsExtension(true);
+          }
+        })
+        .catch((error) => {
+          setIsExtension(false);
+        });
+
+      // SEO Configs
+      axios
+        .get('/api/configs/seo')
+        .then((res: any) => {
+          const { configs } = res?.data;
+          TYPE_CONSTANT.META_TITLE = configs?.meta_title || '';
+          TYPE_CONSTANT.META_DESCRIPTIONS = configs?.meta_description || '';
+          TYPE_CONSTANT.META_ACCOUNT_TITLE = configs?.meta_account_title || '';
+          TYPE_CONSTANT.META_LISTING_TITLE = configs?.meta_listing_title || '';
+          TYPE_CONSTANT.META_LISTING_DESCRIPTION =
+            configs?.meta_listing_description || '';
+          TYPE_CONSTANT.META_LISTING_CATEGORY_TITLE =
+            configs?.meta_listing_category_title || '';
+          TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION =
+            configs?.meta_listing_category_description || '';
+        })
+        .catch((error) => {
+          setIs_onboarding(false);
+        });
+    }
+  }, [is_connected]);
+
+  useEffect(() => {
+    if (is_onboarding && is_general && isExtension) {
+      setStart(true);
+    } else {
+      setStart(false);
+    }
+  }, [is_onboarding, is_general, isExtension]);
+
+  return (
+    start &&
+    is_connected && (
+      <>
+        <Head>
+          <link rel="icon" href={favicon || undefined} />
+          <link
+            href={`https://fonts.googleapis.com/css2?family=${primary_font_name}&display=optional`}
+            rel="stylesheet"
+          />
+          {searchConsole && (
+            <meta name="google-site-verification" content={searchConsole} />
+          )}
+        </Head>
+        <Loading loading={loading} />
+        <Component {...pageProps} />
+        {!hideFooter_note && (
+          <div
+            className=" fixed bottom-5 right-5 z-50 shadow px-2 py-2 flex items-center gap-2 rounded bg-black cursor-pointer"
+            onClick={() =>
+              window.open('https://tradly.app/?utm_source=user_website')
+            }
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 126 126"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M63 0C97.7939 0 126 28.2061 126 63C126 97.7939 97.7939 126 63 126C28.2061 126 0 97.7939 0 63C0 28.2061 28.2061 0 63 0Z"
+                fill="url(#paint0_linear)"
+              ></path>
+              <path
+                opacity="0.5"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M63 119C93.9279 119 119 93.9279 119 63C119 32.0721 93.9279 7 63 7C32.0721 7 7 32.0721 7 63C7 93.9279 32.0721 119 63 119Z"
+                stroke="white"
+                strokeWidth="1.4"
+              ></path>
+              <path
+                opacity="0.5"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M63 105C86.196 105 105 86.196 105 63C105 39.804 86.196 21 63 21C39.804 21 21 39.804 21 63C21 86.196 39.804 105 63 105Z"
+                stroke="white"
+                strokeWidth="1.4"
+              ></path>
+              <path
+                d="M108.282 44.2442C105.799 38.2551 102.162 32.8652 97.6482 28.3518C88.7809 19.4845 76.5309 14 63 14C49.469 14 37.219 19.4845 28.3517 28.3518C23.8383 32.8652 20.2012 38.2551 17.7178 44.2442"
+                stroke="white"
+                strokeWidth="15.4"
+                strokeLinecap="round"
+              ></path>
+              <path
+                d="M63.0001 14.0001V111.222"
+                stroke="white"
+                strokeWidth="15.4"
+                strokeLinecap="round"
+              ></path>
+              <defs>
+                <linearGradient
+                  id="paint0_linear"
+                  x1="126"
+                  y1="0"
+                  x2="126"
+                  y2="126"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="#2BDBC0"></stop>
+                  <stop offset="1" stopColor="#13B58C"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+            <p className="text-sm font-semibold text-white  font-Inter-var">
+              Built with <span className=" text-[#55d4a3] ">Tradly</span>
+            </p>
+          </div>
+        )}
+      </>
+    )
+  );
+}
+
+export default wrapper.withRedux(MyApp);

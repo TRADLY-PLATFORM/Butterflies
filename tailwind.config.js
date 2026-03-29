@@ -32,9 +32,9 @@ module.exports = {
         listing_card_sm_2: 'repeat(2, minmax(0, 200px))',
       },
       colors: {
-        primary: 'var( --primary_color)',
-        secondary: 'var( --secondary_color)',
-        footer: 'var( --footer_color)',
+        primary: '#FF6B6B',
+        secondary: '#4ECDC4',
+        footer: '#2C3E50',
         primary_light: '#DFFBF4',
         default_gray: '#959393',
       },

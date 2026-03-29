@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../Shared/Constant/Constant';
 /* eslint-disable react/prop-types */
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -27,7 +28,7 @@ import { TYPE_CONSTANT } from '../../constant/Web_constant';
 const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
   const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState(null);
   const [general_configs, setGeneral_configs] = useState(null);
-  let userDetails = JSON.parse(localStorage.getItem('user_details'));
+  let userDetails = safeJSONParse(localStorage.getItem('user_details'));
 
   useEffect(() => {
     setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
@@ -67,7 +68,7 @@ const HeaderProfile2 = ({ showUserMenus, setShowUserMenus }) => {
       >
         {login ? (
           <div className="flex items-center" id="profile_section">
-            {profile_pic !== undefined && profile_pic !== '' ? (
+            {profile_pic ? (
               <div className=" w-10 h-10 relative rounded-full overflow-hidden">
                 <Image
                   src={profile_pic}

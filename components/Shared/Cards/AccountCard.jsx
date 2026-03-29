@@ -20,19 +20,8 @@ const AccountCard = ({ item, follow }) => {
             page: 1,
           },
         }}
+        className=" block w-full min-h-[166px] p-2 bg-[#FEFEFE] rounded-lg shadow-md cursor-pointer"
       >
-        <a
-          className=" block w-full min-h-[166px] p-2 bg-[#FEFEFE] rounded-lg shadow-md cursor-pointer"
-          // onClick={() =>
-          //   router.push({
-          //     pathname: '/a/[id]',
-          //     query: {
-          //       id: `${item.id}-${item.name.replace(/\s/g, '-')}`,
-          //       page: 1,
-          //     },
-          //   })
-          // }
-        >
           <div className=" rounded  overflow-hidden relative mx-auto  aspect-w-1 aspect-h-1">
             {item?.images?.length > 0 && (
               <Image
@@ -57,7 +46,6 @@ const AccountCard = ({ item, follow }) => {
                 : item?.user?.first_name}
             </p>
           </div>
-        </a>
       </Link>
 
       <div className=" absolute bottom-0 right-0  mb-4 mr-2">

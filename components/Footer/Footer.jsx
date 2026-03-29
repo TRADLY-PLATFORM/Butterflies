@@ -57,16 +57,14 @@ const Footer = () => {
       <div className="w-full h-full py-4 grid grid-cols-2 md:grid-cols-3 gap-10  border-b border-[rgba(216, 216, 216, 0.5)]">
         <div className=" col-span-2 md:col-span-1">
           {logo && (
-            <Link href="/" passHref={true}>
-              <a className=" block   relative">
+            <Link href="/" className=" block   relative">
                 <img src={logo} className=" block h-[50px]    " alt="logo" />
-              </a>
             </Link>
           )}
 
           <div className="flex items-center justify-start flex-wrap gap-3">
             {general_configs?.android_app_download_link && (
-              <Link href={general_configs?.android_app_download_link}>
+              <Link href={general_configs?.android_app_download_link} legacyBehavior passHref>
                 <a className=" block mt-4 " target="_blank">
                   {general_configs?.android_app_download_icon ? (
                     <img
@@ -162,7 +160,7 @@ const Footer = () => {
               </Link>
             )}
             {general_configs?.ios_app_download_link && (
-              <Link href={general_configs?.ios_app_download_link}>
+              <Link href={general_configs?.ios_app_download_link} legacyBehavior passHref>
                 <a className=" block mt-4 " target="_blank">
                   {general_configs?.ios_app_download_icon ? (
                     <img
@@ -230,32 +228,32 @@ const Footer = () => {
               </h2>
               <div className="flex items-center gap-3">
                 {social_configs?.facebook_pageurl && (
-                  <Link href={social_configs?.facebook_pageurl}>
+                  <Link href={social_configs?.facebook_pageurl} legacyBehavior passHref>
                     <a target="_blank">{facebook_icon}</a>
                   </Link>
                 )}
                 {social_configs?.youtube_channelurl && (
-                  <Link href={social_configs?.youtube_channelurl}>
+                  <Link href={social_configs?.youtube_channelurl} legacyBehavior passHref>
                     <a target="_blank">{youtube_icon}</a>
                   </Link>
                 )}
                 {social_configs?.twitter_handleurl && (
-                  <Link href={social_configs?.twitter_handleurl}>
+                  <Link href={social_configs?.twitter_handleurl} legacyBehavior passHref>
                     <a target="_blank">{twitter_icon}</a>
                   </Link>
                 )}
                 {social_configs?.snapchat && (
-                  <Link href={social_configs?.snapchat}>
+                  <Link href={social_configs?.snapchat} legacyBehavior passHref>
                     <a target="_blank">{snapchat_icon}</a>
                   </Link>
                 )}
                 {social_configs?.telegram_url && (
-                  <Link href={social_configs?.telegram_url}>
+                  <Link href={social_configs?.telegram_url} legacyBehavior passHref>
                     <a target="_blank">{telegram_icon}</a>
                   </Link>
                 )}
                 {social_configs?.whatsapp_number && (
-                  <Link href={social_configs?.whatsapp_number}>
+                  <Link href={social_configs?.whatsapp_number} legacyBehavior passHref>
                     <a target="_blank">{whatsapp_icon}</a>
                   </Link>
                 )}
@@ -282,7 +280,6 @@ const Footer = () => {
                         },
                       }}
                     >
-                      <a>
                         <button
                           // onClick={() =>
                           //   router.push({
@@ -306,7 +303,6 @@ const Footer = () => {
                             ? item.name.substring(0, 19) + '.'
                             : item.name}
                         </button>
-                      </a>
                     </Link>
                   </div>
                 );
@@ -342,7 +338,6 @@ const Footer = () => {
                       },
                     }}
                   >
-                    <a>
                       <button
                         // onClick={() =>
                         //   router.push({
@@ -365,7 +360,6 @@ const Footer = () => {
                           ? item.name.substring(0, 19) + '.'
                           : item.name}
                       </button>
-                    </a>
                   </Link>
                 </div>
               );
@@ -389,7 +383,6 @@ const Footer = () => {
                           },
                         }}
                       >
-                        <a>
                           <button
                             // onClick={() =>
                             //   router.push({
@@ -413,7 +406,6 @@ const Footer = () => {
                               ? item.name.substring(0, 19) + '.'
                               : item.name}
                           </button>
-                        </a>
                       </Link>
                     </div>
                   );
@@ -460,7 +452,7 @@ const Footer = () => {
             <p className=" text-base md:text-lg font-semibold pb-4">Links</p>
           )}
           {general_configs?.terms_url && (
-            <Link href={general_configs?.terms_url}>
+            <Link href={general_configs?.terms_url} legacyBehavior passHref>
               <a className=" block    pb-4" target="_blank">
                 <button
                   // onClick={() => window.open(general_configs?.terms_url)}
@@ -472,7 +464,7 @@ const Footer = () => {
             </Link>
           )}
           {general_configs?.privacy_policy_url && (
-            <Link href={general_configs?.privacy_policy_url}>
+            <Link href={general_configs?.privacy_policy_url} legacyBehavior passHref>
               <a className=" block    pb-4" target="_blank">
                 <button
                   // onClick={() => window.open(general_configs?.privacy_policy_url)}
@@ -484,7 +476,7 @@ const Footer = () => {
             </Link>
           )}
           {general_configs?.support_url && (
-            <Link href={general_configs?.support_url}>
+            <Link href={general_configs?.support_url} legacyBehavior passHref>
               <a className=" block    pb-4" target="_blank">
                 <button
                   // onClick={() => window.open(general_configs?.support_url)}
@@ -508,7 +500,7 @@ const Footer = () => {
               general_configs?.website_name ? general_configs?.website_name : ''
             }. All rights reserved.`}
           </p>
-          <Link href={'/sitemap.xml'}>
+          <Link href={'/sitemap.xml'} legacyBehavior passHref>
             <a className=" text-xs text-[#4F4F4F] font-medium" target="_blank">
               Sitemap
             </a>

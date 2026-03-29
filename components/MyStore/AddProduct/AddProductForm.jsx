@@ -86,7 +86,7 @@ const AddProductForm = () => {
   // Use Effect functions
 
   useEffect(() => {
-    if (currencies !== null) {
+    if (currencies !== null && currencies?.length > 0) {
       setCurrency(currencies[0].id);
     }
   }, [currencies]);

@@ -14,6 +14,7 @@ import Banner2 from '../../components/home/Banner/Bannner2';
 import Categories from '../../components/home/Categories/Categories';
 import LatestEvent from '../../components/home/LatestEvents/LatestEvent';
 import StoresForFollow from '../../components/home/Stores/StoresForFollow';
+import CustomListings from '../../components/home/CustomListings/Listings';
 
 const HomePageLayout = () => {
   const dispatch = useDispatch();
@@ -58,16 +59,23 @@ const HomePageLayout = () => {
       )}
       {collections?.map((collection) => {
         const scope_type = collection.scope_type;
-        if (scope_type === 1 && MARKETPLACE_FLAVOURS === 1) {
+        if (scope_type === 2) {
           return (
-            <div key={Math.random()}>
+            <div key={collection.id || Math.random()}>
+              <CustomListings products={collection} />
+            </div>
+          );
+        }
+        if (scope_type === 1 && Number(MARKETPLACE_FLAVOURS) === 1) {
+          return (
+            <div key={collection.id || Math.random()}>
               <StoresForFollow stores={collection} />
             </div>
           );
         }
         if (scope_type === 4) {
           return (
-            <div key={Math.random()}>
+            <div key={collection.id || Math.random()}>
               <LatestEvent products={collection} />
             </div>
           );

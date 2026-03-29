@@ -1,3 +1,4 @@
+import { safeJSONParse } from '../components/Shared/Constant/Constant';
 // import React, { useEffect } from 'react';
 // import { useSelector } from 'react-redux';
 // import { useDispatch } from 'react-redux';
@@ -20,7 +21,7 @@
 //     }, [dispatch]);
 
 //     useEffect(() => {
-//     const userDetails = JSON.parse(localStorage.getItem('user_details'));
+//     const userDetails = safeJSONParse(localStorage.getItem('user_details'));
 
 //     if (localStorage.getItem('auth_key')) {
 //       dispatch(
