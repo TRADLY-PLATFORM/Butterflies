@@ -2,13 +2,12 @@ import { safeJSONParse } from '../../components/Shared/Constant/Constant';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../store/hooks';
 import { refreshPage } from '../../store/feature/authSlice';
-import { clearSearch } from '../../store/feature/search';
+import { clearSearch, setSearchData } from '../../store/feature/search';
 import { search_page } from '../../tradly.config';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
-import type { GetServerSideProps } from 'next';
-import type { SearchPageProps } from '../../types';
+import { wrapper } from '../../store/store';
 
-const Search = ({ initialListings, initialTotalRecords, searchKey }: SearchPageProps) => {
+const Search = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,17 +22,14 @@ const Search = ({ initialListings, initialTotalRecords, searchKey }: SearchPageP
   return search_page();
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { getSearchListings } = await import('../../lib/serverData');
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params }) => {
+  const { getSearchListings, getAppConfigs } = await import('../../lib/serverData');
   const search_key = params?.search_key as string;
-  const data = await getSearchListings({ search_key });
-  return {
-    props: {
-      initialListings: data?.listings ?? null,
-      initialTotalRecords: data?.total_records ?? null,
-      searchKey: search_key,
-    },
-  };
-};
+  const [data, appConfigs] = await Promise.all([getSearchListings({ search_key }), getAppConfigs()]);
+  if (data) {
+    store.dispatch(setSearchData({ listings: data.listings, total_records: data.total_records }));
+  }
+  return { props: { appConfigs } };
+});
 
 export default Search;

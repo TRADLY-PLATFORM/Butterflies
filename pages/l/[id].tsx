@@ -9,10 +9,9 @@ import {
 } from '../../store/feature/configsSlice';
 import { listing_details_page } from '../../tradly.config';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
-import type { GetServerSideProps } from 'next';
-import type { ListingDetailProps } from '../../types';
+import { wrapper } from '../../store/store';
 
-function Details({ initialListing, initialSimilar }: ListingDetailProps) {
+function Details() {
   const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState<number | null>(null);
   const dispatch = useAppDispatch();
 
@@ -25,19 +24,19 @@ function Details({ initialListing, initialSimilar }: ListingDetailProps) {
     dispatch(setGeneralConfig({ general_configs }));
     dispatch(setListingConfig({ listing_configs: TYPE_CONSTANT.LISTINGS_CONFIGS }));
     setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
-    if (initialListing) {
-      dispatch(setListingDetail({ listing: initialListing, similar_listings: initialSimilar ?? [] }));
-    }
-  }, [dispatch, initialListing, initialSimilar]);
+  }, [dispatch]);
 
   return listing_details_page();
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { getListingDetail } = await import('../../lib/serverData');
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params }) => {
+  const { getListingDetail, getAppConfigs } = await import('../../lib/serverData');
   const id = params?.id as string;
-  const data = await getListingDetail(id);
-  return { props: { initialListing: data?.listing ?? null, initialSimilar: data?.similar_listings ?? null } };
-};
+  const [data, appConfigs] = await Promise.all([getListingDetail(id), getAppConfigs()]);
+  if (data?.listing) {
+    store.dispatch(setListingDetail({ listing: data.listing }));
+  }
+  return { props: { appConfigs } };
+});
 
 export default Details;

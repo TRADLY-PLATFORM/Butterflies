@@ -1,15 +1,13 @@
 import { safeJSONParse } from '../../components/Shared/Constant/Constant';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch } from '../../store/hooks';
 import { refreshPage } from '../../store/feature/authSlice';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
-import DefaultErrorPage from 'next/error';
+import { setAccountDetail } from '../../store/feature/storeSlice';
 import { accounts_details_page } from '../../tradly.config';
-import type { GetServerSideProps } from 'next';
-import type { AccountDetailProps } from '../../types';
+import { wrapper } from '../../store/store';
 
-const StoreDetails = ({ initialAccount, initialListings }: AccountDetailProps) => {
-  const [MARKETPLACE_FLAVOURS, setMARKETPLACE_FLAVOURS] = useState<number | null>(null);
+const StoreDetails = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -18,29 +16,19 @@ const StoreDetails = ({ initialAccount, initialListings }: AccountDetailProps) =
       dispatch(refreshPage({ key: localStorage.getItem('refresh_key') }));
     }
     dispatch(setGeneralConfig({ general_configs }));
-    setMARKETPLACE_FLAVOURS(Number(localStorage.getItem('MARKETPLACE_FLAVOURS')));
   }, [dispatch]);
 
-  return (
-    MARKETPLACE_FLAVOURS &&
-    (MARKETPLACE_FLAVOURS === 1 ? (
-      accounts_details_page()
-    ) : (
-      <DefaultErrorPage statusCode={404} />
-    ))
-  );
+  return accounts_details_page();
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { getAccountDetail } = await import('../../lib/serverData');
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params }) => {
+  const { getAccountDetail, getAppConfigs } = await import('../../lib/serverData');
   const id = params?.id as string;
-  const data = await getAccountDetail(id);
-  return {
-    props: {
-      initialAccount: data?.account ?? null,
-      initialListings: data?.listings ?? null,
-    },
-  };
-};
+  const [data, appConfigs] = await Promise.all([getAccountDetail(id), getAppConfigs()]);
+  if (data?.account) {
+    store.dispatch(setAccountDetail({ account: data.account, listings: data.listings }));
+  }
+  return { props: { appConfigs } };
+});
 
 export default StoreDetails;

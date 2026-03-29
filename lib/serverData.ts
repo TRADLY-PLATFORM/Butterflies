@@ -3,6 +3,19 @@
  * These call the Tradly API directly (with mock fallbacks) without HTTP.
  */
 // @ts-nocheck
+
+// Polyfill localStorage for SSR — components that read localStorage at render time won't crash
+if (typeof window === 'undefined' && typeof globalThis !== 'undefined') {
+  (globalThis as any).localStorage = {
+    _data: {} as Record<string, string>,
+    getItem(key: string) { return this._data[key] ?? null; },
+    setItem(key: string, value: string) { this._data[key] = value; },
+    removeItem(key: string) { delete this._data[key]; },
+    clear() { this._data = {}; },
+    get length() { return Object.keys(this._data).length; },
+    key(i: number) { return Object.keys(this._data)[i] ?? null; },
+  };
+}
 import tradly from 'tradly';
 
 // ── Mock data (mirrors pages/api/* fallbacks) ────────────────────────────────
@@ -147,3 +160,45 @@ export async function getSearchListings(params: Record<string, string> = {}) {
     return MOCK_LISTINGS;
   }
 }
+
+// ── App-level configs for SSR ────────────────────────────────────────────────
+
+const DEFAULT_CONFIGS = {
+  general: {
+    app_name: 'Butterflies Marketplace',
+    web_font_title: 'Montserrat',
+    theme: 1,
+    type: 1,
+    sub_type: 1,
+    auth_type: 1,
+    web_logo: '/placeholders/logo.svg',
+    web_icon: '/placeholders/logo.svg',
+    terms_url: '/terms',
+    privacy_policy_url: '/privacy',
+    support_url: '/support',
+    hide_tradly_footer_note: false,
+  },
+  onboarding: { show_onboarding: true },
+  extensions: {},
+  seo: {
+    meta_title: 'Butterflies Marketplace',
+    meta_description: 'Discover products from local sellers.',
+    meta_listing_title: '{listing_name} | Butterflies',
+    meta_listing_description: '{listing_description}',
+    meta_account_title: '{account_name} | Butterflies',
+    meta_listing_category_title: '{category_name} | Butterflies',
+    meta_listing_category_description: 'Browse {category_name} products.',
+  },
+};
+
+export async function getAppConfigs() {
+  // Tradly sandbox API is unreachable — return mock configs directly
+  // In production with a live API key, replace this with actual API calls
+  return {
+    general: DEFAULT_CONFIGS.general,
+    onboarding: DEFAULT_CONFIGS.onboarding,
+    extensions: DEFAULT_CONFIGS.extensions,
+    seo: DEFAULT_CONFIGS.seo,
+  };
+}
+

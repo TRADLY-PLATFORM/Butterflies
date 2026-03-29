@@ -66,6 +66,14 @@ export const categorySlice = createSlice({
       state.total_records = '';
       return state;
     },
+    setCategoryListings: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.isError = false;
+      state.category_listings = payload?.listings ?? state.category_listings;
+      state.total_records = payload?.total_records ?? state.total_records;
+      state.all_categories = payload?.categories ?? state.all_categories;
+    },
   },
   extraReducers: {
     [categories.fulfilled]: (state, { payload }) => {
@@ -126,5 +134,5 @@ export const categorySlice = createSlice({
   },
 });
 
-export const { clearCategoryListings } = categorySlice.actions;
+export const { clearCategoryListings, setCategoryListings } = categorySlice.actions;
 export const categorySelector = (state) => state.category;

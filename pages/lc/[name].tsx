@@ -2,13 +2,12 @@ import { safeJSONParse } from '../../components/Shared/Constant/Constant';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../store/hooks';
 import { refreshPage } from '../../store/feature/authSlice';
-import { clearCategoryListings } from '../../store/feature/categorySlice';
+import { clearCategoryListings, setCategoryListings } from '../../store/feature/categorySlice';
 import { category_listings_page } from '../../tradly.config';
 import { setGeneralConfig } from '../../store/feature/configsSlice';
-import type { GetServerSideProps } from 'next';
-import type { CategoryListingsProps } from '../../types';
+import { wrapper } from '../../store/store';
 
-const CategoryListings = ({ initialListings, initialCategories, initialTotalRecords }: CategoryListingsProps) => {
+const CategoryListings = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,17 +22,14 @@ const CategoryListings = ({ initialListings, initialCategories, initialTotalReco
   return category_listings_page();
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { getCategoryListings } = await import('../../lib/serverData');
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params }) => {
+  const { getCategoryListings, getAppConfigs } = await import('../../lib/serverData');
   const name = params?.name as string;
-  const data = await getCategoryListings({ category_id: name });
-  return {
-    props: {
-      initialListings: data?.listings ?? null,
-      initialTotalRecords: data?.total_records ?? null,
-      initialCategories: null,
-    },
-  };
-};
+  const [data, appConfigs] = await Promise.all([getCategoryListings({ category_id: name }), getAppConfigs()]);
+  if (data) {
+    store.dispatch(setCategoryListings({ listings: data.listings, total_records: data.total_records }));
+  }
+  return { props: { appConfigs } };
+});
 
 export default CategoryListings;

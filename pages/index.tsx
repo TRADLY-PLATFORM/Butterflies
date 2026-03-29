@@ -5,11 +5,9 @@ import { refreshPage } from '../store/feature/authSlice';
 import { setGeneralConfig } from '../store/feature/configsSlice';
 import { setHomeData } from '../store/feature/homeSlice';
 import { home_page } from '../tradly.config';
-import { getHomeData } from '../lib/serverData';
-import type { GetServerSideProps } from 'next';
-import type { HomePageProps } from '../types';
+import { wrapper } from '../store/store';
 
-const Index = ({ initialHomeData }: HomePageProps) => {
+const Index = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -18,17 +16,18 @@ const Index = ({ initialHomeData }: HomePageProps) => {
       dispatch(refreshPage({ key: localStorage.getItem('refresh_key') }));
     }
     dispatch(setGeneralConfig({ general_configs }));
-    if (initialHomeData) {
-      dispatch(setHomeData(initialHomeData));
-    }
-  }, [dispatch, initialHomeData]);
+  }, [dispatch]);
 
   return home_page();
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const homeData = await getHomeData();
-  return { props: { initialHomeData: homeData ?? null } };
-};
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+  const { getHomeData, getAppConfigs } = await import('../lib/serverData');
+  const [homeData, appConfigs] = await Promise.all([getHomeData(), getAppConfigs()]);
+  if (homeData) {
+    store.dispatch(setHomeData(homeData));
+  }
+  return { props: { appConfigs } };
+});
 
 export default Index;

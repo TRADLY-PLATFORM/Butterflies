@@ -72,6 +72,14 @@ export const searchSlice = createSlice({
       state.total_records = '';
       return state;
     },
+
+    setSearchData: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.isError = false;
+      state.listings = payload?.listings ?? state.listings;
+      state.total_records = payload?.total_records ?? state.total_records;
+    },
   },
   extraReducers: {
     [listingLike.fulfilled]: (state, { payload }) => {
@@ -128,5 +136,5 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { clearSearch, clearSearchState } = searchSlice.actions;
+export const { clearSearch, clearSearchState, setSearchData } = searchSlice.actions;
 export const searchSelector = (state) => state.search;

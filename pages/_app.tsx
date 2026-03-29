@@ -13,18 +13,53 @@ import type { AppProps } from 'next/app';
 import axios from 'axios';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [is_connected, setIs_connected] = useState(false);
-  const [is_onboarding, setIs_onboarding] = useState(false);
-  const [is_general, setIs_general] = useState(false);
-  const [isExtension, setIsExtension] = useState(false);
-  const [start, setStart] = useState(false);
-  const [favicon, setFavicon] = useState<string | false>(false);
-  const [hideFooter_note, setHidFooter_note] = useState(false);
-  const [primary_font_name, set_primary_font_name] = useState('Montserrat');
+  // If appConfigs were pre-fetched server-side, bootstrap immediately (enables SSR rendering)
+  const ssrConfigs = pageProps?.appConfigs;
+
+  const [is_connected, setIs_connected] = useState(Boolean(ssrConfigs));
+  const [is_onboarding, setIs_onboarding] = useState(Boolean(ssrConfigs));
+  const [is_general, setIs_general] = useState(Boolean(ssrConfigs));
+  const [isExtension, setIsExtension] = useState(Boolean(ssrConfigs));
+  const [start, setStart] = useState(Boolean(ssrConfigs));
+  const [favicon, setFavicon] = useState<string | false>(
+    ssrConfigs?.general?.web_icon || false
+  );
+  const [hideFooter_note, setHidFooter_note] = useState(
+    Boolean(ssrConfigs?.general?.hide_tradly_footer_note)
+  );
+  const [primary_font_name, set_primary_font_name] = useState(
+    ssrConfigs?.general?.web_font_title || 'Montserrat'
+  );
   const router = useRouter();
   const [searchConsole, setSearchConsole] = useState<string | null>(null);
 
   const [loading, setLoading] = useState(false);
+
+  // Apply SSR configs to TYPE_CONSTANT and localStorage on first mount
+  useEffect(() => {
+    if (ssrConfigs) {
+      const g = ssrConfigs.general || {};
+      TYPE_CONSTANT.MARKETPLACE_MODULES = g.type;
+      TYPE_CONSTANT.MARKETPLACE_FLAVOURS = g.sub_type;
+      TYPE_CONSTANT.THEME = g.theme;
+      TYPE_CONSTANT.GENERAL_CONFIGS = g;
+      localStorage.setItem('MARKETPLACE_MODULES', g.type);
+      localStorage.setItem('MARKETPLACE_FLAVOURS', g.sub_type);
+      localStorage.setItem('THEME', g.theme);
+      localStorage.setItem('logo', g.web_logo);
+      localStorage.setItem('general_configs', JSON.stringify(g));
+      if (ssrConfigs.seo) {
+        TYPE_CONSTANT.META_TITLE = ssrConfigs.seo.meta_title || '';
+        TYPE_CONSTANT.META_DESCRIPTIONS = ssrConfigs.seo.meta_description || '';
+        TYPE_CONSTANT.META_LISTING_TITLE = ssrConfigs.seo.meta_listing_title || '';
+        TYPE_CONSTANT.META_LISTING_DESCRIPTION = ssrConfigs.seo.meta_listing_description || '';
+        TYPE_CONSTANT.META_ACCOUNT_TITLE = ssrConfigs.seo.meta_account_title || '';
+        TYPE_CONSTANT.META_LISTING_CATEGORY_TITLE = ssrConfigs.seo.meta_listing_category_title || '';
+        TYPE_CONSTANT.META_LISTING_CATEGORY_DESCRIPTION = ssrConfigs.seo.meta_listing_category_description || '';
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   axios
     .get('/api')

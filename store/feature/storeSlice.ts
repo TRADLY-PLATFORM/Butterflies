@@ -257,6 +257,15 @@ export const storeSlice = createSlice({
       state.my_account_listing_details = null;
       state.attributes = null;
     },
+    setAccountDetail: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.isError = false;
+      state.my_account_details = payload?.account ?? state.my_account_details;
+      if (payload?.listings) {
+        state.my_store_listings = payload.listings;
+      }
+    },
   },
   extraReducers: {
     [myStore.fulfilled]: (state, { payload }) => {
@@ -522,5 +531,6 @@ export const {
   setListingConfig,
   clearAccountDetails,
   clearAccountListingDetails,
+  setAccountDetail,
 } = storeSlice.actions;
 export const storeSelector = (state) => state.store;
