@@ -37,8 +37,10 @@ SITE_URL: process.env.SITE_URL,
 eslint: {
 ignoreDuringBuilds: true,
 },
+output: 'standalone',
 swcMinify: true,
 reactStrictMode: true,
+transpilePackages: ['react-show-more-text'],
 };
 
 module.exports = nextConfig;

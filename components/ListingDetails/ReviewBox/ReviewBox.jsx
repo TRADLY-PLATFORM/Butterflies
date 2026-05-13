@@ -12,7 +12,8 @@ import {
   getThumbnailImage,
 } from '../../Shared/Constant/Constant';
 import ReactMarkdown from 'react-markdown';
-import ShowMoreText from 'react-show-more-text';
+import dynamic from 'next/dynamic';
+const ShowMoreText = dynamic(() => import('react-show-more-text'), { ssr: false });
 import tradly from 'tradly';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../../store/feature/authSlice';
