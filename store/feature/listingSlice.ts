@@ -66,14 +66,16 @@ export const getListingReviews = createAsyncThunk(
         params: params,
       });
       const { data } = await response;
-      if (!response.data.error) {
+      if (data && !response.data.error) {
         return data;
       } else {
         const { error } = await response.data;
         return error;
       }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(
+        error?.response?.data ?? { message: error?.message ?? 'Request failed' }
+      );
     }
   }
 );
