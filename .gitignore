@@ -27,6 +27,7 @@ yarn.lock
 
 # local env files
 
+env/
 env/.env.dev
 env/.env.production
 env/.env.sandbox
