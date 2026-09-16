@@ -11,8 +11,11 @@ import Loading from '../components/Shared/Loading/Loading';
 import type { AppProps } from 'next/app';
 
 import axios from 'axios';
+import { Provider } from 'react-redux';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, ...rest }: AppProps) {
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { pageProps } = props;
   // If appConfigs were pre-fetched server-side, bootstrap immediately (enables SSR rendering)
   const ssrConfigs = pageProps?.appConfigs;
 
@@ -214,7 +217,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     start &&
     is_connected && (
-      <>
+      <Provider store={store}>
         <Head>
           <link rel="icon" href={favicon || undefined} />
           <link
@@ -294,9 +297,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             </p>
           </div>
         )}
-      </>
+      </Provider>
     )
   );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;
