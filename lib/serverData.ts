@@ -17,6 +17,11 @@ if (typeof window === 'undefined' && typeof globalThis !== 'undefined') {
   };
 }
 import tradly from 'tradly';
+import { ensureTradlyServerConfig } from './tradlyServer';
+
+// SDK token is process-global: configure it on import so SSR data
+// functions never run without credentials, regardless of request order.
+ensureTradlyServerConfig();
 
 // ── Mock data (mirrors pages/api/* fallbacks) ────────────────────────────────
 
@@ -57,23 +62,6 @@ const MOCK_HOME = {
   ],
 };
 
-const MOCK_LISTING = {
-  listing: {
-    id: 1, title: 'Multi Millet Hakka Noodles', slug: 'multi-millet-hakka-noodles',
-    description: 'Delicious and nutritious multi millet hakka noodles made with premium quality ingredients.',
-    list_price: { currency: 'USD', amount: 150 },
-    images: ['/placeholders/product1.svg', '/placeholders/product2.svg'],
-    in_stock: true, in_cart: false, stock: 100, liked: false, status: 'active',
-    location: { city: 'Demo City', country: 'IN' }, coordinates: {}, attributes: [], variants: [],
-    account: { id: 1, name: 'Demo Store', images: ['/placeholders/logo.svg'], slug: 'demo-store', following: false },
-    categories: [{ id: 1, name: 'Food & Beverages' }], category_id: [1],
-    meta_title: 'Multi Millet Hakka Noodles',
-    meta_description: 'Delicious and nutritious multi millet hakka noodles.',
-    meta_keyword: 'millet, noodles, hakka',
-  },
-  rating_data: { rating_average: 4.5, rating_count: 12, review_count: 8, rating_count_data: [] },
-};
-
 const MOCK_LISTINGS = {
   listings: [
     { id: 1, title: 'Multi Millet Hakka Noodles', slug: 'multi-millet-hakka-noodles', list_price: { currency: 'USD', amount: 150 }, images: ['/placeholders/product1.svg'], account: { id: 1, name: 'Demo Store', images: [] }, liked: false, category_id: [1] },
@@ -110,19 +98,31 @@ export async function getHomeData() {
 }
 
 export async function getListingDetail(id: string) {
+  // Resolve order: numeric id prefix first, then slug variants.
+  // Returns null when nothing matches (callers should 404, not mock).
   const reg = /^[0-9]+/;
-  try {
-    const isNumeric = reg.test(id.split('-')[0]);
-    const response = await tradly.app.getListingDetail({
-      id: isNumeric ? id.split('-')[0] : undefined,
-      slug: isNumeric ? undefined : id,
-      authKey: '',
-    });
-    if (!response.error && response.data) return response.data;
-    return MOCK_LISTING;
-  } catch {
-    return MOCK_LISTING;
+  const first = id.split('-')[0];
+  const attempts: Array<{ id?: string; slug?: string }> = [];
+  if (reg.test(first)) {
+    attempts.push({ id: first });
+    attempts.push({ slug: id });
+    const slugPart = id.slice(first.length + 1);
+    if (slugPart) attempts.push({ slug: slugPart });
+  } else {
+    attempts.push({ slug: id });
   }
+  for (const attempt of attempts) {
+    try {
+      const response = await tradly.app.getListingDetail({
+        ...attempt,
+        authKey: '',
+      });
+      if (response && !response.error && response.data) return response.data;
+    } catch {
+      // try next identifier variant
+    }
+  }
+  return null;
 }
 
 export async function getCategoryListings(params: Record<string, string> = {}) {
