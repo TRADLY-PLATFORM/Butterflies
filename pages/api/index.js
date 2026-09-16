@@ -5,7 +5,7 @@ import { base_url } from '../../constant/url';
 export default async function handler(req, res) {
   tradly.init
     .config({
-      token: process.env.API_KEY,
+      token: process.env.TRADLY_API_KEY || process.env.API_KEY,
       environment: process.env.ENVIRONMENT,
     })
     .then((response) => {

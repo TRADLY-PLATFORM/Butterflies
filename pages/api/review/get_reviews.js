@@ -1,6 +1,8 @@
 import tradly from 'tradly';
+import { ensureTradlyServerConfig } from '../../../lib/tradlyServer';
 
 export default async function handler(req, res) {
+  ensureTradlyServerConfig();
   const { auth_key } = req.cookies;
 
   const response =await tradly.app.getReviewList({
