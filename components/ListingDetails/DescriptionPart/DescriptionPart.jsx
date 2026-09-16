@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import Editor from 'rich-markdown-editor';
 
+// NOTE: rich-markdown-editor's read-only Editor crashes on React 19
+// (plugin.render is not a function), so descriptions render with
+// ReactMarkdown instead — same as the event details variant.
 const DescriptionPart = ({ description }) => {
   return description !== undefined || description === '' ? (
     <div className=" w-full  min-h-[200px] bg-[#FFFFFF] rounded-md  p-[24px] shadow-c-sm">
@@ -12,7 +14,7 @@ const DescriptionPart = ({ description }) => {
       <div className="  mt-4">
         {description && (
           <article className="prose  prose-red	">
-            <Editor defaultValue={description} readOnly={true} />
+            <ReactMarkdown>{description}</ReactMarkdown>
           </article>
         )}
       </div>
