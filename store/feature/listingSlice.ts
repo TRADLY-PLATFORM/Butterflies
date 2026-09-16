@@ -143,7 +143,10 @@ export const listingSlice = createSlice({
         state.isFetching = false;
         state.isSuccess = true;
         state.listing_details = payload?.listing;
-        state.rating_data = payload?.rating_data;
+        // Newer API shape nests rating_data inside listing; fall back to {}
+        // so detail layouts never receive undefined.
+        state.rating_data =
+          payload?.rating_data ?? payload?.listing?.rating_data ?? {};
       }
     },
     [listingDetails.pending]: (state) => {

@@ -295,7 +295,7 @@ const ProductDetailsPageLayout = ({ pageTitle, pageDescription }) => {
             </div>
           )}
 
-          {Object.keys(rating_data)?.length > 0 && (
+          {Object.keys(rating_data || {})?.length > 0 && (
             <div className="mt-6">
               <RatingBox rating_data={rating_data} />
             </div>
