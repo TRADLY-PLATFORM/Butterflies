@@ -63,57 +63,58 @@ export const payoutSlice = createSlice({
       return state;
     },
   },
-  extraReducers: {
-    [callStripeConnect.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
-        state.isFetching = false;
-        state.isError = true;
+  extraReducers: (builder) => {
+    builder
+      .addCase(callStripeConnect.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.stripe_connect = payload;
+        }
+      })
+      .addCase(callStripeConnect.pending, (state) => {
         state.isSuccess = false;
-        state.errorMessage = payload?.message;
-      } else {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.stripe_connect = payload;
-      }
-    },
-    [callStripeConnect.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [callStripeConnect.rejected]: (state, { payload }) => {
-        state.isFetching = false;
-        state.isError = true;
+        state.errorMessage = '';
+      })
+      .addCase(callStripeConnect.rejected, (state, { payload }) => {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+      })
+      .addCase(callExpressLogin.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.express_login_link = payload.login_link;
+        }
+      })
+      .addCase(callExpressLogin.pending, (state) => {
         state.isSuccess = false;
-        state.errorMessage = payload?.message;
-    },
-    [callExpressLogin.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
-        state.isFetching = false;
-        state.isError = true;
-        state.isSuccess = false;
-        state.errorMessage = payload?.message;
-      } else {
+        state.isFetching = true;
         state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(callExpressLogin.rejected, (state, { payload }) => {
         state.isFetching = false;
-        state.isSuccess = true;
-        state.express_login_link = payload.login_link;
-      }
-    },
-    [callExpressLogin.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [callExpressLogin.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
+      });
   },
 });
 

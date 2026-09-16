@@ -314,281 +314,282 @@ export const cartSlice = createSlice({
       return state;
     },
   },
-  extraReducers: {
-    [addToCart.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+  extraReducers: (builder) => {
+    builder
+      .addCase(addToCart.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+        }
+      })
+      .addCase(addToCart.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(addToCart.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(getCurrencies.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.currencies = payload?.currencies;
+        }
+      })
+      .addCase(getCurrencies.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-      }
-    },
-    [addToCart.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [addToCart.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [getCurrencies.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(getCurrencies.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(save_address.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+        }
+      })
+      .addCase(save_address.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.currencies = payload?.currencies;
-      }
-    },
-    [getCurrencies.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [getCurrencies.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [save_address.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(save_address.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(getStorageHubAddress.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.storage_hub_addresses = payload?.addresses;
+        }
+      })
+      .addCase(getStorageHubAddress.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-      }
-    },
-    [save_address.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [save_address.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [getStorageHubAddress.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(getStorageHubAddress.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(getAddress.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.addresses = payload?.addresses;
+        }
+      })
+      .addCase(getAddress.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.storage_hub_addresses = payload?.addresses;
-      }
-    },
-    [getStorageHubAddress.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [getStorageHubAddress.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [getAddress.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(getAddress.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(cartList.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.cart = payload.cart;
+          state.cart_details = payload.cart_details;
+        }
+      })
+      .addCase(cartList.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.addresses = payload?.addresses;
-      }
-    },
-    [getAddress.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [getAddress.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [cartList.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(cartList.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(shippingMethods.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.shipping_methods = payload.shipping_methods;
+        }
+      })
+      .addCase(shippingMethods.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.cart = payload.cart;
-        state.cart_details = payload.cart_details;
-      }
-    },
-    [cartList.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [cartList.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [shippingMethods.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(shippingMethods.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(paymentMethods.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.payment_methods = payload.payment_methods;
+        }
+      })
+      .addCase(paymentMethods.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.shipping_methods = payload.shipping_methods;
-      }
-    },
-    [shippingMethods.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [shippingMethods.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [paymentMethods.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(paymentMethods.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(checkout.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isCheckoutFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isCheckoutFetching = false;
+          state.isSuccess = true;
+          state.order_reference = payload.order_reference;
+        }
+      })
+      .addCase(checkout.pending, (state) => {
+        state.isSuccess = false;
+        state.isCheckoutFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.payment_methods = payload.payment_methods;
-      }
-    },
-    [paymentMethods.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [paymentMethods.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [checkout.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(checkout.rejected, (state, { payload }) => {
         state.isCheckoutFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(directCheckout.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isCheckoutFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isCheckoutFetching = false;
+          state.isSuccess = true;
+          state.order_reference = payload.order_reference;
+        }
+      })
+      .addCase(directCheckout.pending, (state) => {
+        state.isSuccess = false;
+        state.isCheckoutFetching = true;
         state.isError = false;
-        state.isCheckoutFetching = false;
-        state.isSuccess = true;
-        state.order_reference = payload.order_reference;
-      }
-    },
-    [checkout.pending]: (state) => {
-      state.isSuccess = false;
-      state.isCheckoutFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [checkout.rejected]: (state, { payload }) => {
-      state.isCheckoutFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [directCheckout.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(directCheckout.rejected, (state, { payload }) => {
         state.isCheckoutFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(paymentIntent.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isCheckoutFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isCheckoutFetching = false;
+          state.isSuccess = true;
+          state.client_secret = payload?.client_secret;
+        }
+      })
+      .addCase(paymentIntent.pending, (state) => {
+        state.isSuccess = false;
+        state.isCheckoutFetching = true;
         state.isError = false;
-        state.isCheckoutFetching = false;
-        state.isSuccess = true;
-        state.order_reference = payload.order_reference;
-      }
-    },
-    [directCheckout.pending]: (state) => {
-      state.isSuccess = false;
-      state.isCheckoutFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [directCheckout.rejected]: (state, { payload }) => {
-      state.isCheckoutFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [paymentIntent.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(paymentIntent.rejected, (state, { payload }) => {
         state.isCheckoutFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
-        state.isError = false;
-        state.isCheckoutFetching = false;
-        state.isSuccess = true;
-        state.client_secret = payload?.client_secret;
-      }
-    },
-    [paymentIntent.pending]: (state) => {
-      state.isSuccess = false;
-      state.isCheckoutFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [paymentIntent.rejected]: (state, { payload }) => {
-      state.isCheckoutFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
+      });
   },
 });
 

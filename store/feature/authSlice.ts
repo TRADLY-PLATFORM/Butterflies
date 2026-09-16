@@ -167,194 +167,194 @@ export const authSlice = createSlice({
       return state;
     },
   },
-  extraReducers: {
-    [signIn.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
-        state.isFetching = false;
-        state.isError = true;
-        state.isSuccess = false;
-        state.errorMessage = payload?.message;
-      } else {
-        const expirationDate = new Date(new Date().getTime() + 899 * 1000);
+  extraReducers: (builder) => {
+    builder
+      .addCase(signIn.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          const expirationDate = new Date(new Date().getTime() + 899 * 1000);
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.login = true;
+          state.errorMessage = '';
+          state.user_email = payload?.user?.email;
+          state.first_name = payload?.user?.first_name;
+          state.last_name = payload?.user?.last_name;
+          state.profile_pic = payload?.user?.profile_pic;
+          state.auth_key = payload?.user?.key.auth_key;
+          TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
+          state.refresh_key = payload?.user?.key.refresh_key;
+          state.user_details = payload?.user;
+          localStorage.setItem('auth_key', payload?.user?.key.auth_key);
+          Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
+          Cookies.set('refresh_key', payload?.user?.key.refresh_key);
+          localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
+          localStorage.setItem('user_details', JSON.stringify(payload?.user));
+          localStorage.setItem('expiration_time', expirationDate);
+          localStorage.setItem('login', true);
+        }
+      })
+      .addCase(signIn.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.login = true;
         state.errorMessage = '';
-        state.user_email = payload?.user?.email;
-        state.first_name = payload?.user?.first_name;
-        state.last_name = payload?.user?.last_name;
-        state.profile_pic = payload?.user?.profile_pic;
-        state.auth_key = payload?.user?.key.auth_key;
-        TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
-        state.refresh_key = payload?.user?.key.refresh_key;
-        state.user_details = payload?.user;
-        localStorage.setItem('auth_key', payload?.user?.key.auth_key);
-        Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
-        Cookies.set('refresh_key', payload?.user?.key.refresh_key);
-        localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
-        localStorage.setItem('user_details', JSON.stringify(payload?.user));
-        localStorage.setItem('expiration_time', expirationDate);
-        localStorage.setItem('login', true);
-      }
-    },
-    [signIn.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [signIn.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [refreshPage.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
-        // state.isFetching = false;
-        // state.isError = true;
-        // state.isSuccess = false;
-        // state.errorMessage = payload?.message;
-      } else {
-        const userDetails = safeJSONParse(localStorage.getItem('user_details'));
-        state.login = true;
-        state.user_email = userDetails?.email;
-        state.first_name = userDetails?.first_name;
-        state.last_name = userDetails?.last_name;
-        state.profile_pic = userDetails?.profile_pic;
-        state.auth_key = payload?.user?.key.auth_key;
-        TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
-        state.refresh_key = payload?.user?.key.refresh_key;
-        state.user_details = userDetails;
-        localStorage.setItem('auth_key', payload?.user?.key.auth_key);
-        Cookies.set('auth_key', payload?.user?.key.auth_key, {
-          expires: 0.5,
-        });
-        Cookies.set('refresh_key', payload?.user?.key.refresh_key);
-        localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
-        localStorage.setItem('login', true);
-      }
-    },
-
-    [signUp.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(signIn.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(refreshPage.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          // state.isFetching = false;
+          // state.isError = true;
+          // state.isSuccess = false;
+          // state.errorMessage = payload?.message;
+        } else {
+          const userDetails = safeJSONParse(localStorage.getItem('user_details'));
+          state.login = true;
+          state.user_email = userDetails?.email;
+          state.first_name = userDetails?.first_name;
+          state.last_name = userDetails?.last_name;
+          state.profile_pic = userDetails?.profile_pic;
+          state.auth_key = payload?.user?.key.auth_key;
+          TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
+          state.refresh_key = payload?.user?.key.refresh_key;
+          state.user_details = userDetails;
+          localStorage.setItem('auth_key', payload?.user?.key.auth_key);
+          Cookies.set('auth_key', payload?.user?.key.auth_key, {
+            expires: 0.5,
+          });
+          Cookies.set('refresh_key', payload?.user?.key.refresh_key);
+          localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
+          localStorage.setItem('login', true);
+        }
+      })
+      .addCase(signUp.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.verifyId = payload.verify_id;
+          localStorage.setItem('new_user_verify_id', payload.verify_id);
+        }
+      })
+      .addCase(signUp.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.verifyId = payload.verify_id;
-        localStorage.setItem('new_user_verify_id', payload.verify_id);
-      }
-    },
-    [signUp.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [signUp.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [verifyUser.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(signUp.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
-        const expirationDate = new Date(new Date().getTime() + 899 * 1000);
+      })
+      .addCase(verifyUser.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          const expirationDate = new Date(new Date().getTime() + 899 * 1000);
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.login = true;
+          state.errorMessage = '';
+          state.user_email = payload?.user?.email;
+          state.first_name = payload?.user?.first_name;
+          state.last_name = payload?.user?.last_name;
+          state.profile_pic = payload?.user?.profile_pic;
+          state.auth_key = payload?.user?.key.auth_key;
+          TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
+          state.refresh_key = payload?.user?.key.refresh_key;
+          state.user_details = payload?.user;
+          localStorage.setItem('auth_key', payload?.user?.key.auth_key);
+          Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
+          Cookies.set('refresh_key', payload?.user?.key.refresh_key);
+          localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
+          localStorage.setItem('user_details', JSON.stringify(payload?.user));
+          localStorage.setItem('expiration_time', expirationDate);
+          localStorage.setItem('login', true);
+        }
+      })
+      .addCase(verifyUser.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.login = true;
         state.errorMessage = '';
-        state.user_email = payload?.user?.email;
-        state.first_name = payload?.user?.first_name;
-        state.last_name = payload?.user?.last_name;
-        state.profile_pic = payload?.user?.profile_pic;
-        state.auth_key = payload?.user?.key.auth_key;
-        TYPE_CONSTANT.AUTH_KEY = payload?.user?.key.auth_key;
-        state.refresh_key = payload?.user?.key.refresh_key;
-        state.user_details = payload?.user;
-        localStorage.setItem('auth_key', payload?.user?.key.auth_key);
-        Cookies.set('auth_key', payload?.user?.key.auth_key, { expires: 0.5 });
-        Cookies.set('refresh_key', payload?.user?.key.refresh_key);
-        localStorage.setItem('refresh_key', payload?.user?.key.refresh_key);
-        localStorage.setItem('user_details', JSON.stringify(payload?.user));
-        localStorage.setItem('expiration_time', expirationDate);
-        localStorage.setItem('login', true);
-      }
-    },
-    [verifyUser.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [verifyUser.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [verifyUserEmail.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(verifyUser.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(verifyUserEmail.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+        }
+      })
+      .addCase(verifyUserEmail.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-      }
-    },
-    [verifyUserEmail.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [verifyUserEmail.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [UserInfo.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(verifyUserEmail.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(UserInfo.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.user_email = payload?.user?.email;
+          state.first_name = payload?.user?.first_name;
+          state.last_name = payload?.user?.last_name;
+          state.profile_pic = payload?.user?.profile_pic;
+          state.user_details = payload?.user;
+          localStorage.setItem('user_details', JSON.stringify(payload?.user));
+        }
+      })
+      .addCase(UserInfo.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(UserInfo.rejected, (state, { payload }) => {
         state.isFetching = false;
-        state.isSuccess = true;
-        state.user_email = payload?.user?.email;
-        state.first_name = payload?.user?.first_name;
-        state.last_name = payload?.user?.last_name;
-        state.profile_pic = payload?.user?.profile_pic;
-        state.user_details = payload?.user;
-        localStorage.setItem('user_details', JSON.stringify(payload?.user));
-      }
-    },
-    [UserInfo.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [UserInfo.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
+      });
   },
 });
 

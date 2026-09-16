@@ -131,115 +131,116 @@ export const listingSlice = createSlice({
       state.listing_details = payload?.listing ?? state.listing_details;
     },
   },
-  extraReducers: {
-    [listingDetails.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+  extraReducers: (builder) => {
+    builder
+      .addCase(listingDetails.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.listing_details = payload?.listing;
+          // Newer API shape nests rating_data inside listing; fall back to {}
+          // so detail layouts never receive undefined.
+          state.rating_data =
+            payload?.rating_data ?? payload?.listing?.rating_data ?? {};
+        }
+      })
+      .addCase(listingDetails.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(listingDetails.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(listingLike.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+        }
+      })
+      .addCase(listingLike.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.listing_details = payload?.listing;
-        // Newer API shape nests rating_data inside listing; fall back to {}
-        // so detail layouts never receive undefined.
-        state.rating_data =
-          payload?.rating_data ?? payload?.listing?.rating_data ?? {};
-      }
-    },
-    [listingDetails.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [listingDetails.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [listingLike.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(listingLike.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(getAllListings.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.listings = payload?.listings;
+          state.page = payload?.page;
+          state.total_records = payload?.total_records;
+        }
+      })
+      .addCase(getAllListings.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-      }
-    },
-    [listingLike.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [listingLike.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [getAllListings.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(getAllListings.rejected, (state, { payload }) => {
+         state.isFetching = false;
+         state.isError = true;
+         state.isSuccess = false;
+         state.errorMessage = payload?.message;
+      })
+      .addCase(getListingReviews.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.reviews = payload?.reviews;
+          state.my_review = payload?.my_review;
+          state.review_page = payload?.page;
+          state.review_total_records = payload?.total_records;
+        }
+      })
+      .addCase(getListingReviews.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(getListingReviews.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
-        state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.listings = payload?.listings;
-        state.page = payload?.page;
-        state.total_records = payload?.total_records;
-      }
-    },
-    [getAllListings.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [getAllListings.rejected]: (state, { payload }) => {
-       state.isFetching = false;
-       state.isError = true;
-       state.isSuccess = false;
-       state.errorMessage = payload?.message;
-    },
-    [getListingReviews.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
-        state.isFetching = false;
-        state.isError = true;
-        state.isSuccess = false;
-        state.errorMessage = payload?.message;
-      } else {
-        state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.reviews = payload?.reviews;
-        state.my_review = payload?.my_review;
-        state.review_page = payload?.page;
-        state.review_total_records = payload?.total_records;
-      }
-    },
-    [getListingReviews.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [getListingReviews.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
+      });
   },
 });
 

@@ -94,83 +94,84 @@ export const store_orderSlice = createSlice({
       return state;
     },
   },
-  extraReducers: {
-    [get_orders.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+  extraReducers: (builder) => {
+    builder
+      .addCase(get_orders.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.orders = payload?.orders;
+          state.total_records = payload?.total_records;
+          state.page = payload?.page;
+        }
+      })
+      .addCase(get_orders.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(get_orders.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(get_order_details.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.order_details = payload?.order;
+        }
+      })
+      .addCase(get_order_details.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.orders = payload?.orders;
-        state.total_records = payload?.total_records;
-        state.page = payload?.page;
-      }
-    },
-    [get_orders.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [get_orders.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [get_order_details.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(get_order_details.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(changeOrderStatus.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isChangeStatusFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isChangeStatusFetching = false;
+          state.isSuccess = true;
+        }
+      })
+      .addCase(changeOrderStatus.pending, (state) => {
+        state.isSuccess = false;
+        state.isChangeStatusFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.order_details = payload?.order;
-      }
-    },
-    [get_order_details.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [get_order_details.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [changeOrderStatus.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(changeOrderStatus.rejected, (state, { payload }) => {
         state.isChangeStatusFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
-        state.isError = false;
-        state.isChangeStatusFetching = false;
-        state.isSuccess = true;
-      }
-    },
-    [changeOrderStatus.pending]: (state) => {
-      state.isSuccess = false;
-      state.isChangeStatusFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [changeOrderStatus.rejected]: (state, { payload }) => {
-      state.isChangeStatusFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
+      });
   },
 });
 

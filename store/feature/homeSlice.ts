@@ -65,58 +65,54 @@ export const homeSlice = createSlice({
       state.promo_banners = payload?.promo_banners ?? state.promo_banners;
     },
   },
-  extraReducers: {
- 
-    [homeCollections.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
-        state.isFetching = false;
-        state.isError = true;
-        state.errorMessage = payload?.message;
-      } else {
-        state.isFetching = false;
-        state.isSuccess = true;
+  extraReducers: (builder) => {
+    builder
+      .addCase(homeCollections.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.isError = false;
+          state.collections = payload?.collections;
+          state.categories = payload?.categories;
+          state.promo_banners = payload?.promo_banners;
+        }
+      })
+      .addCase(homeCollections.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.collections = payload?.collections;
-        state.categories = payload?.categories;
-        state.promo_banners = payload?.promo_banners;
-      }
-    },
- 
-    [homeCollections.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-  
-    [homeCollections.rejected]: (state, { payload }) => {
-     state.isFetching = false;
-     state.isError = true;
-     state.errorMessage = payload?.message;
-    },
-    [AllPromoBanners.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
-        state.isFetching = false;
-        state.isError = true;
-        state.errorMessage = payload?.message;
-      } else {
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.isError = false;
-        state.page_promo_banners = payload?.promo_banners;
-      }
-    },
-  
-    [AllPromoBanners.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-  
-    [AllPromoBanners.rejected]: (state, { payload }) => {
+        state.errorMessage = '';
+      })
+      .addCase(homeCollections.rejected, (state, { payload }) => {
        state.isFetching = false;
        state.isError = true;
        state.errorMessage = payload?.message;
-    },
+      })
+      .addCase(AllPromoBanners.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.isError = false;
+          state.page_promo_banners = payload?.promo_banners;
+        }
+      })
+      .addCase(AllPromoBanners.pending, (state) => {
+        state.isFetching = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(AllPromoBanners.rejected, (state, { payload }) => {
+         state.isFetching = false;
+         state.isError = true;
+         state.errorMessage = payload?.message;
+      });
   },
 });
 
