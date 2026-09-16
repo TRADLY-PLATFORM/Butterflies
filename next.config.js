@@ -34,11 +34,7 @@ BASE_URL: process.env.BASE_URL,
   API_KEY: process.env.TRADLY_API_KEY || process.env.API_KEY,
 SITE_URL: process.env.SITE_URL,
 },
-eslint: {
-ignoreDuringBuilds: true,
-},
 output: 'standalone',
-swcMinify: true,
 reactStrictMode: true,
 transpilePackages: ['react-show-more-text'],
 };

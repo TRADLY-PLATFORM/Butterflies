@@ -36,7 +36,7 @@
     "js-cookie": "^3.0.8",
     "moment": "^2.31.0",
     "multiselect-react-dropdown": "^2.0.25",
-    "next": "^14.2.13",
+    "next": "^16.3.5",
     "next-images": "^1.8.5",
     "next-redux-wrapper": "^8.1.0",
     "next-sitemap": "^4.2.3",
