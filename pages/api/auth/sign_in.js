@@ -1,10 +1,12 @@
 import tradly from 'tradly';
+import { ensureTradlyServerConfig } from '../../../lib/tradlyServer';
 
 export default async function handler(req, res) {
+  ensureTradlyServerConfig();
   if (req.method === 'POST') {
     try {
       const response = await tradly.user.login({ data: req.body.prams });
-      if (!response.error && response.data) {
+      if (response && !response.error && response.data) {
         const authKey = response.data?.user?.key?.auth_key;
         const refreshKey = response.data?.user?.key?.refresh_key;
         res.setHeader('Set-Cookie', [
@@ -12,6 +14,12 @@ export default async function handler(req, res) {
           `refresh_key=${refreshKey}; Path=/; Max-Age=86400`,
         ]);
         res.status(200).send(response.data);
+      } else if (!response) {
+        // SDK resolved undefined (upstream errored without a body):
+        // surface it instead of crashing or minting a phantom login.
+        res
+          .status(502)
+          .send({ error: true, message: 'Upstream auth service unavailable' } );
       } else {
         // Mock login fallback when Tradly API unreachable
         const email = req.body.prams?.email || 'user@example.com';
