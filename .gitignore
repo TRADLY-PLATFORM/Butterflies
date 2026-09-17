@@ -47,3 +47,7 @@ note.md
 .vercel
 
 
+
+# test artifacts
+test-results/
+playwright-report/
