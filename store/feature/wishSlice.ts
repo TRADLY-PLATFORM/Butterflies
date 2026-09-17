@@ -71,58 +71,59 @@ export const wishSlice = createSlice({
       return state;
     },
   },
-  extraReducers: {
-    [listingLike.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+  extraReducers: (builder) => {
+    builder
+      .addCase(listingLike.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+        }
+      })
+      .addCase(listingLike.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(listingLike.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(getWishListListings.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.listings = payload?.listings;
+          state.page = payload?.page;
+          state.total_records = payload?.total_records;
+        }
+      })
+      .addCase(getWishListListings.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-      }
-    },
-    [listingLike.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [listingLike.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [getWishListListings.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+        state.errorMessage = '';
+      })
+      .addCase(getWishListListings.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
-        state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.listings = payload?.listings;
-        state.page = payload?.page;
-        state.total_records = payload?.total_records;
-      }
-    },
-    [getWishListListings.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [getWishListListings.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
+      });
   },
 });
 

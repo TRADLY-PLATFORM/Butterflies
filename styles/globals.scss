@@ -4,8 +4,8 @@
 } */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
 
-@tailwind base;
-@tailwind components;
+@import 'tailwindcss';
+@config '../tailwind.config.js';
 
 @import 'additional-styles/custom-styles.scss';
 @import 'additional-styles/utility-patterns.scss';
@@ -14,4 +14,3 @@
 // @import 'additional-styles/flatpickr.scss';
 // @import 'additional-styles/theme.scss';
 
-@tailwind utilities;

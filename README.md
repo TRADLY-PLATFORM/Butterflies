@@ -94,9 +94,11 @@ Of course, no one template will serve all projects since your needs may be diffe
 ### Built With
 
 
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Tailwind](https://tailwindcss.com/)
+* [Next.js 16](https://nextjs.org/)
+* [React 19](https://reactjs.org/)
+* [Tailwind CSS 4](https://tailwindcss.com/)
+* [Redux Toolkit 2 + React-Redux 9](https://redux-toolkit.js.org/)
+* [TypeScript 7](https://www.typescriptlang.org/)
 * [Tradly JS SDK](https://www.npmjs.com/package/tradly)
       
 <p align="right">(<a href="#top">back to top</a>)</p>

@@ -267,262 +267,263 @@ export const storeSlice = createSlice({
       }
     },
   },
-  extraReducers: {
-    [myStore.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+  extraReducers: (builder) => {
+    builder
+      .addCase(myStore.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.my_stores = payload?.accounts;
+        }
+      })
+      .addCase(myStore.pending, (state) => {
+        state.isFetching = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(myStore.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(getAddressSearch.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.addressFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.addressFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.search_addresses = payload?.addresses;
+        }
+      })
+      .addCase(getAddressSearch.pending, (state) => {
+        state.addressFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.my_stores = payload?.accounts;
-      }
-    },
-    [myStore.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [myStore.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [getAddressSearch.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(getAddressSearch.rejected, (state, { payload }) => {
         state.addressFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(categories.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.account_categories = payload?.categories;
+        }
+      })
+      .addCase(categories.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.addressFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.search_addresses = payload?.addresses;
-      }
-    },
-    [getAddressSearch.pending]: (state) => {
-      state.addressFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [getAddressSearch.rejected]: (state, { payload }) => {
-      state.addressFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [categories.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(categories.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(listingCategories.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.listing_categories = payload?.categories;
+        }
+      })
+      .addCase(listingCategories.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.account_categories = payload?.categories;
-      }
-    },
-    [categories.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [categories.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [listingCategories.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(listingCategories.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(myAccountListingDetails.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.my_account_listing_details = payload?.listing;
+        }
+      })
+      .addCase(myAccountListingDetails.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.listing_categories = payload?.categories;
-      }
-    },
-    [listingCategories.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [listingCategories.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [myAccountListingDetails.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(myAccountListingDetails.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(accountAttribute.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.attributes = payload?.attributes;
+        }
+      })
+      .addCase(accountAttribute.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.my_account_listing_details = payload?.listing;
-      }
-    },
-    [myAccountListingDetails.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [myAccountListingDetails.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [accountAttribute.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(accountAttribute.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(myAccountListings.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.my_store_listings = payload?.listings;
+          state.my_store_listings_page = payload?.page;
+          state.my_store_listings_total_records = payload?.total_records;
+        }
+      })
+      .addCase(myAccountListings.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.attributes = payload?.attributes;
-      }
-    },
-    [accountAttribute.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [accountAttribute.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [myAccountListings.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(myAccountListings.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(currencies.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.currencies = payload?.currencies;
+        }
+      })
+      .addCase(currencies.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.my_store_listings = payload?.listings;
-        state.my_store_listings_page = payload?.page;
-        state.my_store_listings_total_records = payload?.total_records;
-      }
-    },
-    [myAccountListings.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [myAccountListings.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [currencies.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(currencies.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(get_all_accounts.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isAllAccountsFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isAllAccountsFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.all_accounts = payload?.accounts;
+          state.all_accounts_page = payload?.page;
+          state.all_accounts_total_records = payload?.total_records;
+        }
+      })
+      .addCase(get_all_accounts.pending, (state) => {
+        state.isAllAccountsFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.currencies = payload?.currencies;
-      }
-    },
-    [currencies.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [currencies.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [get_all_accounts.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(get_all_accounts.rejected, (state, { payload }) => {
         state.isAllAccountsFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
-        state.isError = false;
-        state.isAllAccountsFetching = false;
-        state.isSuccess = true;
-        state.errorMessage = '';
-        state.all_accounts = payload?.accounts;
-        state.all_accounts_page = payload?.page;
-        state.all_accounts_total_records = payload?.total_records;
-      }
-    },
-    [get_all_accounts.pending]: (state) => {
-      state.isAllAccountsFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [get_all_accounts.rejected]: (state, { payload }) => {
-      state.isAllAccountsFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [account_full_details.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(account_full_details.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.my_account_details = payload?.account;
+        }
+      })
+      .addCase(account_full_details.pending, (state) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
-        state.isError = false;
+      })
+      .addCase(account_full_details.rejected, (state, { payload }) => {
         state.isFetching = false;
-        state.isSuccess = true;
-        state.errorMessage = '';
-        state.my_account_details = payload?.account;
-      }
-    },
-    [account_full_details.pending]: (state) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [account_full_details.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
+        state.isError = true;
+        state.isSuccess = false;
+        state.errorMessage = payload?.message;
+      });
   },
 });
 

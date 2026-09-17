@@ -35,8 +35,9 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
   const [data, appConfigs] = await Promise.all([getListingDetail(id), getAppConfigs()]);
   if (data?.listing) {
     store.dispatch(setListingDetail({ listing: data.listing }));
+    return { props: { appConfigs } };
   }
-  return { props: { appConfigs } };
+  return { notFound: true };
 });
 
 export default Details;

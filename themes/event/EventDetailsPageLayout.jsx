@@ -304,7 +304,7 @@ const EventDetailsPageLayout = ({ pageTitle, pageDescription }) => {
               <DescriptionPart description={listing_details?.description} />
             </div>
           )}
-          {Object.keys(rating_data)?.length > 0 && (
+          {Object.keys(rating_data || {})?.length > 0 && (
             <div className="mt-6">
               <RatingBox rating_data={rating_data} />
             </div>

@@ -10,10 +10,10 @@ const RatingBox = ({ rating_data }) => {
           Ratings and reviews
         </p>
         <p className=" text-black  font-semibold text-6xl  my-3">
-          {rating_data.rating_average}
+          {rating_data?.rating_average ?? 0}
         </p>
         <p className=" text-default_gray font-normal text-sm  ">
-          {rating_data.rating_count} ratings
+          {rating_data?.rating_count ?? 0} ratings
         </p>
       </div>
       <div className="mt-5 lg:mt-0">
@@ -29,7 +29,7 @@ const RatingBox = ({ rating_data }) => {
           <p className=" block w-28 ">
             <span className=" block bg-primary h-2 w-28 rounded-full" />
           </p>
-          <p className="ml-5">{rating_data.rating_count_data.rating_5}</p>
+          <p className="ml-5">{rating_data?.rating_count_data?.rating_5 ?? 0}</p>
         </div>
         {/* rating 4 */}
         <div className="flex items-center gap-3">
@@ -42,7 +42,7 @@ const RatingBox = ({ rating_data }) => {
           <p className=" block w-28 ">
             <span className=" block bg-primary h-2 w-[88px] rounded-full" />
           </p>
-          <p className="ml-5">{rating_data.rating_count_data.rating_4}</p>
+          <p className="ml-5">{rating_data?.rating_count_data?.rating_4 ?? 0}</p>
         </div>
         {/* rating 3 */}
         <div className="flex items-center gap-3">
@@ -54,7 +54,7 @@ const RatingBox = ({ rating_data }) => {
           <p className=" block w-28 ">
             <span className=" block bg-primary h-2 w-[66px] rounded-full" />
           </p>
-          <p className="ml-5">{rating_data.rating_count_data.rating_3}</p>
+          <p className="ml-5">{rating_data?.rating_count_data?.rating_3 ?? 0}</p>
         </div>
         {/* rating 2 */}
         <div className="flex items-center gap-3">
@@ -65,7 +65,7 @@ const RatingBox = ({ rating_data }) => {
           <p className=" block w-28 ">
             <span className=" block bg-primary h-2 w-[44px] rounded-full" />
           </p>
-          <p className="ml-5">{rating_data.rating_count_data.rating_2}</p>
+          <p className="ml-5">{rating_data?.rating_count_data?.rating_2 ?? 0}</p>
         </div>
         {/* rating 1 */}
         <div className="flex items-center gap-3">
@@ -75,7 +75,7 @@ const RatingBox = ({ rating_data }) => {
           <p className=" block w-28 ">
             <span className=" block bg-primary h-2 w-[22px] rounded-full" />
           </p>
-          <p className="ml-5">{rating_data.rating_count_data.rating_1}</p>
+          <p className="ml-5">{rating_data?.rating_count_data?.rating_1 ?? 0}</p>
         </div>
       </div>
     </div>

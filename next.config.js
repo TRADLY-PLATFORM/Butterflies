@@ -31,14 +31,12 @@ hostname: 'via.placeholder.com',
 env: {
 ENVIRONMENT: process.env.ENVIRONMENT,
 BASE_URL: process.env.BASE_URL,
-API_KEY: process.env.API_KEY,
+  API_KEY: process.env.TRADLY_API_KEY || process.env.API_KEY,
 SITE_URL: process.env.SITE_URL,
 },
-eslint: {
-ignoreDuringBuilds: true,
-},
-swcMinify: true,
+output: 'standalone',
 reactStrictMode: true,
+transpilePackages: ['react-show-more-text'],
 };
 
 module.exports = nextConfig;

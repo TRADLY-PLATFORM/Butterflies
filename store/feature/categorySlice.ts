@@ -75,62 +75,60 @@ export const categorySlice = createSlice({
       state.all_categories = payload?.categories ?? state.all_categories;
     },
   },
-  extraReducers: {
-    [categories.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+  extraReducers: (builder) => {
+    builder
+      .addCase(categories.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.all_categories = payload?.categories;
+        }
+      })
+      .addCase(categories.pending, (state) => {
+        state.isFetching = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(categories.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
+      })
+      .addCase(categoryListings.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.errorMessage = '';
+          state.category_listings = payload?.listings;
+          state.page = payload?.page;
+          state.total_records = payload?.total_records;
+        }
+      })
+      .addCase(categoryListings.pending, (state) => {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
         state.errorMessage = '';
-        state.all_categories = payload?.categories;
-      }
-    },
-
-    [categories.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [categories.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-
-    [categoryListings.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+      })
+      .addCase(categoryListings.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
-        state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.errorMessage = '';
-        state.category_listings = payload?.listings;
-        state.page = payload?.page;
-        state.total_records = payload?.total_records;
-      }
-    },
-
-    [categoryListings.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [categoryListings.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
+      });
   },
 });
 

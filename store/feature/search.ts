@@ -81,58 +81,59 @@ export const searchSlice = createSlice({
       state.total_records = payload?.total_records ?? state.total_records;
     },
   },
-  extraReducers: {
-    [listingLike.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
+  extraReducers: (builder) => {
+    builder
+      .addCase(listingLike.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+        }
+      })
+      .addCase(listingLike.pending, (state) => {
+        state.isSuccess = false;
+        state.isFetching = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(listingLike.rejected, (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
         state.errorMessage = payload?.message;
-      } else {
-        state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-      }
-    },
-    [listingLike.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [listingLike.rejected]: (state, { payload }) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.errorMessage = payload?.message;
-    },
-    [getSearchListings.fulfilled]: (state, { payload }) => {
-      if (payload.code) {
-        state.isFetching = false;
-        state.isError = true;
+      })
+      .addCase(getSearchListings.fulfilled, (state, { payload }) => {
+        if (payload.code) {
+          state.isFetching = false;
+          state.isError = true;
+          state.isSuccess = false;
+          state.errorMessage = payload?.message;
+        } else {
+          state.isError = false;
+          state.isFetching = false;
+          state.isSuccess = true;
+          state.listings = payload?.listings;
+          state.page = payload?.page;
+          state.total_records = payload?.total_records;
+        }
+      })
+      .addCase(getSearchListings.pending, (state) => {
         state.isSuccess = false;
-        state.errorMessage = payload?.message;
-      } else {
+        state.isFetching = true;
         state.isError = false;
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.listings = payload?.listings;
-        state.page = payload?.page;
-        state.total_records = payload?.total_records;
-      }
-    },
-    [getSearchListings.pending]: (state) => {
-      state.isSuccess = false;
-      state.isFetching = true;
-      state.isError = false;
-      state.errorMessage = '';
-    },
-    [getSearchListings.rejected]: (state, { payload }) => {
-       state.isFetching = false;
-       state.isError = true;
-       state.isSuccess = false;
-       state.errorMessage = payload?.message;
-    },
+        state.errorMessage = '';
+      })
+      .addCase(getSearchListings.rejected, (state, { payload }) => {
+         state.isFetching = false;
+         state.isError = true;
+         state.isSuccess = false;
+         state.errorMessage = payload?.message;
+      });
   },
 });
 

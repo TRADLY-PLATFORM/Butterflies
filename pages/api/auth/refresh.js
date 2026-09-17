@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       return res.status(200).send({ user: { key: { auth_key: 'mock_auth_key_dev', refresh_key: 'mock_refresh_key_dev' } } });
     }
     try {
-      await tradly.init.config({ token: process.env.API_KEY, environment: process.env.ENVIRONMENT });
+      await tradly.init.config({ token: process.env.TRADLY_API_KEY || process.env.API_KEY, environment: process.env.ENVIRONMENT });
       const response = await tradly.init.refreshAPI(key);
       if (!response.error && response.data) {
         res.status(200).send(response.data);

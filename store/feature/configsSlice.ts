@@ -29,7 +29,7 @@ export const configsSlice = createSlice({
       return state;
     },
   },
-  extraReducers: {},
+  extraReducers: (builder) => {},
 });
 
 export const { setGeneralConfig, setAccountConfig, setListingConfig } =
