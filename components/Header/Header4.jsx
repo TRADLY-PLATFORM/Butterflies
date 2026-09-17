@@ -94,14 +94,14 @@ function Header4() {
             <Link href="/">
               <div className="block" aria-label="">
                 {logo && (
-                  <Link href="/" className=" flex items-center   relative cursor-pointer ">
+                  <Link href="/" className=" flex items-center   relative cursor-pointer max-w-[200px] max-h-[50px] overflow-hidden ">
                       <img
                         src={logo}
                         className={
                           TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height === undefined ||
                           TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width === undefined
-                            ? 'object-contain'
-                            : ''
+                            ? 'object-contain max-h-[50px] max-w-[200px]'
+                            : 'max-h-[50px] max-w-[200px] object-contain'
                         }
                         style={{
                           height: `${

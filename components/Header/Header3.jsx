@@ -54,14 +54,14 @@ const Header3 = () => {
           >
             <div className="  absolute left-0 right-0    flex  justify-center     ">
               {logo && (
-                <Link href="/" className=" flex items-center   relative cursor-pointer ">
+                <Link href="/" className=" flex items-center relative cursor-pointer max-w-[200px] max-h-[50px] overflow-hidden ">
                   <img
                     src={logo}
                     className={
                       TYPE_CONSTANT.GENERAL_CONFIGS?.logo_height === undefined ||
                       TYPE_CONSTANT.GENERAL_CONFIGS?.logo_width === undefined
-                        ? 'object-contain'
-                        : ''
+                        ? 'object-contain max-h-[50px] max-w-[200px]'
+                        : 'max-h-[50px] max-w-[200px] object-contain'
                     }
                     style={{
                       height: `${
