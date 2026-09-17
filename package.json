@@ -5,6 +5,7 @@
     "build": " NODE_ENV=production env-cmd -f env/.env.production next build  ",
     "start": "NODE_ENV=production env-cmd -f env/.env.production next start",
     "lint": "next lint",
+    "test:smoke": "playwright test",
     "start:dev": "NODE_ENV=production env-cmd -f env/.env.dev next start",
     "build:dev": "env-cmd -f env/.env.dev next build",
     "start:production": "NODE_ENV=production env-cmd -f env/.env.production next start",
@@ -75,6 +76,7 @@
     "uuidv4": "^6.2.12"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "^25.5.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
