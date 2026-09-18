@@ -1,5 +1,24 @@
 import { TYPE_CONSTANT } from './constant/Web_constant';
 
+// Garden (theme 4: hobby greenhouse)
+import GardenHomePageLayout from './themes/garden/HomePageLayout';
+import GardenMainLayout from './themes/garden/MainLayout';
+import GardenDetailsPageLayout from './themes/garden/DetailsPageLayout';
+
+// Explicit preview override: ?theme=4 renders the garden theme regardless
+// of the tenant backend setting. Used for design review only.
+// The value is threaded through pageProps (see pages/index.tsx,
+// pages/l/[id].tsx) so SSR and client render identically — otherwise React
+// hydration fails. Falls back to the URL query on client navigations.
+const resolveTheme = (preview) => {
+  if (preview) return Number(preview);
+  if (typeof window !== 'undefined') {
+    const q = new URLSearchParams(window.location.search).get('theme');
+    if (q) return Number(q);
+  }
+  return Number(TYPE_CONSTANT.THEME);
+};
+
 // Product
 import ProductHomePageLayout from './themes/product/HomePageLayout';
 import ProductMainLayout from './themes/product/MainLayout';
@@ -83,8 +102,8 @@ import { seo_text } from './constant/static_text';
 
 const config = {
   // home Page
-  home_page: () => {
-    switch (Number(TYPE_CONSTANT.THEME)) {
+  home_page: (previewTheme) => {
+    switch (resolveTheme(previewTheme)) {
       case 1:
         return (
           <ProductMainLayout
@@ -113,6 +132,16 @@ const config = {
           >
             <SaasHomePageLayout />
           </SaasMainLayout>
+        );
+        break;
+      case 4:
+        return (
+          <GardenMainLayout
+            pageTitle={TYPE_CONSTANT.META_TITLE}
+            pageDescription={TYPE_CONSTANT.META_DESCRIPTIONS}
+          >
+            <GardenHomePageLayout />
+          </GardenMainLayout>
         );
         break;
 
@@ -359,8 +388,8 @@ const config = {
   },
 
   // listing_details_page:
-  listing_details_page: () => {
-    switch (Number(TYPE_CONSTANT.THEME)) {
+  listing_details_page: (previewTheme) => {
+    switch (resolveTheme(previewTheme)) {
       case 1:
         return (
           <ProductMainLayout>
@@ -383,6 +412,13 @@ const config = {
               pageDescription={TYPE_CONSTANT.META_LISTING_DESCRIPTION}
             />
           </SaasMainLayout>
+        );
+        break;
+      case 4:
+        return (
+          <GardenMainLayout>
+            <GardenDetailsPageLayout />
+          </GardenMainLayout>
         );
         break;
 

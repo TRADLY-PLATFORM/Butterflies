@@ -11,7 +11,7 @@ import { listing_details_page } from '../../tradly.config';
 import { TYPE_CONSTANT } from '../../constant/Web_constant';
 import { wrapper } from '../../store/store';
 
-function Details() {
+function Details(props: any) {
   const [MARKETPLACE_MODULES, setMARKETPLACE_MODULES] = useState<number | null>(null);
   const dispatch = useAppDispatch();
 
@@ -26,16 +26,16 @@ function Details() {
     setMARKETPLACE_MODULES(Number(localStorage.getItem('MARKETPLACE_MODULES')));
   }, [dispatch]);
 
-  return listing_details_page();
+  return listing_details_page(props?.previewTheme);
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params }) => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params, query }) => {
   const { getListingDetail, getAppConfigs } = await import('../../lib/serverData');
   const id = params?.id as string;
   const [data, appConfigs] = await Promise.all([getListingDetail(id), getAppConfigs()]);
   if (data?.listing) {
     store.dispatch(setListingDetail({ listing: data.listing }));
-    return { props: { appConfigs } };
+    return { props: { appConfigs, previewTheme: query?.theme ?? null } };
   }
   return { notFound: true };
 });

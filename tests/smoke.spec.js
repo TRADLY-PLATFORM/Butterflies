@@ -77,3 +77,31 @@ test('reviews API returns real data for a live listing', async ({
   const body = await res.json();
   expect(body).toHaveProperty('reviews');
 });
+
+test('garden theme home renders (?theme=4 preview)', async ({ page }) => {
+  const errors = [];
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') errors.push(msg.text());
+  });
+  page.on('pageerror', (err) => errors.push(String(err)));
+  await page.goto('/?theme=4', { waitUntil: 'networkidle' });
+  await page.waitForTimeout(3000);
+  const body = await page.locator('body').innerText();
+  expect(body.includes('Application error')).toBeFalsy();
+  expect(body.includes('HOBBY GREENHOUSE')).toBeTruthy();
+  expect(errors).toEqual([]);
+});
+
+test('garden theme listing renders (?theme=4 preview)', async ({ page }) => {
+  const errors = [];
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') errors.push(msg.text());
+  });
+  page.on('pageerror', (err) => errors.push(String(err)));
+  await page.goto('/l/727169?theme=4', { waitUntil: 'networkidle' });
+  // Client refetches listing detail on mount; wait for it instead of sleeping.
+  await expect(page.getByText('Grown by')).toBeVisible({ timeout: 20000 });
+  const body = await page.locator('body').innerText();
+  expect(body.includes('Application error')).toBeFalsy();
+  expect(errors).toEqual([]);
+});

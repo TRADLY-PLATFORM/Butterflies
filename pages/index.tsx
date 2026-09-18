@@ -7,7 +7,7 @@ import { setHomeData } from '../store/feature/homeSlice';
 import { home_page } from '../tradly.config';
 import { wrapper } from '../store/store';
 
-const Index = () => {
+const Index = (props: any) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -18,16 +18,16 @@ const Index = () => {
     dispatch(setGeneralConfig({ general_configs }));
   }, [dispatch]);
 
-  return home_page();
+  return home_page(props?.previewTheme);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ query }) => {
   const { getHomeData, getAppConfigs } = await import('../lib/serverData');
   const [homeData, appConfigs] = await Promise.all([getHomeData(), getAppConfigs()]);
   if (homeData) {
     store.dispatch(setHomeData(homeData));
   }
-  return { props: { appConfigs } };
+  return { props: { appConfigs, previewTheme: query?.theme ?? null } };
 });
 
 export default Index;

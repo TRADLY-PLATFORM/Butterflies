@@ -37,6 +37,14 @@ module.exports = {
         footer: '#2C3E50',
         primary_light: '#DFFBF4',
         default_gray: '#959393',
+        garden: {
+          leaf: '#2F6B3C',
+          pine: '#1E4D2B',
+          moss: '#6FA287',
+          soil: '#5B4636',
+          cream: '#FAF6EF',
+          sun: '#E9B44C',
+        },
       },
       borderRadius: {
         'c-48': '48px',
@@ -45,7 +53,8 @@ module.exports = {
         blue: '2px solid var( --primary_color)',
       },
       fontFamily: {
-         'Inter-var':"Inter"
+         'Inter-var':"Inter",
+         'garden-serif': ['Georgia', '"Times New Roman"', 'serif'],
        }
     },
     screens: {
