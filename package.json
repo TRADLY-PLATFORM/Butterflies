@@ -6,6 +6,7 @@
     "start": "NODE_ENV=production env-cmd -f env/.env.production next start",
     "lint": "next lint",
     "test:smoke": "playwright test",
+    "test:smoke:auth": "env-cmd -f env/.env.test playwright test",
     "start:dev": "NODE_ENV=production env-cmd -f env/.env.dev next start",
     "build:dev": "env-cmd -f env/.env.dev next build",
     "start:production": "NODE_ENV=production env-cmd -f env/.env.production next start",

@@ -100,6 +100,19 @@ Of course, no one template will serve all projects since your needs may be diffe
 * [Redux Toolkit 2 + React-Redux 9](https://redux-toolkit.js.org/)
 * [TypeScript 7](https://www.typescriptlang.org/)
 * [Tradly JS SDK](https://www.npmjs.com/package/tradly)
+
+### Automated tests
+
+```sh
+npm run test:smoke          # pages + public API contracts (no login needed)
+```
+
+For the authenticated suite (login, cart, wishlist, orders), copy
+`.env.test.example` to `env/.env.test`, fill in a test user, then run:
+
+```sh
+npm run test:smoke:auth     # full suite including authenticated contracts
+```
       
 <p align="right">(<a href="#top">back to top</a>)</p>
 
